@@ -1,0 +1,211 @@
+.LeaveContainer {
+  width: 100%;
+  height: 100%;
+  align-items: center;
+}
+
+.LeaveContainerList {
+  width: 95%;
+}
+
+.LeaveTitleContainer {
+  background-color: #d9e3ff;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.LeaveCardContainer {
+  background-color: #eef3ff;
+  margin-bottom: 10px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.LeaveTitleText {
+  color: #3c6efb;
+  font-family: "Kantumruy-Bold";
+  font-size: 16px;
+  width: 25%;
+  text-align: center;
+}
+
+.LeaveTitleText1 {
+  color: #3c6efb;
+  font-family: "Kantumruy-Bold";
+  font-size: 16px;
+  width: 18%;
+  text-align: center;
+}
+
+.LeaveTitleText2 {
+  font-family: "Kantumruy-Bold";
+  font-size: 14px;
+  width: 25%;
+  text-align: center;
+}
+
+.LeaveTitleText3 {
+  color: #3c6efb;
+  font-family: "Kantumruy-Bold";
+  font-size: 16px;
+  width: 32%;
+  text-align: left;
+}
+
+.LeaveBodyTextBlue {
+  color: #3c6efb;
+  font-family: "Kantumruy-Regular";
+  font-size: 14px;
+  width: 25%;
+  text-align: center;
+}
+
+.LeaveBodyText {
+  font-family: "Kantumruy-Bold";
+  font-size: 14px;
+  width: 25%;
+  text-align: center;
+}
+
+.LeaveBodyTextyellow {
+  font-family: "Kantumruy-Bold";
+  font-size: 14px;
+  width: 25%;
+  text-align: center;
+  color: orange;
+  padding: 2px;
+}
+
+.LeaveBodyTextred {
+  font-family: "Kantumruy-Bold";
+  font-size: 14px;
+  width: 25%;
+  text-align: center;
+  color: red;
+  padding: 2px;
+}
+
+.LeaveBodyTextgreen {
+  font-family: "Kantumruy-Bold";
+  font-size: 14px;
+  width: 25%;
+  text-align: center;
+  color: green;
+  padding: 2px;
+}
+
+.LeaveBodyText1 {
+  font-family: "Kantumruy-Regular";
+  font-size: 14px;
+  width: 32%;
+  text-align: justify;
+}
+
+.LeaveBodyText2 {
+  font-family: "Kantumruy-Regular";
+  font-size: 14px;
+  width: 18%;
+  text-align: center;
+}
+
+.LeaveTopContainer {
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.LeaveFilterButton {
+  background-color: #d9e3ff;
+  padding: 5px;
+  border-radius: 5px;
+  width: 40px;
+  height: 40px;
+  justify-content: center;
+  align-items: center;
+}
+
+.LeaveImage {
+  width: 40px;
+  height: 40px;
+  border-radius: 50px;
+  border-color: #dcdcdc;
+  border-width: 1px;
+  margin-right: 10px;
+}
+
+.ModalLeaveContainer {
+  width: 100%;
+  height: 100%;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.LeaveModalCloneAreaStyle {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background-color: black;
+  opacity: 0.6;
+}
+
+.LeaveModalInsideContainer {
+  background-color: white;
+  width: 100%;
+  height: 30%;
+  border-top-right-radius: 20px;
+  border-top-left-radius: 20px;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.LeaveModalSelectDateContainer {
+  flex-direction: row;
+  width: 90%;
+  justify-content: space-between;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.LeaveModalSelectDateButton {
+  width: 45%;
+  border-width: 1px;
+  border-radius: 10px;
+  padding: 10px;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.LeaveModalDateText {
+  font-family: "Kantumruy-Regular";
+}
+
+.LeaveModalButtonContainer {
+  background-color: #3c6efb;
+  width: 90%;
+  padding: 15px;
+  border-radius: 10px;
+  margin-top: 10px;
+  align-items: center;
+}
+
+.LeaveModalButtonText {
+  font-family: "Kantumruy-Bold";
+  color: white;
+}
+
+.LeaveModalTitle {
+  width: 90%;
+  font-family: "Kantumruy-Bold";
+  font-size: 16px;
+  margin-top: 20px;
+}

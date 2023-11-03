@@ -1,0 +1,103 @@
+@import "../../themes.scss";
+
+.containerLogin {
+  flex: 1;
+  background-color: white;
+}
+
+.imagebackground {
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.logo {
+  width: 30%;
+  height: 30%;
+}
+
+.titleLogin {
+  font-size: 25px;
+  font-family: $font-main;
+  font-weight: bold;
+  color: blue;
+}
+
+.inputTitle {
+  font-size: 15px;
+  font-family: $font-body;
+  color: blue;
+}
+
+.textinput {
+  padding: 15px;
+  border-color: blue;
+  border-width: 1px;
+  border-radius: 10px;
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.textinputContainer {
+  width: 80%;
+  align-items: flex-start;
+  margin-top: 20px;
+}
+
+.buttonContainer {
+  background-color: blue;
+  width: 80%;
+  height: 45px;
+  border-radius: 5px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.button {
+  color: white;
+  font-weight: bold;
+  font-family: $font-main;
+  font-size: 20px;
+}
+
+.footer {
+  width: 25%;
+  height: 25%;
+}
+
+.optionContainer {
+  flex-direction: row;
+  width: 80%;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.checkbox {
+  margin: 0px;
+}
+
+.forgotContainer {
+  width: 100%;
+  height: 100%;
+  justify-content: flex-start;
+  align-items: center;
+}
+.buttonGroup {
+  width: 80%;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.buttonForgetContainer {
+  background-color: blue;
+  width: 40%;
+  padding: 6px;
+  border-radius: 10px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}

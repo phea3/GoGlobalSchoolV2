@@ -1,0 +1,140 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import {
+  useMemo,
+  useReducer,
+  createContext,
+  ReactElement,
+  useState,
+} from "react";
+
+//======================= Screen ==========================
+export type dimensionType = {
+  dimension: string;
+  widthscreen: number;
+  heightscreen: number;
+};
+
+const initDimensionState: dimensionType = {
+  dimension: "",
+  widthscreen: 0,
+  heightscreen: 0,
+};
+
+const HandleDefineDimension = (widthScreen: number) => {
+  let dimension = "";
+  let widthscreen = widthScreen;
+
+  if (widthscreen <= 430) {
+    dimension = "sm";
+  } else if (widthscreen <= 768) {
+    dimension = "lg";
+  }
+
+  return dimension;
+};
+
+//======================= LOGIN ===============================
+export type userLoginType = {
+  email: string;
+  token: string;
+  uid: string;
+};
+
+type UserStateType = { user: userLoginType };
+
+const initUserState: UserStateType = {
+  user: {
+    email: "",
+    token: "",
+    uid: "",
+  },
+};
+
+const REDUCER_ACTION_TYPE = {
+  LOGIN: "USER_IS_LOGIN",
+  LOGOUT: "USER_IS_LOGOUT",
+};
+
+export type ReducerAction = {
+  type: string;
+  payload?: userLoginType;
+};
+
+const reducer = (
+  state: UserStateType,
+  action: ReducerAction
+): UserStateType => {
+  switch (action.type) {
+    case REDUCER_ACTION_TYPE.LOGIN: {
+      if (!action.payload) {
+        throw new Error("action.payload missing in action");
+      }
+      const email = action.payload?.email;
+      const token = action.payload?.token;
+      const uid = action.payload?.uid;
+
+      return { ...state, user: { email, token, uid } };
+    }
+    case REDUCER_ACTION_TYPE.LOGOUT: {
+      return { ...state, user: { email: "", token: "", uid: "" } };
+    }
+    default:
+      throw new Error("Undifined reducer action type");
+  }
+};
+
+const useValueContext = (initUserState: UserStateType) => {
+  //========== GET USER TOKEN ============
+  const [state, dispatch] = useReducer(reducer, initUserState);
+  //============== GET WIDTH HEIGHT SCREEN ==========
+  const [dimensionScreen, defineDimension] = useState(initDimensionState);
+
+  //=========== GET ACTION
+  const REDUCER_ACTIONS = useMemo(() => {
+    return REDUCER_ACTION_TYPE;
+  }, []);
+
+  const token = state?.user?.token;
+  const uid = state?.user?.uid;
+
+  //
+  const dimension = HandleDefineDimension(dimensionScreen?.widthscreen);
+  const widthScreen = dimensionScreen?.widthscreen;
+  const heightScreen = dimensionScreen?.heightscreen;
+
+  return {
+    dispatch,
+    REDUCER_ACTIONS,
+    token,
+    uid,
+    defineDimension,
+    dimension,
+    widthScreen,
+    heightScreen,
+  };
+};
+
+export type UseContextType = ReturnType<typeof useValueContext>;
+
+const initContextState: UseContextType = {
+  dispatch: () => {},
+  REDUCER_ACTIONS: REDUCER_ACTION_TYPE,
+  token: "",
+  uid: "",
+  defineDimension: () => {},
+  dimension: "",
+  widthScreen: 0,
+  heightScreen: 0,
+};
+
+const AuthContext = createContext<UseContextType>(initContextState);
+
+const AuthProvider = ({ children }: any): ReactElement => {
+  return (
+    <AuthContext.Provider value={useValueContext(initUserState)}>
+      {children}
+    </AuthContext.Provider>
+  );
+};
+
+export { AuthContext, AuthProvider };

@@ -1,0 +1,90 @@
+@import "../themes.scss";
+
+.ProfileContainer {
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ProfileTopContainer {
+  width: 95%;
+  height: 20%;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ProfileImageViewHolder {
+  width: 40%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+}
+.ProfileImage {
+  width: 110px;
+  height: 110px;
+  border-radius: 100px;
+  // border-width: 1px;
+}
+
+.ProfileTopTitleContainer {
+  width: 60%;
+  justify-content: center;
+  margin-left: 10px;
+}
+
+.ProfileTopTitleName {
+  font-family: "Kantumruy-Bold";
+}
+
+.ProfileTopBodytext {
+  font-family: "Kantumruy-Regular";
+}
+
+.ProfileLogoutButtonBox {
+  width: 100%;
+  height: 40px;
+  background-color: $color-main;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+.ProfileLogoutButtonText {
+  color: $color-white;
+  font-family: $kantumruy-bold;
+}
+
+.ProfileMiddleContainer {
+  width: 95%;
+  height: 80%;
+}
+
+.ProfileMiddleCard {
+  background-color: $color-white;
+  height: 60px;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 10px;
+  flex-direction: row;
+  border-bottom-width: 0.5px;
+  border-color: #dcdcdc;
+}
+
+.ProfileMiddleCardImage {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
+
+.ProfileBottomContainer {
+  width: 95%;
+  height: 10%;
+  justify-content: flex-end;
+}
+
+.ProfileMiddleCardLeftContent {
+  flex-direction: row;
+}

@@ -1,0 +1,108 @@
+.AttendanceContainer {
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+.AttendanceTitleContainer {
+  width: 95%;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.AttendanceTitle1 {
+  color: #3c6efb;
+  font-family: "Kantumruy-Bold";
+  font-size: 16px;
+}
+
+.AttendanceFilterButton {
+  background-color: #d9e3ff;
+  padding: 5px;
+  border-radius: 5px;
+  width: 40px;
+  height: 40px;
+  justify-content: center;
+  align-items: center;
+}
+
+.AttendanceBodyContainer {
+  width: 95%;
+}
+.AttendanceTitle2Container {
+  width: 100%;
+  flex-direction: row;
+  background-color: #d9e3ff;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  justify-content: space-between;
+  align-items: center;
+}
+.AttendanceTitle2Container1 {
+  flex-direction: row;
+  background-color: #eef3ff;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  justify-content: space-between;
+  align-items: center;
+}
+.AttendanceTitle2Container2 {
+  flex-direction: row;
+  background-color: #fff;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  justify-content: space-between;
+  align-items: center;
+}
+.AttendanceTitle2 {
+  width: 33.3333333%;
+  color: #3c6efb;
+  font-family: "Kantumruy-Bold";
+  text-align: center;
+}
+
+.AttendanceBody1 {
+  width: 33.3333333%;
+  font-family: "Kantumruy-Bold";
+  text-align: center;
+}
+.AttendanceBody2 {
+  width: 33.3333333%;
+  font-family: "Kantumruy-Regular";
+  text-align: center;
+}
+
+.AttendanceSelectDateinModal {
+  flex-direction: row;
+  width: 90%;
+  justify-content: space-between;
+}
+
+.AttendanceSelectDateinModalFrom {
+  width: 48%;
+}
+
+.AttendanceModalTitle2 {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-family: "Kantumruy-Bold";
+  font-size: 14px;
+  color: #3c6efb;
+  width: 100%;
+}
+.AttendanceSelectLeaveOptionPickupDate {
+  padding: 10px;
+  border-width: 1px;
+  border-color: #000;
+  width: 100%;
+  height: 50px;
+  border-radius: 10px;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}

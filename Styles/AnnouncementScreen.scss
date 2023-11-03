@@ -1,0 +1,31 @@
+@import "../themes.scss";
+
+.AnnouncementContainer {
+  width: 100%;
+  align-items: center;
+}
+
+.AnnouncementContainer_sm {
+  width: 100%;
+  align-items: center;
+}
+
+.AnnouncementScrollViewStyle {
+  width: 95%;
+}
+
+.ImageAnnouncementStyle {
+  width: 100%;
+  border-radius: 10px;
+  height: 200px;
+}
+
+.AnnouceTitle {
+  font-family: "Kantumruy-Bold";
+  font-size: 16px;
+}
+
+.AnnouceBodyText {
+  font-family: "Kantumruy-Regular";
+  font-size: 14px;
+}

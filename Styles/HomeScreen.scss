@@ -1,0 +1,378 @@
+@import "../themes.scss";
+
+.homeContainer {
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+}
+
+.imageGroup {
+  flex-direction: row;
+  width: 95%;
+  height: 200px;
+}
+
+.imageBox {
+  align-items: center;
+  justify-content: space-evenly;
+  width: 130px;
+  height: 200px;
+}
+
+.imageHome {
+  width: 100px;
+  height: 100px;
+  border-radius: 50px;
+}
+
+.titleBarHome {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 95%;
+  height: 50px;
+}
+
+.studentProfileName {
+  font-family: "Kantumruy-Bold";
+  color: #4b4453;
+  font-size: $base-font-size;
+}
+.fontTitleBarHome {
+  font-family: "Kantumruy-Bold";
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+.homeBar {
+  flex: 1;
+  // width: 100%;
+  height: 1px;
+  background-color: blue;
+}
+
+.upcomingcardhome {
+  flex-direction: column;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.announcementHomeContainer {
+  width: 95%;
+  height: 200;
+  align-items: flex-start;
+  background-color: #f1f1f1;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 16;
+}
+
+.announcementHomeTitle {
+  color: #6862c2;
+  font-family: "Kantumruy-Bold";
+  font-size: 15px;
+  padding: 5px;
+}
+
+.explorecontainer {
+  flex-direction: row;
+  height: 100px;
+}
+
+.exploreBox {
+  width: 130px;
+  height: 100%;
+  border-width: 1px;
+  border-radius: 5px;
+  border-color: #6862c2;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-right: 10px;
+}
+
+.exploreTitle {
+  color: #6862c2;
+  font-family: "Kantumruy-Bold";
+  font-size: 10px;
+}
+
+.homeModalStyle {
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+}
+
+.homeModalStyle1 {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background-color: #000;
+  opacity: 0.6;
+}
+
+.homeModalTitle {
+  padding: 10px;
+  font-weight: bold;
+  font-family: "Kantumruy-Bold";
+  font-size: 16px;
+}
+
+.homeModalTitle2 {
+  padding: 10px;
+  font-weight: bold;
+  font-family: "Kantumruy-Bold";
+  font-size: 14px;
+  color: #3c6efb;
+  width: 95%;
+}
+.homeModalTitle3 {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-weight: bold;
+  font-family: "Kantumruy-Bold";
+  font-size: 14px;
+  color: #3c6efb;
+  width: 100%;
+}
+.homeModalButtonTitle {
+  font-weight: bold;
+  font-family: "Bayon-Regular";
+  font-size: 18px;
+  color: #fff;
+}
+.modalinsideStyle {
+  background-color: white;
+  width: 95%;
+  height: 28%;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.homeImageBorderWidthStyle {
+  border-color: #3c6efb;
+  border-width: 1px;
+  border-radius: 60px;
+  padding: 5px;
+}
+
+.homeRequestLeaveOptionsContainer {
+  width: 88%;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-bottom: 10px;
+}
+
+.homeRequestLeaveOptionsButton {
+  flex-direction: row;
+  align-items: center;
+}
+
+.homeSelectLeaveOptionContainer {
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.homeSelectLeaveOptionDismissArea {
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  opacity: 0.6;
+  position: absolute;
+}
+
+.homeSelectLeaveOptionModalArea {
+  justify-content: flex-start;
+  align-items: center;
+  background-color: #fff;
+  width: 100%;
+  // height: 50%;
+  padding-bottom: 50px;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+}
+
+.homeSelectLeaveOptionModalArea1 {
+  justify-content: flex-start;
+  align-items: center;
+  background-color: #fff;
+  width: 100%;
+  height: 90%;
+  padding-bottom: 50px;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+}
+
+.homeSelectLeaveOptionPickupDate {
+  padding: 10px;
+  border-width: 1px;
+  border-color: #000;
+  width: 90%;
+  height: 50px;
+  border-radius: 5px;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.homeSelectLeaveOptionPickupDate2 {
+  padding: 10px;
+  border-width: 1px;
+  border-color: #000;
+  width: 100%;
+  height: 50px;
+  border-radius: 5px;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.homeSelectLeaveOptionTextInput {
+  width: 90%;
+  border-width: 1px;
+  border-color: #000;
+  padding: 10px;
+  border-radius: 5px;
+  justify-content: center;
+}
+
+.homeSelectLeaveOptionButtonRequest {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  background-color: #3c6efb;
+  width: 90%;
+  height: 50px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+}
+
+.homeUpcomingEventStyleBox1 {
+  width: 95%;
+  align-self: center;
+  border-radius: 5px;
+  background-color: #6862c2;
+  justify-content: center;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.homeUpcomingEventStyleBox2 {
+  width: 95%;
+  align-self: center;
+  border-radius: 5px;
+  background-color: #ec2777;
+  justify-content: center;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.homeUpcomingEventStyleBox3 {
+  width: 95%;
+  align-self: center;
+  border-radius: 5px;
+  background-color: #3c6efb;
+  justify-content: center;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.homeUpcominginSideViewContainer {
+  width: 95%;
+  justify-content: space-between;
+  flex-direction: row;
+  padding: 15px;
+}
+
+.homeUpcominginSideViewContainer2 {
+  flex-direction: column;
+  left: 10px;
+  width: 100%;
+}
+
+.homeUpcomingPillar {
+  justify-content: center;
+  width: 2px;
+  height: 100%;
+  background-color: #fff;
+  align-self: center;
+}
+
+.homeUpcomingTitle {
+  font-family: "Bayon-Regular";
+  font-size: 14px;
+  color: #fff;
+}
+
+.homeUpcomingBody {
+  font-family: "Kantumruy-Regular";
+  font-size: 12px;
+  color: #fff;
+}
+
+.announceHomeHolderContainer {
+  width: 100%;
+  align-items: center;
+}
+
+.HomePickupStudent {
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.HomePickupStudentContent {
+  width: 60%;
+  height: 30%;
+  border-radius: 5px;
+  background-color: white;
+  justify-content: flex-end;
+}
+
+.HomePickupStudentButtonContainer {
+  flex-direction: row;
+  width: 100%;
+  height: 20%;
+  justify-content: space-evenly;
+  align-items: center;
+  border-top-width: 1px;
+  border-color: #c1c1c1;
+}
+
+.HomePickupStudentButton {
+  width: 50%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.HomePickupStudentTextContainer {
+  width: 100%;
+  height: 70%;
+  align-items: center;
+  justify-content: center;
+}
+
+.HomePickupStudentTextContainer1 {
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+}
+.HomePickupStudentText {
+  font-family: "Kantumruy-Bold";
+  color: #4b4453;
+  font-size: $base-font-size;
+  text-align: center;
+}
+
+.HomePickupTrackingContent {
+  width: 60%;
+  height: 30%;
+  border-radius: 5px;
+  background-color: white;
+  justify-content: space-evenly;
+  align-items: center;
+}

@@ -1,0 +1,33 @@
+{
+  "expo": {
+    "name": "school-mobile-app-ios",
+    "slug": "school-mobile-app-ios",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "packagerOpts": {
+      "config": "metro.config.js",
+      "sourceExts": ["tsx", "js", "jsx", "scss", "sass"],
+      "transformer": "node_modules/react-native-sass-transformer/index.js"
+    },
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      }
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    }
+  }
+}

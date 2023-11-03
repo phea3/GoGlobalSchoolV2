@@ -1,0 +1,17 @@
+.containerFooter {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  width: 100%;
+  height: 10%;
+  padding: 5px;
+  border-top-width: 0.5px;
+  border-color: #dcdcdc;
+}
+
+.tabContainer {
+  justify-content: flex-end;
+  align-items: center;
+  width: 20%;
+  height: 80%;
+}

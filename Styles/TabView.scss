@@ -1,0 +1,43 @@
+@import "../themes.scss";
+
+.TabViewContainer {
+  width: 100%;
+  height: 5%;
+  justify-content: center;
+  align-items: center;
+}
+
+.TabViewContainerFlex {
+  width: 95%;
+  height: 100%;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.TabViewButton {
+  width: 50%;
+  height: 100%;
+  justify-content: center;
+  border-bottom-width: 0.5px;
+}
+
+.TabViewButtonActive {
+  width: 50%;
+  height: 100%;
+  justify-content: center;
+  border-bottom-width: 1px;
+  border-color: $color-main;
+}
+
+.TabViewButtonText {
+  font-family: $kantumruy-bold;
+  text-align: center;
+}
+
+.TabViewButtonTextActive {
+  font-family: $kantumruy-bold;
+  text-align: center;
+  color: $color-main;
+  font-size: 16px;
+}

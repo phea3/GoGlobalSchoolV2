@@ -1,0 +1,18 @@
+$base-font-size: 14px;
+$base-font-weight: 400;
+$font-main: "Bayon-Regular";
+$font-body: "Kantumruy-Regular";
+
+$color-main: #3c6efb;
+$color-white: #fff;
+$color-light-blue: #e1eefd;
+$color-orange: #fca845;
+
+$kantumruy-regular: "Kantumruy-Regular";
+$kantumruy-bold: "Kantumruy-Bold";
+$screen-width: 100vw; // Set the initial value to 100vw
+
+// Media query to update the $screen-width variable based on the device screen width
+@media (max-width: 768px) {
+  $screen-width: 768px;
+}

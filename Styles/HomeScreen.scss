@@ -75,6 +75,12 @@
   padding: 5px;
 }
 
+.announcementHomeTitleEmpty {
+  color: #9aa3a6;
+  font-family: "Kantumruy-Bold";
+  font-size: 15px;
+  padding: 5px;
+}
 .explorecontainer {
   flex-direction: row;
   height: 100px;
@@ -277,6 +283,16 @@
   margin-bottom: 5px;
 }
 
+.homeUpcomingEventStyleBoxEmpty {
+  width: 95%;
+  align-self: center;
+  border-radius: 5px;
+  background-color: #f1f1f1;
+  justify-content: center;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
 .homeUpcominginSideViewContainer {
   width: 95%;
   justify-content: space-between;
@@ -298,10 +314,24 @@
   align-self: center;
 }
 
+.homeUpcomingPillarEmpty {
+  justify-content: center;
+  width: 2px;
+  height: 100%;
+  background-color: #9aa3a6;
+  align-self: center;
+}
+
 .homeUpcomingTitle {
-  font-family: "Bayon-Regular";
+  font-family: "Kantumruy-Bold";
   font-size: 14px;
   color: #fff;
+}
+
+.homeUpcomingTitleEmpty {
+  font-family: "Kantumruy-Bold";
+  font-size: 14px;
+  color: #9aa3a6;
 }
 
 .homeUpcomingBody {

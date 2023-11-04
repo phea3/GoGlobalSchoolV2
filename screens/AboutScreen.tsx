@@ -28,8 +28,8 @@ export default function AboutScreen() {
       number === 1
         ? "https://school-website-frontend-gold.vercel.app/about"
         : number === 2
-        ? "https://school-website-frontend-gold.vercel.app/programme"
-        : "https://school-website-frontend-gold.vercel.app/school-fee";
+        ? "https://school-website-frontend-gold.vercel.app/school-fee"
+        : "https://school-website-frontend-gold.vercel.app/programme";
 
     const result = await WebBrowser.openBrowserAsync(url);
 

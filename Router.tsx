@@ -25,15 +25,19 @@ import NotificationScreen from "./screens/NotificationScreen";
 import LayoutNotification from "./Layout/LayoutNotification";
 import NotificationAnnouncements from "./screens/NotificationAnnouncements";
 import MealScreen from "./screens/MealScreen";
+import axios from "axios";
+import NetInfo from "@react-native-community/netinfo";
 
 export default function Router() {
   //context
   const { dispatch, REDUCER_ACTIONS } = useLoginUser();
-  const [load, setLoad] = useState(true);
   const { token, defineDimension } = useContext(AuthContext);
+  const [load, setLoad] = useState(true);
 
   const height = Dimensions.get("screen").height;
   const width = Dimensions.get("screen").width;
+
+  const [latestVersion, setLastestVersion] = useState("");
 
   // console.log(token);
   useEffect(() => {

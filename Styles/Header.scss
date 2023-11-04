@@ -1,16 +1,24 @@
 @import "../themes.scss";
+
+.containerHeaderVertical {
+  width: 100%;
+  height: 7%;
+  justify-content: flex-end;
+}
+
 .containerHeader {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  height: 7%;
-  padding: 15px;
+  height: 100%;
 }
 
 .titleContainer {
   flex-direction: row;
+  padding-left: 15px;
+  padding-right: 15px;
 }
 
 .logoHeader {

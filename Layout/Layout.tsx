@@ -6,7 +6,7 @@ import {
   Image,
   Alert,
 } from "react-native";
-import React, { useCallback, useContext, useEffect } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-native";
 import Footer from "../Include/Footer";
 import LayoutStyle from "../Styles/ScreenContainer.scss";
@@ -15,6 +15,13 @@ import { GET_MOBILEUSERLOGIN } from "../graphql/GetMobileUserLogin";
 import { useQuery } from "@apollo/client";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import useLoginUser from "../Hook/useLoginUser";
+import NetInfo from "@react-native-community/netinfo";
+import Animated, {
+  useAnimatedStyle,
+  useSharedValue,
+  withSpring,
+  withTiming,
+} from "react-native-reanimated";
 
 const Layout = () => {
   const { dispatch, REDUCER_ACTIONS } = useLoginUser();
@@ -55,11 +62,54 @@ const Layout = () => {
     refetch();
   }, []);
 
+  //============== Detect Connection App ================
+  const isConnection = useSharedValue("");
+  const offheight = useSharedValue(0);
+  const color = useSharedValue("red");
+
+  const animatedStyles = useAnimatedStyle(() => {
+    return {
+      height: withSpring(offheight.value),
+      backgroundColor: withSpring(color.value),
+    };
+  });
+
+  const unsubscribe = NetInfo.addEventListener((state) => {
+    if (state.isConnected === true && isConnection.value === "") {
+      offheight.value = withTiming(10);
+      color.value = withTiming("#4CBB17");
+      isConnection.value = withTiming("load");
+      setTimeout(() => {
+        offheight.value = withTiming(0);
+      }, 1000);
+    } else if (state.isConnected === false && isConnection.value === "load") {
+      offheight.value = withTiming(10);
+      color.value = withTiming("red");
+    } else if (state.isConnected === true && isConnection.value === "load") {
+      setTimeout(() => {
+        isConnection.value = withTiming("");
+      }, 1000);
+    }
+  });
+
+  useEffect(() => {
+    unsubscribe();
+  }, []);
+
   return (
     <SafeAreaView>
       <View style={LayoutStyle.container}>
         <Header />
 
+        <Animated.View
+          style={[
+            {
+              width: "100%",
+              height: 0,
+            },
+            animatedStyles,
+          ]}
+        />
         <View
           style={
             location.pathname === "/notification" ||

@@ -1,8 +1,9 @@
-import { Image, Text, TouchableOpacity, View } from "react-native";
+import { Button, Image, Text, TouchableOpacity, View } from "react-native";
 import { useNavigate } from "react-router-native";
 
 export default function ScheduleScreen() {
   const navigate = useNavigate();
+
   return (
     <View>
       {/* <TouchableOpacity

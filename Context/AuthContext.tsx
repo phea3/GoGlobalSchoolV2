@@ -20,19 +20,6 @@ const initDimensionState: dimensionType = {
   heightscreen: 0,
 };
 
-const HandleDefineDimension = (widthScreen: number) => {
-  let dimension = "";
-  let widthscreen = widthScreen;
-
-  if (widthscreen <= 430) {
-    dimension = "sm";
-  } else if (widthscreen <= 768) {
-    dimension = "lg";
-  }
-
-  return dimension;
-};
-
 //======================= LOGIN ===============================
 export type userLoginType = {
   email: string;
@@ -53,6 +40,7 @@ const initUserState: UserStateType = {
 const REDUCER_ACTION_TYPE = {
   LOGIN: "USER_IS_LOGIN",
   LOGOUT: "USER_IS_LOGOUT",
+  CONNECT: "CONNECT",
 };
 
 export type ReducerAction = {
@@ -83,21 +71,34 @@ const reducer = (
   }
 };
 
+const HandleDefineDimension = (widthScreen: number) => {
+  let dimension = "";
+  let widthscreen = widthScreen;
+
+  if (widthscreen <= 430) {
+    dimension = "sm";
+  } else if (widthscreen <= 768) {
+    dimension = "lg";
+  }
+
+  return dimension;
+};
+
 const useValueContext = (initUserState: UserStateType) => {
   //========== GET USER TOKEN ============
   const [state, dispatch] = useReducer(reducer, initUserState);
   //============== GET WIDTH HEIGHT SCREEN ==========
   const [dimensionScreen, defineDimension] = useState(initDimensionState);
 
-  //=========== GET ACTION
+  //=========== GET ACTION ===========
   const REDUCER_ACTIONS = useMemo(() => {
     return REDUCER_ACTION_TYPE;
   }, []);
 
+  //======== return value =============
   const token = state?.user?.token;
   const uid = state?.user?.uid;
 
-  //
   const dimension = HandleDefineDimension(dimensionScreen?.widthscreen);
   const widthScreen = dimensionScreen?.widthscreen;
   const heightScreen = dimensionScreen?.heightscreen;

@@ -30,7 +30,7 @@ const LoginScreen = () => {
   //============== CHECK NAVIGATE ===============
   const handleNavigation = async () => {
     await auth.login(email, password).then((result) => {
-      console.log("result", result?.token);
+      // console.log("result", result?.token);
       if (result?.status === true) {
         navigate("/home");
         AsyncStorage.setItem("@userToken", result?.token);

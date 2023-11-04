@@ -205,54 +205,79 @@ const HomeScreen = () => {
                 alignItems: "center",
               }}
             >
-              {data?.getStudentByParentsMobile?.map((stuInfo: any) => (
-                <TouchableOpacity
-                  onPress={() => {
-                    if (duty === "TAKE LEAVE") {
-                      toggleModal();
-                      toggleModalOpenLeave();
-                      setStudentId(stuInfo?._id);
-                      setStuInfo(stuInfo);
-                    } else if (duty === "ATTENDANCE") {
-                      navigate("/attendance", { state: stuInfo?._id });
-                    } else if (duty === "payment") {
-                      navigate("/payment", { state: stuInfo?._id });
-                    } else if (duty === "PICKUP") {
-                      setStudentId(stuInfo?._id);
-                      toggleModal();
-                      toggleModalOpenPickup();
-                    } else if (duty === "LEAVE") {
-                      navigate("/leave", {
-                        state: { stuInfo: stuInfo, uid: uid },
-                      });
-                    } else if (duty === "MEAL") {
-                      navigate("/meal", {
-                        state: { stuInfo: stuInfo, uid: uid },
-                      });
-                    } else if (duty === "SCHEDULE") {
-                      navigate("/schedule", {
-                        state: { stuInfo: stuInfo, uid: uid },
-                      });
-                    }
-                  }}
-                  key={stuInfo?._id}
-                  style={HomeStyle.imageBox}
-                >
-                  <View style={HomeStyle.homeImageBorderWidthStyle}>
-                    <Animatable.Image
-                      source={{
-                        uri: `https://storage.go-globalschool.com/api${stuInfo?.profileImg}`,
+              {data?.getStudentByParentsMobile.length === 0 ? (
+                <View style={HomeStyle.imageBox}>
+                  <View
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      backgroundColor: "#f1f1f1",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      borderRadius: 5,
+                    }}
+                  >
+                    <Text
+                      style={{
+                        fontFamily: "Kantumruy-Bold",
+                        fontSize: 15,
+                        color: "#9AA3A6",
                       }}
-                      style={HomeStyle.imageHome}
-                      resizeMode="cover"
-                      animation="zoomIn"
-                    />
+                    >
+                      មិនមាន{"\n"}ទិន្នន័យ
+                    </Text>
                   </View>
-                  <Text style={HomeStyle.studentProfileName}>
-                    {stuInfo?.lastName + " " + stuInfo?.firstName}
-                  </Text>
-                </TouchableOpacity>
-              ))}
+                </View>
+              ) : (
+                data?.getStudentByParentsMobile?.map((stuInfo: any) => (
+                  <TouchableOpacity
+                    onPress={() => {
+                      if (duty === "TAKE LEAVE") {
+                        toggleModal();
+                        toggleModalOpenLeave();
+                        setStudentId(stuInfo?._id);
+                        setStuInfo(stuInfo);
+                      } else if (duty === "ATTENDANCE") {
+                        navigate("/attendance", { state: stuInfo?._id });
+                      } else if (duty === "payment") {
+                        navigate("/payment", { state: stuInfo?._id });
+                      } else if (duty === "PICKUP") {
+                        setStudentId(stuInfo?._id);
+                        toggleModal();
+                        toggleModalOpenPickup();
+                      } else if (duty === "LEAVE") {
+                        navigate("/leave", {
+                          state: { stuInfo: stuInfo, uid: uid },
+                        });
+                      } else if (duty === "MEAL") {
+                        navigate("/meal", {
+                          state: { stuInfo: stuInfo, uid: uid },
+                        });
+                      } else if (duty === "SCHEDULE") {
+                        navigate("/schedule", {
+                          state: { stuInfo: stuInfo, uid: uid },
+                        });
+                      }
+                    }}
+                    key={stuInfo?._id}
+                    style={HomeStyle.imageBox}
+                  >
+                    <View style={HomeStyle.homeImageBorderWidthStyle}>
+                      <Animatable.Image
+                        source={{
+                          uri: `https://storage.go-globalschool.com/api${stuInfo?.profileImg}`,
+                        }}
+                        style={HomeStyle.imageHome}
+                        resizeMode="cover"
+                        animation="zoomIn"
+                      />
+                    </View>
+                    <Text style={HomeStyle.studentProfileName}>
+                      {stuInfo?.lastName + " " + stuInfo?.firstName}
+                    </Text>
+                  </TouchableOpacity>
+                ))
+              )}
             </ScrollView>
           </View>
         </View>
@@ -286,63 +311,88 @@ const HomeScreen = () => {
             showsHorizontalScrollIndicator={false}
             style={{ width: "95%" }}
           >
-            {data?.getStudentByParentsMobile?.map(
-              (stuInfo: any, index: number) =>
-                loading === true ? (
-                  <View style={HomeStyle.imageBox} key={index}>
-                    <View
-                      style={{
-                        borderColor: "#3C6EFB",
-                        borderWidth: 1,
-                        borderRadius: 60,
-                        padding: 5,
-                      }}
+            {data?.getStudentByParentsMobile.length === 0 ? (
+              <View style={HomeStyle.imageBox}>
+                <View
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    backgroundColor: "#f1f1f1",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    borderRadius: 5,
+                  }}
+                >
+                  <Text
+                    style={{
+                      fontFamily: "Kantumruy-Bold",
+                      fontSize: 15,
+                      color: "#9AA3A6",
+                    }}
+                  >
+                    មិនមាន{"\n"}ទិន្នន័យ
+                  </Text>
+                </View>
+              </View>
+            ) : (
+              data?.getStudentByParentsMobile?.map(
+                (stuInfo: any, index: number) =>
+                  loading === true ? (
+                    <View style={HomeStyle.imageBox} key={index}>
+                      <View
+                        style={{
+                          borderColor: "#3C6EFB",
+                          borderWidth: 1,
+                          borderRadius: 60,
+                          padding: 5,
+                        }}
+                      >
+                        <View
+                          style={[
+                            HomeStyle.imageHome,
+                            {
+                              backgroundColor: "#f1f1f1",
+                            },
+                          ]}
+                        />
+                      </View>
+                      <View
+                        style={{
+                          width: 120,
+                          height: 30,
+                          backgroundColor: "#f1f1f1",
+                        }}
+                      />
+                    </View>
+                  ) : (
+                    <TouchableOpacity
+                      // onPress={() => navigate("/classes", { state: stuInfo?._id })}
+                      key={stuInfo?._id}
+                      style={HomeStyle.imageBox}
                     >
                       <View
-                        style={[
-                          HomeStyle.imageHome,
-                          {
-                            backgroundColor: "#f1f1f1",
-                          },
-                        ]}
-                      />
-                    </View>
-                    <View
-                      style={{
-                        width: 120,
-                        height: 30,
-                        backgroundColor: "#f1f1f1",
-                      }}
-                    />
-                  </View>
-                ) : (
-                  <TouchableOpacity
-                    // onPress={() => navigate("/classes", { state: stuInfo?._id })}
-                    key={stuInfo?._id}
-                    style={HomeStyle.imageBox}
-                  >
-                    <View
-                      style={{
-                        borderColor: "#3C6EFB",
-                        borderWidth: 1,
-                        borderRadius: 60,
-                        padding: 5,
-                      }}
-                    >
-                      <Animatable.Image
-                        source={{
-                          uri: `https://storage.go-globalschool.com/api${stuInfo?.profileImg}`,
+                        style={{
+                          borderColor: "#3C6EFB",
+                          borderWidth: 1,
+                          borderRadius: 60,
+                          padding: 5,
                         }}
-                        style={HomeStyle.imageHome}
-                        resizeMode="cover"
-                        animation="zoomIn"
-                      />
-                    </View>
-                    <Text style={HomeStyle.studentProfileName}>
-                      {stuInfo?.lastName + " " + stuInfo?.firstName}
-                    </Text>
-                  </TouchableOpacity>
-                )
+                      >
+                        <Animatable.Image
+                          source={{
+                            uri: `https://storage.go-globalschool.com/api${stuInfo?.profileImg}`,
+                          }}
+                          style={HomeStyle.imageHome}
+                          resizeMode="cover"
+                          animation="zoomIn"
+                        />
+                      </View>
+                      <Text style={HomeStyle.studentProfileName}>
+                        {stuInfo?.lastName + " " + stuInfo?.firstName}
+                      </Text>
+                    </TouchableOpacity>
+                  )
+              )
             )}
           </ScrollView>
         </View>
@@ -357,31 +407,49 @@ const HomeScreen = () => {
           </Text>
           <View style={HomeStyle.homeBar} />
         </View>
-        {eventData?.getUpcomingEventMobile.map((event: any, index: number) => (
-          <View style={HomeStyle.upcomingcardhome} key={index}>
-            <View
-              style={
-                index % 3 === 0
-                  ? HomeStyle.homeUpcomingEventStyleBox1
-                  : index % 3 === 1
-                  ? HomeStyle.homeUpcomingEventStyleBox2
-                  : HomeStyle.homeUpcomingEventStyleBox3
-              }
-            >
+        {eventData?.getUpcomingEventMobile.length === 0 ? (
+          <View style={HomeStyle.upcomingcardhome}>
+            <View style={HomeStyle.homeUpcomingEventStyleBoxEmpty}>
               <View style={HomeStyle.homeUpcominginSideViewContainer}>
-                <View style={HomeStyle.homeUpcomingPillar} />
+                <View style={HomeStyle.homeUpcomingPillarEmpty} />
                 <View style={HomeStyle.homeUpcominginSideViewContainer2}>
-                  <Text style={HomeStyle.homeUpcomingTitle}>
-                    {event?.title}
+                  <Text style={HomeStyle.homeUpcomingTitleEmpty}>
+                    មិនមាន ទិន្នន័យ
                   </Text>
                   <Text style={HomeStyle.homeUpcomingBody}>
-                    {moment(event?.from).format("DD-MM-YYYY")}
+                    {/* {moment(new Date()).format("DD-MM-YYYY")} */}
                   </Text>
                 </View>
               </View>
             </View>
           </View>
-        ))}
+        ) : (
+          eventData?.getUpcomingEventMobile.map((event: any, index: number) => (
+            <View style={HomeStyle.upcomingcardhome} key={index}>
+              <View
+                style={
+                  index % 3 === 0
+                    ? HomeStyle.homeUpcomingEventStyleBox1
+                    : index % 3 === 1
+                    ? HomeStyle.homeUpcomingEventStyleBox2
+                    : HomeStyle.homeUpcomingEventStyleBox3
+                }
+              >
+                <View style={HomeStyle.homeUpcominginSideViewContainer}>
+                  <View style={HomeStyle.homeUpcomingPillar} />
+                  <View style={HomeStyle.homeUpcominginSideViewContainer2}>
+                    <Text style={HomeStyle.homeUpcomingTitle}>
+                      {event?.title}
+                    </Text>
+                    <Text style={HomeStyle.homeUpcomingBody}>
+                      {moment(event?.from).format("DD-MM-YYYY")}
+                    </Text>
+                  </View>
+                </View>
+              </View>
+            </View>
+          ))
+        )}
 
         <View style={HomeStyle.titleBarHome}>
           <Image
@@ -471,23 +539,37 @@ const HomeScreen = () => {
         </View>
 
         <View style={HomeStyle.announceHomeHolderContainer}>
-          {announces.map((announce: any) => (
-            <TouchableOpacity
-              onPress={() => navigate("/announce", { state: announce })}
-              style={HomeStyle.announcementHomeContainer}
-              key={announce?._id}
-            >
+          {announces.length !== 0 ? (
+            <View style={HomeStyle.announcementHomeContainer}>
               <Animatable.Image
-                source={{ uri: announce?.coverSrc }}
+                source={require("../assets/Images/No-Data-Found.jpeg")}
                 style={{ width: "100%", height: "80%", borderRadius: 5 }}
                 resizeMode="cover"
                 animation="zoomIn"
               />
-              <Text style={HomeStyle.announcementHomeTitle}>
-                {announce?.title}
+              <Text style={HomeStyle.announcementHomeTitleEmpty}>
+                មិនមាន ទិន្នន័យ
               </Text>
-            </TouchableOpacity>
-          ))}
+            </View>
+          ) : (
+            announces.map((announce: any) => (
+              <TouchableOpacity
+                onPress={() => navigate("/announce", { state: announce })}
+                style={HomeStyle.announcementHomeContainer}
+                key={announce?._id}
+              >
+                <Animatable.Image
+                  source={{ uri: announce?.coverSrc }}
+                  style={{ width: "100%", height: "80%", borderRadius: 5 }}
+                  resizeMode="cover"
+                  animation="zoomIn"
+                />
+                <Text style={HomeStyle.announcementHomeTitle}>
+                  {announce?.title}
+                </Text>
+              </TouchableOpacity>
+            ))
+          )}
         </View>
       </ScrollView>
     </View>

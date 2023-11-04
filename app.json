@@ -8,7 +8,13 @@
     "userInterfaceStyle": "light",
     "packagerOpts": {
       "config": "metro.config.js",
-      "sourceExts": ["tsx", "js", "jsx", "scss", "sass"],
+      "sourceExts": [
+        "tsx",
+        "js",
+        "jsx",
+        "scss",
+        "sass"
+      ],
       "transformer": "node_modules/react-native-sass-transformer/index.js"
     },
     "splash": {
@@ -16,9 +22,15 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "entitlements": {
+        "com.apple.developer.networking.wifi-info": true
+      },
+      "bundleIdentifier": "Second-dayofSwift-Testing"
     },
     "android": {
       "adaptiveIcon": {
@@ -28,6 +40,11 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "4aaf66e1-852f-4c99-806f-08101561f3c3"
+      }
     }
   }
 }

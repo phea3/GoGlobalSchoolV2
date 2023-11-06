@@ -6,15 +6,17 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "The app accesses your photos to let you share them with your friends."
+        }
+      ]
+    ],
     "packagerOpts": {
       "config": "metro.config.js",
-      "sourceExts": [
-        "tsx",
-        "js",
-        "jsx",
-        "scss",
-        "sass"
-      ],
+      "sourceExts": ["tsx", "js", "jsx", "scss", "sass"],
       "transformer": "node_modules/react-native-sass-transformer/index.js"
     },
     "splash": {
@@ -22,13 +24,12 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
       "entitlements": {
-        "com.apple.developer.networking.wifi-info": true
+        "com.apple.developer.networking.wifi-info": true,
+        "com.apple.developer.applesignin": ["Default"]
       },
       "bundleIdentifier": "Second-dayofSwift-Testing"
     },

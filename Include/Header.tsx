@@ -79,6 +79,8 @@ export default function Header() {
             <Back title={"PAYMENT HISTORY"} />
           ) : location.pathname === "/meal" ? (
             <Back title={"MEAL HISTORY"} />
+          ) : location.pathname === "/profiledetail" ? (
+            <Back title={"PROFILE DETAIL"} />
           ) : location.pathname === "/notification" ||
             location.pathname === "/notification/announces" ? (
             <Back title={"NOTIFICATION"} />

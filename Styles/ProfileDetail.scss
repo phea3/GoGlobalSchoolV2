@@ -1,0 +1,59 @@
+@import "../themes.scss";
+
+.ProfileDetailContainer {
+  width: 100%;
+  height: 100%;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.ProfileDetailTopContainer {
+  width: 95%;
+  height: 30%;
+  align-items: center;
+  justify-content: center;
+}
+
+.ProfileDetailImageStyle {
+  width: 100px;
+  height: 100px;
+  border-width: 1px;
+  border-radius: 5px;
+}
+
+.ProfileDetailMiddleContainer {
+  width: 95%;
+  height: 70%;
+}
+
+.ProfileDetailMiddleScrollviewContainer {
+  width: 100%;
+}
+
+.ProfileDetailMiddleTitle {
+  width: 100%;
+  height: 40px;
+}
+
+.ProfileDetailMiddleTitleText {
+  font-family: $kantumruy-bold;
+}
+
+.ProfileDetailMiddleBody {
+  width: 90%;
+}
+
+.ProfileDetailMiddleBodyText {
+  font-family: $kantumruy-regular;
+}
+
+.ProfileDetailMiddleBody2TextContainer {
+  border-bottom-width: 2px;
+  border-color: $color-main;
+  height: 40px;
+  justify-content: flex-end;
+  margin-bottom: 5px;
+}
+.ProfileDetailMiddleBody2Text {
+  font-family: $bayon-regular;
+}

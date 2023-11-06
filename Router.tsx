@@ -27,6 +27,7 @@ import NotificationAnnouncements from "./screens/NotificationAnnouncements";
 import MealScreen from "./screens/MealScreen";
 import axios from "axios";
 import NetInfo from "@react-native-community/netinfo";
+import ProfileDetail from "./screens/ProfileDetail";
 
 export default function Router() {
   //context
@@ -104,6 +105,7 @@ export default function Router() {
         { path: "/announce", element: <AnnouncementDetail /> },
         { path: "/about", element: <AboutScreen /> },
         { path: "/profile", element: <ProfileScreen /> },
+        { path: "/profiledetail", element: <ProfileDetail /> },
         { path: "/calendar", element: <CalendarScreen /> },
         { path: "/payment", element: <PaymentScreen /> },
         { path: "/meal", element: <MealScreen /> },

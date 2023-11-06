@@ -151,7 +151,10 @@ export default function ProfileScreen() {
             </Text>
           </View>
         </View>
-        <TouchableOpacity style={{ width: "10%" }}>
+        <TouchableOpacity
+          style={{ width: "10%" }}
+          onPress={() => navigate("/profiledetail", { state: data })}
+        >
           <Image
             source={require("../assets/Images/next.png")}
             style={{ width: 40, height: 40 }}

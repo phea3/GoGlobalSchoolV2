@@ -5,20 +5,22 @@
 
 .AboutChatContainer1 {
   width: 95%;
-  height: 100px;
+  height: 80px;
   background-color: #6862c2;
   border-radius: 5px;
   flex-direction: row;
-  justify-content: flex-start;
+  justify-content: space-between;
+  // justify-content: center;
   align-items: center;
-  padding-top: 20px;
+  // padding-top: 20px;
   padding-bottom: 20px;
   padding-left: 20px;
   margin-bottom: 10px;
 }
+
 .AboutChatContainer2 {
   width: 95%;
-  height: 100px;
+  height: 80px;
   background-color: #ec2777;
   border-radius: 5px;
   flex-direction: row;
@@ -31,7 +33,7 @@
 }
 .AboutChatContainer3 {
   width: 95%;
-  height: 100px;
+  height: 80px;
   background-color: #3c6efb;
   border-radius: 5px;
   flex-direction: row;

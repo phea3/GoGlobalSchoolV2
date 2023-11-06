@@ -7,6 +7,7 @@ module.exports = (async () => {
   return {
     transformer: {
       babelTransformerPath: require.resolve("react-native-sass-transformer"),
+      assetPlugins: ["expo-asset/tools/hashAssetFiles"],
     },
     resolver: {
       sourceExts: [...sourceExts, "scss", "sass"],

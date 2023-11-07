@@ -62,6 +62,15 @@ export default function Router() {
           uid: userUid,
         },
       });
+    } else {
+      dispatch({
+        type: REDUCER_ACTIONS.LOGIN,
+        payload: {
+          email: "example@user.com",
+          token: "",
+          uid: "",
+        },
+      });
     }
 
     //

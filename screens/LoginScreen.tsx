@@ -31,18 +31,21 @@ const LoginScreen = () => {
   const handleNavigation = async () => {
     await auth.login(email, password).then((result) => {
       // console.log("result", result?.token);
+      //
+      AsyncStorage.setItem("@userToken", result?.token);
+      AsyncStorage.setItem("@userUid", result?.uid);
       if (result?.status === true) {
-        navigate("/home");
-        AsyncStorage.setItem("@userToken", result?.token);
-        AsyncStorage.setItem("@userUid", result?.uid);
-        dispatch({
-          type: REDUCER_ACTIONS.LOGIN,
-          payload: {
-            email: "example@user.com",
-            token: result?.token,
-            uid: result?.uid,
-          },
-        });
+        setTimeout(() => {
+          navigate("/home");
+          dispatch({
+            type: REDUCER_ACTIONS.LOGIN,
+            payload: {
+              email: "example@user.com",
+              token: result?.token ? result?.token : "",
+              uid: result?.uid ? result?.uid : "",
+            },
+          });
+        }, 600);
       } else {
         Alert.alert("Message", result?.message);
       }

@@ -1,0 +1,42 @@
+@import "../themes.scss";
+
+.ScheduleContainer {
+  width: 100%;
+  height: 100%;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.ScheduleTopContainer {
+  width: 95%;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.ScheduleDayBox {
+  justify-content: center;
+  align-items: center;
+  border-radius: 3px;
+}
+
+.ScheduleDayInsideBoxCircle {
+  background-color: #fff;
+  border-radius: 20px;
+  justify-content: center;
+  align-items: center;
+}
+.ScheduleDayTextStyle {
+  font-family: $kantumruy-bold;
+  color: black;
+  font-size: 12px;
+}
+
+.ScheduleOnSelectStyle {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ScheduleOnSelectTextStyle {
+  font-family: $kantumruy-regular;
+}

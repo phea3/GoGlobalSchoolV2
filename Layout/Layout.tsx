@@ -82,13 +82,16 @@ const Layout = () => {
       setTimeout(() => {
         offheight.value = withTiming(0);
       }, 1000);
-    } else if (state.isConnected === false && isConnection.value === "load") {
+    } else if (
+      (state.isConnected === false && isConnection.value === "load") ||
+      (state.isConnected === false && isConnection.value === "")
+    ) {
       offheight.value = withTiming(10);
       color.value = withTiming("red");
     } else if (state.isConnected === true && isConnection.value === "load") {
       setTimeout(() => {
         isConnection.value = withTiming("");
-      }, 1000);
+      }, 500);
     }
   });
 

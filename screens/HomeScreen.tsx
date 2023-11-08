@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-native";
 import { getLanguage, setLanguage, useTranslation } from "react-multi-lang";
 import moment from "moment";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
-import { useMutation, useQuery } from "@apollo/client";
+import { useLazyQuery, useMutation, useQuery } from "@apollo/client";
 import { GET_STUDENT } from "../graphql/get_studentByParent";
 import { AuthContext } from "../Context/AuthContext";
 import { QUERY_ANNOUNCEMENT } from "../graphql/gql_announcement";
@@ -190,25 +190,6 @@ const HomeScreen = () => {
     },
   });
 
-  //============= CHECK EYE REPORT CLASS ================
-  const { data: checkData, refetch: checkRefetch } = useQuery(
-    CHECK_IS_STUDENT_FOR_EYS,
-    {
-      pollInterval: 2000,
-      variables: {
-        stuId: studentId,
-      },
-      onCompleted: ({}) => {},
-      onError(error) {
-        console.log(error?.message);
-      },
-    }
-  );
-
-  useEffect(() => {
-    checkRefetch();
-  }, [studentId]);
-
   useEffect(() => {
     announceRefetch();
   }, []);
@@ -223,29 +204,22 @@ const HomeScreen = () => {
       case "TAKE LEAVE":
         toggleModal();
         toggleModalOpenLeave();
-        setStudentId(stuInfo?._id);
         setStuInfo(stuInfo);
-
         break;
       case "ATTENDANCE":
         navigate("/attendance", { state: stuInfo?._id });
-
         break;
       case "PAYMENT":
         navigate("/payment", { state: stuInfo?._id });
-
         break;
       case "PICKUP":
-        setStudentId(stuInfo?._id);
         toggleModal();
         toggleModalOpenPickup();
-
         break;
       case "LEAVE":
         navigate("/leave", {
           state: { stuInfo: stuInfo, uid: uid },
         });
-
         break;
       case "MEAL":
         navigate("/meal", {
@@ -260,15 +234,8 @@ const HomeScreen = () => {
 
         break;
       case "EYS":
-        setStudentId(stuInfo?._id);
         toggleModal();
-        console.log(stuInfo?._id);
-        if (checkData?.checkIsStudentEYSReport === true) {
-          navigate("/eys", { state: stuInfo?._id });
-        } else {
-          openEYSModal();
-        }
-
+        openEYSModal();
         break;
       default:
         break;
@@ -326,6 +293,7 @@ const HomeScreen = () => {
                 data?.getStudentByParentsMobile?.map((stuInfo: any) => (
                   <TouchableOpacity
                     onPress={() => {
+                      setStudentId(stuInfo?._id);
                       ConditionsOfStudentFeatures(stuInfo);
                     }}
                     key={stuInfo?._id}

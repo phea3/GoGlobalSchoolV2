@@ -8,7 +8,7 @@ import {
   Alert,
   TouchableOpacity,
 } from "react-native";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import LoginStyle from "../Styles/LoginScreen.scss";
 import { useNavigate } from "react-router-native";
 import auth from "../Auth/auth";
@@ -17,6 +17,8 @@ import Checkbox from "expo-checkbox";
 import useUser from "../Hook/useLoginUser";
 import { StyleController } from "../styleProvider";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useQuery } from "@apollo/client";
+import { GET_MOBILEUSERLOGIN } from "../graphql/GetMobileUserLogin";
 
 const LoginScreen = () => {
   const { dispatch, REDUCER_ACTIONS } = useUser();
@@ -27,6 +29,18 @@ const LoginScreen = () => {
   const [password, setPassword] = useState("Goglobal@2023");
   const navigate = useNavigate();
 
+  const onStateChange = useCallback((state: any) => {
+    AsyncStorage.setItem("@mobileUserLogin", JSON.stringify(state));
+  }, []);
+
+  //============ GET MOBILE USER LOGIN =============
+  const { refetch } = useQuery(GET_MOBILEUSERLOGIN, {
+    onCompleted: ({ getMobileUserLogin }) => {
+      //======== SET LOCAL STORAGE =========
+      onStateChange(getMobileUserLogin);
+    },
+  });
+
   //============== CHECK NAVIGATE ===============
   const handleNavigation = async () => {
     await auth.login(email, password).then((result) => {
@@ -34,6 +48,7 @@ const LoginScreen = () => {
       //
       AsyncStorage.setItem("@userToken", result?.token);
       AsyncStorage.setItem("@userUid", result?.uid);
+      refetch();
       if (result?.status === true) {
         setTimeout(() => {
           navigate("/home");

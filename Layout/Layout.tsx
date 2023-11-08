@@ -74,32 +74,37 @@ const Layout = () => {
     };
   });
 
-  const unsubscribe = NetInfo.addEventListener((state) => {
-    if (state.isConnected === true && isConnection.value === "no") {
-      offheight.value = withTiming(10);
-      color.value = withTiming("#4CBB17");
-      isConnection.value = withTiming("yes");
-      setTimeout(() => {
-        offheight.value = withTiming(0);
-      }, 1000);
-    } else if (
-      (state.isConnected === false && isConnection.value === "yes") ||
-      (state.isConnected === false && isConnection.value === "no") ||
-      (state.isConnected === false && isConnection.value === "NaN")
-    ) {
-      offheight.value = withTiming(10);
-      color.value = withTiming("red");
-      isConnection.value = withTiming("no");
-    } else if (state.isConnected === true && isConnection.value === "yes") {
-      setTimeout(() => {
-        isConnection.value = withTiming("no");
-      }, 500);
-    }
-  });
-
+  const [connection, setConnection] = useState(false);
   useEffect(() => {
-    unsubscribe();
-  }, []);
+    const unsubscribe = NetInfo.addEventListener((state) => {
+      if (connection !== state.isConnected) {
+        setConnection(state.isConnected ? true : false);
+      }
+      if (state.isConnected === true && isConnection.value === "no") {
+        offheight.value = withTiming(10);
+        color.value = withTiming("#4CBB17");
+        isConnection.value = withTiming("yes");
+        setTimeout(() => {
+          offheight.value = withTiming(0);
+        }, 1000);
+      } else if (
+        (state.isConnected === false && isConnection.value === "yes") ||
+        (state.isConnected === false && isConnection.value === "no") ||
+        (state.isConnected === false && isConnection.value === "NaN")
+      ) {
+        offheight.value = withTiming(10);
+        color.value = withTiming("red");
+        isConnection.value = withTiming("no");
+      } else if (state.isConnected === true && isConnection.value === "yes") {
+        setTimeout(() => {
+          isConnection.value = withTiming("no");
+        }, 500);
+      }
+    });
+    return () => {
+      unsubscribe;
+    };
+  }, [connection]);
 
   return (
     <SafeAreaView>

@@ -45,7 +45,7 @@ export default function Router() {
   useEffect(() => {
     setTimeout(() => {
       setLoad(false);
-    }, 500);
+    }, 1000);
   }, []);
 
   //========= GET USER TOKEN AND UID ================

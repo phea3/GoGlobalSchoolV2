@@ -88,6 +88,7 @@ const Layout = () => {
     ) {
       offheight.value = withTiming(10);
       color.value = withTiming("red");
+      isConnection.value = withTiming("");
     } else if (state.isConnected === true && isConnection.value === "load") {
       setTimeout(() => {
         isConnection.value = withTiming("");

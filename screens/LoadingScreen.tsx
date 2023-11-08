@@ -1,9 +1,12 @@
-import { Image, View } from "react-native";
+import { Image, ImageBackground, View } from "react-native";
 
 export default function LoadingScreen() {
   return (
-    <View
+    <ImageBackground
+      source={require("../assets/Images/dashboard-login.png")}
       style={{
+        width: "100%",
+        height: "100%",
         flex: 1,
         flexDirection: "column",
         justifyContent: "center",
@@ -11,10 +14,10 @@ export default function LoadingScreen() {
       }}
     >
       <Image
-        source={require("../assets/splash1.png")}
-        style={{ width: "100%", height: "100%" }}
+        source={require("../assets/Images/Logo.png")}
+        style={{ width: 100, height: 100 }}
         resizeMode="cover"
       />
-    </View>
+    </ImageBackground>
   );
 }

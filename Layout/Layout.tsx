@@ -63,7 +63,7 @@ const Layout = () => {
   }, []);
 
   //============== Detect Connection App ================
-  const isConnection = useSharedValue("");
+  const isConnection = useSharedValue("no");
   const offheight = useSharedValue(0);
   const color = useSharedValue("red");
 
@@ -75,23 +75,24 @@ const Layout = () => {
   });
 
   const unsubscribe = NetInfo.addEventListener((state) => {
-    if (state.isConnected === true && isConnection.value === "") {
+    if (state.isConnected === true && isConnection.value === "no") {
       offheight.value = withTiming(10);
       color.value = withTiming("#4CBB17");
-      isConnection.value = withTiming("load");
+      isConnection.value = withTiming("yes");
       setTimeout(() => {
         offheight.value = withTiming(0);
       }, 1000);
     } else if (
-      (state.isConnected === false && isConnection.value === "load") ||
-      (state.isConnected === false && isConnection.value === "")
+      (state.isConnected === false && isConnection.value === "yes") ||
+      (state.isConnected === false && isConnection.value === "no") ||
+      (state.isConnected === false && isConnection.value === "NaN")
     ) {
       offheight.value = withTiming(10);
       color.value = withTiming("red");
-      isConnection.value = withTiming("");
-    } else if (state.isConnected === true && isConnection.value === "load") {
+      isConnection.value = withTiming("no");
+    } else if (state.isConnected === true && isConnection.value === "yes") {
       setTimeout(() => {
-        isConnection.value = withTiming("");
+        isConnection.value = withTiming("no");
       }, 500);
     }
   });
@@ -122,6 +123,7 @@ const Layout = () => {
               : LayoutStyle.bodyContainer
           }
         >
+          <Text style={{ position: "absolute" }}>{isConnection.value}</Text>
           <Outlet />
         </View>
         {location.pathname === "/notification" ||

@@ -23,12 +23,12 @@ import { GET_MOBILEUSERLOGIN } from "../graphql/GetMobileUserLogin";
 const LoginScreen = () => {
   const { dispatch, REDUCER_ACTIONS } = useUser();
 
-  const [isChecked, setChecked] = useState(false);
   const [view, setView] = useState(true);
   const [email, setEmail] = useState("loklundy@gmail.com");
   const [password, setPassword] = useState("Goglobal@2023");
   const navigate = useNavigate();
 
+  //======== SET LOCAL STORAGE =========
   const onStateChange = useCallback((state: any) => {
     AsyncStorage.setItem("@mobileUserLogin", JSON.stringify(state));
   }, []);
@@ -36,7 +36,6 @@ const LoginScreen = () => {
   //============ GET MOBILE USER LOGIN =============
   const { refetch } = useQuery(GET_MOBILEUSERLOGIN, {
     onCompleted: ({ getMobileUserLogin }) => {
-      //======== SET LOCAL STORAGE =========
       onStateChange(getMobileUserLogin);
     },
   });

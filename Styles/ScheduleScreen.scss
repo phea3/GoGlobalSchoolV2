@@ -16,18 +16,20 @@
 .ScheduleDayBox {
   justify-content: center;
   align-items: center;
-  border-radius: 3px;
+  border-radius: 5px;
+  background-color: #fff;
+  border-width: 0.5px;
+  border-color: $color-gray;
 }
 
 .ScheduleDayInsideBoxCircle {
-  background-color: #fff;
   border-radius: 20px;
   justify-content: center;
   align-items: center;
 }
 .ScheduleDayTextStyle {
   font-family: $kantumruy-bold;
-  color: black;
+  color: white;
   font-size: 12px;
 }
 
@@ -38,5 +40,56 @@
 }
 
 .ScheduleOnSelectTextStyle {
+  font-family: $kantumruy-regular;
+}
+
+.ScheduleBodyContainer {
+  width: 100%;
+  height: 80px;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 10px;
+  border-width: 0.5px;
+  border-color: $color-gray;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.ScheduleBodyTeacherImageContainer {
+  width: 60px;
+  height: 60px;
+  border-width: 0.5px;
+  border-color: $color-gray;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+.ScheduleTeacherImage {
+  width: 40px;
+  height: 40px;
+  border-radius: 50px;
+}
+
+.ScheduleBodyHourBox {
+  height: 100%;
+  justify-content: space-evenly;
+  margin-right: 10px;
+}
+
+.ScheduleBodyDescription {
+  flex: 1;
+}
+
+.ScheduleBodyHourText {
+  font-family: $kantumruy-regular;
+}
+
+.ScheduleBodyDescriptionTitle {
+  font-family: $kantumruy-bold;
+}
+
+.ScheduleBodyDescriptionText {
   font-family: $kantumruy-regular;
 }

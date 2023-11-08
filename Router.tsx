@@ -28,6 +28,7 @@ import MealScreen from "./screens/MealScreen";
 import axios from "axios";
 import NetInfo from "@react-native-community/netinfo";
 import ProfileDetail from "./screens/ProfileDetail";
+import EYSReportScreen from "./screens/EYSReportScreen";
 
 export default function Router() {
   //context
@@ -48,41 +49,40 @@ export default function Router() {
   }, []);
 
   //========= GET USER TOKEN AND UID ================
-  const getLocalStorage = async () => {
-    let userToken = await AsyncStorage.getItem("@userToken");
-    let userUid = await AsyncStorage.getItem("@userUid");
-
-    //
-    if (userToken && userUid) {
-      dispatch({
-        type: REDUCER_ACTIONS.LOGIN,
-        payload: {
-          email: "example@user.com",
-          token: userToken,
-          uid: userUid,
-        },
-      });
-    } else {
-      dispatch({
-        type: REDUCER_ACTIONS.LOGIN,
-        payload: {
-          email: "example@user.com",
-          token: "",
-          uid: "",
-        },
-      });
-    }
-
-    //
-    defineDimension({
-      dimension: "",
-      widthscreen: width,
-      heightscreen: height,
-    });
-    //
-  };
-
   useEffect(() => {
+    async function getLocalStorage() {
+      let userToken = await AsyncStorage.getItem("@userToken");
+      let userUid = await AsyncStorage.getItem("@userUid");
+
+      //
+      if (userToken && userUid) {
+        dispatch({
+          type: REDUCER_ACTIONS.LOGIN,
+          payload: {
+            email: "example@user.com",
+            token: userToken,
+            uid: userUid,
+          },
+        });
+      } else {
+        dispatch({
+          type: REDUCER_ACTIONS.LOGIN,
+          payload: {
+            email: "example@user.com",
+            token: "",
+            uid: "",
+          },
+        });
+      }
+
+      //
+      defineDimension({
+        dimension: "",
+        widthscreen: width,
+        heightscreen: height,
+      });
+      //
+    }
     getLocalStorage();
   }, []);
   //========= END TOKEN AND UID ================
@@ -118,6 +118,7 @@ export default function Router() {
         { path: "/calendar", element: <CalendarScreen /> },
         { path: "/payment", element: <PaymentScreen /> },
         { path: "/meal", element: <MealScreen /> },
+        { path: "/eys", element: <EYSReportScreen /> },
         {
           path: "/notification",
           element: <LayoutNotification />,

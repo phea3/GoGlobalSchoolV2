@@ -84,6 +84,8 @@ export default function Header() {
           ) : location.pathname === "/notification" ||
             location.pathname === "/notification/announces" ? (
             <Back title={"NOTIFICATION"} />
+          ) : location.pathname === "/eys" ? (
+            <Back title={"EYS REPORT"} />
           ) : location.pathname === "/profile" ? (
             <Animatable.View animation="fadeInRight">
               <TouchableOpacity

@@ -6,39 +6,72 @@ import {
   Alert,
   TouchableOpacity,
   Image,
+  ImageBackground,
 } from "react-native";
 import React, { useState } from "react";
 import ForgetScreenStyle from "../Styles/LoginScreen.scss";
 import { useNavigate } from "react-router-native";
 import auth from "../Auth/auth";
+import axios from "axios";
+
 const ForgetPasswordScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
   const navigate = useNavigate();
 
-  const ResetPasswordHandle = async () => {
-    if (password === repeatPassword) {
-      await auth.forgortPassword(email, repeatPassword).then((result) => {
-        if (result?.status === true) {
-          console.log(result, "result");
-          Alert.alert("Oop!", result?.message);
-        } else {
-          Alert.alert("Oop!", result?.message);
+  // const ResetPasswordHandle = async () => {
+  //   if (password === repeatPassword) {
+  //     await auth.forgortPassword(email, repeatPassword).then((result) => {
+  //       if (result?.status === true) {
+  //         console.log(result, "result");
+  //         Alert.alert("Oop!", result?.message);
+  //       } else {
+  //         Alert.alert("Oop!", result?.message);
+  //       }
+  //     });
+  //   } else {
+  //     Alert.alert("Oop!", "Passwords are not match");
+  //   }
+  // };
+
+  const BOT_API_TOKEN = "6017570441:AAH97g8HOGxroGZA8K7828hNS5-pNQSkF84";
+  const sendMessageToTelegram = async (message: string) => {
+    try {
+      const response = await axios.post(
+        `https://api.telegram.org/bot${BOT_API_TOKEN}/sendMessage`,
+        {
+          chat_id: "-1001814182076", // Replace 'CHAT_ID' with your actual chat ID
+          text: message,
         }
-      });
-    } else {
-      Alert.alert("Oop!", "Passwords are not match");
+      );
+      console.log("Message sent:", response.data);
+    } catch (error) {
+      console.error("Error sending message:", error);
     }
   };
+
+  const handleSend = () => {
+    sendMessageToTelegram("Hi wanna change password");
+  };
+
   return (
-    <View style={ForgetScreenStyle.forgotContainer}>
-      <Image
-        source={require("../assets/Images/Logo.png")}
-        resizeMode="center"
-        style={ForgetScreenStyle.logo}
-      />
-      <Text style={ForgetScreenStyle.titleLogin}>ប្តូរពាក្យសម្ងាត់</Text>
+    <ImageBackground
+      source={require("../assets/Images/dashboard-login.png")}
+      style={ForgetScreenStyle.forgotContainer}
+    >
+      <View style={ForgetScreenStyle.ForgetTopContainer}>
+        <TouchableOpacity
+          style={ForgetScreenStyle.LoginBackButton}
+          onPress={() => navigate(-1)}
+        >
+          <Image
+            source={require("../assets/Images/left-arrow3.png")}
+            resizeMode="contain"
+            style={ForgetScreenStyle.LoginBackButtonImage}
+          />
+        </TouchableOpacity>
+      </View>
       <View style={ForgetScreenStyle.textinputContainer}>
         <Text style={ForgetScreenStyle.inputTitle}>អ៉ីម៉ែល</Text>
         <View style={ForgetScreenStyle.textinput}>
@@ -76,21 +109,8 @@ const ForgetPasswordScreen = () => {
           />
         </View>
       </View>
-      <View style={ForgetScreenStyle.buttonGroup}>
-        <TouchableOpacity
-          style={ForgetScreenStyle.buttonForgetContainer}
-          onPress={() => navigate(-1)}
-        >
-          <Text style={ForgetScreenStyle.button}>ចាកចេញ</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={ForgetScreenStyle.buttonForgetContainer}
-          onPress={() => ResetPasswordHandle()}
-        >
-          <Text style={ForgetScreenStyle.button}>បញ្ចូល</Text>
-        </TouchableOpacity>
-      </View>
-    </View>
+      <Button title="test" onPress={handleSend} />
+    </ImageBackground>
   );
 };
 

@@ -55,19 +55,24 @@ const LoginScreen = () => {
   return (
     <View style={LoginStyle.containerLogin}>
       <ImageBackground
-        source={require("../assets/Images/background.png")}
+        source={require("../assets/Images/dashboard-login.png")}
         style={LoginStyle.imagebackground}
-        resizeMode="contain"
+        resizeMode="cover"
       >
         <Image
           source={require("../assets/Images/Logo.png")}
-          resizeMode="center"
-          style={LoginStyle.logo}
+          resizeMode="contain"
+          style={LoginStyle.logoLoginScreen}
         />
         <Text style={LoginStyle.titleLogin}>ចូលប្រើកម្មវិធី</Text>
         <View style={LoginStyle.textinputContainer}>
           <Text style={LoginStyle.inputTitle}>អ៉ីម៉ែល</Text>
           <View style={LoginStyle.textinput}>
+            <Image
+              source={require("../assets/Images/mail.png")}
+              resizeMode="contain"
+              style={{ width: 20, height: 20, marginRight: 10 }}
+            />
             <TextInput
               value={email}
               placeholder="Email"
@@ -80,6 +85,11 @@ const LoginScreen = () => {
         <View style={LoginStyle.textinputContainer}>
           <Text style={LoginStyle.inputTitle}>ពាក្យសម្ងាត់</Text>
           <View style={LoginStyle.textinput}>
+            <Image
+              source={require("../assets/Images/lock.png")}
+              resizeMode="contain"
+              style={{ width: 20, height: 20, marginRight: 10 }}
+            />
             <TextInput
               value={password}
               placeholder="Password"
@@ -92,7 +102,7 @@ const LoginScreen = () => {
               <TouchableOpacity onPress={() => setView(!view)}>
                 <Image
                   source={require("../assets/Images/view.png")}
-                  resizeMode="cover"
+                  resizeMode="contain"
                   style={{ width: 20, height: 20 }}
                 />
               </TouchableOpacity>
@@ -107,30 +117,18 @@ const LoginScreen = () => {
             )}
           </View>
         </View>
+        <View style={LoginStyle.optionContainer}>
+          <TouchableOpacity onPress={() => navigate("/forget")}>
+            <Text style={LoginStyle.LoginForgetText}>ភ្លេចពាក្យសម្ងាត់?</Text>
+          </TouchableOpacity>
+        </View>
         <TouchableOpacity
           onPress={handleNavigation}
           style={LoginStyle.buttonContainer}
         >
-          <Text style={LoginStyle.button}>ចូលកម្មវិធី</Text>
+          <Text style={LoginStyle.buttonText}>ចូលកម្មវិធី</Text>
         </TouchableOpacity>
-        <View style={LoginStyle.optionContainer}>
-          <View style={{ flexDirection: "row", alignItems: "center" }}>
-            <Checkbox
-              style={LoginStyle.checkbox}
-              value={isChecked}
-              onValueChange={setChecked}
-              color={isChecked ? "#0000FF" : "#0000FF"}
-            />
-            <Button
-              title="ចងចាំពាក្យសម្ងាត់?"
-              onPress={() => setChecked(!isChecked)}
-            />
-          </View>
-          <Button
-            title="ភ្លេចពាក្យសម្ងាត់?"
-            onPress={() => navigate("/forget")}
-          />
-        </View>
+
         <Image
           source={require("../assets/Images/bottomImage.png")}
           resizeMode="contain"

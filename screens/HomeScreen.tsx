@@ -23,6 +23,8 @@ import { TRANKING_STUDENTINPICKUP } from "../graphql/CheckStudentPickup";
 import ModalPickup from "../components/home/ModalPickup";
 import ModalTakeLeave from "../components/home/ModalTakeLeave";
 import { GET_UPCOMINGEVENT } from "../graphql/GetUpcomingEventMobile";
+import ModalEYS from "../components/home/ModalEYS";
+import { CHECK_IS_STUDENT_FOR_EYS } from "../graphql/CheckEYS";
 
 const features = [
   {
@@ -56,6 +58,12 @@ const explore = [
     title: "ATTENDANCE",
     icon: require("../assets/Images/check-mark.png"),
     naviage: "/attendance",
+    modal: true,
+  },
+  {
+    title: "EYS",
+    icon: require("../assets/Images/baby.png"),
+    naviage: "/eys",
     modal: true,
   },
   {
@@ -113,6 +121,15 @@ const HomeScreen = () => {
   };
   const toggleModalCloseLeave = () => {
     setVisibleTakeLeave(false);
+  };
+
+  //================== Modal EYS ================
+  const [isEYSModalVisible, setEYSModalVisible] = useState(false);
+  const openEYSModal = () => {
+    setEYSModalVisible(true);
+  };
+  const closeEYSModal = () => {
+    setEYSModalVisible(false);
   };
 
   const autoNavigateLeaveScreen = () => {
@@ -173,6 +190,25 @@ const HomeScreen = () => {
     },
   });
 
+  //============= CHECK EYE REPORT CLASS ================
+  const { data: checkData, refetch: checkRefetch } = useQuery(
+    CHECK_IS_STUDENT_FOR_EYS,
+    {
+      pollInterval: 2000,
+      variables: {
+        stuId: studentId,
+      },
+      onCompleted: ({}) => {},
+      onError(error) {
+        console.log(error?.message);
+      },
+    }
+  );
+
+  useEffect(() => {
+    checkRefetch();
+  }, [studentId]);
+
   useEffect(() => {
     announceRefetch();
   }, []);
@@ -180,6 +216,64 @@ const HomeScreen = () => {
   useEffect(() => {
     refetch();
   }, [uid]);
+
+  //============= FUNCTION CHECK CONDITIONS ================
+  const ConditionsOfStudentFeatures = (stuInfo: any) => {
+    switch (duty) {
+      case "TAKE LEAVE":
+        toggleModal();
+        toggleModalOpenLeave();
+        setStudentId(stuInfo?._id);
+        setStuInfo(stuInfo);
+
+        break;
+      case "ATTENDANCE":
+        navigate("/attendance", { state: stuInfo?._id });
+
+        break;
+      case "PAYMENT":
+        navigate("/payment", { state: stuInfo?._id });
+
+        break;
+      case "PICKUP":
+        setStudentId(stuInfo?._id);
+        toggleModal();
+        toggleModalOpenPickup();
+
+        break;
+      case "LEAVE":
+        navigate("/leave", {
+          state: { stuInfo: stuInfo, uid: uid },
+        });
+
+        break;
+      case "MEAL":
+        navigate("/meal", {
+          state: { stuInfo: stuInfo, uid: uid },
+        });
+
+        break;
+      case "SCHEDULE":
+        navigate("/schedule", {
+          state: { stuInfo: stuInfo, uid: uid },
+        });
+
+        break;
+      case "EYS":
+        setStudentId(stuInfo?._id);
+        toggleModal();
+        console.log(stuInfo?._id);
+        if (checkData?.checkIsStudentEYSReport === true) {
+          navigate("/eys", { state: stuInfo?._id });
+        } else {
+          openEYSModal();
+        }
+
+        break;
+      default:
+        break;
+    }
+  };
 
   return (
     <View style={HomeStyle.homeContainer}>
@@ -232,32 +326,7 @@ const HomeScreen = () => {
                 data?.getStudentByParentsMobile?.map((stuInfo: any) => (
                   <TouchableOpacity
                     onPress={() => {
-                      if (duty === "TAKE LEAVE") {
-                        toggleModal();
-                        toggleModalOpenLeave();
-                        setStudentId(stuInfo?._id);
-                        setStuInfo(stuInfo);
-                      } else if (duty === "ATTENDANCE") {
-                        navigate("/attendance", { state: stuInfo?._id });
-                      } else if (duty === "payment") {
-                        navigate("/payment", { state: stuInfo?._id });
-                      } else if (duty === "PICKUP") {
-                        setStudentId(stuInfo?._id);
-                        toggleModal();
-                        toggleModalOpenPickup();
-                      } else if (duty === "LEAVE") {
-                        navigate("/leave", {
-                          state: { stuInfo: stuInfo, uid: uid },
-                        });
-                      } else if (duty === "MEAL") {
-                        navigate("/meal", {
-                          state: { stuInfo: stuInfo, uid: uid },
-                        });
-                      } else if (duty === "SCHEDULE") {
-                        navigate("/schedule", {
-                          state: { stuInfo: stuInfo, uid: uid },
-                        });
-                      }
+                      ConditionsOfStudentFeatures(stuInfo);
                     }}
                     key={stuInfo?._id}
                     style={HomeStyle.imageBox}
@@ -297,7 +366,12 @@ const HomeScreen = () => {
         isVisible={visiblePickup}
         handleClose={toggleModalClosePickup}
       />
-
+      {/* ======== EYS MODAL =========*/}
+      <ModalEYS
+        studentId={studentId}
+        isVisible={isEYSModalVisible}
+        handleClose={closeEYSModal}
+      />
       {/* ================ MAIN VIEW ================= */}
       <ScrollView
         showsVerticalScrollIndicator={false}

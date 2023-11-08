@@ -27,7 +27,7 @@ export default function ApolloConfig({ children }: any) {
   });
 
   const uploadLink = createHttpLink({
-    uri: `https://${URI}`,
+    uri: `http://${URI}`,
   });
 
   const client = new ApolloClient({

@@ -17,6 +17,7 @@ import { useQuery } from "@apollo/client";
 import { GET_USERPROFILE } from "../graphql/GetUserProfile";
 import Constants from "expo-constants";
 import * as WebBrowser from "expo-web-browser";
+import * as Animatable from "react-native-animatable";
 
 const Infomations = [
   {
@@ -132,36 +133,40 @@ export default function ProfileScreen() {
           }}
         >
           <View style={ProfileStyle.ProfileImageViewHolder}>
-            <Image
+            <Animatable.Image
               source={{
                 uri:
                   "https://storage.go-globalschool.com/api" +
                   data?.getUserProfile?.profileImg,
               }}
               style={ProfileStyle.ProfileImage}
+              animation={"zoomIn"}
             />
           </View>
 
-          <View style={ProfileStyle.ProfileTopTitleContainer}>
+          <Animatable.View
+            style={ProfileStyle.ProfileTopTitleContainer}
+            animation={"bounce"}
+          >
             <Text style={ProfileStyle.ProfileTopTitleName}>
               {data?.getUserProfile?.englishName}
             </Text>
             <Text style={ProfileStyle.ProfileTopBodytext}>
               {data?.getUserProfile?.email}
             </Text>
-          </View>
+          </Animatable.View>
         </View>
         <TouchableOpacity
           style={{ width: "10%" }}
           onPress={() => navigate("/profiledetail", { state: data })}
         >
-          <Image
+          <Animatable.Image
             source={require("../assets/Images/next.png")}
             style={{ width: 40, height: 40 }}
+            animation={"fadeInRight"}
           />
         </TouchableOpacity>
       </View>
-
       <ScrollView
         style={ProfileStyle.ProfileMiddleContainer}
         showsVerticalScrollIndicator={false}
@@ -193,7 +198,10 @@ export default function ProfileScreen() {
             }}
             key={index}
           >
-            <View style={ProfileStyle.ProfileMiddleCardLeftContent}>
+            <Animatable.View
+              style={ProfileStyle.ProfileMiddleCardLeftContent}
+              animation={"fadeInLeft"}
+            >
               <Image
                 source={info?.icon}
                 style={ProfileStyle.ProfileMiddleCardImage}
@@ -202,10 +210,11 @@ export default function ProfileScreen() {
                 {info?.title}
                 {info?.title === "App Version" ? " " + version : null}
               </Text>
-            </View>
-            <Image
+            </Animatable.View>
+            <Animatable.Image
               source={require("../assets/Images/next.png")}
               style={ProfileStyle.ProfileMiddleCardImage}
+              animation={"fadeInRight"}
             />
           </TouchableOpacity>
         ))}

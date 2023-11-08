@@ -15,6 +15,8 @@ import { GET_ACTIVE_ACADEMIC_YEAR } from "../graphql/GetActiveAcademicYear";
 import { GET_CLASSESBYSTUDENTFORMOBILE } from "../graphql/GetClassesByStudentForMobile";
 import SelectDropdown from "react-native-select-dropdown";
 import { GET_SCHEDULEFORMOBILE } from "../graphql/GetScheduleForMobile";
+import moment from "moment";
+import * as Animatable from "react-native-animatable";
 
 export default function ScheduleScreen() {
   const navigate = useNavigate();
@@ -70,9 +72,7 @@ export default function ScheduleScreen() {
         day: day,
       },
       pollInterval: 2000,
-      onCompleted: ({ getScheduleForMobile }) => {
-        console.log("getScheduleForMobile === >", getScheduleForMobile);
-      },
+      onCompleted: ({}) => {},
       onError(error) {
         console.log(error?.message);
       },
@@ -103,8 +103,6 @@ export default function ScheduleScreen() {
     { day: "អាទិត្យ", color: "#F83C3B", enum: "sunday" },
   ];
 
-  // console.log(classData?.getClassesByStudentForMobile[0]?.classesName);
-
   return (
     <View style={ScheduleStyle.ScheduleContainer}>
       <SelectDropdown
@@ -125,13 +123,6 @@ export default function ScheduleScreen() {
         renderCustomizedButtonChild={(selectedItem, index) => {
           return (
             <View style={ScheduleStyle.ScheduleOnSelectStyle}>
-              {/* <Text style={ScheduleStyle.ScheduleOnSelectTextStyle}>
-                {selectedItem?.classesName}
-              </Text>
-              <Image
-                source={require("../assets/Images/arrow-down-sign-to-navigate.png")}
-                style={{ width: 18, height: 18 }}
-              /> */}
               {selectedItem ? (
                 <>
                   <Text style={ScheduleStyle.ScheduleOnSelectTextStyle}>
@@ -187,7 +178,6 @@ export default function ScheduleScreen() {
               {
                 width: widthScreen * 0.125,
                 height: widthScreen * 0.125,
-                backgroundColor: day.color,
               },
             ]}
             key={index}
@@ -197,6 +187,7 @@ export default function ScheduleScreen() {
                 {
                   width: widthScreen * 0.0955,
                   height: widthScreen * 0.0955,
+                  backgroundColor: day.color,
                 },
                 ScheduleStyle.ScheduleDayInsideBoxCircle,
               ]}
@@ -207,13 +198,70 @@ export default function ScheduleScreen() {
         ))}
       </View>
 
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false} style={{ width: "95%" }}>
         {scheduleData?.getScheduleForMobile.map(
-          (schedule: any, index: number) => (
-            <View>
-              <Text>{schedule?.day?.subjectName}</Text>
-            </View>
-          )
+          (schedule: any, index: number) =>
+            schedule?.breakTime === true ? (
+              <Animatable.View
+                key={index}
+                style={ScheduleStyle.ScheduleBodyContainer}
+                animation={"fadeInDown"}
+              >
+                <View style={ScheduleStyle.ScheduleBodyHourBox}>
+                  <Text>{moment(schedule?.startTime).format("hh:mm")}</Text>
+                  <Text>{moment(schedule?.endTime).format("hh:mm")}</Text>
+                </View>
+                <View
+                  style={{
+                    flex: 1,
+                    justifyContent: "center",
+                    // alignItems: "center",
+                  }}
+                >
+                  <Text
+                    style={{
+                      color: "red",
+                    }}
+                  >
+                    ម៉ោងចេញលេង
+                  </Text>
+                </View>
+              </Animatable.View>
+            ) : (
+              <Animatable.View
+                key={index}
+                style={ScheduleStyle.ScheduleBodyContainer}
+                animation={"fadeInDown"}
+              >
+                <View style={ScheduleStyle.ScheduleBodyHourBox}>
+                  <Text style={ScheduleStyle.ScheduleBodyHourText}>
+                    {moment(schedule?.startTime).format("hh:mm")}
+                  </Text>
+                  <Text style={ScheduleStyle.ScheduleBodyHourText}>
+                    {moment(schedule?.endTime).format("hh:mm")}
+                  </Text>
+                </View>
+                <View style={ScheduleStyle.ScheduleBodyTeacherImageContainer}>
+                  <Image
+                    source={
+                      schedule?.day?.teacherProfileImg === ""
+                        ? require("../assets/Images/profile.png")
+                        : { uri: schedule?.day?.teacherProfileImg }
+                    }
+                    style={ScheduleStyle.ScheduleTeacherImage}
+                    resizeMode="cover"
+                  />
+                </View>
+                <View style={ScheduleStyle.ScheduleBodyDescription}>
+                  <Text style={ScheduleStyle.ScheduleBodyDescriptionTitle}>
+                    {schedule?.day?.subjectName}
+                  </Text>
+                  <Text style={ScheduleStyle.ScheduleBodyDescriptionText}>
+                    {schedule?.day?.teacherName}
+                  </Text>
+                </View>
+              </Animatable.View>
+            )
         )}
         <View></View>
       </ScrollView>

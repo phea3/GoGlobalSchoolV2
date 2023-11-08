@@ -80,30 +80,37 @@ const Layout = () => {
       if (connection !== state.isConnected) {
         setConnection(state.isConnected ? true : false);
       }
-      if (state.isConnected === true && isConnection.value === "no") {
-        offheight.value = withTiming(10);
-        color.value = withTiming("#4CBB17");
-        isConnection.value = withTiming("yes");
-        setTimeout(() => {
-          offheight.value = withTiming(0);
-        }, 1000);
-      } else if (
-        (state.isConnected === false && isConnection.value === "yes") ||
-        (state.isConnected === false && isConnection.value === "no") ||
-        (state.isConnected === false && isConnection.value === "NaN")
-      ) {
-        offheight.value = withTiming(10);
-        color.value = withTiming("red");
-        isConnection.value = withTiming("no");
-      } else if (state.isConnected === true && isConnection.value === "yes") {
-        setTimeout(() => {
-          isConnection.value = withTiming("no");
-        }, 500);
-      }
     });
     return () => {
       unsubscribe;
     };
+  }, [connection]);
+
+  const handleCheckConn = (isConnected: Boolean) => {
+    if (isConnected === true && isConnection.value === "no") {
+      offheight.value = withTiming(10);
+      color.value = withTiming("#4CBB17");
+      isConnection.value = withTiming("yes");
+      setTimeout(() => {
+        offheight.value = withTiming(0);
+      }, 1000);
+    } else if (
+      (isConnected === false && isConnection.value === "yes") ||
+      (isConnected === false && isConnection.value === "no") ||
+      (isConnected === false && isConnection.value === "NaN")
+    ) {
+      offheight.value = withTiming(10);
+      color.value = withTiming("red");
+      isConnection.value = withTiming("no");
+    } else if (isConnected === true && isConnection.value === "yes") {
+      setTimeout(() => {
+        isConnection.value = withTiming("no");
+      }, 500);
+    }
+  };
+
+  useEffect(() => {
+    handleCheckConn(connection);
   }, [connection]);
 
   return (
@@ -128,7 +135,6 @@ const Layout = () => {
               : LayoutStyle.bodyContainer
           }
         >
-          <Text style={{ position: "absolute" }}>{isConnection.value}</Text>
           <Outlet />
         </View>
         {location.pathname === "/notification" ||

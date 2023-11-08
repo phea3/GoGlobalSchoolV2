@@ -28,18 +28,39 @@ const Layout = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
+  const isConnection = useSharedValue("no");
+  const offheight = useSharedValue(0);
+  const color = useSharedValue("red");
+  const [connection, setConnection] = useState(false);
+
   const onStateChange = useCallback((state: any) => {
     AsyncStorage.setItem("@mobileUserLogin", JSON.stringify(state));
   }, []);
 
   //============ GET MOBILE USER LOGIN =============
-  const { refetch, loading } = useQuery(GET_MOBILEUSERLOGIN, {
+  const { data, refetch, loading } = useQuery(GET_MOBILEUSERLOGIN, {
     pollInterval: 2000,
     onCompleted: ({ getMobileUserLogin }) => {
       //======== SET LOCAL STORAGE =========
       onStateChange(getMobileUserLogin);
+      //========= Set Online Mode =========
+      if (connection === true) {
+        offheight.value = withTiming(10);
+        color.value = withTiming("#4CBB17");
+        isConnection.value = withTiming("yes");
+        setTimeout(() => {
+          offheight.value = withTiming(0);
+        }, 1000);
+      }
     },
     onError: (error) => {
+      //========= Set Offline Mode =========
+      if (connection === false) {
+        offheight.value = withTiming(10);
+        color.value = withTiming("red");
+        isConnection.value = withTiming("no");
+      }
+
       if (error?.message === "Not Authorized") {
         Alert.alert("Opp! Your session has been expired.", "", [
           {
@@ -63,10 +84,6 @@ const Layout = () => {
   }, []);
 
   //============== Detect Connection App ================
-  const isConnection = useSharedValue("no");
-  const offheight = useSharedValue(0);
-  const color = useSharedValue("red");
-
   const animatedStyles = useAnimatedStyle(() => {
     return {
       height: withSpring(offheight.value),
@@ -74,7 +91,6 @@ const Layout = () => {
     };
   });
 
-  const [connection, setConnection] = useState(false);
   useEffect(() => {
     const unsubscribe = NetInfo.addEventListener((state) => {
       if (connection !== state.isConnected) {
@@ -104,7 +120,7 @@ const Layout = () => {
     return () => {
       unsubscribe;
     };
-  }, [connection, loading]);
+  }, [connection, data?.getMobileUserLogin]);
 
   return (
     <SafeAreaView>

@@ -25,33 +25,44 @@ export default function ModalContactUS({ isVisible, handleClose }: any) {
             style={HomeStyle.ContactUsContentContainer}
             animation={"fadeInUpBig"}
           >
+            <View style={HomeStyle.ContactUsBodyContentContainer}>
+              <TouchableOpacity
+                style={HomeStyle.ContactUsContentButton}
+                onPress={() => {
+                  Linking.openURL("https://t.me/GoGlobal_IT_And_Marketing");
+                }}
+              >
+                <Image
+                  source={require("../../assets/Images/telegram-colorful.png")}
+                  resizeMode="contain"
+                  style={{ width: 60, height: 60 }}
+                />
+                <Text style={HomeStyle.ContactUsTitleContent}>Telegram</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                style={HomeStyle.ContactUsContentButton}
+                onPress={() => {
+                  Linking.openURL(
+                    `fb-messenger://user-thread/${recipientUserId}?text=${encodeURIComponent(
+                      predefinedMessage
+                    )}`
+                  );
+                }}
+              >
+                <Image
+                  source={require("../../assets/Images/facebook-colorful.png")}
+                  resizeMode="contain"
+                  style={{ width: 60, height: 60 }}
+                />
+                <Text style={HomeStyle.ContactUsTitleContent}>Facebook</Text>
+              </TouchableOpacity>
+            </View>
             <TouchableOpacity
-              style={HomeStyle.ContactUsContentButton}
-              onPress={() => {
-                Linking.openURL("https://t.me/GoGlobal_IT_And_Marketing");
-              }}
+              style={HomeStyle.ContactUsFooterModal}
+              onPress={handleClose}
             >
-              <Image
-                source={require("../../assets/Images/telegram-colorful.png")}
-                resizeMode="contain"
-                style={{ width: 60, height: 60 }}
-              />
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={HomeStyle.ContactUsContentButton}
-              onPress={() => {
-                Linking.openURL(
-                  `fb-messenger://user-thread/${recipientUserId}?text=${encodeURIComponent(
-                    predefinedMessage
-                  )}`
-                );
-              }}
-            >
-              <Image
-                source={require("../../assets/Images/facebook-colorful.png")}
-                resizeMode="contain"
-                style={{ width: 60, height: 60 }}
-              />
+              <Text style={{ fontWeight: "500" }}>Cancel</Text>
             </TouchableOpacity>
           </Animatable.View>
         </View>

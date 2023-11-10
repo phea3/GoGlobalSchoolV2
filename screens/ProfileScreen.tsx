@@ -31,6 +31,11 @@ const Infomations = [
     action: "contact",
   },
   {
+    title: "Social Media",
+    icon: require("../assets/Images/social-media.png"),
+    action: "social",
+  },
+  {
     title: "Share App",
     icon: require("../assets/Images/share.png"),
     action: "share",
@@ -45,26 +50,27 @@ const Infomations = [
     icon: require("../assets/Images/app-store.png"),
     action: "version",
   },
-  {
-    title: "Facebook",
-    icon: require("../assets/Images/facebook.png"),
-    action: "facebook",
-  },
-  {
-    title: "Youtube",
-    icon: require("../assets/Images/youtube.png"),
-    action: "youtube",
-  },
-  {
-    title: "Instagram",
-    icon: require("../assets/Images/instagram.png"),
-    action: "instagram",
-  },
-  {
-    title: "Telegram",
-    icon: require("../assets/Images/telegram.png"),
-    action: "telegram",
-  },
+
+  // {
+  //   title: "Facebook",
+  //   icon: require("../assets/Images/facebook.png"),
+  //   action: "facebook",
+  // },
+  // {
+  //   title: "Youtube",
+  //   icon: require("../assets/Images/youtube.png"),
+  //   action: "youtube",
+  // },
+  // {
+  //   title: "Instagram",
+  //   icon: require("../assets/Images/instagram.png"),
+  //   action: "instagram",
+  // },
+  // {
+  //   title: "Telegram",
+  //   icon: require("../assets/Images/telegram.png"),
+  //   action: "telegram",
+  // },
 ];
 
 export default function ProfileScreen() {
@@ -73,12 +79,11 @@ export default function ProfileScreen() {
   const version = Constants.expoConfig?.version;
   const phoneNumber = "0767772168";
   const { data, refetch } = useQuery(GET_USERPROFILE, {
-    pollInterval: 2000,
+    // pollInterval: 2000,
     onCompleted: ({ getUserProfile }) => {},
     onError: () => {},
   });
 
-  console.log(data);
   //============ FUNCTION LOGOUT ============
   const Logouthandle = async () => {
     await auth.logout().then(async (result) => {
@@ -200,6 +205,8 @@ export default function ProfileScreen() {
                 );
               } else if (info?.action === "telegram") {
                 Linking.openURL("https://t.me/@Go_Global_Information_Office");
+              } else if (info?.action === "social") {
+                navigate("/social");
               }
             }}
             key={index}

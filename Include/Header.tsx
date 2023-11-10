@@ -88,6 +88,8 @@ export default function Header() {
             <Back title={"EYS REPORT"} />
           ) : location.pathname === "/contactus" ? (
             <Back title={"CONTACT US"} />
+          ) : location.pathname === "/social" ? (
+            <Back title={"SOCIAL MEDIA"} />
           ) : location.pathname === "/profile" ? (
             <Animatable.View animation="fadeInRight">
               <TouchableOpacity

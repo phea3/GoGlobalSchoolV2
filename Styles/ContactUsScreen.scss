@@ -8,7 +8,16 @@
 }
 
 .ContactUsTopContainer {
-  width: 95%;
+  width: 80%;
+  flex-direction: row;
+  align-items: center;
+}
+
+.ContactUsTopTitleContent {
+  flex: 1;
+  text-align: center;
+  font-weight: 500;
+  font-size: 20px;
 }
 
 .ContactUsBackButton {
@@ -18,6 +27,7 @@
   border-radius: $border-radius-main;
   justify-content: center;
   align-items: center;
+  position: absolute;
 }
 
 .ContactUsBackButtonImage {
@@ -74,4 +84,23 @@
 .ContactUsFooterImageTitleButtonBox {
   font-family: $kantumruy-regular;
   text-align: center;
+}
+
+.ContactUsBodyRowContainer {
+  width: 100%;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 10px;
+}
+
+.ContactUsBodyTitleRowContainer {
+  flex: 1;
+  background-color: $color-light-gray;
+  padding: 10px;
+  border-radius: $border-radius-main;
+  border-width: 0.5px;
+  border-color: $color-gray;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
 }

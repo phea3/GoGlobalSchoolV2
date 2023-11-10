@@ -27,6 +27,7 @@ import MealScreen from "./screens/MealScreen";
 import ProfileDetail from "./screens/ProfileDetail";
 import EYSReportScreen from "./screens/EYSReportScreen";
 import ContactUs from "./screens/ContactUs";
+import SocialMediaScreen from "./screens/SocialMedia";
 
 export default function Router() {
   //context
@@ -118,6 +119,7 @@ export default function Router() {
         { path: "/meal", element: <MealScreen /> },
         { path: "/eys", element: <EYSReportScreen /> },
         { path: "/contactus", element: <ContactUs /> },
+        { path: "/social", element: <SocialMediaScreen /> },
         {
           path: "/notification",
           element: <LayoutNotification />,

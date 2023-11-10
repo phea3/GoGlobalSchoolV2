@@ -8,22 +8,106 @@
 }
 
 .ProfileDetailTopContainer {
-  width: 95%;
-  height: 30%;
+  width: 90%;
+  height: 35%;
   align-items: center;
   justify-content: center;
 }
 
-.ProfileDetailImageStyle {
-  width: 100px;
-  height: 100px;
-  border-width: 1px;
-  border-radius: 5px;
+.ProfileDetailBackgroundProfileContainer {
+  width: 100%;
+  height: 100%;
+  position: absolute;
 }
 
+.ProfileDetailBackgroundProfileHalfTop {
+  width: 100%;
+  height: 50%;
+}
+
+.ProfileDetailBackgroundProfileHalfBottom {
+  width: 100%;
+  height: 50%;
+  border-top-right-radius: $border-radius-main;
+  border-top-left-radius: $border-radius-main;
+  border-left-width: 0.5px;
+  border-right-width: 0.5px;
+  border-top-width: 0.5px;
+  border-color: $color-gray;
+  background-color: $color-white;
+}
+
+.ProfileDetailImageBorderStyle {
+  width: 134px;
+  height: 134px;
+  border-radius: 100px;
+  background-color: $color-white;
+  position: absolute;
+}
+
+.ProfileDetailImageBorderStyleHalfCircle {
+  width: 135px;
+  height: 135px;
+  border-radius: 100px;
+  position: absolute;
+  border-width: 1px;
+  border-color: $color-gray;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+
+.ProfileDetailImageStyle {
+  width: 120px;
+  height: 120px;
+  border-radius: 100px;
+}
+
+.ProfileDetailIconOnImageProfile {
+  width: 120px;
+  height: 120px;
+  position: absolute;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+
+.ProfileDetailIconOnImageProfileBorder {
+  background-color: $color-white;
+  padding: 6px;
+  border-radius: 50px;
+  justify-content: center;
+  align-items: "center";
+  border-width: 0.5px;
+  border-color: $color-gray;
+}
 .ProfileDetailMiddleContainer {
-  width: 95%;
-  height: 70%;
+  width: 90%;
+  height: 60%;
+  justify-content: center;
+  align-items: center;
+  border-bottom-left-radius: $border-radius-main;
+  border-bottom-right-radius: $border-radius-main;
+  border-bottom-width: 0.5px;
+  border-right-width: 0.5px;
+  border-left-width: 0.5px;
+
+  border-color: $color-gray;
+  background-color: $color-white;
+}
+
+.ProfileDetailNameContainer {
+  height: 100%;
+  position: absolute;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.ProfileDetailNameTitle {
+  font-family: $kantumruy-bold;
+  font-size: $title-font-size;
+}
+
+.ProfileDetailCutomerTypeText {
+  font-family: $kantumruy-regular;
 }
 
 .ProfileDetailMiddleScrollviewContainer {
@@ -31,8 +115,9 @@
 }
 
 .ProfileDetailMiddleTitle {
-  width: 100%;
+  width: 90%;
   height: 40px;
+  justify-content: center;
 }
 
 .ProfileDetailMiddleTitleText {
@@ -45,15 +130,21 @@
 
 .ProfileDetailMiddleBodyText {
   font-family: $kantumruy-regular;
+  color: $color-grey;
 }
 
 .ProfileDetailMiddleBody2TextContainer {
-  border-bottom-width: 2px;
-  border-color: $color-main;
-  height: 40px;
-  justify-content: flex-end;
-  margin-bottom: 5px;
+  height: 70px;
+  border-width: 0.5px;
+  padding: 10px;
+  border-color: $color-gray;
+  background-color: #fcfcfc;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 15px;
+  border-radius: $border-radius-main;
 }
+
 .ProfileDetailMiddleBody2Text {
-  font-family: $bayon-regular;
+  font-family: $kantumruy-regular;
 }

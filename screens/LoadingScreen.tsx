@@ -15,8 +15,8 @@ export default function LoadingScreen() {
     >
       <Image
         source={require("../assets/Images/Logo.png")}
-        style={{ width: 100, height: 100 }}
-        resizeMode="cover"
+        style={{ width: "30%", height: "30%" }}
+        resizeMode="contain"
       />
     </ImageBackground>
   );

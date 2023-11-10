@@ -1,4 +1,4 @@
-import { Route, useRoutes } from "react-router-native";
+import { useRoutes } from "react-router-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import LoginScreen from "./screens/LoginScreen";
 import HomeScreen from "./screens/HomeScreen";
@@ -8,7 +8,6 @@ import DashboardScreen from "./screens/DashboardScreen";
 import ClassesScreen from "./screens/ClassesScreen";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "./Context/AuthContext";
-import ForgetPasswordScreen from "./screens/ForgetPasswordScreen";
 import StudentsScreen from "./screens/StudentsScreen";
 import AboutScreen from "./screens/AboutScreen";
 import ProfileScreen from "./screens/ProfileScreen";
@@ -25,10 +24,9 @@ import NotificationScreen from "./screens/NotificationScreen";
 import LayoutNotification from "./Layout/LayoutNotification";
 import NotificationAnnouncements from "./screens/NotificationAnnouncements";
 import MealScreen from "./screens/MealScreen";
-import axios from "axios";
-import NetInfo from "@react-native-community/netinfo";
 import ProfileDetail from "./screens/ProfileDetail";
 import EYSReportScreen from "./screens/EYSReportScreen";
+import ContactUs from "./screens/ContactUs";
 
 export default function Router() {
   //context
@@ -95,7 +93,7 @@ export default function Router() {
   const Login = useRoutes([
     { path: "/", element: <LoginScreen /> },
     { path: "/login", element: <LoginScreen /> },
-    { path: "/forget", element: <ForgetPasswordScreen /> },
+    { path: "/forget", element: <ContactUs /> },
     { path: "/*", element: <NotFoundScreen /> },
   ]);
 
@@ -119,6 +117,7 @@ export default function Router() {
         { path: "/payment", element: <PaymentScreen /> },
         { path: "/meal", element: <MealScreen /> },
         { path: "/eys", element: <EYSReportScreen /> },
+        { path: "/contactus", element: <ContactUs /> },
         {
           path: "/notification",
           element: <LayoutNotification />,

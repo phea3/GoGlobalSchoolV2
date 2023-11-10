@@ -34,7 +34,7 @@
   padding: 15px;
   border-color: #dcdcdc;
   border-width: 1px;
-  border-radius: 5px;
+  border-radius: $border-radius-main;
   width: 100%;
   flex-direction: row;
   justify-content: flex-start;
@@ -52,7 +52,7 @@
   background-color: $color-main;
   width: 80%;
   height: 45px;
-  border-radius: 5px;
+  border-radius: $border-radius-main;
   justify-content: center;
   align-items: center;
   margin-top: 10px;
@@ -91,22 +91,4 @@
 
 .LoginForgetText {
   font-family: $kantumruy-bold;
-}
-
-.ForgetTopContainer {
-  width: 80%;
-}
-
-.LoginBackButton {
-  width: 40px;
-  height: 40px;
-  background-color: $color-light-blue;
-  border-radius: 5px;
-  justify-content: center;
-  align-items: center;
-}
-
-.LoginBackButtonImage {
-  width: 20px;
-  height: 20px;
 }

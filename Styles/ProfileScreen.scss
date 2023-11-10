@@ -21,11 +21,20 @@
   justify-content: center;
   align-items: center;
 }
+
+.ProfileStyleBackgroundProfile {
+  width: 120px;
+  height: 120px;
+  border-radius: 100px;
+  border-width: 1px;
+  border-color: $color-main;
+  position: absolute;
+}
+
 .ProfileImage {
   width: 110px;
   height: 110px;
   border-radius: 100px;
-  // border-width: 1px;
 }
 
 .ProfileTopTitleContainer {
@@ -48,7 +57,7 @@
   background-color: $color-main;
   justify-content: center;
   align-items: center;
-  border-radius: 5px;
+  border-radius: $border-radius-main;
   margin-bottom: 20px;
 }
 
@@ -70,7 +79,7 @@
   padding-left: 10px;
   flex-direction: row;
   border-bottom-width: 0.5px;
-  border-color: #dcdcdc;
+  border-color: $color-grey;
 }
 
 .ProfileMiddleCardImage {

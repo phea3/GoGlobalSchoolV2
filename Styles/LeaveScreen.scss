@@ -1,3 +1,5 @@
+@import "../themes.scss";
+
 .LeaveContainer {
   width: 100%;
   height: 100%;
@@ -15,7 +17,7 @@
   justify-content: space-between;
   margin-bottom: 10px;
   padding: 5px;
-  border-radius: 5px;
+  border-radius: $border-radius-main;
 }
 
 .LeaveCardContainer {
@@ -25,7 +27,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 5px;
-  border-radius: 5px;
+  border-radius: $border-radius-main;
 }
 
 .LeaveTitleText {
@@ -126,7 +128,7 @@
 .LeaveFilterButton {
   background-color: #d9e3ff;
   padding: 5px;
-  border-radius: 5px;
+  border-radius: $border-radius-main;
   width: 40px;
   height: 40px;
   justify-content: center;
@@ -178,7 +180,7 @@
 .LeaveModalSelectDateButton {
   width: 45%;
   border-width: 1px;
-  border-radius: 10px;
+  border-radius: $border-radius-main;
   padding: 10px;
   flex-direction: row;
   justify-content: space-between;
@@ -193,7 +195,7 @@
   background-color: #3c6efb;
   width: 90%;
   padding: 15px;
-  border-radius: 10px;
+  border-radius: $border-radius-main;
   margin-top: 10px;
   align-items: center;
 }

@@ -78,6 +78,7 @@ export default function ProfileScreen() {
     onError: () => {},
   });
 
+  console.log(data);
   //============ FUNCTION LOGOUT ============
   const Logouthandle = async () => {
     await auth.logout().then(async (result) => {
@@ -133,6 +134,8 @@ export default function ProfileScreen() {
           }}
         >
           <View style={ProfileStyle.ProfileImageViewHolder}>
+            <View style={ProfileStyle.ProfileStyleBackgroundProfile} />
+
             <Animatable.Image
               source={{
                 uri:
@@ -149,7 +152,9 @@ export default function ProfileScreen() {
             animation={"bounce"}
           >
             <Text style={ProfileStyle.ProfileTopTitleName}>
-              {data?.getUserProfile?.englishName}
+              {data?.getUserProfile?.lastName +
+                " " +
+                data?.getUserProfile?.firstName}
             </Text>
             <Text style={ProfileStyle.ProfileTopBodytext}>
               {data?.getUserProfile?.email}
@@ -182,7 +187,8 @@ export default function ProfileScreen() {
               } else if (info?.action === "share") {
                 onShare();
               } else if (info?.action === "contact") {
-                Linking.openURL(`tel:${phoneNumber}`);
+                // Linking.openURL(`tel:${phoneNumber}`);
+                navigate("/contactus");
               } else if (info?.action === "facebook") {
                 // Linking.openURL("fb://page/1586031671709848");
                 openWebsite();

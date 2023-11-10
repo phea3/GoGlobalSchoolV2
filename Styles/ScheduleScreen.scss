@@ -16,7 +16,7 @@
 .ScheduleDayBox {
   justify-content: center;
   align-items: center;
-  border-radius: 5px;
+  border-radius: $border-radius-main;
   background-color: #fff;
   border-width: 0.5px;
   border-color: $color-gray;
@@ -51,7 +51,7 @@
   margin-top: 10px;
   border-width: 0.5px;
   border-color: $color-gray;
-  border-radius: 5px;
+  border-radius: $border-radius-main;
   padding: 10px;
 }
 
@@ -62,7 +62,7 @@
   border-color: $color-gray;
   justify-content: center;
   align-items: center;
-  border-radius: 5px;
+  border-radius: $border-radius-main;
   margin-right: 10px;
 }
 

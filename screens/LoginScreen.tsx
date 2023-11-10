@@ -92,6 +92,7 @@ const LoginScreen = () => {
               placeholder="Email"
               onChangeText={(e) => setEmail(e)}
               keyboardType="default"
+              style={{ flex: 1 }}
             />
           </View>
         </View>
@@ -110,7 +111,7 @@ const LoginScreen = () => {
               onChangeText={(e) => setPassword(e)}
               secureTextEntry={view}
               keyboardType="default"
-              style={{ width: "80%" }}
+              style={{ flex: 1 }}
             />
             {view === true ? (
               <TouchableOpacity onPress={() => setView(!view)}>

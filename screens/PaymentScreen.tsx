@@ -14,9 +14,7 @@ export default function PaymentScreen() {
     variables: {
       limit: 10,
     },
-    onCompleted: ({ getPaymetforMobile }) => {
-      console.log(getPaymetforMobile, "getPaymetforMobile");
-    },
+    onCompleted: ({}) => {},
   });
   const numbers = Array.from({ length: 20 }, (_, index) => index);
   const types = ["School Fee", "Water Bill", "Dog Vacine", "Cat food"];
@@ -50,7 +48,7 @@ export default function PaymentScreen() {
             <Text style={PaymentStyle.PaymentBody1}>
               {payment?.type.map((i: any, index: number) => {
                 return (
-                  <>
+                  <View key={index}>
                     {index === types.length - 1 ? (
                       <Text>{i}</Text>
                     ) : (
@@ -59,7 +57,7 @@ export default function PaymentScreen() {
                         {", "}
                       </Text>
                     )}
-                  </>
+                  </View>
                 );
               })}
             </Text>

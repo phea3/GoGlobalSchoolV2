@@ -34,9 +34,11 @@ export default function Header() {
   const [mobileUserLogin, setMobileUserLogin] = useState(initMobileUserLogin);
 
   const t = useTranslation();
+
   const ChangeEng = () => {
     setLanguage("en");
   };
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -90,6 +92,12 @@ export default function Header() {
             <Back title={"CONTACT US"} />
           ) : location.pathname === "/social" ? (
             <Back title={"SOCIAL MEDIA"} />
+          ) : location.pathname === "/setting" ? (
+            <Back title={"SETTING"} />
+          ) : location.pathname === "/resetpassword" ? (
+            <Back title={"RESET PASSWORD"} />
+          ) : location.pathname === "/health" ? (
+            <Back title={"HEALTH"} />
           ) : location.pathname === "/profile" ? (
             <Animatable.View animation="fadeInRight">
               <TouchableOpacity

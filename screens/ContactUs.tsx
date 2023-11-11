@@ -47,6 +47,7 @@ const ContactUs = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [isAnswerVisible, setInAnswerVisible] = useState(false);
   const [Index, setIndex] = useState(0);
+
   const handleClose = () => {
     setIsVisible(false);
   };
@@ -69,6 +70,8 @@ const ContactUs = () => {
         style={ContactUsScreenStyle.ContactUsContainer}
       >
         <View style={ContactUsScreenStyle.ContactUsTopContainer}>
+          <Text style={ContactUsScreenStyle.ContactUsTopTitleContent}>FAQ</Text>
+
           {location.pathname === "/forget" ? (
             <TouchableOpacity
               style={ContactUsScreenStyle.ContactUsBackButton}
@@ -81,8 +84,6 @@ const ContactUs = () => {
               />
             </TouchableOpacity>
           ) : null}
-
-          <Text style={ContactUsScreenStyle.ContactUsTopTitleContent}>FAQ</Text>
         </View>
 
         <View style={ContactUsScreenStyle.ContactUsBodyContainer}>

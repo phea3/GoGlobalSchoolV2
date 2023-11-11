@@ -197,7 +197,7 @@ export default function LeaveScreen() {
                     resizeMode="cover"
                     animation="zoomIn"
                   />
-                  <Text style={LeaveStyle.LeaveTitleText3}>
+                  <Text style={LeaveStyle.LeaveTitleText3} numberOfLines={1}>
                     {stuName != ""
                       ? stuName
                       : stuInfo?.lastName + " " + stuInfo?.firstName}
@@ -235,7 +235,7 @@ export default function LeaveScreen() {
                     resizeMode="cover"
                     animation="zoomIn"
                   />
-                  <Text style={LeaveStyle.LeaveTitleText3}>
+                  <Text style={LeaveStyle.LeaveTitleText3} numberOfLines={1}>
                     {item?.lastName + " " + item?.firstName}
                   </Text>
                   <View style={{ width: 18, height: 18 }} />

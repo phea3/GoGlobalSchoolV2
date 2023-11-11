@@ -1,0 +1,199 @@
+@import "../themes.scss";
+
+.EYSContainer {
+  width: 100%;
+  height: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.EYSTopContainer {
+  width: 95%;
+  height: 25%;
+  padding: 10px;
+  border-radius: 30px;
+  border-radius: 40px;
+  border-width: 0.5px;
+  border-color: $color-gray;
+  background-color: $color-light-grey;
+}
+
+.EYSTapViewContainer {
+  width: 95%;
+  height: 8%;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.EYSBodyContainer {
+  width: 95%;
+  height: 65%;
+}
+
+.CalendarHorizontalIconArrowContainer {
+  width: 10%;
+  height: 90%;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.CalendarHorizontalIconArrowStyle {
+  background-color: $color-white;
+  padding: 6px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50px;
+  justify-content: center;
+  align-items: center;
+  border-width: 2px;
+  border-color: $color-gray;
+}
+
+.CalendarHorizontalScrollviewDateweeklystyle {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.CalendarHorizontalScrollviewcentered {
+  width: 100%;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.DateScreenCard {
+  background-color: white;
+  height: 80px;
+  width: 60px;
+  margin-right: 10px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  background-color: $color-light-grey;
+  border-width: 0.5px;
+  border-color: $color-gray;
+}
+
+.DateScreenCardBarTop {
+  background-color: green;
+  width: 40%;
+  height: 4px;
+  border-bottom-right-radius: 30px;
+  border-bottom-left-radius: 30px;
+}
+
+.DateScreenCardContentBody {
+  flex: 1;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.EYSInsideScrollviewContainer {
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.EYSInsideScrollviewFoodContainer {
+  width: 100%;
+  flex-direction: row;
+  background-color: $color-white;
+  border-width: 0.5px;
+  border-color: $color-gray;
+  border-radius: 25px;
+  justify-content: flex-start;
+  align-items: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-bottom: 15px;
+}
+
+.EYSInsideCardFoodContentContainer {
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.EYSInsideScrollviewFoodiconStyleContainer {
+  width: 100px;
+  height: 60px;
+  justify-content: center;
+  align-items: center;
+}
+
+.EYSInsideScrollviewFoodiconStyle {
+  width: 40px;
+  height: 40px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.EYSInsideScrollviewFoodiconStyleCircleBackground {
+  background-color: greenyellow;
+  width: 40px;
+  height: 40px;
+  border-radius: 50px;
+  position: absolute;
+}
+
+.EYSInsideScrollviewFoodPillar {
+  width: 4px;
+  height: 70%;
+  background-color: orange;
+  border-top-right-radius: $border-radius-main;
+  border-bottom-right-radius: $border-radius-main;
+}
+.EYSInsideScrollviewFoodContentContainer {
+  flex: 1;
+}
+.EYSInsideScrollviewFoodtitleStyle {
+  font-family: $kantumruy-bold;
+}
+
+.EYSInsideScrollviewFoodbodyStyle {
+  font-family: $kantumruy-regular;
+}
+
+.EYSInsideScrollviewFoodFootStyleContainer {
+  width: 40%;
+  padding: 5px;
+  background-color: forestgreen;
+  border-radius: 30px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.EYSTapViewEachTabContainer {
+  width: 20%;
+  height: 80%;
+  background-color: $color-white;
+  border-width: 0.5px;
+  border-color: $color-gray;
+  border-radius: 25px;
+  justify-content: center;
+  align-items: center;
+}
+
+.EYSTapViewEachTabTitleText {
+  font-family: $kantumruy-regular;
+}
+
+.EYSHealthContainer {
+  width: 100%;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.EYSHealthRightContainer {
+  flex: 1;
+  margin-right: 10px;
+}
+
+.EYSStuffsContainer {
+  width: 100%;
+  padding: 10px;
+}

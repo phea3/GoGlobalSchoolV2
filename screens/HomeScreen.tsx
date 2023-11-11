@@ -75,7 +75,7 @@ const explore = [
   {
     title: "MEAL",
     icon: require("../assets/Images/meal.png"),
-    naviage: "/payment",
+    naviage: "/meal",
     modal: true,
   },
   {
@@ -124,12 +124,15 @@ const HomeScreen = () => {
   };
 
   //================== Modal EYS ================
+  const [eys, setEys] = useState("");
   const [isEYSModalVisible, setEYSModalVisible] = useState(false);
   const openEYSModal = () => {
     setEYSModalVisible(true);
+    setEys("eys");
   };
   const closeEYSModal = () => {
     setEYSModalVisible(false);
+    setEys("");
   };
 
   const autoNavigateLeaveScreen = () => {
@@ -225,7 +228,6 @@ const HomeScreen = () => {
         navigate("/meal", {
           state: { stuInfo: stuInfo, uid: uid },
         });
-
         break;
       case "SCHEDULE":
         navigate("/schedule", {
@@ -236,6 +238,12 @@ const HomeScreen = () => {
       case "EYS":
         toggleModal();
         openEYSModal();
+        break;
+      case "HEALTH":
+        toggleModal();
+        navigate("/health", {
+          state: { stuInfo: stuInfo, uid: uid },
+        });
         break;
       default:
         break;
@@ -339,6 +347,8 @@ const HomeScreen = () => {
         studentId={studentId}
         isVisible={isEYSModalVisible}
         handleClose={closeEYSModal}
+        eys={eys}
+        setEys={setEys}
       />
       {/* ================ MAIN VIEW ================= */}
       <ScrollView

@@ -28,6 +28,9 @@ import ProfileDetail from "./screens/ProfileDetail";
 import EYSReportScreen from "./screens/EYSReportScreen";
 import ContactUs from "./screens/ContactUs";
 import SocialMediaScreen from "./screens/SocialMedia";
+import SettingScreen from "./screens/SettingScreen";
+import ResetPasswordScreen from "./screens/ResetPasswordScreen";
+import HealthScreen from "./screens/HealthScreen";
 
 export default function Router() {
   //context
@@ -120,6 +123,9 @@ export default function Router() {
         { path: "/eys", element: <EYSReportScreen /> },
         { path: "/contactus", element: <ContactUs /> },
         { path: "/social", element: <SocialMediaScreen /> },
+        { path: "/setting", element: <SettingScreen /> },
+        { path: "/resetpassword", element: <ResetPasswordScreen /> },
+        { path: "/health", element: <HealthScreen /> },
         {
           path: "/notification",
           element: <LayoutNotification />,

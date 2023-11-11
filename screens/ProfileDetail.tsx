@@ -68,7 +68,7 @@ export default function ProfileDetail() {
           style={ProfileDetailStyle.ProfileDetailImageStyle}
           animation={"zoomIn"}
         />
-        <View style={ProfileDetailStyle.ProfileDetailIconOnImageProfile}>
+        {/* <View style={ProfileDetailStyle.ProfileDetailIconOnImageProfile}>
           <Animatable.View
             style={ProfileDetailStyle.ProfileDetailIconOnImageProfileBorder}
             animation={"zoomIn"}
@@ -82,7 +82,7 @@ export default function ProfileDetail() {
               }}
             />
           </Animatable.View>
-        </View>
+        </View> */}
 
         <View style={ProfileDetailStyle.ProfileDetailNameContainer}>
           <Text style={ProfileDetailStyle.ProfileDetailNameTitle}>

@@ -1,5 +1,4 @@
 import {
-  Alert,
   Image,
   Linking,
   ScrollView,
@@ -16,15 +15,9 @@ import ProfileStyle from "../Styles/ProfileScreen.scss";
 import { useQuery } from "@apollo/client";
 import { GET_USERPROFILE } from "../graphql/GetUserProfile";
 import Constants from "expo-constants";
-import * as WebBrowser from "expo-web-browser";
 import * as Animatable from "react-native-animatable";
 
 const Infomations = [
-  {
-    title: "Setting",
-    icon: require("../assets/Images/settings.png"),
-    action: "setting",
-  },
   {
     title: "Contact Us",
     icon: require("../assets/Images/call-center-service.png"),
@@ -34,6 +27,11 @@ const Infomations = [
     title: "Social Media",
     icon: require("../assets/Images/social-media.png"),
     action: "social",
+  },
+  {
+    title: "Setting",
+    icon: require("../assets/Images/settings.png"),
+    action: "setting",
   },
   {
     title: "Share App",
@@ -50,27 +48,6 @@ const Infomations = [
     icon: require("../assets/Images/app-store.png"),
     action: "version",
   },
-
-  // {
-  //   title: "Facebook",
-  //   icon: require("../assets/Images/facebook.png"),
-  //   action: "facebook",
-  // },
-  // {
-  //   title: "Youtube",
-  //   icon: require("../assets/Images/youtube.png"),
-  //   action: "youtube",
-  // },
-  // {
-  //   title: "Instagram",
-  //   icon: require("../assets/Images/instagram.png"),
-  //   action: "instagram",
-  // },
-  // {
-  //   title: "Telegram",
-  //   icon: require("../assets/Images/telegram.png"),
-  //   action: "telegram",
-  // },
 ];
 
 export default function ProfileScreen() {
@@ -79,7 +56,6 @@ export default function ProfileScreen() {
   const version = Constants.expoConfig?.version;
   const phoneNumber = "0767772168";
   const { data, refetch } = useQuery(GET_USERPROFILE, {
-    // pollInterval: 2000,
     onCompleted: ({ getUserProfile }) => {},
     onError: () => {},
   });
@@ -100,7 +76,7 @@ export default function ProfileScreen() {
     try {
       const result = await Share.share({
         message: "Check out this awesome app!",
-        url: "",
+        url: "https://apps.apple.com/kh/app/go-global-school/id1641628042",
         title: "Go Global School",
       });
 
@@ -116,14 +92,6 @@ export default function ProfileScreen() {
     } catch (error: any) {
       console.error(error?.message);
     }
-  };
-
-  const openWebsite = async () => {
-    const url = "https://www.facebook.com/goglobalschool15";
-    const result = await WebBrowser.openBrowserAsync(url);
-
-    // Handle the result if needed
-    console.log(result);
   };
 
   return (
@@ -150,6 +118,11 @@ export default function ProfileScreen() {
               style={ProfileStyle.ProfileImage}
               animation={"zoomIn"}
             />
+            {/* <Animatable.Image
+              source={require("../assets/Images/frame.png")}
+              style={ProfileStyle.ProfileImageFrame}
+              animation={"zoomIn"}
+            /> */}
           </View>
 
           <Animatable.View
@@ -192,21 +165,11 @@ export default function ProfileScreen() {
               } else if (info?.action === "share") {
                 onShare();
               } else if (info?.action === "contact") {
-                // Linking.openURL(`tel:${phoneNumber}`);
                 navigate("/contactus");
-              } else if (info?.action === "facebook") {
-                // Linking.openURL("fb://page/1586031671709848");
-                openWebsite();
-              } else if (info?.action === "youtube") {
-                Linking.openURL("https://www.youtube.com/@goglobalschool8574");
-              } else if (info?.action === "instagram") {
-                Linking.openURL(
-                  "https://www.instagram.com/go_global_school15/"
-                );
-              } else if (info?.action === "telegram") {
-                Linking.openURL("https://t.me/@Go_Global_Information_Office");
               } else if (info?.action === "social") {
                 navigate("/social");
+              } else if (info?.action === "setting") {
+                navigate("/setting", { state: data?.getUserProfile?.email });
               }
             }}
             key={index}

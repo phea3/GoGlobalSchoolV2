@@ -1,13 +1,22 @@
 import { View, Text, Image, TouchableOpacity } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-native";
 import FooterStyle from "../Styles/Footer.scss";
 import { fetchDataLocalStorage } from "../Function/FetchDataLocalStorage";
+import Animated, {
+  useAnimatedStyle,
+  useSharedValue,
+  withSpring,
+  withTiming,
+} from "react-native-reanimated";
+import { AuthContext } from "../Context/AuthContext";
 
 const Footer = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const path = location.pathname;
+  const { dimension, widthScreen, heightScreen } = useContext(AuthContext);
+
   const [mobileUserLogin, setMobileUserLogin] = useState<{
     _id: string;
     firstName: string;
@@ -21,6 +30,45 @@ const Footer = () => {
     englishName: "",
     profileImg: "",
   });
+
+  const Tabs = [
+    {
+      title: "ទំព័រដើម",
+      icon: require("../assets/Images/apps.png"),
+      active_icon: require("../assets/Images/apps-silver.png"),
+      path: "/home",
+      extra_path: "/",
+      value: 0,
+    },
+    {
+      title: "សិស្ស",
+      icon: require("../assets/Images/graduation-cap.png"),
+      active_icon: require("../assets/Images/graduation-cap_silver.png"),
+      path: "/students",
+      extra_path: "/students",
+      value: 0.96,
+    },
+    {
+      title: "អំពី",
+      icon: require("../assets/Images/home2.png"),
+      active_icon: require("../assets/Images/home1.png"),
+      path: "/about",
+      extra_path: "/about",
+      value: 1.92,
+    },
+    {
+      title: "គណនី",
+      icon: {
+        uri: `https://storage.go-globalschool.com/api${mobileUserLogin?.profileImg}`,
+      },
+      active_icon: {
+        uri: `https://storage.go-globalschool.com/api${mobileUserLogin?.profileImg}`,
+      },
+      path: "/profile",
+      extra_path: "/profile",
+      value: 2.88,
+    },
+  ];
 
   useEffect(() => {
     fetchDataLocalStorage("@mobileUserLogin").then((value) => {
@@ -36,97 +84,87 @@ const Footer = () => {
     });
   }, []);
 
+  const offset = useSharedValue(0);
+  const animatedStyles = useAnimatedStyle(() => {
+    return {
+      transform: [{ translateX: offset.value * (widthScreen / 4) }],
+    };
+  });
+
   return (
     <View style={FooterStyle.containerFooter}>
-      <TouchableOpacity
-        onPress={() => navigate("/home")}
-        style={FooterStyle.tabContainer}
-      >
-        {path === "/home" || path === "/" ? (
-          <>
-            <Image
-              source={require("../assets/Images/apps.png")}
-              style={{ width: 30, height: 30 }}
-            />
-            <Text style={{ fontSize: 15, marginTop: 2 }}>ទំព័រដើម</Text>
-          </>
-        ) : (
-          <>
-            <Image
-              source={require("../assets/Images/apps-silver.png")}
-              style={{ width: 25, height: 25 }}
-            />
-            <Text style={{ fontSize: 12, marginTop: 3 }}>ទំព័រដើម</Text>
-          </>
-        )}
-      </TouchableOpacity>
-
-      <TouchableOpacity
-        onPress={() => navigate("/students")}
-        style={FooterStyle.tabContainer}
-      >
-        {path === "/students" ? (
-          <>
-            <Image
-              source={require("../assets/Images/graduation-cap.png")}
-              style={{ width: 35, height: 30 }}
-            />
-            <Text style={{ fontSize: 15, marginTop: 2 }}>សិស្ស</Text>
-          </>
-        ) : (
-          <>
-            <Image
-              source={require("../assets/Images/graduation-cap_silver.png")}
-              style={{ width: 30, height: 25 }}
-            />
-            <Text style={{ fontSize: 12, marginTop: 3 }}>សិស្ស</Text>
-          </>
-        )}
-      </TouchableOpacity>
-
-      <TouchableOpacity
-        onPress={() => navigate("/about")}
-        style={FooterStyle.tabContainer}
-      >
-        {path === "/about" ? (
-          <>
-            <Image
-              source={require("../assets/Images/home2.png")}
-              style={{ width: 25, height: 25 }}
-            />
-            <Text style={{ fontSize: 15, marginTop: 2 }}>អំពី</Text>
-          </>
-        ) : (
-          <>
-            <Image
-              source={require("../assets/Images/home1.png")}
-              style={{ width: 20, height: 20 }}
-            />
-            <Text style={{ fontSize: 12, marginTop: 6 }}>អំពី</Text>
-          </>
-        )}
-      </TouchableOpacity>
-
-      <TouchableOpacity
-        onPress={() => navigate("/profile")}
-        style={FooterStyle.tabContainer}
-      >
-        <Image
-          source={{
-            uri: `https://storage.go-globalschool.com/api${mobileUserLogin?.profileImg}`,
-          }}
-          style={{
-            width: path === "/profile" ? 28 : 25,
-            height: path === "/profile" ? 28 : 25,
-            borderRadius: 50,
-            borderWidth: 0.2,
-          }}
-        />
-
-        <Text style={{ fontSize: path === "/profile" ? 15 : 12, marginTop: 3 }}>
-          គណនី
-        </Text>
-      </TouchableOpacity>
+      <Animated.View
+        style={[
+          {
+            backgroundColor: "#3C6EFB",
+            // borderBottomLeftRadius: 10,
+            // borderBottomEndRadius: 10,
+            width: "20%",
+            height: "3%",
+            position: "absolute",
+          },
+          animatedStyles,
+        ]}
+      />
+      <Animated.View
+        style={[
+          {
+            backgroundColor: "#B1C2F4",
+            width: "20%",
+            height: "100%",
+            position: "absolute",
+            opacity: 0.1,
+          },
+          animatedStyles,
+        ]}
+      />
+      {Tabs.map((tab: any, index: number) => (
+        <View key={index} style={FooterStyle.tabContainer}>
+          <TouchableOpacity
+            onPress={() => {
+              navigate(tab.path);
+              offset.value = withTiming(tab.value);
+            }}
+            style={FooterStyle.tabStyleBox}
+          >
+            {path === tab.path || path === tab.extra_path ? (
+              <>
+                <Image
+                  source={tab.icon}
+                  style={{
+                    width: 25,
+                    height: 25,
+                    borderRadius: tab.path === "/profile" ? 100 : 0,
+                  }}
+                />
+                <Text
+                  style={{
+                    fontSize: 12,
+                    color: "#3C6EFB",
+                    fontFamily: "Kantumruy-Bold",
+                  }}
+                >
+                  {tab.title}
+                </Text>
+              </>
+            ) : (
+              <>
+                <Image
+                  source={tab.active_icon}
+                  style={{
+                    width: 25,
+                    height: 25,
+                    borderRadius: tab.path === "/profile" ? 100 : 0,
+                  }}
+                />
+                <Text style={{ fontSize: 12, fontFamily: "Kantumruy-Bold" }}>
+                  {tab.title}
+                </Text>
+              </>
+            )}
+          </TouchableOpacity>
+        </View>
+      ))}
     </View>
   );
 };

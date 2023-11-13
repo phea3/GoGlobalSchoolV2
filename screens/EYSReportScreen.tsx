@@ -22,6 +22,7 @@ const TabView = [
     tilte: "Stuffs",
   },
 ];
+
 export default function EYSReportScreen() {
   const today = moment(new Date()).format("YYYY-MM-DD");
   const [tabActive, setTabActive] = useState("Food");
@@ -35,9 +36,7 @@ export default function EYSReportScreen() {
       stuId: uid ? uid : "",
       date: selectedDate,
     },
-    onCompleted: ({ getEYSReportByStu }) => {
-      console.log("getEYSReportByStu::::::::>>>>", getEYSReportByStu);
-    },
+    onCompleted: ({ getEYSReportByStu }) => {},
     onError(error) {
       console.log(error?.message);
     },
@@ -46,17 +45,6 @@ export default function EYSReportScreen() {
   useEffect(() => {
     refetch();
   }, [uid, selectedDate]);
-
-  let result = "";
-
-  data?.getEYSReportByStu?.parentsRequest.forEach(
-    (element: any, index: number) => {
-      result += element;
-      if (index !== data?.getEYSReportByStu?.parentsRequest.length - 1) {
-        result += ", ";
-      }
-    }
-  );
 
   return (
     <View style={EYSReportStyle.EYSContainer}>
@@ -413,9 +401,29 @@ export default function EYSReportScreen() {
                   >
                     សូមមាតាបិតាជួយដាក់បន្ថែម ឪ្យកូន៖
                   </Text>
-                  <Text style={EYSReportStyle.EYSInsideScrollviewFoodbodyStyle}>
-                    {result}
-                  </Text>
+                  {data?.getEYSReportByStu?.parentsRequest.map(
+                    (item: string, index: number) => (
+                      <View
+                        key={index}
+                        style={{
+                          flexDirection: "row",
+                          alignItems: "center",
+                        }}
+                      >
+                        <Image
+                          source={require("../assets/Images/black-circle.png")}
+                          style={{ width: 10, height: 10, marginRight: 10 }}
+                        />
+                        <Text
+                          style={
+                            EYSReportStyle.EYSInsideScrollviewFoodbodyStyle
+                          }
+                        >
+                          {item}
+                        </Text>
+                      </View>
+                    )
+                  )}
                 </View>
               </View>
             </View>

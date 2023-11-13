@@ -5,24 +5,25 @@ import { useQuery } from "@apollo/client";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-native";
 
-export default function ModalEYS({
+export default function ModalHealth({
   studentId,
   isVisible,
   handleClose,
-  eys,
-  setEys,
+  health,
+  setHealth,
 }: any) {
   let navigate = useNavigate();
-  //============= CHECK EYE REPORT CLASS ================
+
+  //============= CHECK HEALTH REPORT CLASS ================
   const { data, refetch } = useQuery(CHECK_IS_STUDENT_FOR_EYS, {
     variables: {
       stuId: studentId,
     },
     onCompleted: ({ checkIsStudentEYSReport }) => {
-      if (checkIsStudentEYSReport === true && eys === "eys") {
+      if (checkIsStudentEYSReport === true && health === "health") {
         setTimeout(() => {
-          setEys("");
-          navigate("/eys", { state: studentId });
+          setHealth("");
+          navigate("/health", { state: studentId });
         }, 500);
       }
     },
@@ -66,7 +67,7 @@ export default function ModalEYS({
               <View style={HomeStyle.HomePickupStudentContent}>
                 <View style={HomeStyle.HomePickupStudentTextContainer1}>
                   <Text style={HomeStyle.HomePickupStudentText}>
-                    Your child's class not allow for EYS report.
+                    Your child's class not allow for Health Report.
                   </Text>
                 </View>
               </View>

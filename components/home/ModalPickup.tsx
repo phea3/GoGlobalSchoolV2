@@ -64,9 +64,7 @@ export default function ModalPickup({
         checkpickrefetch();
         handleOpenPickingUp();
       },
-      onError: (error) => {
-        console.log(error?.message);
-      },
+      onError: (error) => {},
     });
   };
 

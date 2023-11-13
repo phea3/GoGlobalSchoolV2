@@ -160,13 +160,13 @@ export default function Header() {
             <TouchableOpacity onPress={() => navigate("/notification")}>
               <Image
                 source={require("../assets/Images/notification-bell.png")}
-                style={{ width: 35, height: 35, marginRight: 10 }}
+                style={{ width: 30, height: 30, marginRight: 10 }}
               />
 
               <View
                 style={{
-                  width: 15,
-                  height: 15,
+                  width: 13,
+                  height: 13,
                   borderRadius: 20,
                   backgroundColor: "red",
                   justifyContent: "center",

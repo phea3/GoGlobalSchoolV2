@@ -9,22 +9,18 @@ import {
 import React, { useContext, useEffect, useState } from "react";
 import HomeStyle from "../Styles/HomeScreen.scss";
 import { useNavigate } from "react-router-native";
-import { getLanguage, setLanguage, useTranslation } from "react-multi-lang";
+import { getLanguage, useTranslation } from "react-multi-lang";
 import moment from "moment";
-import DateTimePickerModal from "react-native-modal-datetime-picker";
-import { useLazyQuery, useMutation, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import { GET_STUDENT } from "../graphql/get_studentByParent";
 import { AuthContext } from "../Context/AuthContext";
 import { QUERY_ANNOUNCEMENT } from "../graphql/gql_announcement";
 import * as Animatable from "react-native-animatable";
-import { LEAVE_REQUEST } from "../graphql/LeaveRequest";
-import { PICK_UPSTUDENT } from "../graphql/PickupStudentForMobile";
-import { TRANKING_STUDENTINPICKUP } from "../graphql/CheckStudentPickup";
 import ModalPickup from "../components/home/ModalPickup";
 import ModalTakeLeave from "../components/home/ModalTakeLeave";
 import { GET_UPCOMINGEVENT } from "../graphql/GetUpcomingEventMobile";
 import ModalEYS from "../components/home/ModalEYS";
-import { CHECK_IS_STUDENT_FOR_EYS } from "../graphql/CheckEYS";
+import ModalHealth from "../components/health/ModalHealth";
 
 const features = [
   {
@@ -40,9 +36,9 @@ const features = [
     modal: true,
   },
   {
-    title: "HEALTH",
+    title: "HEALTH EYS",
     icon: require("../assets/Images/healthcare.png"),
-    action: "permission",
+    action: "health",
     modal: true,
   },
 ];
@@ -55,15 +51,15 @@ const explore = [
     modal: true,
   },
   {
-    title: "ATTENDANCE",
-    icon: require("../assets/Images/check-mark.png"),
-    naviage: "/attendance",
-    modal: true,
-  },
-  {
     title: "EYS",
     icon: require("../assets/Images/baby.png"),
     naviage: "/eys",
+    modal: true,
+  },
+  {
+    title: "ATTENDANCE",
+    icon: require("../assets/Images/check-mark.png"),
+    naviage: "/attendance",
     modal: true,
   },
   {
@@ -126,6 +122,21 @@ const HomeScreen = () => {
   //================== Modal EYS ================
   const [eys, setEys] = useState("");
   const [isEYSModalVisible, setEYSModalVisible] = useState(false);
+
+  //================== Modal Health ======================
+  const [health, setHealth] = useState("");
+  const [isHealthVisible, setHealthModalVisible] = useState(false);
+
+  const openHealthModal = () => {
+    setHealthModalVisible(true);
+    setHealth("health");
+  };
+
+  const closeHealthModal = () => {
+    setHealthModalVisible(false);
+    setHealth("");
+  };
+
   const openEYSModal = () => {
     setEYSModalVisible(true);
     setEys("eys");
@@ -239,11 +250,9 @@ const HomeScreen = () => {
         toggleModal();
         openEYSModal();
         break;
-      case "HEALTH":
+      case "HEALTH EYS":
         toggleModal();
-        navigate("/health", {
-          state: { stuInfo: stuInfo, uid: uid },
-        });
+        openHealthModal();
         break;
       default:
         break;
@@ -350,6 +359,16 @@ const HomeScreen = () => {
         eys={eys}
         setEys={setEys}
       />
+
+      {/* ======== EYS MODAL =========*/}
+      <ModalHealth
+        studentId={studentId}
+        isVisible={isHealthVisible}
+        handleClose={closeHealthModal}
+        health={health}
+        setHealth={setHealth}
+      />
+
       {/* ================ MAIN VIEW ================= */}
       <ScrollView
         showsVerticalScrollIndicator={false}
@@ -545,7 +564,7 @@ const HomeScreen = () => {
             style={{ height: 20, width: 20 }}
           />
           <Text style={HomeStyle.fontTitleBarHome}>
-            {getLanguage() === "en" ? "EXPLORE" : "រុករក"}
+            {getLanguage() === "en" ? "EXPLORE" : "ស្វែងរក"}
           </Text>
           <View style={HomeStyle.homeBar} />
         </View>

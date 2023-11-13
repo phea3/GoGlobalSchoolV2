@@ -10,7 +10,7 @@ export default function CalendarHorizontalScreen({
 }: any) {
   const [dates, setDates] = useState([""]);
   const [scrollPosition, setScrollPosition] = useState(0);
-  const [currentMonth, setCurrentMonth] = useState("");
+  // const [currentMonth, setCurrentMonth] = useState("");
   const [currentWeek, setCurrentWeek] = useState(new Date());
 
   // get the dates from today to 10 days from now, format them as strings and store them in state
@@ -37,16 +37,24 @@ export default function CalendarHorizontalScreen({
     getDates();
   }, [currentWeek]);
 
-  const getCurrentMonth = () => {
-    const month = moment(dates[0])
-      .add(scrollPosition / 60, "days")
-      .format("MMMM, Do YYYY");
-    setCurrentMonth(month);
+  // const getCurrentMonth = () => {
+  //   const month = moment(dates[0])
+  //     .add(scrollPosition / 60, "days")
+  //     .format("MMMM, Do YYYY");
+  //   setCurrentMonth(month);
+  // };
+
+  const getFirstDayofWeek = () => {
+    let dateFirst = new Date(currentWeek);
+    let dayNum = dateFirst.getDay(); // 😊  get day of week
+    let diffFirst = dateFirst.getDate() - dayNum + 1;
+    let date = new Date(dateFirst.setDate(diffFirst));
+    onSelectDate(moment(date).format("YYYY-MM-DD"));
   };
 
   useEffect(() => {
-    getCurrentMonth();
-  }, [scrollPosition, selected, currentWeek]);
+    getFirstDayofWeek();
+  }, [currentWeek]);
 
   return (
     <View

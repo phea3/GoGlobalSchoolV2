@@ -17,39 +17,43 @@ import auth from "../Auth/auth";
 import axios from "axios";
 import { Linking } from "react-native";
 import ModalContactUS from "../components/contact/modalContactUs";
-
-const conversations = [
-  {
-    index: 1,
-    question: "Do you eat rice?",
-    answer:
-      "Yes, I do eat in the morning with the fish that I catch from the river at the siem reap city at 3:00 AM with my best friend who also eat rice with me.",
-    show: false,
-  },
-  {
-    index: 2,
-    question: "Do you drink coffee?",
-    answer: "No, I do not.",
-    show: true,
-  },
-  {
-    index: 3,
-    question: "Do you work now?",
-    answer: "Yes, I do work at the 1st floor office.",
-    show: false,
-  },
-];
+import * as Animatable from "react-native-animatable";
 
 const ContactUs = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const phoneNumber = "+855767772168";
   const [isVisible, setIsVisible] = useState(false);
-  const [isAnswerVisible, setInAnswerVisible] = useState(false);
+  const [isInvisible, setIsInvisible] = useState(false);
   const [Index, setIndex] = useState(0);
+  const [conversations, setConversation] = useState([
+    {
+      index: 1,
+      question: "Do you eat rice?",
+      answer:
+        "Yes, I do eat in the morning with the fish that I catch from the river at the siem reap city at 3:00 AM with my best friend who also eat rice with me.",
+      show: false,
+    },
+    {
+      index: 2,
+      question: "Do you drink coffee?",
+      answer: "No, I do not.",
+      show: true,
+    },
+    {
+      index: 3,
+      question: "Do you work now?",
+      answer: "Yes, I do work at the 1st floor office.",
+      show: false,
+    },
+  ]);
 
   const handleClose = () => {
-    setIsVisible(false);
+    setIsInvisible(true);
+    setTimeout(() => {
+      setIsVisible(false);
+      setIsInvisible(false);
+    }, 500);
   };
 
   const handleOpen = () => {
@@ -57,13 +61,25 @@ const ContactUs = () => {
   };
 
   const handleClick = (index: number) => {
-    setInAnswerVisible(!isAnswerVisible);
-    setIndex(index + 1);
+    let new_array = conversations;
+    // new_array[index].show = !new_array[index].show;
+    setConversation(new_array);
+    if (Index === 0) {
+      setIndex(index + 1);
+    } else if (index + 1 !== Index) {
+      setIndex(index + 1);
+    } else {
+      setIndex(0);
+    }
   };
 
   return (
     <>
-      <ModalContactUS isVisible={isVisible} handleClose={handleClose} />
+      <ModalContactUS
+        isVisible={isVisible}
+        isInvisible={isInvisible}
+        handleClose={handleClose}
+      />
       <ImageBackground
         source={require("../assets/Images/dashboard-login.png")}
         resizeMode="repeat"
@@ -108,15 +124,22 @@ const ContactUs = () => {
                   >
                     <Text>{conversation.question}</Text>
                     <Image
-                      source={require("../assets/Images/arrow-down-sign-to-navigate.png")}
+                      source={
+                        conversation.index === Index
+                          ? require("../assets/Images/up-arrow.png")
+                          : require("../assets/Images/arrow-down-sign-to-navigate.png")
+                      }
                       resizeMode="cover"
                       style={{ width: 20, height: 20 }}
                     />
                   </TouchableOpacity>
                 </View>
 
-                {isAnswerVisible === true && conversation.index === Index ? (
-                  <View style={ContactUsScreenStyle.ContactUsBodyRowContainer}>
+                {conversation.index === Index ? (
+                  <Animatable.View
+                    style={ContactUsScreenStyle.ContactUsBodyRowContainer}
+                    animation={"flipInX"}
+                  >
                     <View
                       style={
                         ContactUsScreenStyle.ContactUsBodyTitleRowContainer
@@ -125,18 +148,15 @@ const ContactUs = () => {
                       <Text>{conversation.answer}</Text>
                     </View>
                     <Image
-                      source={require("../assets/Images/user_phoem.jpg")}
+                      source={require("../assets/Images/user.png")}
                       resizeMode="cover"
                       style={{
                         width: 40,
                         height: 40,
                         marginLeft: 10,
-                        borderRadius: 50,
-                        borderWidth: 1,
-                        borderColor: "#dcdcdc",
                       }}
                     />
-                  </View>
+                  </Animatable.View>
                 ) : null}
               </View>
             ))}

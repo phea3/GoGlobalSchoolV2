@@ -2037,24 +2037,20 @@
   resolved "https://registry.npmjs.org/@types/prop-types/-/prop-types-15.7.8.tgz"
   integrity sha512-kMpQpfZKSCBqltAJwskgePRaYRFukDkm1oItcAbC3gNELR20XIBcN9VRgg4+m8DKsTfkWeA4m4Imp4DDuWy7FQ==
 
+"@types/qs@^6.9.7":
+  version "6.9.10"
+  resolved "https://registry.yarnpkg.com/@types/qs/-/qs-6.9.10.tgz#0af26845b5067e1c9a622658a51f60a3934d51e8"
+  integrity sha512-3Gnx08Ns1sEoCrWssEgTSJs/rsT2vhGP+Ja9cnnk9k4ALxinORlQneLXFeFKOTJMOeZUFD1s7w+w2AphTpvzZw==
+
 "@types/react-native@^0.72.5":
-  version "0.72.5"
-  resolved "https://registry.yarnpkg.com/@types/react-native/-/react-native-0.72.5.tgz#33a0d0c3c724395ee05bb37255937dcb3fae6d5f"
-  integrity sha512-HAt+EC576kbyg3+qruzbOLgVhgDHTHJ3d3rTkWRJ0wukze+l3ldWUkh1IarERHqsUlWwmkuYu0+4TQE5y1EjwA==
+  version "0.72.6"
+  resolved "https://registry.npmjs.org/@types/react-native/-/react-native-0.72.6.tgz"
+  integrity sha512-5Tan0ejOjbYyrnRreRZ7ftcWbehQELoHevJQliAu0Rhqrsnall8dyodf/434jdDJuQEzLisBMg7ZkQNnghUXIw==
   dependencies:
     "@react-native/virtualized-lists" "^0.72.4"
     "@types/react" "*"
 
-"@types/react@*":
-  version "18.2.35"
-  resolved "https://registry.yarnpkg.com/@types/react/-/react-18.2.35.tgz#bacdc6d139a4d6d47e5186e1a96952c65e1f3792"
-  integrity sha512-LG3xpFZ++rTndV+/XFyX5vUP7NI9yxyk+MQvBDq+CVs8I9DLSc3Ymwb1Vmw5YDoeNeHN4PDZa3HylMKJYT9PNQ==
-  dependencies:
-    "@types/prop-types" "*"
-    "@types/scheduler" "*"
-    csstype "^3.0.2"
-
-"@types/react@~18.2.14":
+"@types/react@*", "@types/react@~18.2.14":
   version "18.2.28"
   resolved "https://registry.npmjs.org/@types/react/-/react-18.2.28.tgz"
   integrity sha512-ad4aa/RaaJS3hyGz0BGegdnSRXQBkd1CCYDCdNjBPg90UUpLgo+WlJqb9fMYUxtehmzF3PJaTWqRZjko6BRzBg==
@@ -3539,12 +3535,12 @@ expo-font@~11.4.0:
 
 expo-image-loader@~4.3.0:
   version "4.3.0"
-  resolved "https://registry.yarnpkg.com/expo-image-loader/-/expo-image-loader-4.3.0.tgz#d897b4d4f1838faa8291c36f00b99c2b36a6ac5c"
+  resolved "https://registry.npmjs.org/expo-image-loader/-/expo-image-loader-4.3.0.tgz"
   integrity sha512-2kqJIO+oYM8J3GbvTUHLqTSpt1dLpOn/X0eB4U4RTuzz/faj8l/TyQELsMBLlGAkweNUuG9LqznbaBz+WuSFEw==
 
 expo-image-picker@~14.3.2:
   version "14.3.2"
-  resolved "https://registry.yarnpkg.com/expo-image-picker/-/expo-image-picker-14.3.2.tgz#5ae2f36fe518a10c8fe82e5ff2ee735c14817cfc"
+  resolved "https://registry.npmjs.org/expo-image-picker/-/expo-image-picker-14.3.2.tgz"
   integrity sha512-xr/YeQMIYheXecWP033F2SPwpBlBR5xVCx7YSfSCTH8Y9pw7Z886agqKGbS9QBVGlzJ5qecJktZ6ASSzeslDVg==
   dependencies:
     expo-image-loader "~4.3.0"
@@ -3556,8 +3552,19 @@ expo-keep-awake@~12.3.0:
 
 expo-linear-gradient@~12.3.0:
   version "12.3.0"
-  resolved "https://registry.yarnpkg.com/expo-linear-gradient/-/expo-linear-gradient-12.3.0.tgz#7abd8fedbf0138c86805aebbdfbbf5e5fa865f19"
+  resolved "https://registry.npmjs.org/expo-linear-gradient/-/expo-linear-gradient-12.3.0.tgz"
   integrity sha512-f9e+Oxe5z7fNQarTBZXilMyswlkbYWQHONVfq8MqmiEnW3h9XsxxmVJLG8uVQSQPUsbW+x1UUT/tnU6mkMWeLg==
+
+expo-linking@~5.0.2:
+  version "5.0.2"
+  resolved "https://registry.yarnpkg.com/expo-linking/-/expo-linking-5.0.2.tgz#273c9dfec0c5542a13638bd422ef9acbf4638bc5"
+  integrity sha512-SPQus0+tYGx9c69Uw4wmdo3rkKX8vRT1vyJz/mvkpSlZN986s0NmP/V0M5vDv5Zv2qZzVdqJyuITFe0Pg5aI+A==
+  dependencies:
+    "@types/qs" "^6.9.7"
+    expo-constants "~14.4.2"
+    invariant "^2.2.4"
+    qs "^6.11.0"
+    url-parse "^1.5.9"
 
 expo-modules-autolinking@1.5.1:
   version "1.5.1"
@@ -3590,6 +3597,11 @@ expo-status-bar@~1.6.0:
   version "1.6.0"
   resolved "https://registry.npmjs.org/expo-status-bar/-/expo-status-bar-1.6.0.tgz"
   integrity sha512-e//Oi2WPdomMlMDD3skE4+1ZarKCJ/suvcB4Jo/nO427niKug5oppcPNYO+csR6y3ZglGuypS+3pp/hJ+Xp6fQ==
+
+expo-store-review@~6.4.0:
+  version "6.4.0"
+  resolved "https://registry.yarnpkg.com/expo-store-review/-/expo-store-review-6.4.0.tgz#2a74a025aa64a218f9f0b0a0fec0b3d2a99b6be2"
+  integrity sha512-aD06KSOO9syeecaP9NfJO++FzmfQjg49HY7qeUQ9r826YqswW/FPAcnXY0RJLhfJTqeAPRSl/xzPLZA5vwdqLQ==
 
 expo-web-browser@~12.3.2:
   version "12.3.2"
@@ -6099,7 +6111,7 @@ qs@6.11.0:
   dependencies:
     side-channel "^1.0.4"
 
-qs@^6.11.2:
+qs@^6.11.0, qs@^6.11.2:
   version "6.11.2"
   resolved "https://registry.npmjs.org/qs/-/qs-6.11.2.tgz"
   integrity sha512-tDNIz22aBzCDxLtVH++VnTfzxlfeK5CbqohpSqpJgj1Wg/cQbStNAz3NuqCs5vV+pjBsK4x4pN9HlVh7rcYRiA==
@@ -6234,7 +6246,7 @@ react-native-popup-menu@^0.16.1:
 
 react-native-reanimated@~3.3.0:
   version "3.3.0"
-  resolved "https://registry.yarnpkg.com/react-native-reanimated/-/react-native-reanimated-3.3.0.tgz#80f9d58e28fddf62fe4c1bc792337b8ab57936ab"
+  resolved "https://registry.npmjs.org/react-native-reanimated/-/react-native-reanimated-3.3.0.tgz"
   integrity sha512-LzfpPZ1qXBGy5BcUHqw3pBC0qSd22qXS3t8hWSbozXNrBkzMhhOrcILE/nEg/PHpNNp1xvGOW8NwpAMF006roQ==
   dependencies:
     "@babel/plugin-transform-object-assign" "^7.16.7"

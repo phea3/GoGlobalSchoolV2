@@ -1,6 +1,8 @@
 import {
+  Alert,
   Image,
   Linking,
+  Platform,
   ScrollView,
   Share,
   Text,
@@ -16,6 +18,7 @@ import { useQuery } from "@apollo/client";
 import { GET_USERPROFILE } from "../graphql/GetUserProfile";
 import Constants from "expo-constants";
 import * as Animatable from "react-native-animatable";
+import * as StoreReview from "expo-store-review";
 
 const Infomations = [
   {
@@ -55,6 +58,7 @@ export default function ProfileScreen() {
   const navigate = useNavigate();
   const version = Constants.expoConfig?.version;
   const phoneNumber = "0767772168";
+  const itunesItemId = "id1641628042";
   const { data, refetch } = useQuery(GET_USERPROFILE, {
     onCompleted: ({ getUserProfile }) => {},
     onError: () => {},
@@ -70,6 +74,17 @@ export default function ProfileScreen() {
       });
       navigate("/");
     });
+  };
+
+  const handleRateApp = async () => {
+    const hasAction = await StoreReview.requestReview();
+
+    if (hasAction === undefined) {
+      // Rating feature not available on the current platform
+      Linking.openURL(
+        `itms-apps://itunes.apple.com/app/viewContentsUserReviews/id${itunesItemId}?action=write-review`
+      );
+    }
   };
 
   const onShare = async () => {
@@ -170,6 +185,8 @@ export default function ProfileScreen() {
                 navigate("/social");
               } else if (info?.action === "setting") {
                 navigate("/setting", { state: data?.getUserProfile?.email });
+              } else if (info?.action === "feedback") {
+                handleRateApp();
               }
             }}
             key={index}

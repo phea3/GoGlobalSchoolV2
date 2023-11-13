@@ -4,7 +4,11 @@ import * as Animatable from "react-native-animatable";
 import { FadeInUp } from "react-native-reanimated";
 import { Linking } from "react-native";
 
-export default function ModalContactUS({ isVisible, handleClose }: any) {
+export default function ModalContactUS({
+  isVisible,
+  isInvisible,
+  handleClose,
+}: any) {
   const recipientUserId = "1586031671709848";
   const predefinedMessage = "Hello, this is a predefined message.";
 
@@ -23,7 +27,7 @@ export default function ModalContactUS({ isVisible, handleClose }: any) {
           />
           <Animatable.View
             style={HomeStyle.ContactUsContentContainer}
-            animation={"fadeInUpBig"}
+            animation={isInvisible ? "fadeOutDownBig" : "fadeInUpBig"}
           >
             <View style={HomeStyle.ContactUsBodyContentContainer}>
               <TouchableOpacity

@@ -125,9 +125,13 @@ export default function Header() {
                 animation="fadeInLeft"
               >
                 <Image
-                  source={{
-                    uri: `https://storage.go-globalschool.com/api${mobileUserLogin?.profileImg}`,
-                  }}
+                  source={
+                    mobileUserLogin?.profileImg
+                      ? {
+                          uri: `https://storage.go-globalschool.com/api${mobileUserLogin?.profileImg}`,
+                        }
+                      : require("../assets/Images/user.png")
+                  }
                   style={HeaderStyle.logoHeader}
                 />
               </Animatable.View>

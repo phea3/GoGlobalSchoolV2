@@ -58,12 +58,16 @@ const Footer = () => {
     },
     {
       title: "គណនី",
-      icon: {
-        uri: `https://storage.go-globalschool.com/api${mobileUserLogin?.profileImg}`,
-      },
-      active_icon: {
-        uri: `https://storage.go-globalschool.com/api${mobileUserLogin?.profileImg}`,
-      },
+      icon: mobileUserLogin?.profileImg
+        ? {
+            uri: `https://storage.go-globalschool.com/api${mobileUserLogin?.profileImg}`,
+          }
+        : require("../assets/Images/user.png"),
+      active_icon: mobileUserLogin?.profileImg
+        ? {
+            uri: `https://storage.go-globalschool.com/api${mobileUserLogin?.profileImg}`,
+          }
+        : require("../assets/Images/user.png"),
       path: "/profile",
       extra_path: "/profile",
       value: 2.88,

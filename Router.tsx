@@ -31,6 +31,8 @@ import SocialMediaScreen from "./screens/SocialMedia";
 import SettingScreen from "./screens/SettingScreen";
 import ResetPasswordScreen from "./screens/ResetPasswordScreen";
 import HealthScreen from "./screens/HealthScreen";
+import AnnouncementScreen from "./screens/AnnouncementScreen";
+import StudentDetailScreen from "./screens/StudentDetail";
 
 export default function Router() {
   //context
@@ -114,6 +116,7 @@ export default function Router() {
         { path: "/attendance", element: <AttendanceScreen /> },
         { path: "/students", element: <StudentsScreen /> },
         { path: "/announce", element: <AnnouncementDetail /> },
+        { path: "/announcement", element: <AnnouncementScreen /> },
         { path: "/about", element: <AboutScreen /> },
         { path: "/profile", element: <ProfileScreen /> },
         { path: "/profiledetail", element: <ProfileDetail /> },
@@ -126,6 +129,7 @@ export default function Router() {
         { path: "/setting", element: <SettingScreen /> },
         { path: "/resetpassword", element: <ResetPasswordScreen /> },
         { path: "/health", element: <HealthScreen /> },
+        { path: "/studentdetail", element: <StudentDetailScreen /> },
         {
           path: "/notification",
           element: <LayoutNotification />,

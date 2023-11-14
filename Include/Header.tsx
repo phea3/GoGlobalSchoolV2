@@ -74,7 +74,7 @@ export default function Header() {
           ) : location.pathname === "/schedule" ? (
             <Back title={"SCHEDULE"} />
           ) : location.pathname === "/announce" ? (
-            <Back title={"ANNOUNCE"} />
+            <Back title={"ANNOUNCEMENT DETAIL"} />
           ) : location.pathname === "/calendar" ? (
             <Back title={"ACADEMIC CALENDAR"} />
           ) : location.pathname === "/payment" ? (
@@ -98,6 +98,10 @@ export default function Header() {
             <Back title={"RESET PASSWORD"} />
           ) : location.pathname === "/health" ? (
             <Back title={"HEALTH"} />
+          ) : location.pathname === "/announcement" ? (
+            <Back title={"ANNOUNCEMENT"} />
+          ) : location.pathname === "/studentdetail" ? (
+            <Back title={"STUDENT DETAIL"} />
           ) : location.pathname === "/profile" ? (
             <Animatable.View animation="fadeInRight">
               <TouchableOpacity

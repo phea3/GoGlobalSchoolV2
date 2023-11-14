@@ -26,7 +26,7 @@ export default function Back({ title }: any) {
         }}
       >
         <Image
-          source={require("../assets/Images/left-arrow.png")}
+          source={require("../assets/Images/back.png")}
           style={{ width: 20, height: 20, marginRight: 10 }}
         />
         <Text style={{ fontFamily: "Kantumruy-Bold" }}>{title}</Text>

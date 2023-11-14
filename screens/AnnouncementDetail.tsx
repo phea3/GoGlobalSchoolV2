@@ -12,7 +12,7 @@ import {
 import { useContext, useEffect } from "react";
 import { AuthContext } from "../Context/AuthContext";
 import { useLocation } from "react-router-native";
-import AnnounceStyle from "../Styles/AnnouncementScreen.scss";
+import AnnounceStyle from "../Styles/AnnouncementDetailScreen.scss";
 import { useRef, useState } from "react";
 import { ExpandingDot } from "react-native-animated-pagination-dots";
 
@@ -57,13 +57,13 @@ export default function AnnouncementDetail() {
     <View
       style={
         dimension === "sm"
-          ? AnnounceStyle.AnnouncementContainer_sm
-          : AnnounceStyle.AnnouncementContainer
+          ? AnnounceStyle.AnnounceContainer_sm
+          : AnnounceStyle.AnnounceContainer
       }
     >
       <ScrollView
         showsVerticalScrollIndicator={false}
-        style={AnnounceStyle.AnnouncementScrollViewStyle}
+        style={AnnounceStyle.AnnounceScrollViewStyle}
       >
         <FlatList
           data={announce?.referenceFiles}

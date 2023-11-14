@@ -86,6 +86,12 @@ const explore = [
     naviage: "/calendar",
     modal: false,
   },
+  {
+    title: "ANNOUNCEMENT",
+    icon: require("../assets/Images/email.png"),
+    naviage: "/announcement",
+    modal: false,
+  },
 ];
 
 const numbers = Array.from({ length: 3 }, (_, index) => index);
@@ -278,8 +284,6 @@ const HomeScreen = () => {
               horizontal
               showsHorizontalScrollIndicator={false}
               contentContainerStyle={{
-                flex: 1,
-                justifyContent: "center",
                 alignItems: "center",
               }}
             >
@@ -437,7 +441,9 @@ const HomeScreen = () => {
                     </View>
                   ) : (
                     <TouchableOpacity
-                      // onPress={() => navigate("/classes", { state: stuInfo?._id })}
+                      onPress={() =>
+                        navigate("/studentdetail", { state: stuInfo?._id })
+                      }
                       key={stuInfo?._id}
                       style={HomeStyle.imageBox}
                     >
@@ -610,7 +616,7 @@ const HomeScreen = () => {
         </View>
 
         <View style={HomeStyle.announceHomeHolderContainer}>
-          {announces.length !== 0 ? (
+          {announces.length === 0 ? (
             <View style={HomeStyle.announcementHomeContainer}>
               <Animatable.Image
                 source={require("../assets/Images/No-Data-Found.jpeg")}

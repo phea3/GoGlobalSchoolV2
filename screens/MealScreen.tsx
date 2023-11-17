@@ -245,7 +245,7 @@ export default function MealScreen() {
             alignItems: "center",
           }}
         >
-          <ActivityIndicator size="small" />
+         <Text>Loading...</Text>
         </View>
       ) : (
         <View style={MealScreenStyle.MealScreenCalendarContainer}>

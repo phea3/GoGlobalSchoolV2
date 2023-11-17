@@ -86,9 +86,9 @@ export default function ProfileScreen() {
         `itms-apps://itunes.apple.com/app/viewContentsUserReviews/id${itunesItemId}?action=write-review`
       );
     } else if (hasAction === undefined && Platform.OS === "android") {
-      Linking.openURL(
-        `market://details?id=${myandroidappid}&showAllReviews=true`
-      );
+      // Linking.openURL(
+      //   `market://details?id=${myandroidappid}&showAllReviews=true`
+      // );
     }
   };
 

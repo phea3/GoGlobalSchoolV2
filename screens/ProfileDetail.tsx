@@ -28,7 +28,7 @@ export default function ProfileDetail() {
       quality: 1,
     });
 
-    console.log(result);
+    // console.log(result);
 
     if (!result.canceled) {
       // setImage(result.assets[0].uri);
@@ -59,11 +59,12 @@ export default function ProfileDetail() {
 
         <View style={ProfileDetailStyle.ProfileDetailImageBorderStyle} />
         <Animatable.Image
-          source={{
+          source={useData?.getUserProfile?.profileImg ? {
             uri:
               "https://storage.go-globalschool.com/api" +
               useData?.getUserProfile?.profileImg,
-          }}
+          } : require('../assets/Images/user.png')
+        }
           resizeMode="cover"
           style={ProfileDetailStyle.ProfileDetailImageStyle}
           animation={"zoomIn"}

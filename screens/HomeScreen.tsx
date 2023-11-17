@@ -333,7 +333,7 @@ const HomeScreen = () => {
                         animation="zoomIn"
                       />
                     </View>
-                    <Text style={HomeStyle.studentProfileName}>
+                    <Text style={HomeStyle.studentProfileName} numberOfLines={1}>
                       {stuInfo?.lastName + " " + stuInfo?.firstName}
                     </Text>
                   </TouchableOpacity>

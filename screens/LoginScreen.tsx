@@ -24,8 +24,8 @@ const LoginScreen = () => {
   const { dispatch, REDUCER_ACTIONS } = useUser();
 
   const [view, setView] = useState(true);
-  const [email, setEmail] = useState("loklundy@gmail.com");
-  const [password, setPassword] = useState("Goglobal@2023");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
   //======== SET LOCAL STORAGE =========
@@ -40,6 +40,20 @@ const LoginScreen = () => {
     },
   });
 
+  useEffect(() => {
+    async function getAccount() {
+      let userGmail = await AsyncStorage.getItem("@gmail");
+      let userPassword = await AsyncStorage.getItem("@password");
+      console.log(userGmail + "\n" + userPassword);
+      if (userGmail) {
+        setEmail(userGmail);
+      }
+      if (userPassword) {
+        setPassword(userPassword);
+      }
+    }
+    getAccount();
+  }, []);
   //============== CHECK NAVIGATE ===============
   const handleNavigation = async () => {
     await auth.login(email, password).then((result) => {
@@ -48,6 +62,9 @@ const LoginScreen = () => {
         //======= Set Local Storage ======
         AsyncStorage.setItem("@userToken", result?.token);
         AsyncStorage.setItem("@userUid", result?.uid);
+        AsyncStorage.setItem("@gmail", email);
+        AsyncStorage.setItem("@password", password);
+
         refetch();
 
         setTimeout(() => {

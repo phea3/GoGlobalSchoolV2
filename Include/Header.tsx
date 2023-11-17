@@ -23,7 +23,7 @@ import {
   fetchDataLocalStorage,
   initMobileUserLogin,
 } from "../Function/FetchDataLocalStorage";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import { AuthContext } from "../Context/AuthContext";
 
 setTranslations({ en, kh });
@@ -44,7 +44,7 @@ export default function Header() {
 
   const navigate = useNavigate();
 
-  useEffect(() => {
+  useMemo(() => {
     fetchDataLocalStorage("@mobileUserLogin").then((value) => {
       let mobileUser: string = value;
       let mobileUserLoginData = JSON.parse(mobileUser);

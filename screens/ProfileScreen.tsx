@@ -73,7 +73,7 @@ export default function ProfileScreen() {
       dispatch({
         type: REDUCER_ACTIONS.LOGOUT,
       });
-      navigate("/");
+      navigate("/login");
     });
   };
 

@@ -16,6 +16,7 @@
     "@react-native-picker/picker": "2.4.10",
     "axios": "^1.5.1",
     "expo": "~49.0.13",
+    "expo-calendar": "~11.3.2",
     "expo-checkbox": "~2.4.0",
     "expo-constants": "~14.4.2",
     "expo-image-picker": "~14.3.2",

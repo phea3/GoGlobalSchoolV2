@@ -265,7 +265,7 @@ export default function LeaveScreen() {
         </View>
         <ScrollView
           showsVerticalScrollIndicator={false}
-          style={{ width: "100%", height: "100%" }}
+          style={{ width: "100%", height: "85%" }}
         >
           {data?.getLeaveForMobile.map((leave: any, index: number) => (
             <View key={index} style={LeaveStyle.LeaveCardContainer}>

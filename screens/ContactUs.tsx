@@ -29,21 +29,8 @@ const ContactUs = () => {
   const [conversations, setConversation] = useState([
     {
       index: 1,
-      question: "Do you eat rice?",
-      answer:
-        "Yes, I do eat in the morning with the fish that I catch from the river at the siem reap city at 3:00 AM with my best friend who also eat rice with me.",
-      show: false,
-    },
-    {
-      index: 2,
-      question: "Do you drink coffee?",
-      answer: "No, I do not.",
-      show: true,
-    },
-    {
-      index: 3,
-      question: "Do you work now?",
-      answer: "Yes, I do work at the 1st floor office.",
+      question: "How do I forget a password?",
+      answer: "You have to contact us via telegram that we profile below.",
       show: false,
     },
   ]);

@@ -3,6 +3,7 @@ import {
   Image,
   ImageBackground,
   Keyboard,
+  ScrollView,
   Text,
   TextInput,
   TouchableOpacity,
@@ -81,7 +82,11 @@ export default function HealthScreen() {
           />
         </View>
       )}
-      <View style={HealthStyle.HealthMiddleContainer}>
+      <ScrollView
+        style={HealthStyle.HealthMiddleContainer}
+        contentContainerStyle={{ alignItems: "center" }}
+        showsVerticalScrollIndicator={false}
+      >
         <View style={HealthStyle.HealthDateContainer}>
           {/* <View
             style={{
@@ -205,7 +210,7 @@ export default function HealthScreen() {
             Submit
           </Text>
         </TouchableOpacity>
-      </View>
+      </ScrollView>
     </View>
   );
 }

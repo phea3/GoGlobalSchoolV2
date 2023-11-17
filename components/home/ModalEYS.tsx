@@ -23,15 +23,21 @@ export default function ModalEYS({
         setTimeout(() => {
           setEys("");
           navigate("/eys", { state: studentId });
-        }, 500);
+        }, 1000);
       }
     },
     onError(error) {},
   });
 
   useEffect(() => {
+    setTimeout(() => {
+      if (data?.checkIsStudentEYSReport === true && eys === "eys") {
+        setEys("");
+        navigate("/eys", { state: studentId });
+      }
+    }, 1000);
     refetch();
-  }, [studentId]);
+  }, [studentId, isVisible]);
 
   return (
     <>

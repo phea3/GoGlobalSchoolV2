@@ -31,8 +31,14 @@ export default function ModalHealth({
   });
 
   useEffect(() => {
+    setTimeout(() => {
+      if (data?.checkIsStudentEYSReport === true && health === "health") {
+        setHealth("");
+        navigate("/health", { state: studentId });
+      }
+    }, 1000);
     refetch();
-  }, [studentId]);
+  }, [studentId, isVisible]);
 
   return (
     <>

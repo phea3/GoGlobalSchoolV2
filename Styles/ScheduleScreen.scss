@@ -8,35 +8,45 @@
 }
 
 .ScheduleTopContainer {
-  width: 95%;
+  width: 90%;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: center;
 }
 
 .ScheduleDayBox {
+  background-color: white;
+  height: 80px;
+  width: 60px;
+  margin-right: 10px;
   justify-content: center;
   align-items: center;
-  border-radius: $border-radius-main;
-  background-color: #fff;
+  border-radius: 20px;
+  background-color: $color-light-grey;
   border-width: 0.5px;
   border-color: $color-gray;
 }
 
 .ScheduleDayInsideBoxCircle {
+  flex: 1;
   border-radius: 100px;
   justify-content: center;
   align-items: center;
 }
 .ScheduleDayTextStyle {
   font-family: $kantumruy-bold;
-  color: white;
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .ScheduleOnSelectStyle {
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  border-radius: $border-radius-main;
+  border-width: 0.5px;
+  border-color: $color-gray;
+  padding: 10px;
+  background-color: $color-light-grey;
 }
 
 .ScheduleOnSelectTextStyle {
@@ -48,21 +58,44 @@
   height: 80px;
   flex-direction: row;
   align-items: center;
-  margin-top: 10px;
+  justify-content: center;
+  // padding: 10px;
+  // margin-bottom: 10px;
+}
+
+.ScheduleBodyBreakContainer {
+  width: 100%;
+  height: 70px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  // padding: 10px;
+  // margin-bottom: 10px;
+}
+
+.ScheduleBodyBreakContainerBox {
+  flex: 1;
   border-width: 0.5px;
   border-color: $color-gray;
   border-radius: $border-radius-main;
   padding: 10px;
 }
 
-.ScheduleBodyTeacherImageContainer {
-  width: 60px;
-  height: 60px;
-  border-width: 0.5px;
-  border-color: $color-gray;
+.ScheduleBodyContentContainerBox {
+  flex: 1;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
+  border-width: 0.5px;
+  border-color: $color-gray;
   border-radius: $border-radius-main;
+  padding: 10px;
+  // background-color: $color-main;
+}
+
+.ScheduleBodyTeacherImageContainer {
+  justify-content: center;
+  align-items: flex-start;
   margin-right: 10px;
 }
 
@@ -70,12 +103,15 @@
   width: 40px;
   height: 40px;
   border-radius: 50px;
+  border-width: 2px;
+  border-color: $color-white;
 }
 
 .ScheduleBodyHourBox {
+  width: 15%;
   height: 100%;
   justify-content: space-evenly;
-  margin-right: 10px;
+  align-items: flex-start;
 }
 
 .ScheduleBodyDescription {
@@ -88,8 +124,19 @@
 
 .ScheduleBodyDescriptionTitle {
   font-family: $kantumruy-bold;
+  // color: #3c6efb;
+  color: $color-white;
 }
 
 .ScheduleBodyDescriptionText {
   font-family: $kantumruy-regular;
+  color: $color-white;
+}
+
+.ScheduleBodyCardBarTop {
+  background-color: green;
+  width: 40%;
+  height: 4px;
+  border-bottom-right-radius: 30px;
+  border-bottom-left-radius: 30px;
 }

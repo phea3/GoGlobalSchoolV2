@@ -157,6 +157,7 @@ const HomeScreen = () => {
       state: { stuInfo: StuInfo, uid: uid },
     });
   };
+
   //============== Modal Pickup ============
   const [visiblePickup, setVisiblePickup] = useState(false);
   const toggleModalOpenPickup = () => {
@@ -172,13 +173,14 @@ const HomeScreen = () => {
     variables: {
       parentsId: uid,
     },
-    onCompleted: ({}) => {
+    onCompleted: ({ getStudentByParentsMobile }) => {
       const timer = setTimeout(() => {
         setLoading(false);
       }, 500);
       return () => clearTimeout(timer);
     },
-    onError: ({}) => {
+    onError: (error) => {
+      console.log(error?.message);
       setLoading(true);
     },
   });
@@ -287,7 +289,8 @@ const HomeScreen = () => {
                 alignItems: "center",
               }}
             >
-              {data?.getStudentByParentsMobile.length === 0 ? (
+              {data?.getStudentByParentsMobile.length === 0 ||
+              data === undefined ? (
                 <View style={HomeStyle.imageBox}>
                   <View
                     style={{
@@ -364,7 +367,7 @@ const HomeScreen = () => {
         setEys={setEys}
       />
 
-      {/* ======== EYS MODAL =========*/}
+      {/* ======== HEALTH MODAL =========*/}
       <ModalHealth
         studentId={studentId}
         isVisible={isHealthVisible}
@@ -386,7 +389,8 @@ const HomeScreen = () => {
             showsHorizontalScrollIndicator={false}
             style={{ width: "95%" }}
           >
-            {data?.getStudentByParentsMobile.length === 0 ? (
+            {data === undefined ||
+            data?.getStudentByParentsMobile.length === 0 ? (
               <View style={HomeStyle.imageBox}>
                 <View
                   style={{
@@ -442,7 +446,7 @@ const HomeScreen = () => {
                   ) : (
                     <TouchableOpacity
                       onPress={() =>
-                        navigate("/studentdetail", { state: stuInfo?._id })
+                        navigate("/studentdetail", { state: { stuInfo, uid } })
                       }
                       key={stuInfo?._id}
                       style={HomeStyle.imageBox}
@@ -484,7 +488,9 @@ const HomeScreen = () => {
           </Text>
           <View style={HomeStyle.homeBar} />
         </View>
-        {eventData?.getUpcomingEventMobile.length === 0 ? (
+
+        {eventData === undefined ||
+        eventData?.getUpcomingEventMobile.length === 0 ? (
           <View style={HomeStyle.upcomingcardhome}>
             <View style={HomeStyle.homeUpcomingEventStyleBoxEmpty}>
               <View style={HomeStyle.homeUpcominginSideViewContainer}>

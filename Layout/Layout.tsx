@@ -67,7 +67,7 @@ const Layout = () => {
             text: "OK",
             onPress: async () => {
               await AsyncStorage.removeItem("@userToken");
-              await AsyncStorage.removeItem("@userUid");
+              await AsyncStorage.setItem("@userUid", JSON.stringify(null));
               dispatch({
                 type: REDUCER_ACTIONS.LOGOUT,
               });

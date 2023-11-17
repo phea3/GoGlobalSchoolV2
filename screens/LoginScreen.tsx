@@ -44,11 +44,12 @@ const LoginScreen = () => {
   const handleNavigation = async () => {
     await auth.login(email, password).then((result) => {
       // console.log("result", result?.token);
-      //
-      AsyncStorage.setItem("@userToken", result?.token);
-      AsyncStorage.setItem("@userUid", result?.uid);
-      refetch();
       if (result?.status === true) {
+        //======= Set Local Storage ======
+        AsyncStorage.setItem("@userToken", result?.token);
+        AsyncStorage.setItem("@userUid", result?.uid);
+        refetch();
+
         setTimeout(() => {
           navigate("/home");
           dispatch({

@@ -1,0 +1,127 @@
+@import "../themes.scss";
+
+.StudentDetailContainer {
+  width: 100%;
+  height: 100%;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.StudentDetailTopContainer {
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.StudentDetailTopHalfLeftContainer {
+  width: 35%;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.StudentDetailTopHalfRightContainer {
+  width: 65%;
+  justify-content: center;
+}
+
+.StudentDetailMiddelTitleContainer {
+  width: 100%;
+  margin-top: 20px;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  margin-bottom: 10px;
+}
+
+.StudentDetailMiddelContentContainer {
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.StudentDetailTitleText {
+  font-size: $base-font-size;
+  font-family: $kantumruy-bold;
+  text-align: center;
+}
+
+.StudentDetailBodyText {
+  font-size: $base-font-size;
+  font-family: $kantumruy-regular;
+  text-align: left;
+}
+
+.StudentDetailBodyClassText {
+  font-size: $base-font-size;
+  font-family: $kantumruy-regular;
+  text-align: center;
+}
+
+.StudentDetailMiddelLeftContentContainer {
+  width: 30%;
+}
+
+.StudentDetailMiddelRightContentContainer {
+  width: 65%;
+}
+
+.StudentDetailSelectDropdownAcademicYearContainer {
+  width: 100%;
+  background-color: $color-light-grey;
+  border-width: 0.5px;
+  border-color: $color-gray;
+  padding: 10px;
+  border-radius: $border-radius-main;
+}
+
+.StudentDetailSelectAcademicYearContainer {
+  width: 100%;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.StudentDetailDropdownAcademicYearContainer {
+  border-radius: $border-radius-main;
+}
+
+.StudentDetailDropdownStyleAcademicYearContainer {
+  border-radius: $border-radius-main;
+  background-color: $color-white;
+}
+
+.StudentDetailDropdownStyle {
+  justify-content: center;
+  align-items: center;
+}
+
+.StudentDetailClassContainer {
+  width: 100%;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  height: 100px;
+  margin-bottom: 10px;
+}
+
+.StudentDetailClassBackgroundContainer {
+  width: 100%;
+  height: 100%;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  position: absolute;
+  border-width: 1px;
+  border-radius: 30px;
+  border-color: $color-gray;
+  background-color: $color-light-grey;
+}
+
+.StudentDetailClassBox {
+  width: 75%;
+  height: 100%;
+  justify-content: center;
+  align-items: flex-start;
+}

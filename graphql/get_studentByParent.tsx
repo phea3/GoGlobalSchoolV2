@@ -8,6 +8,12 @@ export const GET_STUDENT = gql`
       lastName
       englishName
       profileImg
+      dob
+      gender
+      commune
+      district
+      province
+      village
     }
   }
 `;

@@ -101,7 +101,7 @@ export default function StudentsScreen() {
                   ) : (
                     <TouchableOpacity
                       onPress={() =>
-                        navigate("/studentdetail", { state: stuInfo?._id })
+                        navigate("/studentdetail", { state: stuInfo })
                       }
                       key={stuInfo?._id}
                       style={HomeStyle.imageBox}

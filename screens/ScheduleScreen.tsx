@@ -116,6 +116,7 @@ export default function ScheduleScreen() {
           height: 55,
           borderRadius: 5,
           marginVertical: 10,
+          backgroundColor: "white",
         }}
         onSelect={(selectedItem, index) => {
           setClassId(selectedItem?.classesId);
@@ -159,7 +160,7 @@ export default function ScheduleScreen() {
               style={{
                 flexDirection: "row",
                 alignItems: "center",
-                justifyContent: "space-between",
+                justifyContent: "center",
                 borderRadius: 10,
               }}
             >
@@ -170,57 +171,119 @@ export default function ScheduleScreen() {
         }}
       />
       <View style={ScheduleStyle.ScheduleTopContainer}>
-        {DaysOfWeekInKhmer.map((day, index) => (
-          <TouchableOpacity
-            onPress={() => setDay(day.enum)}
-            style={[
-              ScheduleStyle.ScheduleDayBox,
-              {
-                width: widthScreen * 0.125,
-                height: widthScreen * 0.125,
-              },
-            ]}
-            key={index}
-          >
-            <View
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+          {DaysOfWeekInKhmer.map((item, index) => (
+            <TouchableOpacity
+              onPress={() => setDay(item.enum)}
               style={[
-                {
-                  width: widthScreen * 0.0955,
-                  height: widthScreen * 0.0955,
-                  backgroundColor: day.color,
-                },
-                ScheduleStyle.ScheduleDayInsideBoxCircle,
+                ScheduleStyle.ScheduleDayBox,
+                day === item.enum && { backgroundColor: "#3c6efb" },
               ]}
+              key={index}
             >
-              <Text style={ScheduleStyle.ScheduleDayTextStyle}>{day.day}</Text>
-            </View>
-          </TouchableOpacity>
-        ))}
+              <View
+                style={[
+                  ScheduleStyle.ScheduleBodyCardBarTop,
+                  day === item.enum && { backgroundColor: "#ffffff" },
+                ]}
+              />
+              <View
+                style={[
+                  {
+                    // width: widthScreen * 0.0955,
+                    // height: widthScreen * 0.0955,
+                    // backgroundColor: day.color,
+                  },
+                  ScheduleStyle.ScheduleDayInsideBoxCircle,
+                ]}
+              >
+                <Text
+                  style={[
+                    ScheduleStyle.ScheduleDayTextStyle,
+                    day === item.enum && { color: "#fff" },
+                  ]}
+                >
+                  {item.day}
+                </Text>
+              </View>
+            </TouchableOpacity>
+          ))}
+        </ScrollView>
       </View>
-
+      <View style={{ width: "90%", height: 60, justifyContent: "center" }}>
+        <Text
+          style={[
+            ScheduleStyle.ScheduleBodyDescriptionTitle,
+            { color: "black" },
+          ]}
+        >
+          Ongoing
+        </Text>
+      </View>
       <ScrollView showsVerticalScrollIndicator={false} style={{ width: "95%" }}>
         {scheduleData?.getScheduleForMobile.map(
           (schedule: any, index: number) =>
             schedule?.breakTime === true ? (
               <Animatable.View
                 key={index}
-                style={ScheduleStyle.ScheduleBodyContainer}
+                style={ScheduleStyle.ScheduleBodyBreakContainer}
                 animation={"fadeInDown"}
               >
                 <View style={ScheduleStyle.ScheduleBodyHourBox}>
                   <Text>{moment(schedule?.startTime).format("hh:mm")}</Text>
                   <Text>{moment(schedule?.endTime).format("hh:mm")}</Text>
                 </View>
+
                 <View
                   style={{
-                    flex: 1,
-                    justifyContent: "center",
-                    // alignItems: "center",
+                    width: "10%",
+                    height: "100%",
+                    justifyContent: "space-between",
+                    alignItems: "center",
                   }}
                 >
+                  <View
+                    style={{
+                      flex: 1,
+                      width: 2,
+                      backgroundColor: "#3c6efb",
+                    }}
+                  />
+                  <View
+                    style={{
+                      width: 20,
+                      height: 20,
+                      borderRadius: 100,
+                      backgroundColor: "red",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <View
+                      style={{
+                        width: 15,
+                        height: 15,
+                        borderRadius: 100,
+                        backgroundColor: "red",
+                        borderWidth: 2,
+                        borderColor: "white",
+                      }}
+                    />
+                  </View>
+                  <View
+                    style={{
+                      flex: 1,
+                      width: 2,
+                      backgroundColor: "#3c6efb",
+                    }}
+                  />
+                </View>
+
+                <View style={ScheduleStyle.ScheduleBodyBreakContainerBox}>
                   <Text
                     style={{
                       color: "red",
+                      textAlign: "center",
                     }}
                   >
                     ម៉ោងចេញលេង
@@ -241,24 +304,93 @@ export default function ScheduleScreen() {
                     {moment(schedule?.endTime).format("hh:mm")}
                   </Text>
                 </View>
-                <View style={ScheduleStyle.ScheduleBodyTeacherImageContainer}>
-                  <Image
-                    source={
-                      schedule?.day?.teacherProfileImg === ""
-                        ? require("../assets/Images/profile.png")
-                        : { uri: schedule?.day?.teacherProfileImg }
-                    }
-                    style={ScheduleStyle.ScheduleTeacherImage}
-                    resizeMode="cover"
+
+                <View
+                  style={{
+                    width: "10%",
+                    height: "100%",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                  }}
+                >
+                  <View
+                    style={{
+                      flex: 1,
+                      width: 2,
+                      backgroundColor:
+                        scheduleData?.getScheduleForMobile[0]._id ===
+                        schedule?._id
+                          ? "white"
+                          : "#3c6efb",
+                    }}
+                  />
+                  <View
+                    style={{
+                      width: 20,
+                      height: 20,
+                      borderRadius: 100,
+                      backgroundColor: "#3c6efb",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <View
+                      style={{
+                        width: 15,
+                        height: 15,
+                        borderRadius: 100,
+                        backgroundColor: "#3c6efb",
+                        borderWidth: 2,
+                        borderColor: "white",
+                      }}
+                    />
+                  </View>
+                  <View
+                    style={{
+                      flex: 1,
+                      width: 2,
+                      backgroundColor:
+                        scheduleData?.getScheduleForMobile[
+                          scheduleData?.getScheduleForMobile.length - 1
+                        ]._id === schedule?._id
+                          ? "white"
+                          : "#3c6efb",
+                    }}
                   />
                 </View>
-                <View style={ScheduleStyle.ScheduleBodyDescription}>
-                  <Text style={ScheduleStyle.ScheduleBodyDescriptionTitle}>
-                    {schedule?.day?.subjectName}
-                  </Text>
-                  <Text style={ScheduleStyle.ScheduleBodyDescriptionText}>
-                    {schedule?.day?.teacherName}
-                  </Text>
+
+                <View
+                  style={[
+                    ScheduleStyle.ScheduleBodyContentContainerBox,
+                    {
+                      backgroundColor: "#6862C2",
+                      // index % 3 === 0
+                      //   ? "#EC2777"
+                      //   : index % 3 === 1
+                      //   ? "#6862C2"
+                      //   : "#F0822B",
+                    },
+                  ]}
+                >
+                  <View style={ScheduleStyle.ScheduleBodyTeacherImageContainer}>
+                    <Image
+                      source={
+                        schedule?.day?.teacherProfileImg === ""
+                          ? require("../assets/Images/profile.png")
+                          : { uri: schedule?.day?.teacherProfileImg }
+                      }
+                      style={ScheduleStyle.ScheduleTeacherImage}
+                      resizeMode="cover"
+                    />
+                  </View>
+                  <View style={ScheduleStyle.ScheduleBodyDescription}>
+                    <Text style={ScheduleStyle.ScheduleBodyDescriptionTitle}>
+                      {schedule?.day?.subjectName}
+                    </Text>
+                    <Text style={ScheduleStyle.ScheduleBodyDescriptionText}>
+                      {schedule?.day?.teacherName}
+                    </Text>
+                  </View>
                 </View>
               </Animatable.View>
             )

@@ -177,6 +177,7 @@ export default function StudentDetailScreen() {
     onCompleted: ({ getClassesByStudentForMobile }) => {
       if (getClassesByStudentForMobile) {
         setClassdata(getClassesByStudentForMobile);
+        // console.log("getClassesByStudentForMobile", getClassesByStudentForMobile)
       }
     },
     onError: (error) => {},
@@ -187,12 +188,12 @@ export default function StudentDetailScreen() {
   }, [academicId, stuInfo?._id]);
 
   useEffect(() => {
-    setAcademicId(
-      AcademicYearData?.getAcademicYearsForSelect[
-        AcademicYearData?.getAcademicYearsForSelect.length - 1
-      ]._id
-    );
-  }, []);
+      setAcademicId(
+        AcademicYearData?.getAcademicYearsForSelect[
+          AcademicYearData?.getAcademicYearsForSelect.length - 1
+        ]._id
+      );
+  }, [AcademicYearData]);
 
   //============= FUNCTION CHECK CONDITIONS ================
   const ConditionsOfStudentFeatures = (duty: string) => {

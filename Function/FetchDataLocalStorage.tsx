@@ -21,6 +21,6 @@ export async function fetchDataLocalStorage(keyword: string) {
   if (result) {
     return result;
   } else {
-    return "";
+    return `{"__typename":"MobileUserLogin","_id":"","firstName":"","lastName":"","englishName":"","profileImg":""}`;
   }
 }

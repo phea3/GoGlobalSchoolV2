@@ -234,7 +234,7 @@ export default function AttendanceScreen() {
       </Modal>
       <View style={AttendanceStyle.AttendanceTitleContainer}>
         <Text style={AttendanceStyle.AttendanceTitle1}>
-          {stuInfo?.englishName}'s Attendance
+          {stuInfo?.englishName ? stuInfo?.englishName : stuInfo?.lastName + " " + stuInfo?.firstName }'s Attendance
         </Text>
         <TouchableOpacity
           style={AttendanceStyle.AttendanceFilterButton}

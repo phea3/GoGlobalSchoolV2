@@ -8,7 +8,7 @@ import {
   Alert,
   TouchableOpacity,
 } from "react-native";
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useContext } from "react";
 import LoginStyle from "../Styles/LoginScreen.scss";
 import { useNavigate } from "react-router-native";
 import auth from "../Auth/auth";
@@ -22,7 +22,7 @@ import { GET_MOBILEUSERLOGIN } from "../graphql/GetMobileUserLogin";
 
 const LoginScreen = () => {
   const { dispatch, REDUCER_ACTIONS } = useUser();
-
+const { widthScreen, heightScreen } = useContext(AuthContext)
   const [view, setView] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -44,7 +44,7 @@ const LoginScreen = () => {
     async function getAccount() {
       let userGmail = await AsyncStorage.getItem("@gmail");
       let userPassword = await AsyncStorage.getItem("@password");
-      console.log(userGmail + "\n" + userPassword);
+      // console.log(userGmail + "\n" + userPassword);
       if (userGmail) {
         setEmail(userGmail);
       }
@@ -165,7 +165,7 @@ const LoginScreen = () => {
         <Image
           source={require("../assets/Images/bottomImage.png")}
           resizeMode="contain"
-          style={LoginStyle.footer}
+          style={{width: heightScreen * 0.1, height: heightScreen * 0.2 }}
         />
       </ImageBackground>
     </View>

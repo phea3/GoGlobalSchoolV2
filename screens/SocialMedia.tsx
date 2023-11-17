@@ -1,4 +1,5 @@
 import {
+  Alert,
   Image,
   ImageBackground,
   Linking,
@@ -12,9 +13,11 @@ import * as WebBrowser from "expo-web-browser";
 
 const openWebsite = async (url: string) => {
   const result = await WebBrowser.openBrowserAsync(url);
-
   // Handle the result if needed
-  console.log(result);
+  // console.log(result);
+  if (result === undefined) {
+    Alert.alert("Oop!", "Make sure you have the app installed on your device.");
+  }
 };
 
 const socials = [
@@ -46,6 +49,19 @@ const socials = [
 ];
 
 export default function SocialMediaScreen() {
+  const openApp = async (url: string) => {
+    const canOpen = await Linking.canOpenURL(url);
+
+    if (canOpen) {
+      Linking.openURL(url);
+    } else {
+      Alert.alert(
+        "Oop!",
+        "Make sure you have the app installed on your device."
+      );
+    }
+  };
+
   return (
     <ImageBackground
       source={require("../assets/Images/dashboard-login.png")}
@@ -71,7 +87,7 @@ export default function SocialMediaScreen() {
                   if (social.title == "Facebook" || social.title == "Tik Tok") {
                     openWebsite(social.link);
                   } else {
-                    Linking.openURL(social.link);
+                    openApp(social.link);
                   }
                 }}
               >

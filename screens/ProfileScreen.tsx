@@ -59,6 +59,7 @@ export default function ProfileScreen() {
   const version = Constants.expoConfig?.version;
   const phoneNumber = "0767772168";
   const itunesItemId = "id1641628042";
+  const myandroidappid = "com.goglobalschool.schoolmobile";
   const { data, refetch } = useQuery(GET_USERPROFILE, {
     onCompleted: ({ getUserProfile }) => {},
     onError: () => {},
@@ -79,10 +80,14 @@ export default function ProfileScreen() {
   const handleRateApp = async () => {
     const hasAction = await StoreReview.requestReview();
 
-    if (hasAction === undefined) {
+    if (hasAction === undefined && Platform.OS === "ios") {
       // Rating feature not available on the current platform
       Linking.openURL(
         `itms-apps://itunes.apple.com/app/viewContentsUserReviews/id${itunesItemId}?action=write-review`
+      );
+    } else if (hasAction === undefined && Platform.OS === "android") {
+      Linking.openURL(
+        `market://details?id=${myandroidappid}&showAllReviews=true`
       );
     }
   };
@@ -125,11 +130,15 @@ export default function ProfileScreen() {
             <View style={ProfileStyle.ProfileStyleBackgroundProfile} />
 
             <Animatable.Image
-              source={{
-                uri:
-                  "https://storage.go-globalschool.com/api" +
-                  data?.getUserProfile?.profileImg,
-              }}
+              source={
+                data?.getUserProfile?.profileImg
+                  ? {
+                      uri:
+                        "https://storage.go-globalschool.com/api" +
+                        data?.getUserProfile?.profileImg,
+                    }
+                  : require("../assets/Images/user.png")
+              }
               style={ProfileStyle.ProfileImage}
               animation={"zoomIn"}
             />

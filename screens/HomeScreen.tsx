@@ -229,7 +229,7 @@ const HomeScreen = () => {
         setStuInfo(stuInfo);
         break;
       case "ATTENDANCE":
-        navigate("/attendance", { state: stuInfo?._id });
+        navigate("/attendance", { state: stuInfo });
         break;
       case "PAYMENT":
         navigate("/payment", { state: stuInfo?._id });
@@ -468,7 +468,10 @@ const HomeScreen = () => {
                           animation="zoomIn"
                         />
                       </View>
-                      <Text style={HomeStyle.studentProfileName}>
+                      <Text
+                        style={HomeStyle.studentProfileName}
+                        numberOfLines={1}
+                      >
                         {stuInfo?.lastName + " " + stuInfo?.firstName}
                       </Text>
                     </TouchableOpacity>

@@ -23,7 +23,8 @@ import {
   fetchDataLocalStorage,
   initMobileUserLogin,
 } from "../Function/FetchDataLocalStorage";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../Context/AuthContext";
 
 setTranslations({ en, kh });
 setDefaultLanguage("kh");
@@ -32,7 +33,9 @@ setDefaultTranslations({ kh });
 export default function Header() {
   //
   const [mobileUserLogin, setMobileUserLogin] = useState(initMobileUserLogin);
+  const { dimension, widthScreen, heightScreen } = useContext(AuthContext);
 
+  const location = useLocation();
   const t = useTranslation();
 
   const ChangeEng = () => {
@@ -43,8 +46,8 @@ export default function Header() {
 
   useEffect(() => {
     fetchDataLocalStorage("@mobileUserLogin").then((value) => {
-      const mobileUser: string = value;
-      const mobileUserLoginData = JSON.parse(mobileUser);
+      let mobileUser: string = value;
+      let mobileUserLoginData = JSON.parse(mobileUser);
       setMobileUserLogin({
         _id: mobileUserLoginData?._id,
         firstName: mobileUserLoginData?.firstName,
@@ -53,9 +56,7 @@ export default function Header() {
         profileImg: mobileUserLoginData?.profileImg,
       });
     });
-  }, []);
-
-  const location = useLocation();
+  }, [location.pathname]);
 
   const ChangeKh = () => {
     setLanguage("kh");
@@ -108,14 +109,9 @@ export default function Header() {
                 style={{
                   justifyContent: "flex-start",
                   alignItems: "center",
-                  // paddingHorizontal: 10,
                   flexDirection: "row",
                 }}
               >
-                {/* <Image
-                source={require("../assets/Images/left-arrow.png")}
-                style={{ width: 20, height: 20, marginRight: 10 }}
-              /> */}
                 <Text style={{ fontFamily: "Kantumruy-Bold" }}>PROFILE</Text>
               </TouchableOpacity>
             </Animatable.View>
@@ -136,12 +132,18 @@ export default function Header() {
                         }
                       : require("../assets/Images/user.png")
                   }
-                  style={HeaderStyle.logoHeader}
+                  style={[
+                    HeaderStyle.logoHeader,
+                    {
+                      width: heightScreen * 0.038,
+                      height: heightScreen * 0.038,
+                    },
+                  ]}
                 />
               </Animatable.View>
               <Animatable.View
                 style={{
-                  marginLeft: 10,
+                  marginLeft: heightScreen * 0.01,
                   flexDirection: "column",
                   justifyContent: "center",
                 }}
@@ -166,33 +168,43 @@ export default function Header() {
           {location.pathname === "/notification" ||
           location.pathname === "/notification/announces" ? (
             <TouchableOpacity onPress={() => navigate("/notification")}>
-              <Image
+              <Animatable.Image
                 source={require("../assets/Images/notification-bell.png")}
-                style={{ width: 30, height: 30, marginRight: 10 }}
+                style={{
+                  width: heightScreen * 0.028,
+                  height: heightScreen * 0.028,
+                  marginRight: heightScreen * 0.01,
+                }}
+                animation="fadeInDown"
               />
 
-              <View
+              <Animatable.View
                 style={{
-                  width: 13,
-                  height: 13,
+                  width: heightScreen * 0.008,
+                  height: heightScreen * 0.008,
                   borderRadius: 20,
                   backgroundColor: "red",
                   justifyContent: "center",
                   alignItems: "center",
                   position: "absolute",
-                  right: 10,
+                  right: heightScreen * 0.014,
                 }}
+                animation="fadeInDown"
               >
                 <Text
                   style={{ color: "white", fontWeight: "bold", fontSize: 10 }}
                 ></Text>
-              </View>
+              </Animatable.View>
             </TouchableOpacity>
           ) : (
             <TouchableOpacity onPress={() => navigate("/notification")}>
               <Animatable.Image
                 source={require("../assets/Images/bell.png")}
-                style={{ width: 30, height: 30, marginRight: 10 }}
+                style={{
+                  width: heightScreen * 0.028,
+                  height: heightScreen * 0.028,
+                  marginRight: heightScreen * 0.01,
+                }}
                 animation="fadeInDown"
               />
             </TouchableOpacity>
@@ -204,13 +216,19 @@ export default function Header() {
                 {getLanguage() === "kh" ? (
                   <Animatable.Image
                     source={require("../assets/Images/Cambodia-Flag.png")}
-                    style={{ width: 30, height: 30 }}
+                    style={{
+                      width: heightScreen * 0.028,
+                      height: heightScreen * 0.028,
+                    }}
                     animation="fadeInDown"
                   />
                 ) : (
                   <Animatable.Image
                     source={require("../assets/Images/English-Flag.png")}
-                    style={{ width: 30, height: 30 }}
+                    style={{
+                      width: heightScreen * 0.028,
+                      height: heightScreen * 0.028,
+                    }}
                     animation="fadeInDown"
                   />
                 )}
@@ -222,12 +240,23 @@ export default function Header() {
                       flexDirection: "row",
                       alignItems: "center",
                       justifyContent: "space-between",
+                      padding: 10,
                     }}
                   >
-                    <Text>English</Text>
+                    <Text
+                      style={[
+                        HeaderStyle.headerTitle3,
+                        { fontSize: heightScreen * 0.015 },
+                      ]}
+                    >
+                      English
+                    </Text>
                     <Image
                       source={require("../assets/Images/English-Flag.png")}
-                      style={{ width: 20, height: 20 }}
+                      style={{
+                        width: heightScreen * 0.028,
+                        height: heightScreen * 0.028,
+                      }}
                     />
                   </View>
                 </MenuOption>
@@ -237,12 +266,25 @@ export default function Header() {
                       flexDirection: "row",
                       alignItems: "center",
                       justifyContent: "space-between",
+                      padding: 10,
+                      borderTopWidth: 1,
+                      borderColor: "#dcdcdc",
                     }}
                   >
-                    <Text>ខ្មែរ</Text>
+                    <Text
+                      style={[
+                        HeaderStyle.headerTitle3,
+                        { fontSize: heightScreen * 0.015 },
+                      ]}
+                    >
+                      ខ្មែរ
+                    </Text>
                     <Image
                       source={require("../assets/Images/Cambodia-Flag.png")}
-                      style={{ width: 20, height: 20 }}
+                      style={{
+                        width: heightScreen * 0.028,
+                        height: heightScreen * 0.028,
+                      }}
                     />
                   </View>
                 </MenuOption>

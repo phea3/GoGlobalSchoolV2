@@ -136,14 +136,16 @@ const Footer = () => {
                 <Image
                   source={tab.icon}
                   style={{
-                    width: 20,
-                    height: 20,
+                    width: heightScreen * 0.026,
+                    height: heightScreen * 0.026,
                     borderRadius: tab.path === "/profile" ? 100 : 0,
+                    borderWidth: tab.path === "/profile" ? 2 : 0,
+                    borderColor: "#3C6EFB",
                   }}
                 />
                 <Text
                   style={{
-                    fontSize: 10,
+                    fontSize: heightScreen * 0.012,
                     color: "#3C6EFB",
                     fontFamily: "Kantumruy-Bold",
                   }}
@@ -156,12 +158,19 @@ const Footer = () => {
                 <Image
                   source={tab.active_icon}
                   style={{
-                    width: 20,
-                    height: 20,
+                    width: heightScreen * 0.022,
+                    height: heightScreen * 0.022,
                     borderRadius: tab.path === "/profile" ? 100 : 0,
+                    borderWidth: tab.path === "/profile" ? 2 : 0,
+                    borderColor: "#3C6EFB",
                   }}
                 />
-                <Text style={{ fontSize: 10, fontFamily: "Kantumruy-Bold" }}>
+                <Text
+                  style={{
+                    fontSize: heightScreen * 0.011,
+                    fontFamily: "Kantumruy-Bold",
+                  }}
+                >
                   {tab.title}
                 </Text>
               </>

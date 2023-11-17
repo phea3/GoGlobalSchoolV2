@@ -17,14 +17,13 @@
 
 .titleContainer {
   flex-direction: row;
+  align-items: center;
   padding-left: 15px;
   padding-right: 15px;
 }
 
 .logoHeader {
-  width: 40px;
-  height: 40px;
-  border-radius: 50px;
+  border-radius: 100px;
   border-width: 0.5px;
   border-color: #dcdcdc;
 }
@@ -34,7 +33,12 @@
   font-weight: bold;
   font-family: "Bayon-Regular";
 }
+
 .headerTitle2 {
   font-size: 12px;
+  font-family: "Kantumruy-Regular";
+}
+
+.headerTitle3 {
   font-family: "Kantumruy-Regular";
 }

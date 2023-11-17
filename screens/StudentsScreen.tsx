@@ -101,7 +101,7 @@ export default function StudentsScreen() {
                   ) : (
                     <TouchableOpacity
                       onPress={() =>
-                        navigate("/studentdetail", { state: stuInfo })
+                        navigate("/studentdetail", { state: { stuInfo, uid } })
                       }
                       key={stuInfo?._id}
                       style={HomeStyle.imageBox}
@@ -123,7 +123,10 @@ export default function StudentsScreen() {
                           animation="zoomIn"
                         />
                       </View>
-                      <Text style={HomeStyle.studentProfileName}>
+                      <Text
+                        style={HomeStyle.studentProfileName}
+                        numberOfLines={1}
+                      >
                         {stuInfo?.lastName + " " + stuInfo?.firstName}
                       </Text>
                     </TouchableOpacity>

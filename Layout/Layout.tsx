@@ -33,6 +33,7 @@ const Layout = () => {
   const color = useSharedValue("red");
   const [connection, setConnection] = useState(false);
 
+  //=========== SET USER MOBILE ===================
   const onStateChange = useCallback((state: any) => {
     AsyncStorage.setItem("@mobileUserLogin", JSON.stringify(state));
   }, []);

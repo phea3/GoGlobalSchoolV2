@@ -21,6 +21,7 @@ import { GET_ACADEMIC_YEAR } from "../graphql/get_AcademicYear";
 export default function AttendanceScreen() {
   const location = useLocation();
   const navigate = useNavigate();
+  const stuInfo = location.state;
   const stuId = location.state;
   const numbers = Array.from({ length: 20 }, (_, index) => index);
   const [isModalVisible1, setModalVisible1] = useState(false);
@@ -32,7 +33,10 @@ export default function AttendanceScreen() {
   const [academicYears, setAcademicYears] = useState([]);
   const [attendances, setAttendances] = useState([]);
   const [limit, setLimit] = useState(10);
+
   const countries = ["2021", "2022", "Summer 2023", "2024"];
+
+  // console.log(stuInfo);
 
   const toggleModal1 = () => {
     setModalVisible1(!isModalVisible1);
@@ -230,7 +234,7 @@ export default function AttendanceScreen() {
       </Modal>
       <View style={AttendanceStyle.AttendanceTitleContainer}>
         <Text style={AttendanceStyle.AttendanceTitle1}>
-          Brosphoem's Attendance
+          {stuInfo?.englishName}'s Attendance
         </Text>
         <TouchableOpacity
           style={AttendanceStyle.AttendanceFilterButton}

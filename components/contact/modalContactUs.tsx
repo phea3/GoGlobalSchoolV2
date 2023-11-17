@@ -1,4 +1,11 @@
-import { Image, Modal, Text, TouchableOpacity, View } from "react-native";
+import {
+  Alert,
+  Image,
+  Modal,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import HomeStyle from "../../Styles/HomeScreen.scss";
 import * as Animatable from "react-native-animatable";
 import { FadeInUp } from "react-native-reanimated";
@@ -12,6 +19,38 @@ export default function ModalContactUS({
   const recipientUserId = "1586031671709848";
   const predefinedMessage = "Hello, this is a predefined message.";
 
+  const openMessenger = async () => {
+    const url = `fb-messenger://user-thread/${recipientUserId}?text=${encodeURIComponent(
+      predefinedMessage
+    )}`;
+    const canOpen = await Linking.canOpenURL(url);
+
+    if (canOpen) {
+      // Open the messaging app
+      Linking.openURL(url);
+    } else {
+      // Handle the case when the app is not installed
+      // You can show an error message or provide an alternative way to contact the user
+      Alert.alert(
+        "Oop!",
+        "Make sure you have the Facebook Messenger app installed on your device."
+      );
+    }
+  };
+
+  const openTelegram = async () => {
+    const url = "https://t.me/GoGlobal_IT_And_Marketing";
+    const canOpen = await Linking.canOpenURL(url);
+
+    if (canOpen) {
+      Linking.openURL(url);
+    } else {
+      Alert.alert(
+        "Oop!",
+        "Make sure you have the Telegram app installed on your device."
+      );
+    }
+  };
   return (
     <>
       <Modal
@@ -33,7 +72,7 @@ export default function ModalContactUS({
               <TouchableOpacity
                 style={HomeStyle.ContactUsContentButton}
                 onPress={() => {
-                  Linking.openURL("https://t.me/GoGlobal_IT_And_Marketing");
+                  openTelegram();
                 }}
               >
                 <Image
@@ -47,11 +86,7 @@ export default function ModalContactUS({
               <TouchableOpacity
                 style={HomeStyle.ContactUsContentButton}
                 onPress={() => {
-                  Linking.openURL(
-                    `fb-messenger://user-thread/${recipientUserId}?text=${encodeURIComponent(
-                      predefinedMessage
-                    )}`
-                  );
+                  openMessenger();
                 }}
               >
                 <Image

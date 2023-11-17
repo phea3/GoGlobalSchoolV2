@@ -30,7 +30,7 @@ const ContactUs = () => {
     {
       index: 1,
       question: "How do I forget a password?",
-      answer: "You have to contact us via telegram that we profile below.",
+      answer: "You have to contact us via telegram that we provide below.",
       show: false,
     },
   ]);

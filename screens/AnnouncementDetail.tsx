@@ -8,6 +8,7 @@ import {
   View,
   StyleSheet,
   Dimensions,
+  Button,
 } from "react-native";
 import { useContext, useEffect } from "react";
 import { AuthContext } from "../Context/AuthContext";
@@ -15,15 +16,19 @@ import { useLocation } from "react-router-native";
 import AnnounceStyle from "../Styles/AnnouncementDetailScreen.scss";
 import { useRef, useState } from "react";
 import { ExpandingDot } from "react-native-animated-pagination-dots";
+import ImageView from "react-native-image-viewing";
+import { ImageSource } from "react-native-image-viewing/dist/@types";
 
 export default function AnnouncementDetail() {
   const location = useLocation();
   const { dimension, widthScreen, heightScreen } = useContext(AuthContext);
   const announce = location.state;
   const [modalVisible, setModalVisible] = useState(false);
-  const [Images, setImages] = useState("");
 
+  const [Images, setImage] = useState("");
   // console.log("announce?.referenceFiles", announce?.referenceFiles);
+
+  const [visible, setIsVisible] = useState(false);
 
   const scale = useRef(new Animated.Value(1)).current;
   const translateX = useRef(new Animated.Value(0)).current;
@@ -32,7 +37,13 @@ export default function AnnouncementDetail() {
 
   function ImageData(item: any) {
     return (
-      <View
+      <TouchableOpacity
+        onPress={() => {
+          setTimeout(() => {
+            setIsVisible(true);
+          }, 500);
+          setImage(item?.item.item);
+        }}
         style={{
           width: widthScreen * 0.95,
           height: heightScreen * 0.3,
@@ -42,14 +53,20 @@ export default function AnnouncementDetail() {
         }}
       >
         <Image
-          source={{ uri: item?.item }}
+          source={{ uri: item?.item.item }}
           resizeMode="contain"
           style={{
             width: "80%",
             height: "100%",
           }}
         />
-      </View>
+        <ImageView
+          images={[{ uri: Images }]}
+          imageIndex={0}
+          visible={visible}
+          onRequestClose={() => setIsVisible(false)}
+        />
+      </TouchableOpacity>
     );
   }
 
@@ -80,7 +97,7 @@ export default function AnnouncementDetail() {
           decelerationRate={"normal"}
           scrollEventThrottle={16}
           renderItem={({ item, index }) => (
-            <ImageData item={item} key={index} />
+            <ImageData item={{ item: item, index: index }} key={index} />
           )}
         />
         <ExpandingDot

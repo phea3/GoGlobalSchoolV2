@@ -25,7 +25,9 @@ export default function ScheduleScreen() {
 
   const { widthScreen, heightScreen } = useContext(AuthContext);
   const [classId, setClassId] = useState("");
-  const [day, setDay] = useState("monday");
+  const [day, setDay] = useState(
+    moment(new Date()).format("dddd").toLowerCase()
+  );
 
   const { data: ActiveAcademicYearData, refetch: ActiveAcademicYearRefetch } =
     useQuery(GET_ACTIVE_ACADEMIC_YEAR, {

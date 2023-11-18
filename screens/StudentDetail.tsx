@@ -149,12 +149,27 @@ export default function StudentDetailScreen() {
   const calculate_age = (dob1: any) => {
     var today = new Date();
     var birthDate = new Date(dob1); // create a date object directly from `dob1` argument
-    var age_now = today.getFullYear() - birthDate.getFullYear();
-    var m = today.getMonth() - birthDate.getMonth();
-    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-      age_now--;
+
+    if (today.getFullYear() === birthDate.getFullYear()) {
+      var months_old = today.getMonth() - birthDate.getMonth();
+
+      if (months_old === 0) {
+        var days_old = today.getDate() - birthDate.getDate();
+        return days_old + " days old"; // Extend the value behind with ' days old'
+      } else {
+        if (today.getDate() < birthDate.getDate()) {
+          months_old--; // Subtract 1 from months_old if the current day is less than the birth day
+        }
+        return months_old + " months old"; // Extend the value behind with ' months old'
+      }
+    } else {
+      var age_now = today.getFullYear() - birthDate.getFullYear();
+      var m = today.getMonth() - birthDate.getMonth();
+      if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+        age_now--;
+      }
+      return age_now < 2 ? age_now + " year old" : age_now + " years old"; // Extend the value behind with ' years old'
     }
-    return age_now;
   };
 
   const { data: AcademicYearData, refetch: AcademicYearForSelectRefetch } =
@@ -188,11 +203,11 @@ export default function StudentDetailScreen() {
   }, [academicId, stuInfo?._id]);
 
   useEffect(() => {
-      setAcademicId(
-        AcademicYearData?.getAcademicYearsForSelect[
-          AcademicYearData?.getAcademicYearsForSelect.length - 1
-        ]._id
-      );
+    setAcademicId(
+      AcademicYearData?.getAcademicYearsForSelect[
+        AcademicYearData?.getAcademicYearsForSelect.length - 1
+      ]._id
+    );
   }, [AcademicYearData]);
 
   //============= FUNCTION CHECK CONDITIONS ================
@@ -285,10 +300,10 @@ export default function StudentDetailScreen() {
 
           <View style={StudentDetailStyle.StudentDetailTopHalfRightContainer}>
             <Text style={StudentDetailStyle.StudentDetailTitleText}>
-              {stuInfo?.englishName}
+              {stuInfo?.lastName + " " + stuInfo?.firstName}
             </Text>
             <Text style={StudentDetailStyle.StudentDetailTitleText}>
-              {stuInfo?.lastName + " " + stuInfo?.firstName}
+              {stuInfo?.englishName}
             </Text>
           </View>
         </View>

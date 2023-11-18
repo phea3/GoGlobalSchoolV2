@@ -73,6 +73,7 @@
   font-family: "Kantumruy-Bold";
   text-align: center;
 }
+
 .AttendanceBody2 {
   width: 33.3333333%;
   font-family: "Kantumruy-Regular";
@@ -97,6 +98,12 @@
   color: #3c6efb;
   width: 100%;
 }
+
+.AttendanceModalBodyText {
+  font-family: $kantumruy-regular;
+  margin-right: 10px;
+}
+
 .AttendanceSelectLeaveOptionPickupDate {
   padding: 10px;
   border-width: 1px;

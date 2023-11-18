@@ -22,14 +22,14 @@ export default function AttendanceScreen() {
   const location = useLocation();
   const navigate = useNavigate();
   const stuInfo = location.state;
-  const stuId = location.state;
+  const stuId = location.state._id;
   const numbers = Array.from({ length: 20 }, (_, index) => index);
   const [isModalVisible1, setModalVisible1] = useState(false);
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [isDatePickerVisible1, setDatePickerVisibility1] = useState(false);
   const [date, setDate] = useState("");
   const [date1, setDate1] = useState("");
-  const [academicId, setAcademicId] = useState("64af61a9d55dd0f4efdb9962");
+  const [academicId, setAcademicId] = useState("");
   const [academicYears, setAcademicYears] = useState([]);
   const [attendances, setAttendances] = useState([]);
   const [limit, setLimit] = useState(10);
@@ -39,6 +39,7 @@ export default function AttendanceScreen() {
   // console.log(stuInfo);
 
   const toggleModal1 = () => {
+    refetch();
     setModalVisible1(!isModalVisible1);
   };
 
@@ -75,7 +76,7 @@ export default function AttendanceScreen() {
       from: date,
       to: date1,
       limit: limit,
-      academicYearId: academicId === "" ? "" : academicId,
+      academicYearId: academicId,
     },
     onCompleted: ({ getAttendantsByStudent }) => {
       setAttendances(getAttendantsByStudent);
@@ -86,12 +87,22 @@ export default function AttendanceScreen() {
     refetch();
   }, [isModalVisible1, date, date1, limit, stuId]);
 
-  const { refetch: academicRefetch } = useQuery(GET_ACADEMIC_YEAR, {
-    pollInterval: 2000,
-    onCompleted: ({ getAcademicYear }) => {
-      setAcademicYears(getAcademicYear);
-    },
-  });
+  const { data: academincYearData, refetch: academicRefetch } = useQuery(
+    GET_ACADEMIC_YEAR,
+    {
+      onCompleted: ({ getAcademicYear }) => {
+        setAcademicYears(getAcademicYear);
+      },
+    }
+  );
+
+  useEffect(() => {
+    setAcademicId(
+      academincYearData?.getAcademicYear[
+        academincYearData?.getAcademicYear.length - 1
+      ]._id
+    );
+  }, []);
 
   useEffect(() => {
     academicRefetch();
@@ -152,12 +163,20 @@ export default function AttendanceScreen() {
                           alignItems: "center",
                         }}
                       >
-                        <Text>ឆ្នាំសិក្សា៖</Text>
-                        <Text>{selectedItem?.academicYear}</Text>
+                        <Text style={AttendanceStyle.AttendanceModalBodyText}>
+                          ឆ្នាំសិក្សា៖
+                        </Text>
+                        <Text style={AttendanceStyle.AttendanceModalBodyText}>
+                          {selectedItem?.academicYear
+                            ? selectedItem?.academicYear
+                            : academincYearData?.getAcademicYear[
+                                academincYearData?.getAcademicYear.length - 1
+                              ].academicYear}
+                        </Text>
                       </View>
 
                       <Image
-                        source={require("../assets/Images/angle-down-gray.png")}
+                        source={require("../assets/Images/arrow-down-sign-to-navigate.png")}
                         style={{ width: 20, height: 20 }}
                       />
                     </View>
@@ -177,7 +196,7 @@ export default function AttendanceScreen() {
                   style={AttendanceStyle.AttendanceSelectLeaveOptionPickupDate}
                   onPress={showDatePicker}
                 >
-                  <Text>
+                  <Text style={AttendanceStyle.AttendanceModalBodyText}>
                     {date
                       ? moment(date).format("YYYY-MM-DD")
                       : moment(new Date()).format("YYYY-MM-DD")}
@@ -201,7 +220,7 @@ export default function AttendanceScreen() {
                   style={AttendanceStyle.AttendanceSelectLeaveOptionPickupDate}
                   onPress={showDatePicker1}
                 >
-                  <Text>
+                  <Text style={AttendanceStyle.AttendanceModalBodyText}>
                     {date1
                       ? moment(date1).format("YYYY-MM-DD")
                       : moment(new Date()).format("YYYY-MM-DD")}
@@ -234,7 +253,10 @@ export default function AttendanceScreen() {
       </Modal>
       <View style={AttendanceStyle.AttendanceTitleContainer}>
         <Text style={AttendanceStyle.AttendanceTitle1}>
-          {stuInfo?.englishName ? stuInfo?.englishName : stuInfo?.lastName + " " + stuInfo?.firstName }'s Attendance
+          {stuInfo?.englishName
+            ? stuInfo?.englishName
+            : stuInfo?.lastName + " " + stuInfo?.firstName}
+          's Attendance
         </Text>
         <TouchableOpacity
           style={AttendanceStyle.AttendanceFilterButton}

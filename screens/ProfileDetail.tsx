@@ -59,12 +59,15 @@ export default function ProfileDetail() {
 
         <View style={ProfileDetailStyle.ProfileDetailImageBorderStyle} />
         <Animatable.Image
-          source={useData?.getUserProfile?.profileImg ? {
-            uri:
-              "https://storage.go-globalschool.com/api" +
-              useData?.getUserProfile?.profileImg,
-          } : require('../assets/Images/user.png')
-        }
+          source={
+            useData?.getUserProfile?.profileImg
+              ? {
+                  uri:
+                    "https://storage.go-globalschool.com/api" +
+                    useData?.getUserProfile?.profileImg,
+                }
+              : require("../assets/Images/user.png")
+          }
           resizeMode="cover"
           style={ProfileDetailStyle.ProfileDetailImageStyle}
           animation={"zoomIn"}
@@ -92,10 +95,10 @@ export default function ProfileDetail() {
               : useData?.getUserProfile?.firstname}
           </Text>
           <Text style={ProfileDetailStyle.ProfileDetailCutomerTypeText}>
-            Parent Type :
+            {/* Parent Type :
             {useData?.getUserProfile?.customerType
               ? useData?.getUserProfile?.customerType
-              : "--:--"}
+              : "--:--"} */}{" "}
           </Text>
           {/* <Button title="Pick an image from camera roll" onPress={pickImage} />  */}
           {/* {image && (

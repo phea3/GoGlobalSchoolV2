@@ -27,7 +27,7 @@ export default function ModalTakeLeave({
   const [isDatePickerVisible1, setDatePickerVisibility1] = useState(false);
   const [isDatePickerVisible2, setDatePickerVisibility2] = useState(false);
   const [fullday, setFullday] = useState(false);
-  const [morning, setMorning] = useState(false);
+  const [morning, setMorning] = useState(true);
   const [afternoon, setAfternoon] = useState(false);
   const [date, setDate] = useState(new Date());
   const [from, setFrom] = useState(new Date());
@@ -346,6 +346,18 @@ export default function ModalTakeLeave({
                 multiline
               />
             </View>
+            {reason == "" ? (
+              <Text
+                style={{
+                  color: "red",
+                  textAlign: "left",
+                  width: "95%",
+                  padding: 10,
+                }}
+              >
+                Require!
+              </Text>
+            ) : null}
 
             <TouchableOpacity
               style={HomeStyle.homeSelectLeaveOptionButtonRequest}

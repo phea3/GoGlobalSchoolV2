@@ -245,7 +245,7 @@ export default function MealScreen() {
             alignItems: "center",
           }}
         >
-         <Text>Loading...</Text>
+          <Text>Loading...</Text>
         </View>
       ) : (
         <View style={MealScreenStyle.MealScreenCalendarContainer}>
@@ -306,10 +306,21 @@ export default function MealScreen() {
       <View
         style={{
           width: "90%",
-          height: "15%",
+          height: "5%",
           flexDirection: "row",
-          alignItems: "center",
-          // borderTopWidth: 2,
+          alignItems: "flex-start",
+          justifyContent: "flex-start",
+        }}
+      >
+        <Text style={MealScreenStyle.MealScreenMonthTitle}>សម្គាល់</Text>
+      </View>
+      <View
+        style={{
+          width: "90%",
+          height: "10%",
+          flexDirection: "row",
+          alignItems: "flex-start",
+          justifyContent: "flex-start",
         }}
       >
         <View
@@ -323,11 +334,11 @@ export default function MealScreen() {
           ]}
         >
           <Image
-            source={require("../assets/Images/salad.png")}
-            style={{ width: 40, height: 40 }}
+            source={require("../assets/Images/one.png")}
+            style={{ width: 12, height: 12 }}
           />
         </View>
-        <Text style={MealScreenStyle.MealScreenMonthBodyText}>បរិភោគអាហារ</Text>
+        <Text style={MealScreenStyle.MealScreenMonthBodyText}>បានញ៉ាំ</Text>
       </View>
     </View>
   );

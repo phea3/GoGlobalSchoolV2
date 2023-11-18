@@ -74,12 +74,12 @@ const explore = [
     naviage: "/meal",
     modal: true,
   },
-  {
-    title: "PAYMENT",
-    icon: require("../assets/Images/dollar.png"),
-    naviage: "/payment",
-    modal: false,
-  },
+  // {
+  //   title: "PAYMENT",
+  //   icon: require("../assets/Images/dollar.png"),
+  //   naviage: "/payment",
+  //   modal: false,
+  // },
   {
     title: "CALENDAR",
     icon: require("../assets/Images/calendar1.png"),
@@ -333,7 +333,10 @@ const HomeScreen = () => {
                         animation="zoomIn"
                       />
                     </View>
-                    <Text style={HomeStyle.studentProfileName} numberOfLines={1}>
+                    <Text
+                      style={HomeStyle.studentProfileName}
+                      numberOfLines={1}
+                    >
                       {stuInfo?.lastName + " " + stuInfo?.firstName}
                     </Text>
                   </TouchableOpacity>

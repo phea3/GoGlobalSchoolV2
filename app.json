@@ -2,11 +2,32 @@
   "expo": {
     "name": "school-mobile-app-ios",
     "slug": "school-mobile-app-ios",
+    "platforms": ["ios", "android"],
+    "privacy": "public",
     "version": "1.2.7",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
+    "notification": {
+      "icon": "./assets/Images/salad.png",
+      "sounds": [
+        {
+          "name": "default",
+          "filename": "./assets/Images/maybe-one-day-584.mp3"
+        },
+        {
+          "name": "custom",
+          "filename": "./assets/Images/maybe-one-day-584.mp3"
+        }
+      ]
+    },
     "plugins": [
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/Images/salad.png"
+        }
+      ],
       [
         "expo-image-picker",
         {
@@ -17,6 +38,13 @@
         "expo-calendar",
         {
           "calendarPermission": "The app needs to access your calendar."
+        }
+      ],
+      [
+        "expo-media-library",
+        {
+          "photosPermission": "Allow $(PRODUCT_NAME) to access your photos.",
+          "savePhotosPermission": "Allow $(PRODUCT_NAME) to save photos."
         }
       ]
     ],
@@ -32,6 +60,9 @@
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
+      "infoPlist": {
+        "NSCameraUsageDescription": "This app uses the camera to scan barcodes on event tickets."
+      },
       "supportsTablet": true,
       "entitlements": {
         "com.apple.developer.networking.wifi-info": true,
@@ -40,10 +71,12 @@
       "bundleIdentifier": "Second-dayofSwift-Testing"
     },
     "android": {
+      "blockedPermissions": ["android.permission.RECORD_AUDIO"],
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.goglobal_school.schoolmobileappios"
     },
     "web": {
       "favicon": "./assets/favicon.png"

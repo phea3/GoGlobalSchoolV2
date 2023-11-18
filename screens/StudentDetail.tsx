@@ -67,12 +67,12 @@ const explore = [
     naviage: "/meal",
     modal: true,
   },
-  {
-    title: "PAYMENT",
-    icon: require("../assets/Images/dollar.png"),
-    naviage: "/payment",
-    modal: false,
-  },
+  // {
+  //   title: "PAYMENT",
+  //   icon: require("../assets/Images/dollar.png"),
+  //   naviage: "/payment",
+  //   modal: false,
+  // },
   {
     title: "CALENDAR",
     icon: require("../assets/Images/calendar1.png"),
@@ -218,7 +218,7 @@ export default function StudentDetailScreen() {
         setStuInfo(stuInfo);
         break;
       case "ATTENDANCE":
-        navigate("/attendance", { state: stuInfo?._id });
+        navigate("/attendance", { state: stuInfo });
         break;
       case "PAYMENT":
         navigate("/payment", { state: stuInfo?._id });

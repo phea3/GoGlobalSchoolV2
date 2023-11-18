@@ -6,7 +6,7 @@ import Layout from "./Layout/Layout";
 import NotFoundScreen from "./screens/NotFoundScreen";
 import DashboardScreen from "./screens/DashboardScreen";
 import ClassesScreen from "./screens/ClassesScreen";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { AuthContext } from "./Context/AuthContext";
 import StudentsScreen from "./screens/StudentsScreen";
 import AboutScreen from "./screens/AboutScreen";
@@ -18,7 +18,7 @@ import useLoginUser from "./Hook/useLoginUser";
 import CalendarScreen from "./screens/CalendarScreen";
 import AnnouncementDetail from "./screens/AnnouncementDetail";
 import PaymentScreen from "./screens/PaymentScreen";
-import { Dimensions } from "react-native";
+import { Alert, Dimensions, Platform } from "react-native";
 import LeaveScreen from "./screens/LeaveScreen";
 import NotificationScreen from "./screens/NotificationScreen";
 import LayoutNotification from "./Layout/LayoutNotification";
@@ -33,8 +33,32 @@ import ResetPasswordScreen from "./screens/ResetPasswordScreen";
 import HealthScreen from "./screens/HealthScreen";
 import AnnouncementScreen from "./screens/AnnouncementScreen";
 import StudentDetailScreen from "./screens/StudentDetail";
+import * as Notifications from "expo-notifications";
+import Constants from "expo-constants";
+import * as Device from "expo-device";
+import * as Permissions from "expo-permissions";
+import { Audio } from "expo-av";
+import { useQuery } from "@apollo/client";
+import { SENDMOBILETOKEN } from "./graphql/GetMobileUserLoginToken";
+
+//============== Notification Handler ====================
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: true, // Enable sound
+    shouldSetBadge: false,
+  }),
+});
 
 export default function Router() {
+  //==================== Nitification Variable =====================
+  const [expoPushToken, setExpoPushToken] = useState("");
+  const [notification, setNotification] = useState(false);
+  const notificationListener = useRef<Notifications.Subscription | undefined>();
+  const responseListener = useRef<Notifications.Subscription | undefined>();
+  const projectId = Constants.expoConfig?.extra?.eas?.projectId;
+
+  //==================================================================
   //context
   const { dispatch, REDUCER_ACTIONS } = useLoginUser();
   const { token, defineDimension } = useContext(AuthContext);
@@ -43,7 +67,114 @@ export default function Router() {
   const height = Dimensions.get("screen").height;
   const width = Dimensions.get("screen").width;
 
-  const [latestVersion, setLastestVersion] = useState("");
+  // ============ SEND DEVICE TOKEN ==================
+
+  const { refetch } = useQuery(SENDMOBILETOKEN, {
+    variables: {
+      token: expoPushToken,
+    },
+    onCompleted: ({ getMobileUserLogin }) => {
+      // console.log(getMobileUserLogin);
+    },
+    onError(error) {
+      console.log(error?.message);
+    },
+  });
+
+  useEffect(() => {
+    refetch();
+    Alert.alert("Token", expoPushToken);
+  }, [expoPushToken]);
+
+  // ========================== GET REAL TIME DEVICE TOKEN ========================================
+  const getDeviceToken = async () => {
+    try {
+      if (Platform.OS === "android") {
+        await Notifications.setNotificationChannelAsync("default", {
+          name: "default",
+          importance: Notifications.AndroidImportance.MAX,
+          vibrationPattern: [0, 250, 250, 250],
+          lightColor: "#FF231F7C",
+        });
+      }
+      if (Device.isDevice) {
+        const { status: existingStatus } =
+          await Notifications.getPermissionsAsync();
+
+        let finalStatus = existingStatus;
+        if (existingStatus !== "granted") {
+          const { status } = await Notifications.requestPermissionsAsync();
+          finalStatus = status;
+        }
+        if (finalStatus !== "granted") {
+          alert(
+            "You need to enable permissions in order to receive notifications"
+          );
+          console.log("Notification permission denied");
+
+          return;
+        } else {
+          console.log("Notification permission granted");
+        }
+        // Learn more about projectId:
+        // https://docs.expo.dev/push-notifications/push-notifications-setup/#configure-projectid
+        const token = (
+          await Notifications.getExpoPushTokenAsync({
+            projectId: projectId,
+          })
+        ).data;
+        if (token) {
+          refetch();
+        }
+        return token;
+      } else {
+        alert("Must use physical device for Push Notifications");
+      }
+    } catch (error) {
+      // Handle error
+      console.error(error);
+    }
+  };
+
+  async function playSound() {
+    // console.log("Loading Sound");
+    const { sound } = await Audio.Sound.createAsync(
+      require("./assets/Images/maybe-one-day-584.mp3")
+    );
+
+    // console.log("Playing Sound");
+    await sound.playAsync();
+  }
+
+  useEffect(() => {
+    getDeviceToken().then((token) =>
+      token === undefined ? setExpoPushToken("") : setExpoPushToken(token)
+    );
+    notificationListener.current =
+      Notifications.addNotificationReceivedListener((noti) => {
+        // console.log(noti);
+        // console.log("", noti?.request?.content?.data);
+        setNotification(noti ? true : false);
+        if (noti) {
+          playSound();
+        }
+      });
+    responseListener.current =
+      Notifications.addNotificationResponseReceivedListener((response) => {
+        console.log(response);
+      });
+    return () => {
+      if (notificationListener.current) {
+        Notifications.removeNotificationSubscription(
+          notificationListener.current
+        );
+      }
+      if (responseListener.current) {
+        Notifications.removeNotificationSubscription(responseListener.current);
+      }
+    };
+  }, []);
+  //==================================================================
 
   // console.log(token);
   useEffect(() => {
@@ -51,6 +182,22 @@ export default function Router() {
       setLoad(false);
     }, 1000);
   }, []);
+
+  useEffect(() => {
+    async function localPushNoti() {
+      await Notifications.scheduleNotificationAsync({
+        content: {
+          title: "My Notification",
+          body: "Hello, this is a notification!",
+          sound: "./assets/Images/maybe-one-day-584.mp3",
+          launchImageName: "./assets/Images/salad.png", // Specify the path to your custom sound file
+        },
+        trigger: null, // Send immediately
+      });
+    }
+    // localPushNoti();
+  }, []);
+  // sound
 
   //========= GET USER TOKEN AND UID ================
   useEffect(() => {

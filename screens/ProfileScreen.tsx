@@ -94,11 +94,16 @@ export default function ProfileScreen() {
 
   const onShare = async () => {
     try {
-      const result = await Share.share({
+      const shareOptions = {
         message: "Check out this awesome app!",
-        url: "https://apps.apple.com/kh/app/go-global-school/id1641628042",
+        url:
+          Platform.OS === "ios"
+            ? "https://apps.apple.com/kh/app/go-global-school/id1641628042"
+            : "https://play.google.com/store/apps/details?id=com.goglobalschool.schoolmobile&hl=en&gl=US",
         title: "Go Global School",
-      });
+      };
+
+      const result = await Share.share(shareOptions);
 
       if (result.action === Share.sharedAction) {
         if (result.activityType) {

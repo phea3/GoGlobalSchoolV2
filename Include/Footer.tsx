@@ -139,7 +139,7 @@ const Footer = () => {
                     width: heightScreen * 0.026,
                     height: heightScreen * 0.026,
                     borderRadius: tab.path === "/profile" ? 100 : 0,
-                    borderWidth: tab.path === "/profile" ? 2 : 0,
+                    borderWidth: tab.path === "/profile" ? 0.5 : 0,
                     borderColor: "#3C6EFB",
                   }}
                 />
@@ -161,7 +161,7 @@ const Footer = () => {
                     width: heightScreen * 0.022,
                     height: heightScreen * 0.022,
                     borderRadius: tab.path === "/profile" ? 100 : 0,
-                    borderWidth: tab.path === "/profile" ? 2 : 0,
+                    borderWidth: tab.path === "/profile" ? 0.5 : 0,
                     borderColor: "#3C6EFB",
                   }}
                 />

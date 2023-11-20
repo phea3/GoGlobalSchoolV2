@@ -21,33 +21,46 @@
         }
       ]
     },
-    "plugins": [
-      [
-        "expo-notifications",
-        {
-          "icon": "./assets/Images/salad.png"
-        }
-      ],
-      [
-        "expo-image-picker",
-        {
-          "photosPermission": "The app accesses your photos"
-        }
-      ],
-      [
-        "expo-calendar",
-        {
-          "calendarPermission": "The app needs to access your calendar."
-        }
-      ],
-      [
-        "expo-media-library",
-        {
-          "photosPermission": "Allow $(PRODUCT_NAME) to access your photos.",
-          "savePhotosPermission": "Allow $(PRODUCT_NAME) to save photos."
-        }
+    "expo": {
+      "plugins": [
+        [
+          "expo-notifications",
+          {
+            "icon": "./assets/Images/salad.png",
+            "color": "#ffffff",
+            "sounds": [
+              {
+                "name": "default",
+                "filename": "./assets/Images/maybe-one-day-584.mp3"
+              },
+              {
+                "name": "custom",
+                "filename": "./assets/Images/maybe-one-day-584.mp3"
+              }
+            ]
+          }
+        ],
+        [
+          "expo-image-picker",
+          {
+            "photosPermission": "The app accesses your photos"
+          }
+        ],
+        [
+          "expo-calendar",
+          {
+            "calendarPermission": "The app needs to access your calendar."
+          }
+        ],
+        [
+          "expo-media-library",
+          {
+            "photosPermission": "Allow $(PRODUCT_NAME) to access your photos.",
+            "savePhotosPermission": "Allow $(PRODUCT_NAME) to save photos."
+          }
+        ]
       ]
-    ],
+    },
     "packagerOpts": {
       "config": "metro.config.js",
       "sourceExts": ["tsx", "js", "jsx", "scss", "sass"],

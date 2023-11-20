@@ -73,68 +73,50 @@ export default function Router() {
     variables: {
       token: expoPushToken,
     },
-    onCompleted: ({ getMobileUserLogin }) => {
-      // console.log(getMobileUserLogin);
-    },
-    onError(error) {
-      console.log(error?.message);
-    },
   });
 
   useEffect(() => {
     refetch();
-    Alert.alert("Token", expoPushToken);
+    if (expoPushToken) {
+      Alert.alert("Token", expoPushToken);
+    }
   }, [expoPushToken]);
 
   // ========================== GET REAL TIME DEVICE TOKEN ========================================
-  const getDeviceToken = async () => {
-    try {
-      if (Platform.OS === "android") {
-        await Notifications.setNotificationChannelAsync("default", {
-          name: "default",
-          importance: Notifications.AndroidImportance.MAX,
-          vibrationPattern: [0, 250, 250, 250],
-          lightColor: "#FF231F7C",
-        });
-      }
-      if (Device.isDevice) {
-        const { status: existingStatus } =
-          await Notifications.getPermissionsAsync();
+  async function registerForPushNotificationsAsync() {
+    let token;
 
-        let finalStatus = existingStatus;
-        if (existingStatus !== "granted") {
-          const { status } = await Notifications.requestPermissionsAsync();
-          finalStatus = status;
-        }
-        if (finalStatus !== "granted") {
-          alert(
-            "You need to enable permissions in order to receive notifications"
-          );
-          console.log("Notification permission denied");
-
-          return;
-        } else {
-          console.log("Notification permission granted");
-        }
-        // Learn more about projectId:
-        // https://docs.expo.dev/push-notifications/push-notifications-setup/#configure-projectid
-        const token = (
-          await Notifications.getExpoPushTokenAsync({
-            projectId: projectId,
-          })
-        ).data;
-        if (token) {
-          refetch();
-        }
-        return token;
-      } else {
-        alert("Must use physical device for Push Notifications");
-      }
-    } catch (error) {
-      // Handle error
-      console.error(error);
+    if (Platform.OS === "android") {
+      Notifications.setNotificationChannelAsync("default", {
+        name: "default",
+        importance: Notifications.AndroidImportance.MAX,
+        vibrationPattern: [0, 250, 250, 250],
+        lightColor: "#FF231F7C",
+      });
     }
-  };
+
+    if (Device.isDevice) {
+      const { status: existingStatus } =
+        await Notifications.getPermissionsAsync();
+      let finalStatus = existingStatus;
+      if (existingStatus !== "granted") {
+        const { status } = await Notifications.requestPermissionsAsync();
+        finalStatus = status;
+      }
+      if (finalStatus !== "granted") {
+        alert("Failed to get push token for push notification!");
+        return;
+      }
+      token = await Notifications.getExpoPushTokenAsync({
+        projectId: projectId,
+      });
+      console.log(token);
+    } else {
+      alert("Must use physical device for Push Notifications");
+    }
+
+    return token?.data;
+  }
 
   async function playSound() {
     // console.log("Loading Sound");
@@ -147,7 +129,7 @@ export default function Router() {
   }
 
   useEffect(() => {
-    getDeviceToken().then((token) =>
+    registerForPushNotificationsAsync().then((token) =>
       token === undefined ? setExpoPushToken("") : setExpoPushToken(token)
     );
     notificationListener.current =
@@ -195,7 +177,7 @@ export default function Router() {
         trigger: null, // Send immediately
       });
     }
-    // localPushNoti();
+    localPushNoti();
   }, []);
   // sound
 
@@ -253,7 +235,7 @@ export default function Router() {
   const Content = useRoutes([
     {
       path: "/",
-      element: <Layout />,
+      element: <Layout expoPushToken={expoPushToken} />,
       children: [
         { path: "/", element: <HomeScreen /> },
         { path: "/home", element: <HomeScreen /> },

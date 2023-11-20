@@ -23,7 +23,7 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 
-const Layout = () => {
+const Layout = ({ expoPushToken }: any) => {
   const { dispatch, REDUCER_ACTIONS } = useLoginUser();
   const navigate = useNavigate();
   const location = useLocation();
@@ -40,6 +40,9 @@ const Layout = () => {
 
   //============ GET MOBILE USER LOGIN =============
   const { data, refetch, loading } = useQuery(GET_MOBILEUSERLOGIN, {
+    variables: {
+      token: expoPushToken,
+    },
     pollInterval: 2000,
     onCompleted: ({ getMobileUserLogin }) => {
       //======== SET LOCAL STORAGE =========

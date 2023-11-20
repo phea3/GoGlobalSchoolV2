@@ -46,7 +46,7 @@ Notifications.setNotificationHandler({
   handleNotification: async () => ({
     shouldShowAlert: true,
     shouldPlaySound: true, // Enable sound
-    shouldSetBadge: false,
+    shouldSetBadge: true,
   }),
 });
 
@@ -69,15 +69,15 @@ export default function Router() {
 
   // ============ SEND DEVICE TOKEN ==================
 
-  const { refetch } = useQuery(SENDMOBILETOKEN, {
-    variables: {
-      token: expoPushToken,
-    },
-  });
+  // const { refetch } = useQuery(SENDMOBILETOKEN, {
+  //   variables: {
+  //     token: expoPushToken,
+  //   },
+  // });
 
   useEffect(() => {
-    refetch();
     if (expoPushToken) {
+      // refetch();
       Alert.alert("Token", expoPushToken);
     }
   }, [expoPushToken]);
@@ -104,20 +104,26 @@ export default function Router() {
         finalStatus = status;
       }
       if (finalStatus !== "granted") {
-        alert("Failed to get push token for push notification!");
+        Alert.alert("Failed to get push token for push notification!");
         return;
       }
-      token = await Notifications.getExpoPushTokenAsync({
-        projectId: projectId,
-      });
+     
+      try {
+        token = await Notifications.getExpoPushTokenAsync({
+          projectId: projectId,
+        });
+        console.log('Device Token:', token);
+        // Use the token for sending push notifications
+      } catch (error) {
+        Alert.alert('Error retrieving device token:');
+      }
       console.log(token);
     } else {
-      alert("Must use physical device for Push Notifications");
+      Alert.alert("Must use physical device for Push Notifications");
     }
 
     return token?.data;
   }
-
   async function playSound() {
     // console.log("Loading Sound");
     const { sound } = await Audio.Sound.createAsync(
@@ -129,7 +135,7 @@ export default function Router() {
   }
 
   useEffect(() => {
-    registerForPushNotificationsAsync().then((token) =>
+    registerForPushNotificationsAsync().then( async (token) =>
       token === undefined ? setExpoPushToken("") : setExpoPushToken(token)
     );
     notificationListener.current =
@@ -164,22 +170,6 @@ export default function Router() {
       setLoad(false);
     }, 1000);
   }, []);
-
-  useEffect(() => {
-    async function localPushNoti() {
-      await Notifications.scheduleNotificationAsync({
-        content: {
-          title: "My Notification",
-          body: "Hello, this is a notification!",
-          sound: "./assets/Images/maybe-one-day-584.mp3",
-          launchImageName: "./assets/Images/salad.png", // Specify the path to your custom sound file
-        },
-        trigger: null, // Send immediately
-      });
-    }
-    localPushNoti();
-  }, []);
-  // sound
 
   //========= GET USER TOKEN AND UID ================
   useEffect(() => {

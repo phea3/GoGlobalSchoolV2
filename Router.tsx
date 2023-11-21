@@ -78,7 +78,6 @@ export default function Router() {
   useEffect(() => {
     if (expoPushToken) {
       // refetch();
-      Alert.alert("Token", expoPushToken);
     }
   }, [expoPushToken]);
 
@@ -96,33 +95,59 @@ export default function Router() {
     }
 
     if (Device.isDevice) {
-      const { status: existingStatus } =
-        await Notifications.getPermissionsAsync();
-      let finalStatus = existingStatus;
-      if (existingStatus !== "granted") {
-        const { status } = await Notifications.requestPermissionsAsync();
-        finalStatus = status;
+      if (Platform.OS === "ios") {
+        const { status: existingStatus } =
+          await Notifications.getPermissionsAsync();
+        let finalStatus = existingStatus;
+        if (existingStatus !== "granted") {
+          const { status } = await Notifications.requestPermissionsAsync();
+          finalStatus = status;
+        }
+        if (finalStatus !== "granted") {
+          Alert.alert("Failed to get push token for push notification!");
+          return;
+        }
+
+        try {
+          token = (
+            await Notifications.getExpoPushTokenAsync({
+              projectId: projectId,
+            })
+          ).data;
+          //
+          console.log("Device Token:", token);
+          Alert.alert("Device Token:", token);
+          // Use the token for sending push notifications
+        } catch (error) {
+          Alert.alert("Error retrieving device token:");
+        }
+      } else if (Platform.OS === "android") {
+        const { status: existingStatus } = await Permissions.getAsync(
+          Permissions.NOTIFICATIONS
+        );
+        let finalStatus = existingStatus;
+
+        if (existingStatus !== "granted") {
+          const { status } = await Permissions.askAsync(
+            Permissions.NOTIFICATIONS
+          );
+          finalStatus = status;
+        }
+
+        if (finalStatus !== "granted") {
+          console.log("Permission to receive notifications not granted");
+          return;
+        }
+
+        token = (await Notifications.getExpoPushTokenAsync()).data;
+        console.log("Device token:", token);
+        Alert.alert("Device Token:", token);
       }
-      if (finalStatus !== "granted") {
-        Alert.alert("Failed to get push token for push notification!");
-        return;
-      }
-     
-      try {
-        token = await Notifications.getExpoPushTokenAsync({
-          projectId: projectId,
-        });
-        console.log('Device Token:', token);
-        // Use the token for sending push notifications
-      } catch (error) {
-        Alert.alert('Error retrieving device token:');
-      }
-      console.log(token);
     } else {
       Alert.alert("Must use physical device for Push Notifications");
     }
 
-    return token?.data;
+    return token;
   }
   async function playSound() {
     // console.log("Loading Sound");
@@ -135,16 +160,14 @@ export default function Router() {
   }
 
   useEffect(() => {
-    registerForPushNotificationsAsync().then( async (token) =>
+    registerForPushNotificationsAsync().then(async (token) =>
       token === undefined ? setExpoPushToken("") : setExpoPushToken(token)
     );
     notificationListener.current =
       Notifications.addNotificationReceivedListener((noti) => {
-        // console.log(noti);
-        // console.log("", noti?.request?.content?.data);
         setNotification(noti ? true : false);
         if (noti) {
-          playSound();
+          // playSound();
         }
       });
     responseListener.current =

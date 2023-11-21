@@ -25,7 +25,7 @@ PODS:
     - ExpoModulesCore
   - EXPermissions (14.2.1):
     - ExpoModulesCore
-  - Expo (49.0.13):
+  - Expo (49.0.19):
     - ExpoModulesCore
   - ExpoDevice (5.4.0):
     - ExpoModulesCore
@@ -35,7 +35,7 @@ PODS:
     - ExpoModulesCore
   - ExpoLinearGradient (12.3.0):
     - ExpoModulesCore
-  - ExpoModulesCore (1.5.11):
+  - ExpoModulesCore (1.5.12):
     - RCT-Folly (= 2021.07.22.00)
     - React-Core
     - React-NativeModulesApple
@@ -59,9 +59,9 @@ PODS:
     - ReactCommon/turbomodule/core (= 0.72.5)
   - fmt (6.2.1)
   - glog (0.3.5)
-  - hermes-engine (0.72.6):
-    - hermes-engine/Pre-built (= 0.72.6)
-  - hermes-engine/Pre-built (0.72.6)
+  - hermes-engine (0.72.5):
+    - hermes-engine/Pre-built (= 0.72.5)
+  - hermes-engine/Pre-built (0.72.5)
   - libevent (2.1.12)
   - RCT-Folly (2021.07.22.00):
     - boost
@@ -752,12 +752,12 @@ SPEC CHECKSUMS:
   EXMediaLibrary: 8ac14ce76f266026b10cac2ab049debe032d7ae7
   EXNotifications: 09394cbd7165f9a4a00a53328aa09bf874bae717
   EXPermissions: 4f80cf527001aa408a22eddf076e61465ea71d5a
-  Expo: e7d2116b947e2e6fdeb09ee4f2754f819426d1b6
+  Expo: a59f2050f877ba152880213082a440d4e9832ccc
   ExpoDevice: 1c1b0c9cad96c292c1de73948649cfd654b2b3c0
   ExpoImagePicker: c58fdf28be551681a8edc550bcec76c397a8dfcd
   ExpoKeepAwake: be4cbd52d9b177cde0fd66daa1913afa3161fc1d
   ExpoLinearGradient: 5966dd5d49872cc9c104fedc8bbc298b6049b2e8
-  ExpoModulesCore: 51cb2e7ab4c8da14be3f40b66d54c1781002e99d
+  ExpoModulesCore: c480fd4e3c7c8e81f0a6ba3a7c56869f25fe016d
   ExpoStoreReview: f154c9fdf3dbd877ca0115757f0b2b6f43dd9db4
   ExpoWebBrowser: 2c788f9c07718a780fe6d8bf2f6195c47609faaa
   EXSplashScreen: c0e7f2d4a640f3b875808ed0b88575538daf6d82
@@ -765,7 +765,7 @@ SPEC CHECKSUMS:
   FBReactNativeSpec: 448e08a759d29a96e15725ae532445bf4343567c
   fmt: ff9d55029c625d3757ed641535fd4a75fedc7ce9
   glog: 04b94705f318337d7ead9e6d17c019bd9b1f6b1b
-  hermes-engine: 8057e75cfc1437b178ac86c8654b24e7fead7f60
+  hermes-engine: f6cf92a471053245614d9d8097736f6337d5b86c
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
   RCT-Folly: 424b8c9a7a0b9ab2886ffe9c3b041ef628fd4fb1
   RCTRequired: df81ab637d35fac9e6eb94611cfd20f0feb05455
@@ -813,4 +813,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: a5d09ee96136c21e7572384cab9b2ac969486404
 
-COCOAPODS: 1.12.1
+COCOAPODS: 1.14.3

@@ -94,6 +94,17 @@ const explore = [
   },
 ];
 
+const useOnce = (callback: any) => {
+  const [hasRun, setHasRun] = useState(false);
+
+  useEffect(() => {
+    if (!hasRun) {
+      callback();
+      setHasRun(true);
+    }
+  }, [hasRun, callback]);
+};
+
 const numbers = Array.from({ length: 3 }, (_, index) => index);
 
 const HomeScreen = () => {
@@ -167,6 +178,15 @@ const HomeScreen = () => {
     setVisiblePickup(false);
   };
 
+  useOnce(() => {
+    // Code to run only once
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 500);
+    return () => clearTimeout(timer);
+    // console.log('This code runs only once');
+  });
+  
   //================ GET STUDENT ===============
   const { data, refetch } = useQuery(GET_STUDENT, {
     pollInterval: 2000,
@@ -174,14 +194,10 @@ const HomeScreen = () => {
       parentsId: uid,
     },
     onCompleted: ({ getStudentByParentsMobile }) => {
-      const timer = setTimeout(() => {
-        setLoading(false);
-      }, 500);
-      return () => clearTimeout(timer);
     },
     onError: (error) => {
       console.log(error?.message);
-      setLoading(true);
+      // setLoading(true);
     },
   });
 
@@ -395,27 +411,31 @@ const HomeScreen = () => {
             {data === undefined ||
             data?.getStudentByParentsMobile.length === 0 ? (
               <View style={HomeStyle.imageBox}>
-                <View
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    backgroundColor: "#f1f1f1",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    borderRadius: 5,
-                  }}
-                >
-                  <Text
+                  <View
                     style={{
-                      fontFamily: "Kantumruy-Bold",
-                      fontSize: 15,
-                      color: "#9AA3A6",
+                      borderColor: "#9aa3a6",
+                      borderWidth: 1,
+                      borderRadius: 60,
+                      padding: 5,
                     }}
                   >
-                    មិនមាន{"\n"}ទិន្នន័យ
-                  </Text>
+                    <View
+                      style={[
+                        HomeStyle.imageHome,
+                        {
+                          backgroundColor: "#f1f1f1",
+                        },
+                      ]}
+                    />
+                  </View>
+                  <View
+                    style={{
+                      width: 120,
+                      height: 30,
+                      backgroundColor: "#f1f1f1",
+                    }}
+                  />
                 </View>
-              </View>
             ) : (
               data?.getStudentByParentsMobile?.map(
                 (stuInfo: any, index: number) =>
@@ -423,7 +443,7 @@ const HomeScreen = () => {
                     <View style={HomeStyle.imageBox} key={index}>
                       <View
                         style={{
-                          borderColor: "#3C6EFB",
+                          borderColor: "#9aa3a6",
                           borderWidth: 1,
                           borderRadius: 60,
                           padding: 5,
@@ -485,14 +505,20 @@ const HomeScreen = () => {
         </View>
 
         <View style={HomeStyle.titleBarHome}>
-          <Image
-            source={require("../assets/Images/upcoming.png")}
-            style={{ height: 20, width: 20 }}
-          />
-          <Text style={HomeStyle.fontTitleBarHome}>
-            {getLanguage() === "en" ? "UPCOMING" : "ព្រឺត្តិការណ៏ថ្មីៗ"}
-          </Text>
-          <View style={HomeStyle.homeBar} />
+          {loading === true ? (
+          <View style={HomeStyle.titleBarHomeLoading} />
+          ) : ( 
+            <>
+              <Image
+                source={require("../assets/Images/upcoming.png")}
+                style={{ height: 20, width: 20 }}
+              />
+                <Text style={HomeStyle.fontTitleBarHome}>
+                  {getLanguage() === "en" ? "UPCOMING" : "ព្រឺត្តិការណ៏ថ្មីៗ"}
+                </Text>
+              <View style={HomeStyle.homeBar} />
+            </>
+          )}
         </View>
 
         {eventData === undefined ||
@@ -503,10 +529,10 @@ const HomeScreen = () => {
                 <View style={HomeStyle.homeUpcomingPillarEmpty} />
                 <View style={HomeStyle.homeUpcominginSideViewContainer2}>
                   <Text style={HomeStyle.homeUpcomingTitleEmpty}>
-                    មិនមាន ទិន្នន័យ
+                    {" "}
                   </Text>
                   <Text style={HomeStyle.homeUpcomingBody}>
-                    {/* {moment(new Date()).format("DD-MM-YYYY")} */}
+                    {" "}
                   </Text>
                 </View>
               </View>
@@ -514,6 +540,23 @@ const HomeScreen = () => {
           </View>
         ) : (
           eventData?.getUpcomingEventMobile.map((event: any, index: number) => (
+            loading === true ? (
+              <View style={HomeStyle.upcomingcardhome} key={index}>
+                <View style={HomeStyle.homeUpcomingEventStyleBoxEmpty}>
+                  <View style={HomeStyle.homeUpcominginSideViewContainer}>
+                    <View style={HomeStyle.homeUpcomingPillarEmpty} />
+                    <View style={HomeStyle.homeUpcominginSideViewContainer2}>
+                      <Text style={HomeStyle.homeUpcomingTitleEmpty}>
+                        {" "}
+                      </Text>
+                      <Text style={HomeStyle.homeUpcomingBody}>
+                        {" "}
+                      </Text>
+                    </View>
+                  </View>
+                </View>
+              </View>
+            ) : (
             <View style={HomeStyle.upcomingcardhome} key={index}>
               <View
                 style={
@@ -537,18 +580,26 @@ const HomeScreen = () => {
                 </View>
               </View>
             </View>
+            )
+            
           ))
         )}
 
         <View style={HomeStyle.titleBarHome}>
-          <Image
-            source={require("../assets/Images/customer-service.png")}
-            style={{ height: 20, width: 20 }}
-          />
-          <Text style={HomeStyle.fontTitleBarHome}>
-            {getLanguage() === "en" ? "Feature" : "មុខងារ"}
-          </Text>
-          <View style={HomeStyle.homeBar} />
+          {loading === true ? (
+            <View style={HomeStyle.titleBarHomeLoading} />
+            ) : ( 
+              <>
+              <Image
+              source={require("../assets/Images/customer-service.png")}
+              style={{ height: 20, width: 20 }}
+            />
+            <Text style={HomeStyle.fontTitleBarHome}>
+              {getLanguage() === "en" ? "Feature" : "មុខងារ"}
+            </Text>
+            <View style={HomeStyle.homeBar} />
+              </>
+            )}
         </View>
 
         <ScrollView
@@ -557,7 +608,12 @@ const HomeScreen = () => {
           style={{ width: "95%" }}
         >
           {features.map((row: any, index: number) => (
+            loading === true ? (
             <View style={HomeStyle.explorecontainer} key={index}>
+              <View style={HomeStyle.exploreBoxSkeleton}/>
+            </View>
+            ) : (
+          <View style={HomeStyle.explorecontainer} key={index}>
               <TouchableOpacity
                 style={HomeStyle.exploreBox}
                 onPress={() => {
@@ -573,18 +629,25 @@ const HomeScreen = () => {
                 <Text style={HomeStyle.exploreTitle}>{row?.title}</Text>
               </TouchableOpacity>
             </View>
+            )
           ))}
         </ScrollView>
 
         <View style={HomeStyle.titleBarHome}>
-          <Image
-            source={require("../assets/Images/rocket.png")}
-            style={{ height: 20, width: 20 }}
-          />
-          <Text style={HomeStyle.fontTitleBarHome}>
-            {getLanguage() === "en" ? "EXPLORE" : "ស្វែងរក"}
-          </Text>
-          <View style={HomeStyle.homeBar} />
+          {loading === true ? (
+            <View style={HomeStyle.titleBarHomeLoading} />
+              ) : ( 
+              <>
+              <Image
+                source={require("../assets/Images/rocket.png")}
+                style={{ height: 20, width: 20 }}
+              />
+              <Text style={HomeStyle.fontTitleBarHome}>
+                {getLanguage() === "en" ? "EXPLORE" : "ស្វែងរក"}
+              </Text>
+              <View style={HomeStyle.homeBar} />
+              </>
+            )}
         </View>
 
         <ScrollView
@@ -593,6 +656,11 @@ const HomeScreen = () => {
           style={{ width: "95%" }}
         >
           {explore.map((row: any, index: number) => (
+             loading === true ? (
+              <View style={HomeStyle.explorecontainer} key={index}>
+                <View style={HomeStyle.exploreBoxSkeleton}/>
+              </View>
+              ) : (
             <View style={HomeStyle.explorecontainer} key={index}>
               <TouchableOpacity
                 style={HomeStyle.exploreBox}
@@ -613,6 +681,7 @@ const HomeScreen = () => {
                 <Text style={HomeStyle.exploreTitle}>{row?.title}</Text>
               </TouchableOpacity>
             </View>
+              )
           ))}
         </ScrollView>
 
@@ -637,7 +706,7 @@ const HomeScreen = () => {
                 animation="zoomIn"
               />
               <Text style={HomeStyle.announcementHomeTitleEmpty}>
-                មិនមាន ទិន្នន័យ
+                {" "}
               </Text>
             </View>
           ) : (

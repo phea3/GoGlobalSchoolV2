@@ -75,7 +75,7 @@ export default function StudentsScreen() {
                     <View style={HomeStyle.imageBox} key={index}>
                       <View
                         style={{
-                          borderColor: "#3C6EFB",
+                          borderColor: "#9aa3a6",
                           borderWidth: 1,
                           borderRadius: 60,
                           padding: 5,

@@ -1,8 +1,11 @@
 import { Image, Text, TouchableOpacity, View } from "react-native";
 import { useLocation, useNavigate } from "react-router-native";
 import * as Animatable from "react-native-animatable";
+import { useContext } from "react";
+import { AuthContext } from "../Context/AuthContext";
 
 export default function Back({ title }: any) {
+  const { dimension, widthScreen, heightScreen } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
   return (
@@ -21,15 +24,14 @@ export default function Back({ title }: any) {
         style={{
           justifyContent: "flex-start",
           alignItems: "center",
-          // paddingHorizontal: 10,
           flexDirection: "row",
         }}
       >
         <Image
           source={require("../assets/Images/back.png")}
-          style={{ width: 20, height: 20, marginRight: 10 }}
+          style={{ width: dimension === 'sm' ? 12 : 20, height: dimension === 'sm' ? 12 : 20, marginRight: 10 }}
         />
-        <Text style={{ fontFamily: "Kantumruy-Bold" }}>{title}</Text>
+        <Text style={{ fontFamily: "Kantumruy-Bold", fontSize: dimension === 'sm' ? 12 : 14 }}>{title}</Text>
       </TouchableOpacity>
     </Animatable.View>
   );

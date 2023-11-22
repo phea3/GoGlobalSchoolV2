@@ -52,7 +52,7 @@ export default function ModalHealth({
           {data?.checkIsStudentEYSReport ? (
             <>
               <TouchableOpacity
-                style={HomeStyle.homeModalStyle1}
+                style={[HomeStyle.homeModalStyle1, {backgroundColor: '#000', opacity: 0.2 ,position: 'absolute'}]}
                 onPress={handleClose}
               ></TouchableOpacity>
               <View style={HomeStyle.HomePickupStudentContent}>
@@ -67,7 +67,7 @@ export default function ModalHealth({
           ) : (
             <>
               <TouchableOpacity
-                style={HomeStyle.homeModalStyle1}
+                style={[HomeStyle.homeModalStyle1, , {backgroundColor: '#000', opacity: 0.2 ,position: 'absolute'}]}
                 onPress={handleClose}
               ></TouchableOpacity>
               <View style={HomeStyle.HomePickupStudentContent}>

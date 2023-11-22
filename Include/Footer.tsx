@@ -86,7 +86,7 @@ const Footer = () => {
         profileImg: mobileUserLoginData?.profileImg,
       });
     });
-  }, []);
+  }, [location?.pathname]);
 
   const offset = useSharedValue(0);
   const animatedStyles = useAnimatedStyle(() => {
@@ -136,8 +136,8 @@ const Footer = () => {
                 <Image
                   source={tab.icon}
                   style={{
-                    width: heightScreen * 0.026,
-                    height: heightScreen * 0.026,
+                    width: heightScreen * 0.03,
+                    height: heightScreen * 0.03,
                     borderRadius: tab.path === "/profile" ? 100 : 0,
                     borderWidth: tab.path === "/profile" ? 0.5 : 0,
                     borderColor: "#3C6EFB",
@@ -158,8 +158,8 @@ const Footer = () => {
                 <Image
                   source={tab.active_icon}
                   style={{
-                    width: heightScreen * 0.022,
-                    height: heightScreen * 0.022,
+                    width: heightScreen * 0.028,
+                    height: heightScreen * 0.028,
                     borderRadius: tab.path === "/profile" ? 100 : 0,
                     borderWidth: tab.path === "/profile" ? 0.5 : 0,
                     borderColor: "#3C6EFB",

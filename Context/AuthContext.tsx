@@ -74,10 +74,11 @@ const reducer = (
 const HandleDefineDimension = (widthScreen: number) => {
   let dimension = "";
   let widthscreen = widthScreen;
-
-  if (widthscreen <= 430) {
+  if (widthscreen <= 320) {
     dimension = "sm";
-  } else if (widthscreen <= 768) {
+  } else if (widthscreen <= 468) {
+    dimension = "md";
+  } else if (widthScreen <= 1080){
     dimension = "lg";
   }
 

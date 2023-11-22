@@ -3,12 +3,21 @@ import HomeStyle from "../../Styles/HomeScreen.scss";
 import * as Animatable from "react-native-animatable";
 import { Linking } from "react-native";
 import { getLanguage, setLanguage } from "react-multi-lang";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import Animated, { useAnimatedStyle, useSharedValue, withSpring, withTiming } from "react-native-reanimated";
 
 export default function ModalSetting({ isVisible, handleClose }: any) {
   const [disappear, setDisappear] = useState(false);
   const recipientUserId = "1586031671709848";
   const predefinedMessage = "Hello, this is a predefined message.";
+
+  const offset = useSharedValue(0.2);
+
+  const animatedStyles = useAnimatedStyle(() => {
+    return {
+      opacity: withSpring(offset.value) 
+    };
+  });
 
   const ChangeKh = () => {
     setLanguage("kh");
@@ -27,16 +36,21 @@ export default function ModalSetting({ isVisible, handleClose }: any) {
         transparent={true}
       >
         <View style={HomeStyle.ModalSettingContainer}>
-          <TouchableOpacity
-            style={HomeStyle.homeModalStyle1}
-            onPress={() => {
-              setDisappear(true);
-              setTimeout(() => {
-                handleClose();
-                setDisappear(false);
-              }, 500);
-            }}
-          />
+          <Animated.View style={[animatedStyles, {width: '100%', height: '100%', backgroundColor: '#000', position: 'absolute'}]}>
+            <TouchableOpacity
+              style={[HomeStyle.homeModalStyle1, {backgroundColor: '#000', opacity: 0.2 ,position: 'absolute'}]}
+              onPress={() => {
+                setDisappear(true);
+                offset.value = withTiming(0)
+                setTimeout(() => {
+                  handleClose();
+                  setDisappear(false);
+                  offset.value = withTiming(0.2)
+                }, 1000);
+              }}
+            />
+          </Animated.View>
+          
           <Animatable.View
             style={HomeStyle.SettingContentContainer}
             animation={disappear ? "fadeOutDownBig" : "fadeInUpBig"}

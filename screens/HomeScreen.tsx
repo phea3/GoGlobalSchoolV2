@@ -112,6 +112,7 @@ const HomeScreen = () => {
   const { uid } = useContext(AuthContext);
   const [isModalVisible, setModalVisible] = useState(false);
   const [isModalVisible1, setModalVisible1] = useState(false);
+  const { widthScreen, heightScreen, dimension } = useContext(AuthContext)
 
   const [duty, setDuty] = useState("");
   const [studentId, setStudentId] = useState("");
@@ -293,10 +294,10 @@ const HomeScreen = () => {
       >
         <View style={HomeStyle.homeModalStyle}>
           <TouchableOpacity
-            style={HomeStyle.homeModalStyle1}
+            style={[HomeStyle.homeModalStyle1, { backgroundColor: '#000', opacity: 0.2 , position: 'absolute'}]}
             onPress={() => toggleModal()}
           />
-          <View style={HomeStyle.modalinsideStyle}>
+          <View style={[HomeStyle.modalinsideStyle, { width: dimension === "sm" ? 200 : 350, height: dimension === "sm" ? 250 : 350 }]}>
             <Text style={HomeStyle.homeModalTitle}>{duty}</Text>
             <ScrollView
               horizontal
@@ -722,7 +723,7 @@ const HomeScreen = () => {
                   resizeMode="cover"
                   animation="zoomIn"
                 />
-                <Text style={HomeStyle.announcementHomeTitle}>
+                <Text style={HomeStyle.announcementHomeTitle} numberOfLines={1}>
                   {announce?.title}
                 </Text>
               </TouchableOpacity>

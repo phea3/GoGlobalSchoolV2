@@ -8,8 +8,8 @@ import {
 } from "react-native";
 import HomeStyle from "../../Styles/HomeScreen.scss";
 import * as Animatable from "react-native-animatable";
-import { FadeInUp } from "react-native-reanimated";
 import { Linking } from "react-native";
+import Animated, { useAnimatedStyle, useSharedValue, withSpring, withTiming } from "react-native-reanimated";
 
 export default function ModalContactUS({
   isVisible,
@@ -51,6 +51,15 @@ export default function ModalContactUS({
       );
     }
   };
+
+  const offset = useSharedValue(0.2);
+
+  const animatedStyles = useAnimatedStyle(() => {
+    return {
+      opacity: withSpring(offset.value) 
+    };
+  });
+
   return (
     <>
       <Modal
@@ -60,10 +69,18 @@ export default function ModalContactUS({
         transparent={true}
       >
         <View style={HomeStyle.ContactUsModalGroupButton}>
+        <Animated.View style={[animatedStyles, {width: '100%', height: '100%', backgroundColor: '#000', position: 'absolute'}]}>
           <TouchableOpacity
-            style={HomeStyle.homeModalStyle1}
-            onPress={handleClose}
+            style={[HomeStyle.homeModalStyle1, {backgroundColor: '#000', opacity: 0.2 ,position: 'absolute'}]}
+            onPress={() => {
+              handleClose();
+              offset.value = withTiming(0)
+              setTimeout(()=>{
+                offset.value = withTiming(0.2)
+              }, 500)
+            }}
           />
+          </Animated.View>
           <Animatable.View
             style={HomeStyle.ContactUsContentContainer}
             animation={isInvisible ? "fadeOutDownBig" : "fadeInUpBig"}
@@ -99,7 +116,13 @@ export default function ModalContactUS({
             </View>
             <TouchableOpacity
               style={HomeStyle.ContactUsFooterModal}
-              onPress={handleClose}
+              onPress={() => {
+                handleClose();
+                offset.value = withTiming(0)
+                setTimeout(()=>{
+                  offset.value = withTiming(0.2)
+                }, 500)
+              }}
             >
               <Text style={{ fontWeight: "500" }}>Cancel</Text>
             </TouchableOpacity>

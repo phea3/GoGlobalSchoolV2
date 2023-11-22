@@ -115,8 +115,8 @@ export default function Router() {
             })
           ).data;
           //
-          console.log("Device Token:", token);
-          Alert.alert("Device Token:", token);
+          // console.log("Device Token:", token);
+          // Alert.alert("Device Token:", token);
           // Use the token for sending push notifications
         } catch (error) {
           Alert.alert("Error retrieving device token:");
@@ -140,8 +140,8 @@ export default function Router() {
         }
 
         token = (await Notifications.getExpoPushTokenAsync()).data;
-        console.log("Device token:", token);
-        Alert.alert("Device Token:", token);
+        // console.log("Device token:", token);
+        // Alert.alert("Device Token:", token);
       }
     } else {
       Alert.alert("Must use physical device for Push Notifications");

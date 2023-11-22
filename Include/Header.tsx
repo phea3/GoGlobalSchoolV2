@@ -149,7 +149,7 @@ export default function Header() {
                 }}
                 animation="fadeInRight"
               >
-                <Text style={HeaderStyle.headerTitle1}>
+                <Text style={[HeaderStyle.headerTitle1, { fontSize: dimension  === 'sm' ? 12 : 16 }]}>
                   {t("Hi")}{" "}
                   {getLanguage() === "kh"
                     ? mobileUserLogin?.lastName +
@@ -157,7 +157,7 @@ export default function Header() {
                       mobileUserLogin?.firstName
                     : mobileUserLogin?.englishName}
                 </Text>
-                <Text style={HeaderStyle.headerTitle2}>
+                <Text style={[HeaderStyle.headerTitle2, { fontSize: dimension  === 'sm' ? 8 : 12 }]}>
                   {t("welcome back!")}
                 </Text>
               </Animatable.View>
@@ -171,8 +171,8 @@ export default function Header() {
               <Animatable.Image
                 source={require("../assets/Images/notification-bell.png")}
                 style={{
-                  width: heightScreen * 0.028,
-                  height: heightScreen * 0.028,
+                  width: dimension === "sm" ? 20 : 30,
+                  height: dimension === "sm" ? 20 : 30,
                   marginRight: heightScreen * 0.01,
                 }}
                 animation="fadeInDown"
@@ -201,8 +201,8 @@ export default function Header() {
               <Animatable.Image
                 source={require("../assets/Images/bell.png")}
                 style={{
-                  width: heightScreen * 0.028,
-                  height: heightScreen * 0.028,
+                  width: dimension === "sm" ? 20 : 30,
+                  height: dimension === "sm" ? 20 : 30,
                   marginRight: heightScreen * 0.01,
                 }}
                 animation="fadeInDown"
@@ -217,8 +217,8 @@ export default function Header() {
                   <Animatable.Image
                     source={require("../assets/Images/Cambodia-Flag.png")}
                     style={{
-                      width: heightScreen * 0.028,
-                      height: heightScreen * 0.028,
+                      width: dimension === "sm" ? 20 : 30,
+                        height: dimension === "sm" ? 20 : 30,
                     }}
                     animation="fadeInDown"
                   />
@@ -226,8 +226,8 @@ export default function Header() {
                   <Animatable.Image
                     source={require("../assets/Images/English-Flag.png")}
                     style={{
-                      width: heightScreen * 0.028,
-                      height: heightScreen * 0.028,
+                      width: dimension === "sm" ? 20 : 30,
+                        height: dimension === "sm" ? 20 : 30,
                     }}
                     animation="fadeInDown"
                   />
@@ -240,13 +240,13 @@ export default function Header() {
                       flexDirection: "row",
                       alignItems: "center",
                       justifyContent: "space-between",
-                      padding: 10,
+                      padding: dimension === "sm" ? 6 : 10,
                     }}
                   >
                     <Text
                       style={[
                         HeaderStyle.headerTitle3,
-                        { fontSize: heightScreen * 0.015 },
+                        { fontSize: dimension === "sm" ? 12 : 16 },
                       ]}
                     >
                       English
@@ -254,8 +254,8 @@ export default function Header() {
                     <Image
                       source={require("../assets/Images/English-Flag.png")}
                       style={{
-                        width: heightScreen * 0.028,
-                        height: heightScreen * 0.028,
+                        width: dimension === "sm" ? 20 : 30,
+                        height: dimension === "sm" ? 20 : 30,
                       }}
                     />
                   </View>
@@ -266,7 +266,7 @@ export default function Header() {
                       flexDirection: "row",
                       alignItems: "center",
                       justifyContent: "space-between",
-                      padding: 10,
+                      padding: dimension === "sm" ? 6 : 10,
                       borderTopWidth: 1,
                       borderColor: "#dcdcdc",
                     }}
@@ -274,7 +274,7 @@ export default function Header() {
                     <Text
                       style={[
                         HeaderStyle.headerTitle3,
-                        { fontSize: heightScreen * 0.015 },
+                        { fontSize: dimension === "sm" ? 12 : 16 },
                       ]}
                     >
                       ខ្មែរ
@@ -282,8 +282,8 @@ export default function Header() {
                     <Image
                       source={require("../assets/Images/Cambodia-Flag.png")}
                       style={{
-                        width: heightScreen * 0.028,
-                        height: heightScreen * 0.028,
+                        width: dimension === "sm" ? 20 : 30,
+                        height: dimension === "sm" ? 20 : 30,
                       }}
                     />
                   </View>

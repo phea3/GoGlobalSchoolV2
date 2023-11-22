@@ -51,7 +51,7 @@ export default function ModalEYS({
           {data?.checkIsStudentEYSReport ? (
             <>
               <TouchableOpacity
-                style={HomeStyle.homeModalStyle1}
+                style={[HomeStyle.homeModalStyle1, , {backgroundColor: '#000', opacity: 0.2 ,position: 'absolute'}]}
                 onPress={handleClose}
               ></TouchableOpacity>
               <View style={HomeStyle.HomePickupStudentContent}>
@@ -66,7 +66,7 @@ export default function ModalEYS({
           ) : (
             <>
               <TouchableOpacity
-                style={HomeStyle.homeModalStyle1}
+                style={[HomeStyle.homeModalStyle1, {backgroundColor: '#000', opacity: 0.2 ,position: 'absolute'}]}
                 onPress={handleClose}
               ></TouchableOpacity>
               <View style={HomeStyle.HomePickupStudentContent}>

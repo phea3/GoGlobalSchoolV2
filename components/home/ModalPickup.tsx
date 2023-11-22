@@ -78,7 +78,7 @@ export default function ModalPickup({
       >
         <View style={HomeStyle.HomePickupStudent}>
           <TouchableOpacity
-            style={HomeStyle.homeModalStyle1}
+            style={[HomeStyle.homeModalStyle1, , {backgroundColor: '#000', opacity: 0.2 ,position: 'absolute'}]}
             onPress={handleClose}
           />
           <View style={HomeStyle.HomePickupStudentContent}>
@@ -136,7 +136,7 @@ export default function ModalPickup({
       >
         <View style={HomeStyle.HomePickupStudent}>
           <TouchableOpacity
-            style={HomeStyle.homeModalStyle1}
+            style={[HomeStyle.homeModalStyle1, , {backgroundColor: '#000', opacity: 0.2 ,position: 'absolute'}]}
             onPress={() => handleClosePickingUp()}
           />
           <View style={HomeStyle.HomePickupTrackingContent}>

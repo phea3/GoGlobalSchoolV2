@@ -133,7 +133,6 @@ export default function ProfileScreen() {
         >
           <View style={ProfileStyle.ProfileImageViewHolder}>
             <View style={ProfileStyle.ProfileStyleBackgroundProfile} />
-
             <Animatable.Image
               source={
                 data?.getUserProfile?.profileImg
@@ -147,11 +146,10 @@ export default function ProfileScreen() {
               style={ProfileStyle.ProfileImage}
               animation={"zoomIn"}
             />
-            {/* <Animatable.Image
-              source={require("../assets/Images/frame.png")}
+            <Animatable.View
               style={ProfileStyle.ProfileImageFrame}
               animation={"zoomIn"}
-            /> */}
+            />
           </View>
 
           <Animatable.View

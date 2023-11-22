@@ -7,6 +7,8 @@ import {
   TextInput,
   Alert,
   TouchableOpacity,
+  Keyboard,
+  Platform,
 } from "react-native";
 import React, { useState, useEffect, useCallback, useContext } from "react";
 import LoginStyle from "../Styles/LoginScreen.scss";
@@ -22,7 +24,7 @@ import { GET_MOBILEUSERLOGIN } from "../graphql/GetMobileUserLogin";
 
 const LoginScreen = () => {
   const { dispatch, REDUCER_ACTIONS } = useUser();
-const { widthScreen, heightScreen } = useContext(AuthContext)
+const { widthScreen, heightScreen, dimension } = useContext(AuthContext)
   const [view, setView] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -84,44 +86,69 @@ const { widthScreen, heightScreen } = useContext(AuthContext)
     });
   };
 
+  const [isKeyboardVisible, setKeyboardVisible] = useState(false);
+
+
+  useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener(
+      "keyboardDidShow",
+      () => {
+        setKeyboardVisible(true);
+      }
+    );
+
+    const keyboardDidHideListener = Keyboard.addListener(
+      "keyboardDidHide",
+      () => {
+        setKeyboardVisible(false);
+      }
+    );
+
+    return () => {
+      keyboardDidShowListener.remove();
+      keyboardDidHideListener.remove();
+    };
+  }, []);
+
   return (
     <View style={LoginStyle.containerLogin}>
       <ImageBackground
         source={require("../assets/Images/dashboard-login.png")}
-        style={LoginStyle.imagebackground}
+        style={Platform.OS === "android" ? LoginStyle.imagebackgroundandroid : LoginStyle.imagebackgroundios}
         resizeMode="cover"
       >
-        <Image
+        { isKeyboardVisible ? null :  <Image
           source={require("../assets/Images/Logo.png")}
           resizeMode="contain"
-          style={LoginStyle.logoLoginScreen}
-        />
-        <Text style={LoginStyle.titleLogin}>ចូលប្រើកម្មវិធី</Text>
-        <View style={LoginStyle.textinputContainer}>
-          <Text style={LoginStyle.inputTitle}>អ៉ីម៉ែល</Text>
-          <View style={LoginStyle.textinput}>
+          style={ dimension === "sm" ? LoginStyle.logoLoginScreensm : LoginStyle.logoLoginScreen}
+        />}
+       
+        <Text style={[LoginStyle.titleLogin, { fontSize: dimension === "sm" ? 15 : 25 }]}>ចូលប្រើកម្មវិធី</Text>
+        <View style={[LoginStyle.textinputContainer, { marginTop: dimension === "sm" ? 10 : 20 }]}>
+          <Text style={[LoginStyle.inputTitle, { fontSize: dimension === "sm" ? 12 : 15}]}>អ៉ីម៉ែល</Text>
+          <View style={[LoginStyle.textinput, { padding: dimension === "sm" ? 5 : 15 }]}>
             <Image
               source={require("../assets/Images/mail.png")}
               resizeMode="contain"
-              style={{ width: 20, height: 20, marginRight: 10 }}
+              style={{ width: dimension === "sm" ? 20 : 20, height: dimension === "sm" ? 16 : 20, marginRight: 10, alignItems: 'center', justifyContent: 'center' }}
             />
             <TextInput
               value={email}
               placeholder="Email"
               onChangeText={(e) => setEmail(e)}
               keyboardType="default"
-              style={{ flex: 1 }}
+              style={{ flex: 1, fontSize: dimension === "sm" ? 12 : 14 }}
             />
           </View>
         </View>
 
-        <View style={LoginStyle.textinputContainer}>
-          <Text style={LoginStyle.inputTitle}>ពាក្យសម្ងាត់</Text>
-          <View style={LoginStyle.textinput}>
+        <View style={[LoginStyle.textinputContainer, { marginTop: dimension === "sm" ? 10 : 20 }]}>
+          <Text style={[LoginStyle.inputTitle, { fontSize: dimension === "sm" ? 12 : 15}]}>ពាក្យសម្ងាត់</Text>
+          <View style={[LoginStyle.textinput, { padding: dimension === "sm" ? 5 : 15 }]}>
             <Image
               source={require("../assets/Images/lock.png")}
               resizeMode="contain"
-              style={{ width: 20, height: 20, marginRight: 10 }}
+              style={{ width: dimension === "sm" ? 20 : 20, height: dimension === "sm" ? 14 : 20, marginRight: 10, alignItems: 'center', justifyContent: 'center' }}
             />
             <TextInput
               value={password}
@@ -129,14 +156,14 @@ const { widthScreen, heightScreen } = useContext(AuthContext)
               onChangeText={(e) => setPassword(e)}
               secureTextEntry={view}
               keyboardType="default"
-              style={{ flex: 1 }}
+              style={{ flex: 1, fontSize: dimension === "sm" ? 12 : 14 }}
             />
             {view === true ? (
               <TouchableOpacity onPress={() => setView(!view)}>
                 <Image
                   source={require("../assets/Images/view.png")}
                   resizeMode="contain"
-                  style={{ width: 20, height: 20 }}
+                  style={{ width: dimension === "sm" ? 14 : 20, height: dimension === "sm" ? 14 : 20 }}
                 />
               </TouchableOpacity>
             ) : (
@@ -144,7 +171,7 @@ const { widthScreen, heightScreen } = useContext(AuthContext)
                 <Image
                   source={require("../assets/Images/hide.png")}
                   resizeMode="cover"
-                  style={{ width: 20, height: 20 }}
+                  style={{ width: dimension === "sm" ? 14 : 20, height: dimension === "sm" ? 14 : 20 }}
                 />
               </TouchableOpacity>
             )}
@@ -152,21 +179,21 @@ const { widthScreen, heightScreen } = useContext(AuthContext)
         </View>
         <View style={LoginStyle.optionContainer}>
           <TouchableOpacity onPress={() => navigate("/forget")}>
-            <Text style={LoginStyle.LoginForgetText}>ភ្លេចពាក្យសម្ងាត់?</Text>
+            <Text style={[LoginStyle.LoginForgetText, { fontSize: dimension === "sm" ? 10 : 14 }]}>ភ្លេចពាក្យសម្ងាត់?</Text>
           </TouchableOpacity>
         </View>
+       
         <TouchableOpacity
           onPress={handleNavigation}
-          style={LoginStyle.buttonContainer}
+          style={[LoginStyle.buttonContainer, {height: dimension === "sm" ? 30 : 45, marginTop: dimension === "sm" ? 0 : 10 }]}
         >
-          <Text style={LoginStyle.buttonText}>ចូលកម្មវិធី</Text>
+          <Text style={[LoginStyle.buttonText, { fontSize: dimension === "sm" ? 14 : 20 }]}>ចូលកម្មវិធី</Text>
         </TouchableOpacity>
-
-        <Image
+        { isKeyboardVisible ? null :  <Image
           source={require("../assets/Images/bottomImage.png")}
           resizeMode="contain"
-          style={{width: heightScreen * 0.1, height: heightScreen * 0.2 }}
-        />
+          style={{width: heightScreen * 0.13, height: heightScreen * 0.2 }}
+        />}
       </ImageBackground>
     </View>
   );

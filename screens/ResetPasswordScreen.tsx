@@ -1,6 +1,7 @@
 import {
   Image,
   ImageBackground,
+  Keyboard,
   ScrollView,
   Text,
   TextInput,
@@ -94,20 +95,46 @@ export default function ResetPasswordScreen() {
     });
   };
 
+  const [isKeyboardVisible, setKeyboardVisible] = useState(false);
+
+
+  useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener(
+      "keyboardDidShow",
+      () => {
+        setKeyboardVisible(true);
+      }
+    );
+
+    const keyboardDidHideListener = Keyboard.addListener(
+      "keyboardDidHide",
+      () => {
+        setKeyboardVisible(false);
+      }
+    );
+
+    return () => {
+      keyboardDidShowListener.remove();
+      keyboardDidHideListener.remove();
+    };
+  }, []);
+
   return (
     <ImageBackground
       source={require("../assets/Images/dashboard-login.png")}
       resizeMode="repeat"
       style={SettingStyle.SettingContainer}
     >
-      <View style={SettingStyle.SettingBodyContainer}>
+      <View style={isKeyboardVisible ? SettingStyle.SettingBodyContainerKeyboardShow : SettingStyle.SettingBodyContainer}>
         <View style={SettingStyle.SettingBodyContentContainer}>
-          <View style={SettingStyle.ResetpasswordTopContainer}>
-            <Text style={SettingStyle.ResetPasswordLabelTextStyle}>Gmail</Text>
-            <Text style={SettingStyle.ResetPasswordGmailTextStyle}>
-              {gmail}
-            </Text>
-          </View>
+          {isKeyboardVisible ? 
+           null : <View style={SettingStyle.ResetpasswordTopContainer}>
+           <Text style={SettingStyle.ResetPasswordLabelTextStyle}>Gmail</Text>
+           <Text style={SettingStyle.ResetPasswordGmailTextStyle}>
+             {gmail}
+           </Text>
+         </View>  }
+         
           <View style={SettingStyle.ResetpasswordBodyContainer}>
             <Text style={SettingStyle.ResetPasswordLabelTextStyle}>
               New Password

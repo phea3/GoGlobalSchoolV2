@@ -41,7 +41,7 @@ export default function AnnouncementDetail() {
         onPress={() => {
           setTimeout(() => {
             setIsVisible(true);
-          }, 500);
+          }, 100);
           setImage(item?.item.item);
         }}
         style={{

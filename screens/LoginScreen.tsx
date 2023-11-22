@@ -24,7 +24,7 @@ import { GET_MOBILEUSERLOGIN } from "../graphql/GetMobileUserLogin";
 
 const LoginScreen = () => {
   const { dispatch, REDUCER_ACTIONS } = useUser();
-const { widthScreen, heightScreen, dimension } = useContext(AuthContext)
+  const { widthScreen, heightScreen, dimension } = useContext(AuthContext);
   const [view, setView] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -88,7 +88,6 @@ const { widthScreen, heightScreen, dimension } = useContext(AuthContext)
 
   const [isKeyboardVisible, setKeyboardVisible] = useState(false);
 
-
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener(
       "keyboardDidShow",
@@ -114,41 +113,124 @@ const { widthScreen, heightScreen, dimension } = useContext(AuthContext)
     <View style={LoginStyle.containerLogin}>
       <ImageBackground
         source={require("../assets/Images/dashboard-login.png")}
-        style={Platform.OS === "android" ? LoginStyle.imagebackgroundandroid : LoginStyle.imagebackgroundios}
+        style={
+          Platform.OS === "android"
+            ? LoginStyle.imagebackgroundandroid
+            : LoginStyle.imagebackgroundios
+        }
         resizeMode="cover"
       >
-        { isKeyboardVisible ? null :  <Image
-          source={require("../assets/Images/Logo.png")}
-          resizeMode="contain"
-          style={ dimension === "sm" ? LoginStyle.logoLoginScreensm : LoginStyle.logoLoginScreen}
-        />}
-       
-        <Text style={[LoginStyle.titleLogin, { fontSize: dimension === "sm" ? 15 : 25 }]}>ចូលប្រើកម្មវិធី</Text>
-        <View style={[LoginStyle.textinputContainer, { marginTop: dimension === "sm" ? 10 : 20 }]}>
-          <Text style={[LoginStyle.inputTitle, { fontSize: dimension === "sm" ? 12 : 15}]}>អ៉ីម៉ែល</Text>
-          <View style={[LoginStyle.textinput, { padding: dimension === "sm" ? 5 : 15 }]}>
+        {isKeyboardVisible ? null : (
+          <>
+            <Image
+              source={require("../assets/Images/Logo.png")}
+              resizeMode="contain"
+              style={
+                dimension === "sm"
+                  ? LoginStyle.logoLoginScreensm
+                  : dimension === "lg"
+                  ? LoginStyle.logoLoginScreenlg
+                  : LoginStyle.logoLoginScreen
+              }
+            />
+            <Text
+              style={[
+                LoginStyle.titleLogin,
+                {
+                  fontSize:
+                    dimension === "sm" ? 15 : dimension === "lg" ? 35 : 25,
+                },
+              ]}
+            >
+              ចូលប្រើកម្មវិធី
+            </Text>
+          </>
+        )}
+
+        <View
+          style={[
+            LoginStyle.textinputContainer,
+            {
+              marginTop: dimension === "sm" ? 8 : dimension === "lg" ? 24 : 20,
+            },
+          ]}
+        >
+          <Text
+            style={[
+              LoginStyle.inputTitle,
+              {
+                fontSize:
+                  dimension === "sm" ? 12 : dimension === "lg" ? 20 : 15,
+              },
+            ]}
+          >
+            អ៉ីម៉ែល
+          </Text>
+          <View
+            style={[
+              LoginStyle.textinput,
+              {
+                padding: dimension === "sm" ? 5 : dimension === "lg" ? 25 : 15,
+              },
+            ]}
+          >
             <Image
               source={require("../assets/Images/mail.png")}
               resizeMode="contain"
-              style={{ width: dimension === "sm" ? 20 : 20, height: dimension === "sm" ? 16 : 20, marginRight: 10, alignItems: 'center', justifyContent: 'center' }}
+              style={{
+                width: dimension === "sm" ? 14 : dimension === "lg" ? 30 : 20,
+                height: dimension === "sm" ? 14 : dimension === "lg" ? 30 : 20,
+                marginRight:
+                  dimension === "sm" ? 8 : dimension === "lg" ? 15 : 10,
+                alignItems: "center",
+                justifyContent: "center",
+              }}
             />
             <TextInput
               value={email}
               placeholder="Email"
               onChangeText={(e) => setEmail(e)}
               keyboardType="default"
-              style={{ flex: 1, fontSize: dimension === "sm" ? 12 : 14 }}
+              style={{
+                flex: 1,
+                fontSize:
+                  dimension === "sm" ? 12 : dimension === "lg" ? 20 : 15,
+              }}
             />
           </View>
         </View>
 
-        <View style={[LoginStyle.textinputContainer, { marginTop: dimension === "sm" ? 10 : 20 }]}>
-          <Text style={[LoginStyle.inputTitle, { fontSize: dimension === "sm" ? 12 : 15}]}>ពាក្យសម្ងាត់</Text>
-          <View style={[LoginStyle.textinput, { padding: dimension === "sm" ? 5 : 15 }]}>
+        <View style={LoginStyle.textinputContainer}>
+          <Text
+            style={[
+              LoginStyle.inputTitle,
+              {
+                fontSize:
+                  dimension === "sm" ? 12 : dimension === "lg" ? 20 : 15,
+              },
+            ]}
+          >
+            ពាក្យសម្ងាត់
+          </Text>
+          <View
+            style={[
+              LoginStyle.textinput,
+              {
+                padding: dimension === "sm" ? 5 : dimension === "lg" ? 25 : 15,
+              },
+            ]}
+          >
             <Image
               source={require("../assets/Images/lock.png")}
               resizeMode="contain"
-              style={{ width: dimension === "sm" ? 20 : 20, height: dimension === "sm" ? 14 : 20, marginRight: 10, alignItems: 'center', justifyContent: 'center' }}
+              style={{
+                width: dimension === "sm" ? 14 : dimension === "lg" ? 30 : 20,
+                height: dimension === "sm" ? 14 : dimension === "lg" ? 30 : 20,
+                marginRight:
+                  dimension === "sm" ? 8 : dimension === "lg" ? 15 : 10,
+                alignItems: "center",
+                justifyContent: "center",
+              }}
             />
             <TextInput
               value={password}
@@ -156,14 +238,23 @@ const { widthScreen, heightScreen, dimension } = useContext(AuthContext)
               onChangeText={(e) => setPassword(e)}
               secureTextEntry={view}
               keyboardType="default"
-              style={{ flex: 1, fontSize: dimension === "sm" ? 12 : 14 }}
+              style={{
+                flex: 1,
+                fontSize:
+                  dimension === "sm" ? 12 : dimension === "lg" ? 20 : 15,
+              }}
             />
             {view === true ? (
               <TouchableOpacity onPress={() => setView(!view)}>
                 <Image
                   source={require("../assets/Images/view.png")}
                   resizeMode="contain"
-                  style={{ width: dimension === "sm" ? 14 : 20, height: dimension === "sm" ? 14 : 20 }}
+                  style={{
+                    width:
+                      dimension === "sm" ? 14 : dimension === "lg" ? 30 : 20,
+                    height:
+                      dimension === "sm" ? 14 : dimension === "lg" ? 30 : 20,
+                  }}
                 />
               </TouchableOpacity>
             ) : (
@@ -171,29 +262,79 @@ const { widthScreen, heightScreen, dimension } = useContext(AuthContext)
                 <Image
                   source={require("../assets/Images/hide.png")}
                   resizeMode="cover"
-                  style={{ width: dimension === "sm" ? 14 : 20, height: dimension === "sm" ? 14 : 20 }}
+                  style={{
+                    width:
+                      dimension === "sm" ? 14 : dimension === "lg" ? 30 : 20,
+                    height:
+                      dimension === "sm" ? 14 : dimension === "lg" ? 30 : 20,
+                  }}
                 />
               </TouchableOpacity>
             )}
           </View>
         </View>
+
         <View style={LoginStyle.optionContainer}>
           <TouchableOpacity onPress={() => navigate("/forget")}>
-            <Text style={[LoginStyle.LoginForgetText, { fontSize: dimension === "sm" ? 10 : 14 }]}>ភ្លេចពាក្យសម្ងាត់?</Text>
+            <Text
+              style={[
+                LoginStyle.LoginForgetText,
+                {
+                  fontSize:
+                    dimension === "sm" ? 10 : dimension === "lg" ? 20 : 14,
+                },
+              ]}
+            >
+              ភ្លេចពាក្យសម្ងាត់?
+            </Text>
           </TouchableOpacity>
         </View>
-       
+
         <TouchableOpacity
           onPress={handleNavigation}
-          style={[LoginStyle.buttonContainer, {height: dimension === "sm" ? 30 : 45, marginTop: dimension === "sm" ? 0 : 10 }]}
+          style={[
+            LoginStyle.buttonContainer,
+            {
+              marginTop: dimension === "sm" ? 0 : 10,
+            },
+          ]}
         >
-          <Text style={[LoginStyle.buttonText, { fontSize: dimension === "sm" ? 14 : 20 }]}>ចូលកម្មវិធី</Text>
+          <Text
+            style={[
+              LoginStyle.buttonText,
+              {
+                fontSize:
+                  dimension === "sm" ? 14 : dimension === "lg" ? 25 : 20,
+              },
+            ]}
+          >
+            ចូលកម្មវិធី
+          </Text>
         </TouchableOpacity>
-        { isKeyboardVisible ? null :  <Image
-          source={require("../assets/Images/bottomImage.png")}
-          resizeMode="contain"
-          style={{width: heightScreen * 0.13, height: heightScreen * 0.2 }}
-        />}
+
+        {isKeyboardVisible ? null : (
+          <View
+            style={
+              dimension === "sm"
+                ? LoginStyle.loginFooterImgContaintersm
+                : dimension === "lg"
+                ? LoginStyle.loginFooterImgContainterlg
+                : LoginStyle.loginFooterImgContainter
+            }
+          >
+            <Image
+              source={require("../assets/Images/bottomImage.png")}
+              resizeMode="contain"
+              style={
+                dimension === "sm"
+                  ? LoginStyle.loginFooterImgsm
+                  : dimension === "lg"
+                  ? LoginStyle.loginFooterImglg
+                  : LoginStyle.loginFooterImg
+              }
+            />
+          </View>
+        )}
       </ImageBackground>
     </View>
   );

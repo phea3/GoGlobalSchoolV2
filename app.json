@@ -67,7 +67,7 @@
       "transformer": "node_modules/react-native-sass-transformer/index.js"
     },
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/Images/7nvU.gif",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },

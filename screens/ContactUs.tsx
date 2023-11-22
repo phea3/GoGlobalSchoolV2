@@ -10,7 +10,7 @@ import {
   Modal,
   ScrollView,
 } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import ContactUsScreenStyle from "../Styles/ContactUsScreen.scss";
 import { useLocation, useNavigate } from "react-router-native";
 import auth from "../Auth/auth";
@@ -18,8 +18,10 @@ import axios from "axios";
 import { Linking } from "react-native";
 import ModalContactUS from "../components/contact/modalContactUs";
 import * as Animatable from "react-native-animatable";
+import { AuthContext } from "../Context/AuthContext";
 
 const ContactUs = () => {
+  const { widthScreen, heightScreen, dimension } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
   const phoneNumber = "+855767772168";
@@ -74,7 +76,6 @@ const ContactUs = () => {
       >
         <View style={ContactUsScreenStyle.ContactUsTopContainer}>
           <Text style={ContactUsScreenStyle.ContactUsTopTitleContent}>FAQ</Text>
-
           {location.pathname === "/forget" ? (
             <TouchableOpacity
               style={ContactUsScreenStyle.ContactUsBackButton}
@@ -99,7 +100,15 @@ const ContactUs = () => {
                 style={ContactUsScreenStyle.ContactUsRowQandAContainer}
                 key={index}
               >
-                <View style={ContactUsScreenStyle.ContactUsBodyRowContainer}>
+                <View
+                  style={[
+                    ContactUsScreenStyle.ContactUsBodyRowContainer,
+                    {
+                      padding:
+                        dimension === "sm" ? 5 : dimension === "lg" ? 20 : 10,
+                    },
+                  ]}
+                >
                   <Image
                     source={require("../assets/Images/user.png")}
                     resizeMode="cover"
@@ -109,7 +118,11 @@ const ContactUs = () => {
                     style={ContactUsScreenStyle.ContactUsBodyTitleRowContainer}
                     onPress={() => handleClick(index)}
                   >
-                    <Text>{conversation.question}</Text>
+                    <Text
+                      style={{ width: "90%", fontFamily: "Kantumruy-Regular" }}
+                    >
+                      {conversation.question}
+                    </Text>
                     <Image
                       source={
                         conversation.index === Index
@@ -124,7 +137,13 @@ const ContactUs = () => {
 
                 {conversation.index === Index ? (
                   <Animatable.View
-                    style={ContactUsScreenStyle.ContactUsBodyRowContainer}
+                    style={[
+                      ContactUsScreenStyle.ContactUsBodyRowContainer,
+                      {
+                        padding:
+                          dimension === "sm" ? 5 : dimension === "lg" ? 20 : 10,
+                      },
+                    ]}
                     animation={"flipInX"}
                   >
                     <View
@@ -132,7 +151,14 @@ const ContactUs = () => {
                         ContactUsScreenStyle.ContactUsBodyTitleRowContainer
                       }
                     >
-                      <Text>{conversation.answer}</Text>
+                      <Text
+                        style={{
+                          width: "90%",
+                          fontFamily: "Kantumruy-Regular",
+                        }}
+                      >
+                        {conversation.answer}
+                      </Text>
                     </View>
                     <Image
                       source={require("../assets/Images/user.png")}
@@ -149,6 +175,7 @@ const ContactUs = () => {
             ))}
           </ScrollView>
         </View>
+
         <View style={ContactUsScreenStyle.ContactUsFooterContainer}>
           <View
             style={ContactUsScreenStyle.ContactUsFooterGroupButtonContainer}

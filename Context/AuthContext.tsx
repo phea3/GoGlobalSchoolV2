@@ -78,7 +78,7 @@ const HandleDefineDimension = (widthScreen: number) => {
     dimension = "sm";
   } else if (widthscreen <= 468) {
     dimension = "md";
-  } else if (widthScreen <= 1080){
+  } else if (widthScreen <= 1080) {
     dimension = "lg";
   }
 

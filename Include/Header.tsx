@@ -135,8 +135,18 @@ export default function Header() {
                   style={[
                     HeaderStyle.logoHeader,
                     {
-                      width: heightScreen * 0.038,
-                      height: heightScreen * 0.038,
+                      width:
+                        dimension === "sm"
+                          ? heightScreen * 0.038
+                          : dimension === "lg"
+                          ? heightScreen * 0.045
+                          : heightScreen * 0.038,
+                      height:
+                        dimension === "sm"
+                          ? heightScreen * 0.038
+                          : dimension === "lg"
+                          ? heightScreen * 0.045
+                          : heightScreen * 0.038,
                     },
                   ]}
                 />
@@ -149,7 +159,15 @@ export default function Header() {
                 }}
                 animation="fadeInRight"
               >
-                <Text style={[HeaderStyle.headerTitle1, { fontSize: dimension  === 'sm' ? 12 : 16 }]}>
+                <Text
+                  style={[
+                    HeaderStyle.headerTitle1,
+                    {
+                      fontSize:
+                        dimension === "sm" ? 12 : dimension === "lg" ? 24 : 16,
+                    },
+                  ]}
+                >
                   {t("Hi")}{" "}
                   {getLanguage() === "kh"
                     ? mobileUserLogin?.lastName +
@@ -157,7 +175,15 @@ export default function Header() {
                       mobileUserLogin?.firstName
                     : mobileUserLogin?.englishName}
                 </Text>
-                <Text style={[HeaderStyle.headerTitle2, { fontSize: dimension  === 'sm' ? 8 : 12 }]}>
+                <Text
+                  style={[
+                    HeaderStyle.headerTitle2,
+                    {
+                      fontSize:
+                        dimension === "sm" ? 8 : dimension === "lg" ? 18 : 12,
+                    },
+                  ]}
+                >
                   {t("welcome back!")}
                 </Text>
               </Animatable.View>
@@ -171,8 +197,9 @@ export default function Header() {
               <Animatable.Image
                 source={require("../assets/Images/notification-bell.png")}
                 style={{
-                  width: dimension === "sm" ? 20 : 30,
-                  height: dimension === "sm" ? 20 : 30,
+                  width: dimension === "sm" ? 20 : dimension === "lg" ? 45 : 30,
+                  height:
+                    dimension === "sm" ? 20 : dimension === "lg" ? 45 : 30,
                   marginRight: heightScreen * 0.01,
                 }}
                 animation="fadeInDown"
@@ -201,8 +228,9 @@ export default function Header() {
               <Animatable.Image
                 source={require("../assets/Images/bell.png")}
                 style={{
-                  width: dimension === "sm" ? 20 : 30,
-                  height: dimension === "sm" ? 20 : 30,
+                  width: dimension === "sm" ? 20 : dimension === "lg" ? 45 : 30,
+                  height:
+                    dimension === "sm" ? 20 : dimension === "lg" ? 45 : 30,
                   marginRight: heightScreen * 0.01,
                 }}
                 animation="fadeInDown"
@@ -217,8 +245,10 @@ export default function Header() {
                   <Animatable.Image
                     source={require("../assets/Images/Cambodia-Flag.png")}
                     style={{
-                      width: dimension === "sm" ? 20 : 30,
-                        height: dimension === "sm" ? 20 : 30,
+                      width:
+                        dimension === "sm" ? 20 : dimension === "lg" ? 45 : 30,
+                      height:
+                        dimension === "sm" ? 20 : dimension === "lg" ? 45 : 30,
                     }}
                     animation="fadeInDown"
                   />
@@ -227,7 +257,7 @@ export default function Header() {
                     source={require("../assets/Images/English-Flag.png")}
                     style={{
                       width: dimension === "sm" ? 20 : 30,
-                        height: dimension === "sm" ? 20 : 30,
+                      height: dimension === "sm" ? 20 : 30,
                     }}
                     animation="fadeInDown"
                   />

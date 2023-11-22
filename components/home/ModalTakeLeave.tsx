@@ -15,6 +15,12 @@ import { LEAVE_REQUEST } from "../../graphql/LeaveRequest";
 import * as Animatable from "react-native-animatable";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import KeyboardDismissableArea from "../../Function/KeyboardDismissableArea";
+import Animated, {
+  useAnimatedStyle,
+  useSharedValue,
+  withSpring,
+  withTiming,
+} from "react-native-reanimated";
 
 export default function ModalTakeLeave({
   studentId,
@@ -33,6 +39,7 @@ export default function ModalTakeLeave({
   const [from, setFrom] = useState(new Date());
   const [to, setTo] = useState(new Date());
   const [reason, setReason] = useState("");
+  const [disappear, setDisappear] = useState(false);
 
   const showDatePicker = () => {
     setDatePickerVisibility(true);
@@ -113,6 +120,14 @@ export default function ModalTakeLeave({
     });
   };
 
+  const offset = useSharedValue(0.2);
+
+  const animatedStyles = useAnimatedStyle(() => {
+    return {
+      opacity: withSpring(offset.value),
+    };
+  });
+
   const [isKeyboardVisible, setKeyboardVisible] = useState(false);
 
   useEffect(() => {
@@ -145,17 +160,37 @@ export default function ModalTakeLeave({
         transparent={true}
       >
         <View style={HomeStyle.homeSelectLeaveOptionContainer}>
-          <TouchableOpacity
-            style={HomeStyle.homeSelectLeaveOptionDismissArea}
-            onPress={() => handleClose()}
-          />
+          <Animated.View
+            style={[
+              animatedStyles,
+              {
+                width: "100%",
+                height: "100%",
+                backgroundColor: "#000",
+                position: "absolute",
+              },
+            ]}
+          >
+            <TouchableOpacity
+              style={HomeStyle.homeSelectLeaveOptionDismissArea}
+              onPress={() => {
+                setDisappear(true);
+                offset.value = withTiming(0);
+                setTimeout(() => {
+                  setDisappear(false);
+                  handleClose();
+                  offset.value = withTiming(0.2);
+                }, 500);
+              }}
+            />
+          </Animated.View>
           <Animatable.View
             style={
               isKeyboardVisible
                 ? HomeStyle.homeSelectLeaveOptionModalArea1
                 : HomeStyle.homeSelectLeaveOptionModalArea
             }
-            animation="fadeInUpBig"
+            animation={disappear ? "fadeOutDownBig" : "fadeInUpBig"}
           >
             <View
               style={{ width: "100%", alignItems: "flex-start", padding: 10 }}

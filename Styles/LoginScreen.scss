@@ -35,7 +35,48 @@
   align-items: center;
 }
 
+.logoLoginScreenlg {
+  width: 150px;
+  height: 30%;
+  justify-content: center;
+  align-items: center;
+}
+
+.loginFooterImgContainter {
+  width: 100px;
+  height: 25%;
+  justify-content: flex-end;
+}
+
+.loginFooterImgContaintersm {
+  width: 100px;
+  height: 20%;
+  justify-content: flex-end;
+}
+
+.loginFooterImgContainterlg {
+  width: 150px;
+  height: 30%;
+  justify-content: flex-end;
+}
+
+.loginFooterImg {
+  width: 100%;
+  height: 50%;
+}
+
+.loginFooterImgsm {
+  width: 100%;
+  height: 50%;
+}
+
+.loginFooterImglg {
+  width: 100%;
+  height: 50%;
+}
+
 .titleLogin {
+  height: 5%;
   font-family: $bayon-regular;
   font-weight: bold;
   color: $color-main;
@@ -58,13 +99,14 @@
 
 .textinputContainer {
   width: 80%;
+  height: 10%;
   align-items: flex-start;
 }
 
 .buttonContainer {
   background-color: $color-main;
   width: 80%;
-  height: 40px;
+  height: 5%;
   border-radius: $border-radius-main;
   justify-content: center;
   align-items: center;
@@ -79,7 +121,7 @@
 .optionContainer {
   flex-direction: row;
   width: 80%;
-  height: 50px;
+  height: 5%;
   justify-content: flex-end;
   align-items: center;
 }

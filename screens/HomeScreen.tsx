@@ -21,6 +21,7 @@ import ModalTakeLeave from "../components/home/ModalTakeLeave";
 import { GET_UPCOMINGEVENT } from "../graphql/GetUpcomingEventMobile";
 import ModalEYS from "../components/home/ModalEYS";
 import ModalHealth from "../components/health/ModalHealth";
+import axios from "axios";
 
 const features = [
   {
@@ -105,19 +106,21 @@ const useOnce = (callback: any) => {
   }, [hasRun, callback]);
 };
 
-const numbers = Array.from({ length: 3 }, (_, index) => index);
-
 const HomeScreen = () => {
   const navigate = useNavigate();
   const { uid } = useContext(AuthContext);
   const [isModalVisible, setModalVisible] = useState(false);
   const [isModalVisible1, setModalVisible1] = useState(false);
-  const { widthScreen, heightScreen, dimension } = useContext(AuthContext)
-
+  const { widthScreen, heightScreen, dimension } = useContext(AuthContext);
+  const videoId = "A7CBbLkWqo8"; // Replace with the actual video ID
+  const API_KEY = "AIzaSyAyT0Wj3WfxoouSYNVdS5bTs6jU0COSk-g"; // Replace with your YouTube Data API key
   const [duty, setDuty] = useState("");
   const [studentId, setStudentId] = useState("");
   const [loading, setLoading] = useState(true);
   const [StuInfo, setStuInfo] = useState({});
+  const [likeCount, setLikeCount] = useState(0);
+  const [commentCount, setCommentCount] = useState(0);
+  const [videoTitle, setVideoTitle] = useState("");
   const t = useTranslation();
 
   const toggleModal = () => {
@@ -187,15 +190,14 @@ const HomeScreen = () => {
     return () => clearTimeout(timer);
     // console.log('This code runs only once');
   });
-  
+
   //================ GET STUDENT ===============
   const { data, refetch } = useQuery(GET_STUDENT, {
     pollInterval: 2000,
     variables: {
       parentsId: uid,
     },
-    onCompleted: ({ getStudentByParentsMobile }) => {
-    },
+    onCompleted: ({ getStudentByParentsMobile }) => {},
     onError: (error) => {
       console.log(error?.message);
       // setLoading(true);
@@ -283,6 +285,28 @@ const HomeScreen = () => {
         break;
     }
   };
+  async function connectYoutub() {
+    axios
+      .get(
+        `https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics&id=${videoId}&key=${API_KEY}`
+      )
+      .then((response) => {
+        const likeCount = response.data.items[0].statistics.likeCount;
+        const commentCount = response.data.items[0].statistics.commentCount;
+        const setTitleVideo = response.data.items[0].snippet.title;
+        setLikeCount(likeCount);
+        setCommentCount(commentCount);
+        setVideoTitle(setTitleVideo);
+        // Use the like count in your React Native app
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  }
+
+  useEffect(() => {
+    connectYoutub();
+  }, []);
 
   return (
     <View style={HomeStyle.homeContainer}>
@@ -294,10 +318,21 @@ const HomeScreen = () => {
       >
         <View style={HomeStyle.homeModalStyle}>
           <TouchableOpacity
-            style={[HomeStyle.homeModalStyle1, { backgroundColor: '#000', opacity: 0.2 , position: 'absolute'}]}
+            style={[
+              HomeStyle.homeModalStyle1,
+              { backgroundColor: "#000", opacity: 0.2, position: "absolute" },
+            ]}
             onPress={() => toggleModal()}
           />
-          <View style={[HomeStyle.modalinsideStyle, { width: dimension === "sm" ? 200 : 350, height: dimension === "sm" ? 250 : 350 }]}>
+          <View
+            style={[
+              HomeStyle.modalinsideStyle,
+              {
+                width: dimension === "sm" ? 200 : 350,
+                height: dimension === "sm" ? 250 : 300,
+              },
+            ]}
+          >
             <Text style={HomeStyle.homeModalTitle}>{duty}</Text>
             <ScrollView
               horizontal
@@ -412,31 +447,31 @@ const HomeScreen = () => {
             {data === undefined ||
             data?.getStudentByParentsMobile.length === 0 ? (
               <View style={HomeStyle.imageBox}>
+                <View
+                  style={{
+                    borderColor: "#9aa3a6",
+                    borderWidth: 1,
+                    borderRadius: 60,
+                    padding: 5,
+                  }}
+                >
                   <View
-                    style={{
-                      borderColor: "#9aa3a6",
-                      borderWidth: 1,
-                      borderRadius: 60,
-                      padding: 5,
-                    }}
-                  >
-                    <View
-                      style={[
-                        HomeStyle.imageHome,
-                        {
-                          backgroundColor: "#f1f1f1",
-                        },
-                      ]}
-                    />
-                  </View>
-                  <View
-                    style={{
-                      width: 120,
-                      height: 30,
-                      backgroundColor: "#f1f1f1",
-                    }}
+                    style={[
+                      HomeStyle.imageHome,
+                      {
+                        backgroundColor: "#f1f1f1",
+                      },
+                    ]}
                   />
                 </View>
+                <View
+                  style={{
+                    width: 120,
+                    height: 30,
+                    backgroundColor: "#f1f1f1",
+                  }}
+                />
+              </View>
             ) : (
               data?.getStudentByParentsMobile?.map(
                 (stuInfo: any, index: number) =>
@@ -507,16 +542,18 @@ const HomeScreen = () => {
 
         <View style={HomeStyle.titleBarHome}>
           {loading === true ? (
-          <View style={HomeStyle.titleBarHomeLoading} />
-          ) : ( 
+            <View style={HomeStyle.titleBarHomeLoading} />
+          ) : (
             <>
               <Image
                 source={require("../assets/Images/upcoming.png")}
                 style={{ height: 20, width: 20 }}
               />
-                <Text style={HomeStyle.fontTitleBarHome}>
-                  {getLanguage() === "en" ? "UPCOMING" : "ព្រឺត្តិការណ៏ថ្មីៗ"}
-                </Text>
+              <Text style={HomeStyle.fontTitleBarHome}>
+                {getLanguage() === "en"
+                  ? "UPCOMING NEWS"
+                  : "ព្រឺត្តិការណ៏ថ្មីៗ"}
+              </Text>
               <View style={HomeStyle.homeBar} />
             </>
           )}
@@ -529,78 +566,69 @@ const HomeScreen = () => {
               <View style={HomeStyle.homeUpcominginSideViewContainer}>
                 <View style={HomeStyle.homeUpcomingPillarEmpty} />
                 <View style={HomeStyle.homeUpcominginSideViewContainer2}>
-                  <Text style={HomeStyle.homeUpcomingTitleEmpty}>
-                    {" "}
-                  </Text>
-                  <Text style={HomeStyle.homeUpcomingBody}>
-                    {" "}
-                  </Text>
+                  <Text style={HomeStyle.homeUpcomingTitleEmpty}> </Text>
+                  <Text style={HomeStyle.homeUpcomingBody}> </Text>
                 </View>
               </View>
             </View>
           </View>
         ) : (
-          eventData?.getUpcomingEventMobile.map((event: any, index: number) => (
+          eventData?.getUpcomingEventMobile.map((event: any, index: number) =>
             loading === true ? (
               <View style={HomeStyle.upcomingcardhome} key={index}>
                 <View style={HomeStyle.homeUpcomingEventStyleBoxEmpty}>
                   <View style={HomeStyle.homeUpcominginSideViewContainer}>
                     <View style={HomeStyle.homeUpcomingPillarEmpty} />
                     <View style={HomeStyle.homeUpcominginSideViewContainer2}>
-                      <Text style={HomeStyle.homeUpcomingTitleEmpty}>
-                        {" "}
-                      </Text>
-                      <Text style={HomeStyle.homeUpcomingBody}>
-                        {" "}
-                      </Text>
+                      <Text style={HomeStyle.homeUpcomingTitleEmpty}> </Text>
+                      <Text style={HomeStyle.homeUpcomingBody}> </Text>
                     </View>
                   </View>
                 </View>
               </View>
             ) : (
-            <View style={HomeStyle.upcomingcardhome} key={index}>
-              <View
-                style={
-                  index % 3 === 0
-                    ? HomeStyle.homeUpcomingEventStyleBox1
-                    : index % 3 === 1
-                    ? HomeStyle.homeUpcomingEventStyleBox2
-                    : HomeStyle.homeUpcomingEventStyleBox3
-                }
-              >
-                <View style={HomeStyle.homeUpcominginSideViewContainer}>
-                  <View style={HomeStyle.homeUpcomingPillar} />
-                  <View style={HomeStyle.homeUpcominginSideViewContainer2}>
-                    <Text style={HomeStyle.homeUpcomingTitle}>
-                      {event?.title}
-                    </Text>
-                    <Text style={HomeStyle.homeUpcomingBody}>
-                      {moment(event?.from).format("DD-MM-YYYY")}
-                    </Text>
+              <View style={HomeStyle.upcomingcardhome} key={index}>
+                <View
+                  style={
+                    index % 3 === 0
+                      ? HomeStyle.homeUpcomingEventStyleBox1
+                      : index % 3 === 1
+                      ? HomeStyle.homeUpcomingEventStyleBox2
+                      : HomeStyle.homeUpcomingEventStyleBox3
+                  }
+                >
+                  <View style={HomeStyle.homeUpcominginSideViewContainer}>
+                    <View style={HomeStyle.homeUpcomingPillar} />
+                    <View style={HomeStyle.homeUpcominginSideViewContainer2}>
+                      <Text style={HomeStyle.homeUpcomingTitle}>
+                        {event?.title}
+                      </Text>
+                      <Text style={HomeStyle.homeUpcomingBody}>
+                        {moment(event?.from).format("DD-MM-YYYY")}
+                      </Text>
+                    </View>
                   </View>
                 </View>
               </View>
-            </View>
             )
-            
-          ))
+          )
         )}
 
         <View style={HomeStyle.titleBarHome}>
           {loading === true ? (
             <View style={HomeStyle.titleBarHomeLoading} />
-            ) : ( 
-              <>
+          ) : (
+            <>
               <Image
-              source={require("../assets/Images/customer-service.png")}
-              style={{ height: 20, width: 20 }}
-            />
-            <Text style={HomeStyle.fontTitleBarHome}>
-              {getLanguage() === "en" ? "Feature" : "មុខងារ"}
-            </Text>
-            <View style={HomeStyle.homeBar} />
-              </>
-            )}
+                source={require("../assets/Images/customer-service.png")}
+                style={{ height: 20, width: 20 }}
+              />
+              <Text style={HomeStyle.fontTitleBarHome}>
+                {getLanguage() === "en" ? "Feature" : "មុខងារ"}
+              </Text>
+              <View style={HomeStyle.homeBar} />
+            </>
+          )}
         </View>
 
         <ScrollView
@@ -608,37 +636,37 @@ const HomeScreen = () => {
           showsHorizontalScrollIndicator={false}
           style={{ width: "95%" }}
         >
-          {features.map((row: any, index: number) => (
+          {features.map((row: any, index: number) =>
             loading === true ? (
-            <View style={HomeStyle.explorecontainer} key={index}>
-              <View style={HomeStyle.exploreBoxSkeleton}/>
-            </View>
+              <View style={HomeStyle.explorecontainer} key={index}>
+                <View style={HomeStyle.exploreBoxSkeleton} />
+              </View>
             ) : (
-          <View style={HomeStyle.explorecontainer} key={index}>
-              <TouchableOpacity
-                style={HomeStyle.exploreBox}
-                onPress={() => {
-                  setDuty(row?.title);
-                  toggleModal();
-                }}
-              >
-                <Animatable.Image
-                  source={row.icon}
-                  style={{ height: 30, width: 30 }}
-                  animation="bounce"
-                />
-                <Text style={HomeStyle.exploreTitle}>{row?.title}</Text>
-              </TouchableOpacity>
-            </View>
+              <View style={HomeStyle.explorecontainer} key={index}>
+                <TouchableOpacity
+                  style={HomeStyle.exploreBox}
+                  onPress={() => {
+                    setDuty(row?.title);
+                    toggleModal();
+                  }}
+                >
+                  <Animatable.Image
+                    source={row.icon}
+                    style={{ height: 30, width: 30 }}
+                    animation="bounce"
+                  />
+                  <Text style={HomeStyle.exploreTitle}>{row?.title}</Text>
+                </TouchableOpacity>
+              </View>
             )
-          ))}
+          )}
         </ScrollView>
 
         <View style={HomeStyle.titleBarHome}>
           {loading === true ? (
             <View style={HomeStyle.titleBarHomeLoading} />
-              ) : ( 
-              <>
+          ) : (
+            <>
               <Image
                 source={require("../assets/Images/rocket.png")}
                 style={{ height: 20, width: 20 }}
@@ -647,8 +675,8 @@ const HomeScreen = () => {
                 {getLanguage() === "en" ? "EXPLORE" : "ស្វែងរក"}
               </Text>
               <View style={HomeStyle.homeBar} />
-              </>
-            )}
+            </>
+          )}
         </View>
 
         <ScrollView
@@ -656,34 +684,34 @@ const HomeScreen = () => {
           showsHorizontalScrollIndicator={false}
           style={{ width: "95%" }}
         >
-          {explore.map((row: any, index: number) => (
-             loading === true ? (
+          {explore.map((row: any, index: number) =>
+            loading === true ? (
               <View style={HomeStyle.explorecontainer} key={index}>
-                <View style={HomeStyle.exploreBoxSkeleton}/>
+                <View style={HomeStyle.exploreBoxSkeleton} />
               </View>
-              ) : (
-            <View style={HomeStyle.explorecontainer} key={index}>
-              <TouchableOpacity
-                style={HomeStyle.exploreBox}
-                onPress={() => {
-                  if (row?.modal) {
-                    setDuty(row?.title);
-                    toggleModal();
-                  } else {
-                    navigate(row?.naviage);
-                  }
-                }}
-              >
-                <Animatable.Image
-                  source={row?.icon}
-                  style={{ height: 30, width: 30 }}
-                  animation="bounce"
-                />
-                <Text style={HomeStyle.exploreTitle}>{row?.title}</Text>
-              </TouchableOpacity>
-            </View>
-              )
-          ))}
+            ) : (
+              <View style={HomeStyle.explorecontainer} key={index}>
+                <TouchableOpacity
+                  style={HomeStyle.exploreBox}
+                  onPress={() => {
+                    if (row?.modal) {
+                      setDuty(row?.title);
+                      toggleModal();
+                    } else {
+                      navigate(row?.naviage);
+                    }
+                  }}
+                >
+                  <Animatable.Image
+                    source={row?.icon}
+                    style={{ height: 30, width: 30 }}
+                    animation="bounce"
+                  />
+                  <Text style={HomeStyle.exploreTitle}>{row?.title}</Text>
+                </TouchableOpacity>
+              </View>
+            )
+          )}
         </ScrollView>
 
         <View style={HomeStyle.titleBarHome}>
@@ -706,9 +734,7 @@ const HomeScreen = () => {
                 resizeMode="cover"
                 animation="zoomIn"
               />
-              <Text style={HomeStyle.announcementHomeTitleEmpty}>
-                {" "}
-              </Text>
+              <Text style={HomeStyle.announcementHomeTitleEmpty}> </Text>
             </View>
           ) : (
             announces.map((announce: any) => (
@@ -728,6 +754,56 @@ const HomeScreen = () => {
                 </Text>
               </TouchableOpacity>
             ))
+          )}
+        </View>
+
+        <View style={HomeStyle.titleBarHome}>
+          {loading === true ? (
+            <View style={HomeStyle.titleBarHomeLoading} />
+          ) : (
+            <>
+              <Image
+                source={require("../assets/Images/video.png")}
+                style={{ height: 20, width: 20 }}
+              />
+              <Text style={HomeStyle.fontTitleBarHome}>
+                {getLanguage() === "en" ? "VIDEOS" : "វីដេអូថ្មីៗ"}
+              </Text>
+              <View style={HomeStyle.homeBar} />
+            </>
+          )}
+        </View>
+        <View style={HomeStyle.announceHomeHolderContainer}>
+          {loading === true ? (
+            <View style={HomeStyle.announcementHomeContainer}>
+              <Animatable.Image
+                source={require("../assets/Images/No-Data-Found.jpeg")}
+                style={{ width: "100%", height: "80%", borderRadius: 5 }}
+                resizeMode="cover"
+                animation="zoomIn"
+              />
+              <Text style={HomeStyle.announcementHomeTitleEmpty}> </Text>
+            </View>
+          ) : (
+            // announces.map((announce: any) => (
+            <TouchableOpacity
+              onPress={() => {}}
+              style={HomeStyle.announcementHomeContainer}
+            >
+              <Animatable.Image
+                source={require("../assets/Images/loading-gif.gif")}
+                style={{ width: "100%", height: "100%", borderRadius: 5 }}
+                resizeMode="cover"
+                animation="zoomIn"
+              />
+              <View style={HomeStyle.HomeVideoContentContainer}>
+                <Text style={HomeStyle.HomeVideoTitleText} numberOfLines={1}>
+                  {videoTitle}
+                </Text>
+                <Text></Text>
+              </View>
+            </TouchableOpacity>
+            // )
           )}
         </View>
       </ScrollView>

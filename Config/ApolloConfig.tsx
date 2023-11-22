@@ -3,11 +3,7 @@ import {
   InMemoryCache,
   ApolloProvider,
   createHttpLink,
-  split,
-  ApolloLink,
 } from "@apollo/client";
-import { WebSocketLink } from "@apollo/client/link/ws";
-import { getMainDefinition } from "@apollo/client/utilities";
 import { setContext } from "@apollo/client/link/context";
 import { useContext, useEffect } from "react";
 import { AuthContext } from "../Context/AuthContext";

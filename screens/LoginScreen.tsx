@@ -149,7 +149,7 @@ const LoginScreen = () => {
 
         <View
           style={[
-            LoginStyle.textinputContainer,
+            dimension === "sm" ? LoginStyle.textinputContainersm :  LoginStyle.textinputContainer,
             {
               marginTop: dimension === "sm" ? 8 : dimension === "lg" ? 24 : 20,
             },
@@ -274,7 +274,7 @@ const LoginScreen = () => {
           </View>
         </View>
 
-        <View style={LoginStyle.optionContainer}>
+        <View style={ dimension === "sm" ?  LoginStyle.optionContainersm : LoginStyle.optionContainer}>
           <TouchableOpacity onPress={() => navigate("/forget")}>
             <Text
               style={[

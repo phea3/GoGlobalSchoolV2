@@ -45,29 +45,33 @@ export default function StudentsScreen() {
               alignItems: "center",
             }}
           >
-            {data?.getStudentByParentsMobile.length === 0 ? (
-              <View style={HomeStyle.imageBox}>
-                <View
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    backgroundColor: "#f1f1f1",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    borderRadius: 5,
-                  }}
-                >
-                  <Text
-                    style={{
-                      fontFamily: "Kantumruy-Bold",
-                      fontSize: 15,
-                      color: "#9AA3A6",
-                    }}
-                  >
-                    មិនមាន{"\n"}ទិន្នន័យ
-                  </Text>
-                </View>
-              </View>
+            {data === undefined || data?.getStudentByParentsMobile.length === 0 ? (
+             <View style={HomeStyle.imageBox}>
+             <View
+               style={{
+                 borderColor: "#9aa3a6",
+                 borderWidth: 1,
+                 borderRadius: 60,
+                 padding: 5,
+               }}
+             >
+               <View
+                 style={[
+                   HomeStyle.imageHome,
+                   {
+                     backgroundColor: "#f1f1f1",
+                   },
+                 ]}
+               />
+             </View>
+             <View
+               style={{
+                 width: 120,
+                 height: 30,
+                 backgroundColor: "#f1f1f1",
+               }}
+             />
+           </View>
             ) : (
               data?.getStudentByParentsMobile?.map(
                 (stuInfo: any, index: number) =>

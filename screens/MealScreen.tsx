@@ -7,12 +7,12 @@ import {
   Text,
   TouchableOpacity,
   View,
+  ScrollView
 } from "react-native";
 import MealScreenStyle from "../Styles/MealScreen.scss";
 import { useQuery } from "@apollo/client";
 import { GET_TAKEMEALATTENDANCEMOBILEREPORT } from "../graphql/GetTakeMealAttendanceMobileReport";
 import { useLocation } from "react-router-native";
-import { ScrollView } from "react-native-gesture-handler";
 
 const weekdays = [
   moment().startOf("isoWeek").add(0, "days"),
@@ -199,6 +199,8 @@ export default function MealScreen() {
 
   return (
     <View style={MealScreenStyle.MealScreenContainer}>
+      <ScrollView style={{width: '100%', height: '100%'}} contentContainerStyle={{alignItems: 'center'}}>
+
       <View style={MealScreenStyle.MealScreenTopImageContainer}>
         <Image
           source={require("../assets/Images/4246838-01.png")}
@@ -303,12 +305,13 @@ export default function MealScreen() {
           ) : null}
         </View>
       )}
+
       <View
         style={{
           width: "90%",
-          height: "5%",
+          height: "20%",
           flexDirection: "row",
-          alignItems: "flex-start",
+          alignItems: "center",
           justifyContent: "flex-start",
         }}
       >
@@ -317,9 +320,9 @@ export default function MealScreen() {
       <View
         style={{
           width: "90%",
-          height: "10%",
+          height: "20%",
           flexDirection: "row",
-          alignItems: "flex-start",
+          alignItems: "center",
           justifyContent: "flex-start",
         }}
       >
@@ -340,6 +343,7 @@ export default function MealScreen() {
         </View>
         <Text style={MealScreenStyle.MealScreenMonthBodyText}>បានញ៉ាំ</Text>
       </View>
+      </ScrollView>
     </View>
   );
 }

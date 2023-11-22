@@ -103,6 +103,12 @@
   align-items: flex-start;
 }
 
+.textinputContainersm {
+  width: 80%;
+  height: 15%;
+  align-items: flex-start;
+}
+
 .buttonContainer {
   background-color: $color-main;
   width: 80%;
@@ -122,6 +128,14 @@
   flex-direction: row;
   width: 80%;
   height: 5%;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.optionContainersm {
+  flex-direction: row;
+  width: 80%;
+  height: 10%;
   justify-content: flex-end;
   align-items: center;
 }

@@ -1,4 +1,5 @@
 import {
+  Alert,
   Button,
   Image,
   ImageBackground,
@@ -12,10 +13,12 @@ import ProfileDetailStyle from "../Styles/ProfileDetail.scss";
 import { useState } from "react";
 import * as ImagePicker from "expo-image-picker";
 import * as Animatable from "react-native-animatable";
+import ImageView from "react-native-image-viewing";
 
 export default function ProfileDetail() {
   const location = useLocation();
   const useData = location.state;
+  const [visible, setIsVisible] = useState(false);
 
   const [image, setImage] = useState(null);
 
@@ -34,7 +37,7 @@ export default function ProfileDetail() {
       // setImage(result.assets[0].uri);
     }
   };
-
+  
   return (
     <ImageBackground
       source={require("../assets/Images/dashboard-login.png")}
@@ -58,6 +61,7 @@ export default function ProfileDetail() {
         </View>
 
         <View style={ProfileDetailStyle.ProfileDetailImageBorderStyle} />
+       
         <Animatable.Image
           source={
             useData?.getUserProfile?.profileImg
@@ -72,6 +76,7 @@ export default function ProfileDetail() {
           style={ProfileDetailStyle.ProfileDetailImageStyle}
           animation={"zoomIn"}
         />
+        
         {/* <View style={ProfileDetailStyle.ProfileDetailIconOnImageProfile}>
           <Animatable.View
             style={ProfileDetailStyle.ProfileDetailIconOnImageProfileBorder}
@@ -108,6 +113,15 @@ export default function ProfileDetail() {
             />
           )} */}
         </View>
+        <TouchableOpacity style={ProfileDetailStyle.ProfileDetailImageStylePreview} onPress={() => setIsVisible(true)}>
+            <ImageView
+                images={[{ uri: "https://storage.go-globalschool.com/api" +
+                useData?.getUserProfile?.profileImg, }]}
+                imageIndex={0}
+                visible={visible}
+                onRequestClose={() => setIsVisible(false)}
+              />
+          </TouchableOpacity>
       </View>
 
       <View style={ProfileDetailStyle.ProfileDetailMiddleContainer}>

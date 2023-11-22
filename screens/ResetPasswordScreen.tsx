@@ -125,14 +125,16 @@ export default function ResetPasswordScreen() {
       resizeMode="repeat"
       style={SettingStyle.SettingContainer}
     >
+      <ScrollView style={{width: "100%", height: '100%'}} contentContainerStyle={{ alignItems: "center"}}>
       <View style={isKeyboardVisible ? SettingStyle.SettingBodyContainerKeyboardShow : SettingStyle.SettingBodyContainer}>
         <View style={SettingStyle.SettingBodyContentContainer}>
           {isKeyboardVisible ? 
-           null : <View style={SettingStyle.ResetpasswordTopContainer}>
-           <Text style={SettingStyle.ResetPasswordLabelTextStyle}>Gmail</Text>
-           <Text style={SettingStyle.ResetPasswordGmailTextStyle}>
-             {gmail}
-           </Text>
+           null :
+            <View style={SettingStyle.ResetpasswordTopContainer}>
+            <Text style={SettingStyle.ResetPasswordLabelTextStyle}>Gmail</Text>
+            <Text style={SettingStyle.ResetPasswordGmailTextStyle}>
+              {gmail}
+            </Text>
          </View>  }
          
           <View style={SettingStyle.ResetpasswordBodyContainer}>
@@ -240,6 +242,8 @@ export default function ResetPasswordScreen() {
           </View>
         </View>
       </View>
+      </ScrollView>
+     
     </ImageBackground>
   );
 }

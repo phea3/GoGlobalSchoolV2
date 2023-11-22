@@ -36,10 +36,7 @@ import StudentDetailScreen from "./screens/StudentDetail";
 import * as Notifications from "expo-notifications";
 import Constants from "expo-constants";
 import * as Device from "expo-device";
-import * as Permissions from "expo-permissions";
 import { Audio } from "expo-av";
-import { useQuery } from "@apollo/client";
-import { SENDMOBILETOKEN } from "./graphql/GetMobileUserLoginToken";
 
 //============== Notification Handler ====================
 Notifications.setNotificationHandler({
@@ -122,26 +119,6 @@ export default function Router() {
           Alert.alert("Error retrieving device token:");
         }
       } else if (Platform.OS === "android") {
-        const { status: existingStatus } = await Permissions.getAsync(
-          Permissions.NOTIFICATIONS
-        );
-        let finalStatus = existingStatus;
-
-        if (existingStatus !== "granted") {
-          const { status } = await Permissions.askAsync(
-            Permissions.NOTIFICATIONS
-          );
-          finalStatus = status;
-        }
-
-        if (finalStatus !== "granted") {
-          console.log("Permission to receive notifications not granted");
-          return;
-        }
-
-        token = (await Notifications.getExpoPushTokenAsync()).data;
-        // console.log("Device token:", token);
-        // Alert.alert("Device Token:", token);
       }
     } else {
       Alert.alert("Must use physical device for Push Notifications");

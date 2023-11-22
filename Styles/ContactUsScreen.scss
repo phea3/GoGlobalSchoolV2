@@ -9,7 +9,7 @@
 
 .ContactUsTopContainer {
   width: 80%;
-  height: 10%;
+  height: 5%;
   flex-direction: row;
   align-items: center;
 }
@@ -48,6 +48,15 @@
 .ContactUsFooterContainer {
   width: 80%;
   height: 20%;
+  background-color: $color-white;
+  border-width: 0.5px;
+  border-color: $color-gray;
+  border-radius: $border-radius-main;
+}
+
+.ContactUsFooterContainersm {
+  width: 80%;
+  height: 25%;
   background-color: $color-white;
   border-width: 0.5px;
   border-color: $color-gray;

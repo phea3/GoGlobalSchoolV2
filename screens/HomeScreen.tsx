@@ -5,6 +5,7 @@ import {
   Image,
   ScrollView,
   Modal,
+  Alert,
 } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import HomeStyle from "../Styles/HomeScreen.scss";
@@ -22,6 +23,7 @@ import { GET_UPCOMINGEVENT } from "../graphql/GetUpcomingEventMobile";
 import ModalEYS from "../components/home/ModalEYS";
 import ModalHealth from "../components/health/ModalHealth";
 import axios from "axios";
+import * as WebBrowser from "expo-web-browser";
 
 const features = [
   {
@@ -113,6 +115,7 @@ const HomeScreen = () => {
   const [isModalVisible1, setModalVisible1] = useState(false);
   const { widthScreen, heightScreen, dimension } = useContext(AuthContext);
   const videoId = "A7CBbLkWqo8"; // Replace with the actual video ID
+  const videoId2 = "os_6ebAPz1w"; // Replace with the actual video ID
   const API_KEY = "AIzaSyAyT0Wj3WfxoouSYNVdS5bTs6jU0COSk-g"; // Replace with your YouTube Data API key
   const [duty, setDuty] = useState("");
   const [studentId, setStudentId] = useState("");
@@ -120,7 +123,19 @@ const HomeScreen = () => {
   const [StuInfo, setStuInfo] = useState({});
   const [likeCount, setLikeCount] = useState(0);
   const [commentCount, setCommentCount] = useState(0);
+  const [viewCount, setViewCount] = useState(0);
   const [videoTitle, setVideoTitle] = useState("");
+  const [logoName ,setLogoName] = useState("")
+  const [subscriberCount,setSubscriberCount] = useState(0)
+  const [logoUrl, setLogoUrl] = useState('')
+
+  const [likeCount2, setLikeCount2] = useState(0);
+  const [commentCount2, setCommentCount2] = useState(0);
+  const [viewCount2, setViewCount2] = useState(0);
+  const [videoTitle2, setVideoTitle2] = useState("");
+  const [logoName2 ,setLogoName2] = useState("")
+  const [subscriberCount2,setSubscriberCount2] = useState(0)
+  const [logoUrl2, setLogoUrl2] = useState('')
   const t = useTranslation();
 
   const toggleModal = () => {
@@ -285,15 +300,44 @@ const HomeScreen = () => {
         break;
     }
   };
-  async function connectYoutub() {
+
+  async function connectYoutube() {
+    // try {
+    //   const channelResponse = await axios.get(
+    //     `https://www.googleapis.com/youtube/v3/channels?part=contentDetails&id=${channelId}&key=${API_KEY}`
+    //   );
+  
+    //   const playlistId = channelResponse.data.items[0].contentDetails.relatedPlaylists.uploads;
+    //   const videoResponse = await axios.get(
+    //     `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=${playlistId}&maxResults=50&key=${API_KEY}`
+    //   );
+  
+    //   const videoIds = videoResponse.data.items.map((item: any) => item.snippet.resourceId.videoId);
+  
+    //   // Use the video IDs in your React Native app
+    //   console.log(videoIds);
+    // } catch (error) {
+    //   console.error("Error:", error);
+    // }
     axios
       .get(
         `https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics&id=${videoId}&key=${API_KEY}`
       )
-      .then((response) => {
+      .then(async (response) => {
+        const viewCount = response.data.items[0].statistics.viewCount;
         const likeCount = response.data.items[0].statistics.likeCount;
         const commentCount = response.data.items[0].statistics.commentCount;
         const setTitleVideo = response.data.items[0].snippet.title;
+        const channelResponse = await axios.get(
+            `https://www.googleapis.com/youtube/v3/channels?part=snippet,statistics&id=${response.data.items[0].snippet.channelId}&key=${API_KEY}`
+          );
+        const logoName = channelResponse.data.items[0].snippet.title;
+        const logoUrl = channelResponse.data.items[0].snippet.thumbnails.default.url;
+        const subscriberCount = channelResponse.data.items[0].statistics.subscriberCount;
+        setLogoUrl(logoUrl)
+        setLogoName(logoName);
+        setSubscriberCount(subscriberCount);
+        setViewCount(viewCount);
         setLikeCount(likeCount);
         setCommentCount(commentCount);
         setVideoTitle(setTitleVideo);
@@ -303,11 +347,74 @@ const HomeScreen = () => {
         console.error("Error:", error);
       });
   }
-
+  async function connectYoutube2() {
+    // try {
+    //   const channelResponse = await axios.get(
+    //     `https://www.googleapis.com/youtube/v3/channels?part=contentDetails&id=${channelId}&key=${API_KEY}`
+    //   );
+  
+    //   const playlistId = channelResponse.data.items[0].contentDetails.relatedPlaylists.uploads;
+    //   const videoResponse = await axios.get(
+    //     `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=${playlistId}&maxResults=50&key=${API_KEY}`
+    //   );
+  
+    //   const videoIds = videoResponse.data.items.map((item: any) => item.snippet.resourceId.videoId);
+  
+    //   // Use the video IDs in your React Native app
+    //   console.log(videoIds);
+    // } catch (error) {
+    //   console.error("Error:", error);
+    // }
+    axios
+      .get(
+        `https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics&id=${videoId2}&key=${API_KEY}`
+      )
+      .then(async (response) => {
+        const viewCount = response.data.items[0].statistics.viewCount;
+        const likeCount = response.data.items[0].statistics.likeCount;
+        const commentCount = response.data.items[0].statistics.commentCount;
+        const setTitleVideo = response.data.items[0].snippet.title;
+        const channelResponse = await axios.get(
+            `https://www.googleapis.com/youtube/v3/channels?part=snippet,statistics&id=${response.data.items[0].snippet.channelId}&key=${API_KEY}`
+          );
+        const logoName = channelResponse.data.items[0].snippet.title;
+        const logoUrl = channelResponse.data.items[0].snippet.thumbnails.default.url;
+        const subscriberCount = channelResponse.data.items[0].statistics.subscriberCount;
+        setLogoUrl2(logoUrl)
+        setLogoName2(logoName);
+        setSubscriberCount2(subscriberCount);
+        setViewCount2(viewCount);
+        setLikeCount2(likeCount);
+        setCommentCount2(commentCount);
+        setVideoTitle2(setTitleVideo);
+        // Use the like count in your React Native app
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  }
   useEffect(() => {
-    connectYoutub();
+    connectYoutube();
+    connectYoutube2();
   }, []);
 
+  const openWebsite = async () => {
+    const result = await WebBrowser.openBrowserAsync('https://www.youtube.com/watch?v=A7CBbLkWqo8');
+    // Handle the result if needed
+    // console.log(result);
+    if (result === undefined) {
+      Alert.alert("Oop!", "Make sure you have the app installed on your device.");
+    }
+  };
+
+  const openWebsite2 = async () => {
+    const result = await WebBrowser.openBrowserAsync('https://www.youtube.com/watch?v=os_6ebAPz1w');
+    // Handle the result if needed
+    // console.log(result);
+    if (result === undefined) {
+      Alert.alert("Oop!", "Make sure you have the app installed on your device.");
+    }
+  };
   return (
     <View style={HomeStyle.homeContainer}>
       <Modal
@@ -786,9 +893,10 @@ const HomeScreen = () => {
             </View>
           ) : (
             // announces.map((announce: any) => (
+              <>
             <TouchableOpacity
-              onPress={() => {}}
-              style={HomeStyle.announcementHomeContainer}
+              onPress={() => {openWebsite()}}
+              style={HomeStyle.HomeVideoBigContainer}
             >
               <Animatable.Image
                 source={require("../assets/Images/loading-gif.gif")}
@@ -797,12 +905,94 @@ const HomeScreen = () => {
                 animation="zoomIn"
               />
               <View style={HomeStyle.HomeVideoContentContainer}>
-                <Text style={HomeStyle.HomeVideoTitleText} numberOfLines={1}>
-                  {videoTitle}
-                </Text>
-                <Text></Text>
+                <View style={HomeStyle.HomeVideoContentTitleContainer}>
+                  <View>
+                    <Text style={HomeStyle.HomeVideoTitleText} numberOfLines={1}>
+                      { logoUrl ? 
+                        <Image source={{uri: logoUrl}} style={{width: 20, height: 20, borderRadius: 100}}/>  : null
+                      }
+                  {logoName}
+                    </Text>
+                    <Text style={HomeStyle.HomeVideoBodyText} numberOfLines={1}>
+                      {subscriberCount + " subscribers"}
+                    </Text>
+                  </View>
+                  <View style={HomeStyle.HomeVideoBodyFakeButton}>
+                  <Image source={require('../assets/Images/play-rotated.png')} resizeMode="contain" style={{width: '33%', height: 20}}/>
+                  <Image source={require('../assets/Images/play-buttton.png')} resizeMode="contain" style={{width: '33%', height: 20, paddingHorizontal: 10}}/>
+                  <Image source={require('../assets/Images/play.png')} resizeMode="contain" style={{width: '33%', height: 20}}/>
+                </View>
+                  <Text style={HomeStyle.HomeVideoTitleText} numberOfLines={1}>
+                    {videoTitle}
+                  </Text>
+                </View>
+                <View style={HomeStyle.HomeVideoReportFooterContainer}>
+                  <View style={HomeStyle.HomeVideoReportContainer}>
+                    <Image source={require('../assets/Images/white-eye.png')} style={{width: 20, height: 20}}/>
+                     <Text style={HomeStyle.HomeVideoBodyText}>{viewCount.toString()}</Text> 
+                  </View>
+                  <View style={HomeStyle.HomeVideoReportContainer}>
+                    <Image source={require('../assets/Images/like.png')} style={{width: 20, height: 20}}/>
+                     <Text style={HomeStyle.HomeVideoBodyText}>{likeCount.toString()}</Text> 
+                  </View>
+                  <View style={HomeStyle.HomeVideoReportContainer}>
+                    <Image source={require('../assets/Images/white-comment.png')} style={{width: 20, height: 20}}/>
+                     <Text style={HomeStyle.HomeVideoBodyText}>{commentCount.toString()}</Text> 
+                  </View>
+                </View>
               </View>
             </TouchableOpacity>
+            <TouchableOpacity
+            onPress={() => {openWebsite2()}}
+            style={HomeStyle.HomeVideoBigContainer}
+          >
+            <Animatable.Image
+              source={require("../assets/Images/intro-video.gif")}
+              style={{ width: "100%", height: "100%", borderRadius: 5 }}
+              resizeMode="cover"
+              animation="zoomIn"
+            />
+            <View style={HomeStyle.HomeVideoContentContainer}>
+              <View style={HomeStyle.HomeVideoContentTitleContainer}>
+                <View>
+                  <Text style={HomeStyle.HomeVideoTitleText} numberOfLines={1}>
+                    { logoUrl2 ? 
+                      <Image source={{uri: logoUrl2}} style={{width: 20, height: 20, borderRadius: 100}}/>  : null
+                    }
+                {logoName2}
+                  </Text>
+                  <Text style={HomeStyle.HomeVideoBodyText} numberOfLines={1}>
+                    {subscriberCount2 + " subscribers"}
+                  </Text>
+                </View>
+
+                <View style={HomeStyle.HomeVideoBodyFakeButton}>
+                  <Image source={require('../assets/Images/play-rotated.png')} resizeMode="contain" style={{width: '33%', height: 20}}/>
+                  <Image source={require('../assets/Images/play-buttton.png')} resizeMode="contain" style={{width: '33%', height: 20, paddingHorizontal: 10}}/>
+                  <Image source={require('../assets/Images/play.png')} resizeMode="contain" style={{width: '33%', height: 20}}/>
+                </View>
+               
+                <Text style={HomeStyle.HomeVideoTitleText} numberOfLines={1}>
+                  {videoTitle2}
+                </Text>
+              </View>
+              <View style={HomeStyle.HomeVideoReportFooterContainer}>
+                <View style={HomeStyle.HomeVideoReportContainer}>
+                  <Image source={require('../assets/Images/white-eye.png')} style={{width: 20, height: 20}}/>
+                   <Text style={HomeStyle.HomeVideoBodyText}>{viewCount2.toString()}</Text> 
+                </View>
+                <View style={HomeStyle.HomeVideoReportContainer}>
+                  <Image source={require('../assets/Images/like.png')} style={{width: 20, height: 20}}/>
+                   <Text style={HomeStyle.HomeVideoBodyText}>{likeCount2.toString()}</Text> 
+                </View>
+                <View style={HomeStyle.HomeVideoReportContainer}>
+                  <Image source={require('../assets/Images/white-comment.png')} style={{width: 20, height: 20}}/>
+                   <Text style={HomeStyle.HomeVideoBodyText}>{commentCount2.toString()}</Text> 
+                </View>
+              </View>
+            </View>
+          </TouchableOpacity>
+            </>
             // )
           )}
         </View>

@@ -37,7 +37,7 @@ export default function SettingScreen() {
         <View style={SettingStyle.SettingBodyContainer}>
           <ScrollView
             showsVerticalScrollIndicator={false}
-            style={{ width: "100%", height: "100%" }}
+            style={{ width: "100%", height: "80%" }}
           >
             <View style={SettingStyle.SettingBodyContentContainer}>
               <TouchableOpacity

@@ -38,8 +38,8 @@ export default function AboutScreen() {
             source={require("../assets/Images/goglobal-school.png")}
             resizeMode="contain"
             style={{
-              width: dimension === "sm" ? 100 : dimension === "lg" ? 300 : 200,
-              height: dimension === "sm" ? 200 : dimension === "lg" ? 600 : 400,
+              width: dimension === "sm" ? 150 : dimension === "lg" ? 300 : 200,
+              height: dimension === "sm" ? 250 : dimension === "lg" ? 600 : 400,
             }}
             animation="fadeInDown"
           />

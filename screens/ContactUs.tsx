@@ -176,7 +176,7 @@ const ContactUs = () => {
           </ScrollView>
         </View>
 
-        <View style={ContactUsScreenStyle.ContactUsFooterContainer}>
+        <View style={dimension === "sm" ?  ContactUsScreenStyle.ContactUsFooterContainersm : ContactUsScreenStyle.ContactUsFooterContainer}>
           <View
             style={ContactUsScreenStyle.ContactUsFooterGroupButtonContainer}
           >

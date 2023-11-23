@@ -17,7 +17,6 @@ import AnnounceStyle from "../Styles/AnnouncementDetailScreen.scss";
 import { useRef, useState } from "react";
 import { ExpandingDot } from "react-native-animated-pagination-dots";
 import ImageView from "react-native-image-viewing";
-import { ImageSource } from "react-native-image-viewing/dist/@types";
 
 export default function AnnouncementDetail() {
   const location = useLocation();

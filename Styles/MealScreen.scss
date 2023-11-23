@@ -9,14 +9,13 @@
 
 .MealScreenCalendarContainer {
   width: 95%;
-  height: 60%;
   flex-direction: row;
   justify-content: center;
 }
 
 .MealScreenTopButtonContainer {
   width: 90%;
-  height: 10%;
+  height: 20%;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
@@ -24,7 +23,7 @@
 
 .MealScreenTopImageContainer {
   width: 90%;
-  height: 15%;
+  height: 40%;
   justify-content: center;
   align-items: center;
 }

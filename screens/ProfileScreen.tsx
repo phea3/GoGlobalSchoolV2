@@ -19,6 +19,10 @@ import { GET_USERPROFILE } from "../graphql/GetUserProfile";
 import Constants from "expo-constants";
 import * as Animatable from "react-native-animatable";
 import * as StoreReview from "expo-store-review";
+import { useContext, useState } from "react";
+import { AuthContext } from "../Context/AuthContext";
+import ImageView from "react-native-image-viewing";
+import * as WebBrowser from "expo-web-browser";
 
 const Infomations = [
   {
@@ -51,15 +55,23 @@ const Infomations = [
     icon: require("../assets/Images/app-store.png"),
     action: "version",
   },
+  {
+    title: "Play Version",
+    icon: require("../assets/Images/play-store.png"),
+    action: "version-android",
+  },
 ];
 
 export default function ProfileScreen() {
+  const { widthScreen, heightScreen, dimension } = useContext(AuthContext);
   const { dispatch, REDUCER_ACTIONS } = useLoginUser();
   const navigate = useNavigate();
   const version = Constants.expoConfig?.version;
   const phoneNumber = "0767772168";
   const itunesItemId = "id1641628042";
   const myandroidappid = "com.goglobalschool.schoolmobile";
+  const [visible, setIsVisible] = useState(false);
+
   const { data, refetch } = useQuery(GET_USERPROFILE, {
     onCompleted: ({ getUserProfile }) => {},
     onError: () => {},
@@ -84,11 +96,23 @@ export default function ProfileScreen() {
       // Rating feature not available on the current platform
       Linking.openURL(
         `itms-apps://itunes.apple.com/app/viewContentsUserReviews/id${itunesItemId}?action=write-review`
-      );
+      ).catch(err =>{
+        // Alert.alert('Please check for the App Store')
+      }
+      );;
     } else if (hasAction === undefined && Platform.OS === "android") {
-      // Linking.openURL(
-      //   `market://details?id=${myandroidappid}&showAllReviews=true`
-      // );
+      Linking.openURL(`market://details?id=${myandroidappid}&showAllReviews=true`).catch(err =>
+        Alert.alert('Please check for the Google Play Store')
+      );
+    }
+  };
+
+  const openWebsite = async (url: string) => {
+    const result = await WebBrowser.openBrowserAsync(url);
+    // Handle the result if needed
+    // console.log(result);
+    if (result === undefined) {
+      Alert.alert("Oop!", "Make sure you have the app installed on your device.");
     }
   };
 
@@ -113,7 +137,7 @@ export default function ProfileScreen() {
         }
       } else if (result.action === Share.dismissedAction) {
         // Dismissed
-      }
+      } else {}
     } catch (error: any) {
       console.error(error?.message);
     }
@@ -121,7 +145,7 @@ export default function ProfileScreen() {
 
   return (
     <View style={ProfileStyle.ProfileContainer}>
-      <View style={ProfileStyle.ProfileTopContainer}>
+      <View style={ dimension === "sm" ? ProfileStyle.ProfileTopContainersm :  ProfileStyle.ProfileTopContainer}>
         <View
           style={{
             width: "90%",
@@ -131,8 +155,17 @@ export default function ProfileScreen() {
             justifyContent: "space-between",
           }}
         >
-          <View style={ProfileStyle.ProfileImageViewHolder}>
-            <View style={ProfileStyle.ProfileStyleBackgroundProfile} />
+          <TouchableOpacity style={ProfileStyle.ProfileImageViewHolder} onPress={()=>{setIsVisible(true)}}>
+            <View style={ProfileStyle.ProfileStyleBackgroundProfile} >
+                <ImageView
+                  images={[{ uri: "https://storage.go-globalschool.com/api" +
+                  data?.getUserProfile?.profileImg, }]}
+                  imageIndex={0}
+                  visible={visible}
+                  onRequestClose={() => setIsVisible(false)}
+                />
+            </View>
+
             <Animatable.Image
               source={
                 data?.getUserProfile?.profileImg
@@ -150,7 +183,7 @@ export default function ProfileScreen() {
               style={ProfileStyle.ProfileImageFrame}
               animation={"zoomIn"}
             />
-          </View>
+          </TouchableOpacity>
 
           <Animatable.View
             style={ProfileStyle.ProfileTopTitleContainer}
@@ -189,6 +222,8 @@ export default function ProfileScreen() {
                 Linking.openURL(
                   "https://apps.apple.com/kh/app/go-global-school/id1641628042"
                 );
+              } else if (info?.action === "version-android") {
+                openWebsite('https://play.google.com/store/apps/details?id=com.goglobalschool.schoolmobile&hl=en&gl=US&pli=1')
               } else if (info?.action === "share") {
                 onShare();
               } else if (info?.action === "contact") {
@@ -213,7 +248,7 @@ export default function ProfileScreen() {
               />
               <Text>
                 {info?.title}
-                {info?.title === "App Version" ? " " + version : null}
+                {/* {info?.title === "App Version" || info?.title === "Play Version" ? " " + version : null} */}
               </Text>
             </Animatable.View>
             <Animatable.Image
@@ -223,6 +258,9 @@ export default function ProfileScreen() {
             />
           </TouchableOpacity>
         ))}
+        <View style={{width: '100%',height: 50, justifyContent: 'center', alignItems: 'center'}}>
+          <Text style={{color: '#9aa3a6'}}>Current version {version}</Text>
+        </View>
         <Text
           style={{
             color: "gray",

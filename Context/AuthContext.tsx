@@ -71,14 +71,16 @@ const reducer = (
   }
 };
 
-const HandleDefineDimension = (widthScreen: number) => {
+const HandleDefineDimension = (widthScreen: number, heightScreen: number) => {
   let dimension = "";
   let widthscreen = widthScreen;
-  if (widthscreen <= 320) {
+  let heightscreen = heightScreen;
+  // console.log(heightScreen)
+  if (heightscreen <= 600) {
     dimension = "sm";
-  } else if (widthscreen <= 468) {
+  } else if (heightscreen <= 900) {
     dimension = "md";
-  } else if (widthScreen <= 1080) {
+  } else if (heightscreen <= 1080) {
     dimension = "lg";
   }
 
@@ -100,7 +102,7 @@ const useValueContext = (initUserState: UserStateType) => {
   const token = state?.user?.token;
   const uid = state?.user?.uid;
 
-  const dimension = HandleDefineDimension(dimensionScreen?.widthscreen);
+  const dimension = HandleDefineDimension(dimensionScreen?.widthscreen, dimensionScreen?.heightscreen);
   const widthScreen = dimensionScreen?.widthscreen;
   const heightScreen = dimensionScreen?.heightscreen;
 

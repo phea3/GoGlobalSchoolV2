@@ -121,7 +121,14 @@ const LoginScreen = () => {
         resizeMode="cover"
       >
         {isKeyboardVisible ? null : (
-        <View style={{ width: "100%", height: '40%', justifyContent: "space-evenly", alignItems: "center"}}>
+          <View
+            style={{
+              width: "100%",
+              height: "40%",
+              justifyContent: "space-evenly",
+              alignItems: "center",
+            }}
+          >
             <Image
               source={require("../assets/Images/Logo.png")}
               resizeMode="contain"
@@ -135,8 +142,9 @@ const LoginScreen = () => {
             />
             <Text
               style={[
-                Platform.OS === 'ios' ? LoginStyle.titleLoginios :
-                LoginStyle.titleLogin,
+                Platform.OS === "ios"
+                  ? LoginStyle.titleLoginios
+                  : LoginStyle.titleLogin,
                 {
                   fontSize:
                     dimension === "sm" ? 15 : dimension === "lg" ? 35 : 25,
@@ -145,175 +153,206 @@ const LoginScreen = () => {
             >
               ចូលប្រើកម្មវិធី
             </Text>
-        </View>
+          </View>
         )}
 
-        <View style={{ width: "100%", height: '40%', justifyContent: "space-between", alignItems: "center"}}>
         <View
-          style={[ isKeyboardVisible === true ? LoginStyle.textinputContainerkeyboard :
-            dimension === "sm" ? LoginStyle.textinputContainersm :  LoginStyle.textinputContainer,
-          ]}
+          style={{
+            width: "100%",
+            height: "40%",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
         >
-          <Text
-            style={[
-              LoginStyle.inputTitle,
-              {
-                fontSize:
-                  dimension === "sm" ? 12 : dimension === "lg" ? 20 : 15,
-              },
-            ]}
-          >
-            អ៉ីម៉ែល
-          </Text>
           <View
             style={[
-              LoginStyle.textinput,
-              {
-                padding: dimension === "sm" ? 5 : dimension === "lg" ? 25 : 15,
-              },
+              isKeyboardVisible === true
+                ? LoginStyle.textinputContainerkeyboard
+                : dimension === "sm"
+                ? LoginStyle.textinputContainersm
+                : LoginStyle.textinputContainer,
             ]}
           >
-            <Image
-              source={require("../assets/Images/mail.png")}
-              resizeMode="contain"
-              style={{
-                width: dimension === "sm" ? 14 : dimension === "lg" ? 30 : 20,
-                height: dimension === "sm" ? 14 : dimension === "lg" ? 30 : 20,
-                marginRight:
-                  dimension === "sm" ? 8 : dimension === "lg" ? 15 : 10,
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            />
-            <TextInput
-              value={email}
-              placeholder="Email"
-              onChangeText={(e) => setEmail(e)}
-              keyboardType="default"
-              style={{
-                flex: 1,
-                fontSize:
-                  dimension === "sm" ? 12 : dimension === "lg" ? 20 : 15,
-              }}
-            />
-          </View>
-        </View>
-
-        <View style={[ isKeyboardVisible === true ? LoginStyle.textinputContainerkeyboard :
-            dimension === "sm" ? LoginStyle.textinputContainersm :  LoginStyle.textinputContainer,
-          ]}>
-          <Text
-            style={[
-              LoginStyle.inputTitle,
-              {
-                fontSize:
-                  dimension === "sm" ? 12 : dimension === "lg" ? 20 : 15,
-              },
-            ]}
-          >
-            ពាក្យសម្ងាត់
-          </Text>
-          <View
-            style={[
-              LoginStyle.textinput,
-              {
-                padding: dimension === "sm" ? 5 : dimension === "lg" ? 25 : 15,
-              },
-            ]}
-          >
-            <Image
-              source={require("../assets/Images/lock.png")}
-              resizeMode="contain"
-              style={{
-                width: dimension === "sm" ? 14 : dimension === "lg" ? 30 : 20,
-                height: dimension === "sm" ? 14 : dimension === "lg" ? 30 : 20,
-                marginRight:
-                  dimension === "sm" ? 8 : dimension === "lg" ? 15 : 10,
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            />
-            <TextInput
-              value={password}
-              placeholder="Password"
-              onChangeText={(e) => setPassword(e)}
-              secureTextEntry={view}
-              keyboardType="default"
-              style={{
-                flex: 1,
-                fontSize:
-                  dimension === "sm" ? 12 : dimension === "lg" ? 20 : 15,
-              }}
-            />
-            {view === true ? (
-              <TouchableOpacity onPress={() => setView(!view)}>
-                <Image
-                  source={require("../assets/Images/view.png")}
-                  resizeMode="contain"
-                  style={{
-                    width:
-                      dimension === "sm" ? 14 : dimension === "lg" ? 30 : 20,
-                    height:
-                      dimension === "sm" ? 14 : dimension === "lg" ? 30 : 20,
-                  }}
-                />
-              </TouchableOpacity>
-            ) : (
-              <TouchableOpacity onPress={() => setView(!view)}>
-                <Image
-                  source={require("../assets/Images/hide.png")}
-                  resizeMode="cover"
-                  style={{
-                    width:
-                      dimension === "sm" ? 14 : dimension === "lg" ? 30 : 20,
-                    height:
-                      dimension === "sm" ? 14 : dimension === "lg" ? 30 : 20,
-                  }}
-                />
-              </TouchableOpacity>
-            )}
-          </View>
-        </View>
-
-        <View style={ dimension === "sm" ?  LoginStyle.optionContainersm : LoginStyle.optionContainer}>
-          <TouchableOpacity onPress={() => navigate("/forget")}>
             <Text
               style={[
-                LoginStyle.LoginForgetText,
+                LoginStyle.inputTitle,
                 {
                   fontSize:
-                    dimension === "sm" ? 10 : dimension === "lg" ? 20 : 14,
+                    dimension === "sm" ? 12 : dimension === "lg" ? 20 : 15,
                 },
               ]}
             >
-              ភ្លេចពាក្យសម្ងាត់?
+              អ៉ីម៉ែល
             </Text>
-          </TouchableOpacity>
-        </View>
+            <View
+              style={[
+                LoginStyle.textinput,
+                {
+                  padding:
+                    dimension === "sm" ? 5 : dimension === "lg" ? 25 : 15,
+                },
+              ]}
+            >
+              <Image
+                source={require("../assets/Images/mail.png")}
+                resizeMode="contain"
+                style={{
+                  width: dimension === "sm" ? 14 : dimension === "lg" ? 30 : 20,
+                  height:
+                    dimension === "sm" ? 14 : dimension === "lg" ? 30 : 20,
+                  marginRight:
+                    dimension === "sm" ? 8 : dimension === "lg" ? 15 : 10,
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              />
+              <TextInput
+                value={email}
+                placeholder="Email"
+                onChangeText={(e) => setEmail(e)}
+                keyboardType="default"
+                style={{
+                  flex: 1,
+                  fontSize:
+                    dimension === "sm" ? 12 : dimension === "lg" ? 20 : 15,
+                }}
+              />
+            </View>
+          </View>
 
-        <TouchableOpacity
-          onPress={handleNavigation}
-          style={[
-            dimension === "sm" ?   LoginStyle.buttonContainersm : dimension === "lg" ? LoginStyle.buttonContainerlg : LoginStyle.buttonContainer,
-            {
-              marginTop: dimension === "sm" ? 0 : 10,
-            },
-          ]}
-        >
-          <Text
+          <View
             style={[
-              Platform.OS === 'ios' ? LoginStyle.buttonTextios :
-              LoginStyle.buttonText,
+              isKeyboardVisible === true
+                ? LoginStyle.textinputContainerkeyboard
+                : dimension === "sm"
+                ? LoginStyle.textinputContainersm
+                : LoginStyle.textinputContainer,
+            ]}
+          >
+            <Text
+              style={[
+                LoginStyle.inputTitle,
+                {
+                  fontSize:
+                    dimension === "sm" ? 12 : dimension === "lg" ? 20 : 15,
+                },
+              ]}
+            >
+              ពាក្យសម្ងាត់
+            </Text>
+            <View
+              style={[
+                LoginStyle.textinput,
+                {
+                  padding:
+                    dimension === "sm" ? 5 : dimension === "lg" ? 25 : 15,
+                },
+              ]}
+            >
+              <Image
+                source={require("../assets/Images/lock.png")}
+                resizeMode="contain"
+                style={{
+                  width: dimension === "sm" ? 14 : dimension === "lg" ? 30 : 20,
+                  height:
+                    dimension === "sm" ? 14 : dimension === "lg" ? 30 : 20,
+                  marginRight:
+                    dimension === "sm" ? 8 : dimension === "lg" ? 15 : 10,
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              />
+              <TextInput
+                value={password}
+                placeholder="Password"
+                onChangeText={(e) => setPassword(e)}
+                secureTextEntry={view}
+                keyboardType="default"
+                style={{
+                  flex: 1,
+                  fontSize:
+                    dimension === "sm" ? 12 : dimension === "lg" ? 20 : 15,
+                }}
+              />
+              {view === true ? (
+                <TouchableOpacity onPress={() => setView(!view)}>
+                  <Image
+                    source={require("../assets/Images/view.png")}
+                    resizeMode="contain"
+                    style={{
+                      width:
+                        dimension === "sm" ? 14 : dimension === "lg" ? 30 : 20,
+                      height:
+                        dimension === "sm" ? 14 : dimension === "lg" ? 30 : 20,
+                    }}
+                  />
+                </TouchableOpacity>
+              ) : (
+                <TouchableOpacity onPress={() => setView(!view)}>
+                  <Image
+                    source={require("../assets/Images/hide.png")}
+                    resizeMode="cover"
+                    style={{
+                      width:
+                        dimension === "sm" ? 14 : dimension === "lg" ? 30 : 20,
+                      height:
+                        dimension === "sm" ? 14 : dimension === "lg" ? 30 : 20,
+                    }}
+                  />
+                </TouchableOpacity>
+              )}
+            </View>
+          </View>
+
+          <View
+            style={
+              dimension === "sm"
+                ? LoginStyle.optionContainersm
+                : LoginStyle.optionContainer
+            }
+          >
+            <TouchableOpacity onPress={() => navigate("/forget")}>
+              <Text
+                style={[
+                  LoginStyle.LoginForgetText,
+                  {
+                    fontSize:
+                      dimension === "sm" ? 10 : dimension === "lg" ? 20 : 14,
+                  },
+                ]}
+              >
+                ភ្លេចពាក្យសម្ងាត់?
+              </Text>
+            </TouchableOpacity>
+          </View>
+
+          <TouchableOpacity
+            onPress={handleNavigation}
+            style={[
+              dimension === "sm"
+                ? LoginStyle.buttonContainersm
+                : dimension === "lg"
+                ? LoginStyle.buttonContainerlg
+                : LoginStyle.buttonContainer,
               {
-                fontSize:
-                  dimension === "sm" ? 14 : dimension === "lg" ? 25 : 20,
+                marginTop: dimension === "sm" ? 0 : 10,
               },
             ]}
           >
-            ចូលកម្មវិធី
-          </Text>
-        </TouchableOpacity>
-
+            <Text
+              style={[
+                Platform.OS === "ios"
+                  ? LoginStyle.buttonTextios
+                  : LoginStyle.buttonText,
+                {
+                  fontSize:
+                    dimension === "sm" ? 14 : dimension === "lg" ? 25 : 20,
+                },
+              ]}
+            >
+              ចូលកម្មវិធី
+            </Text>
+          </TouchableOpacity>
         </View>
         {isKeyboardVisible ? null : (
           <View

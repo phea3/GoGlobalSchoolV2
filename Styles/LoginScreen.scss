@@ -18,7 +18,7 @@
   width: 100%;
   height: 100%;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: flex-start;
 }
 
 .logoLoginScreen {
@@ -44,19 +44,19 @@
 
 .loginFooterImgContainter {
   width: 100px;
-  height: 25%;
+  height: 15%;
   justify-content: flex-end;
 }
 
 .loginFooterImgContaintersm {
   width: 100px;
-  height: 20%;
+  height: 15%;
   justify-content: flex-end;
 }
 
 .loginFooterImgContainterlg {
   width: 150px;
-  height: 30%;
+  height: 15%;
   justify-content: flex-end;
 }
 
@@ -74,10 +74,13 @@
   width: 100%;
   height: 50%;
 }
-
+.titleLoginios{
+  font-family: $bayon-regular;;
+  font-weight: bold;
+  color: $color-main;
+}
 .titleLogin {
-  height: 5%;
-  font-family: $bayon-regular;
+  font-family: $kantumruy-bold;;
   font-weight: bold;
   color: $color-main;
 }
@@ -97,9 +100,16 @@
   background-color: white;
 }
 
+.textinputContainerkeyboard {
+  width: 80%;
+  height: 20%;
+  align-items: flex-start;
+  justify-content: center;
+}
+
 .textinputContainer {
   width: 80%;
-  height: 10%;
+  height: 15%;
   align-items: flex-start;
 }
 
@@ -112,22 +122,46 @@
 .buttonContainer {
   background-color: $color-main;
   width: 80%;
-  height: 5%;
+  height: 50px;
   border-radius: $border-radius-main;
   justify-content: center;
   align-items: center;
 }
 
-.buttonText {
+.buttonContainersm {
+  background-color: $color-main;
+  width: 80%;
+  height: 35px;
+  border-radius: $border-radius-main;
+  justify-content: center;
+  align-items: center;
+}
+
+.buttonContainerlg {
+  background-color: $color-main;
+  width: 80%;
+  height: 70px;
+  border-radius: $border-radius-main;
+  justify-content: center;
+  align-items: center;
+}
+
+.buttonTextios {
   color: white;
   font-weight: bold;
   font-family: $bayon-regular;
 }
 
+.buttonText {
+  color: white;
+  font-weight: bold;
+  font-family: $kantumruy-bold;
+}
+
 .optionContainer {
   flex-direction: row;
   width: 80%;
-  height: 5%;
+  height: 50px;
   justify-content: flex-end;
   align-items: center;
 }
@@ -135,7 +169,7 @@
 .optionContainersm {
   flex-direction: row;
   width: 80%;
-  height: 10%;
+  height: 30px;
   justify-content: flex-end;
   align-items: center;
 }

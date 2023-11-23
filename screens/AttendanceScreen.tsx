@@ -69,6 +69,7 @@ export default function AttendanceScreen() {
     hideDatePicker1();
   };
 
+  
   const { refetch } = useQuery(ATT_BY_STUDENT, {
     pollInterval: 2000,
     variables: {

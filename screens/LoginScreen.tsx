@@ -121,7 +121,7 @@ const LoginScreen = () => {
         resizeMode="cover"
       >
         {isKeyboardVisible ? null : (
-          <>
+        <View style={{ width: "100%", height: '40%', justifyContent: "space-evenly", alignItems: "center"}}>
             <Image
               source={require("../assets/Images/Logo.png")}
               resizeMode="contain"
@@ -135,6 +135,7 @@ const LoginScreen = () => {
             />
             <Text
               style={[
+                Platform.OS === 'ios' ? LoginStyle.titleLoginios :
                 LoginStyle.titleLogin,
                 {
                   fontSize:
@@ -144,15 +145,13 @@ const LoginScreen = () => {
             >
               ចូលប្រើកម្មវិធី
             </Text>
-          </>
+        </View>
         )}
 
+        <View style={{ width: "100%", height: '40%', justifyContent: "space-between", alignItems: "center"}}>
         <View
-          style={[
+          style={[ isKeyboardVisible === true ? LoginStyle.textinputContainerkeyboard :
             dimension === "sm" ? LoginStyle.textinputContainersm :  LoginStyle.textinputContainer,
-            {
-              marginTop: dimension === "sm" ? 8 : dimension === "lg" ? 24 : 20,
-            },
           ]}
         >
           <Text
@@ -200,7 +199,9 @@ const LoginScreen = () => {
           </View>
         </View>
 
-        <View style={LoginStyle.textinputContainer}>
+        <View style={[ isKeyboardVisible === true ? LoginStyle.textinputContainerkeyboard :
+            dimension === "sm" ? LoginStyle.textinputContainersm :  LoginStyle.textinputContainer,
+          ]}>
           <Text
             style={[
               LoginStyle.inputTitle,
@@ -293,7 +294,7 @@ const LoginScreen = () => {
         <TouchableOpacity
           onPress={handleNavigation}
           style={[
-            LoginStyle.buttonContainer,
+            dimension === "sm" ?   LoginStyle.buttonContainersm : dimension === "lg" ? LoginStyle.buttonContainerlg : LoginStyle.buttonContainer,
             {
               marginTop: dimension === "sm" ? 0 : 10,
             },
@@ -301,6 +302,7 @@ const LoginScreen = () => {
         >
           <Text
             style={[
+              Platform.OS === 'ios' ? LoginStyle.buttonTextios :
               LoginStyle.buttonText,
               {
                 fontSize:
@@ -312,6 +314,7 @@ const LoginScreen = () => {
           </Text>
         </TouchableOpacity>
 
+        </View>
         {isKeyboardVisible ? null : (
           <View
             style={

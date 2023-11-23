@@ -199,7 +199,7 @@ export default function MealScreen() {
 
   return (
     <View style={MealScreenStyle.MealScreenContainer}>
-      <ScrollView style={{width: '100%', height: '100%'}} contentContainerStyle={{alignItems: 'center'}}>
+      <ScrollView style={{width: '100%', height: '100%'}} contentContainerStyle={{alignItems: 'center'}} showsVerticalScrollIndicator={false}>
 
       <View style={MealScreenStyle.MealScreenTopImageContainer}>
         <Image
@@ -309,7 +309,7 @@ export default function MealScreen() {
       <View
         style={{
           width: "90%",
-          height: "20%",
+          height: 60,
           flexDirection: "row",
           alignItems: "center",
           justifyContent: "flex-start",
@@ -320,7 +320,7 @@ export default function MealScreen() {
       <View
         style={{
           width: "90%",
-          height: "20%",
+          height: 60,
           flexDirection: "row",
           alignItems: "center",
           justifyContent: "flex-start",

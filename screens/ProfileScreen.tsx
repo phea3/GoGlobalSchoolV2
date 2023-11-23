@@ -176,11 +176,11 @@ export default function ProfileScreen() {
                     }
                   : require("../assets/Images/user.png")
               }
-              style={ProfileStyle.ProfileImage}
+              style={dimension === "sm" ? ProfileStyle.ProfileImagesm :  ProfileStyle.ProfileImage}
               animation={"zoomIn"}
             />
             <Animatable.View
-              style={ProfileStyle.ProfileImageFrame}
+              style={ dimension === "sm" ? ProfileStyle.ProfileImageFramesm : ProfileStyle.ProfileImageFrame}
               animation={"zoomIn"}
             />
           </TouchableOpacity>

@@ -75,12 +75,12 @@ const HandleDefineDimension = (widthScreen: number, heightScreen: number) => {
   let dimension = "";
   let widthscreen = widthScreen;
   let heightscreen = heightScreen;
-  // console.log(heightScreen)
-  if (heightscreen <= 600) {
+  // console.log(widthscreen)
+  if (widthscreen <= 330) {
     dimension = "sm";
-  } else if (heightscreen <= 900) {
+  } else if (widthscreen <= 440) {
     dimension = "md";
-  } else if (heightscreen <= 1080) {
+  } else if (widthscreen <= 1080) {
     dimension = "lg";
   }
 

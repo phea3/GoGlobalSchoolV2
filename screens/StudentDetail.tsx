@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from "react-router-native";
 import moment from "moment";
 import { useQuery } from "@apollo/client";
 import { GET_ACADEMICYEARFORSELECT } from "../graphql/getAcademicYearsForSelect";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import SelectDropdown from "react-native-select-dropdown";
 import { GET_CLASSESBYSTUDENTFORMOBILE } from "../graphql/GetClassesByStudentForMobile";
 import HomeStyle from "../Styles/HomeScreen.scss";
@@ -14,6 +14,7 @@ import ModalTakeLeave from "../components/home/ModalTakeLeave";
 import ModalPickup from "../components/home/ModalPickup";
 import ModalEYS from "../components/home/ModalEYS";
 import ModalHealth from "../components/health/ModalHealth";
+import { AuthContext } from "../Context/AuthContext";
 
 const features = [
   {
@@ -88,6 +89,7 @@ const explore = [
 ];
 
 export default function StudentDetailScreen() {
+  const { widthScreen, heightScreen, dimension } = useContext(AuthContext);
   const location = useLocation();
   const stuInfo = location.state.stuInfo;
   const uid = location.state.uid;
@@ -294,7 +296,7 @@ export default function StudentDetailScreen() {
               source={{
                 uri: `https://storage.go-globalschool.com/api${stuInfo?.profileImg}`,
               }}
-              style={{ width: 120, height: 120, borderRadius: 20 }}
+              style={{ width: dimension === "sm" ? 100 : 120, height:  dimension === "sm" ? 100 : 120, borderRadius: 20 }}
             />
           </View>
 

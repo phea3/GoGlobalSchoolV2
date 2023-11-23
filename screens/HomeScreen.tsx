@@ -907,12 +907,14 @@ const HomeScreen = () => {
               <View style={HomeStyle.HomeVideoContentContainer}>
                 <View style={HomeStyle.HomeVideoContentTitleContainer}>
                   <View>
+                  <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                    { logoUrl ? 
+                      <Image source={{uri: logoUrl}} style={{width: 20, height: 20, borderRadius: 100}}/>  : null
+                    }
                     <Text style={HomeStyle.HomeVideoTitleText} numberOfLines={1}>
-                      { logoUrl ? 
-                        <Image source={{uri: logoUrl}} style={{width: 20, height: 20, borderRadius: 100}}/>  : null
-                      }
-                  {logoName}
+                    {logoName}
                     </Text>
+                  </View>
                     <Text style={HomeStyle.HomeVideoBodyText} numberOfLines={1}>
                       {subscriberCount + " subscribers"}
                     </Text>
@@ -955,12 +957,14 @@ const HomeScreen = () => {
             <View style={HomeStyle.HomeVideoContentContainer}>
               <View style={HomeStyle.HomeVideoContentTitleContainer}>
                 <View>
-                  <Text style={HomeStyle.HomeVideoTitleText} numberOfLines={1}>
+                  <View style={{flexDirection: 'row', alignItems: 'center'}}>
                     { logoUrl2 ? 
                       <Image source={{uri: logoUrl2}} style={{width: 20, height: 20, borderRadius: 100}}/>  : null
                     }
-                {logoName2}
-                  </Text>
+                    <Text style={HomeStyle.HomeVideoTitleText} numberOfLines={1}>
+                    {logoName2}
+                    </Text>
+                  </View>
                   <Text style={HomeStyle.HomeVideoBodyText} numberOfLines={1}>
                     {subscriberCount2 + " subscribers"}
                   </Text>

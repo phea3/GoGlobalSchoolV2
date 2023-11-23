@@ -47,9 +47,25 @@
   
 }
 
+.ProfileImagesm {
+  width: 80px;
+  height: 80px;
+  border-radius: 100px;
+  border-width: 1px;
+}
+
 .ProfileImageFrame {
   width: 120px;
   height: 120px;
+  border-radius: 100px;
+  position: absolute;
+  border-width: 1px;
+  border-color: $color-main;
+}
+
+.ProfileImageFramesm {
+  width: 90px;
+  height: 90px;
   border-radius: 100px;
   position: absolute;
   border-width: 1px;

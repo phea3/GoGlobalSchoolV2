@@ -33,27 +33,11 @@ import ResetPasswordScreen from "./screens/ResetPasswordScreen";
 import HealthScreen from "./screens/HealthScreen";
 import AnnouncementScreen from "./screens/AnnouncementScreen";
 import StudentDetailScreen from "./screens/StudentDetail";
-import * as Notifications from "expo-notifications";
-import Constants from "expo-constants";
-import * as Device from "expo-device";
-import { Audio } from "expo-av";
-
-//============== Notification Handler ====================
-Notifications.setNotificationHandler({
-  handleNotification: async () => ({
-    shouldShowAlert: true,
-    shouldPlaySound: true, // Enable sound
-    shouldSetBadge: true,
-  }),
-});
+import { registerForPushNotificationsAsync } from "./usePushNotification";
 
 export default function Router() {
   //==================== Nitification Variable =====================
   const [expoPushToken, setExpoPushToken] = useState("");
-  const [notification, setNotification] = useState(false);
-  const notificationListener = useRef<Notifications.Subscription | undefined>();
-  const responseListener = useRef<Notifications.Subscription | undefined>();
-  const projectId = Constants.expoConfig?.extra?.eas?.projectId;
 
   //==================================================================
   //context
@@ -65,7 +49,6 @@ export default function Router() {
   const width = Dimensions.get("screen").width;
 
   // ============ SEND DEVICE TOKEN ==================
-
   // const { refetch } = useQuery(SENDMOBILETOKEN, {
   //   variables: {
   //     token: expoPushToken,
@@ -78,95 +61,13 @@ export default function Router() {
     }
   }, [expoPushToken]);
 
-  // ========================== GET REAL TIME DEVICE TOKEN ========================================
-  async function registerForPushNotificationsAsync() {
-    let token;
-
-    if (Platform.OS === "android") {
-      Notifications.setNotificationChannelAsync("default", {
-        name: "default",
-        importance: Notifications.AndroidImportance.MAX,
-        vibrationPattern: [0, 250, 250, 250],
-        lightColor: "#FF231F7C",
-      });
-    }
-
-    if (Device.isDevice) {
-      if (Platform.OS === "ios") {
-        const { status: existingStatus } =
-          await Notifications.getPermissionsAsync();
-        let finalStatus = existingStatus;
-        if (existingStatus !== "granted") {
-          const { status } = await Notifications.requestPermissionsAsync();
-          finalStatus = status;
-        }
-        if (finalStatus !== "granted") {
-          Alert.alert("Failed to get push token for push notification!");
-          return;
-        }
-
-        try {
-          token = (
-            await Notifications.getExpoPushTokenAsync({
-              projectId: projectId,
-            })
-          ).data;
-          //
-          // console.log("Device Token:", token);
-          // Alert.alert("Device Token:", token);
-          // Use the token for sending push notifications
-        } catch (error) {
-          Alert.alert("Error retrieving device token:");
-        }
-      } else if (Platform.OS === "android") {
-        // console.log("Device token:", token);
-        // Alert.alert("Device Token:", token);
-      }
-    } else {
-      Alert.alert("Must use physical device for Push Notifications");
-    }
-
-    return token;
-  }
-  async function playSound() {
-    // console.log("Loading Sound");
-    const { sound } = await Audio.Sound.createAsync(
-      require("./assets/Images/maybe-one-day-584.mp3")
-    );
-
-    // console.log("Playing Sound");
-    await sound.playAsync();
-  }
-
+  //============  GET TOKEN DEVICE  ==================
   useEffect(() => {
     registerForPushNotificationsAsync().then(async (token) =>
       token === undefined ? setExpoPushToken("") : setExpoPushToken(token)
     );
-    notificationListener.current =
-      Notifications.addNotificationReceivedListener((noti) => {
-        setNotification(noti ? true : false);
-        if (noti) {
-          // playSound();
-        }
-      });
-    responseListener.current =
-      Notifications.addNotificationResponseReceivedListener((response) => {
-        console.log(response);
-      });
-    return () => {
-      if (notificationListener.current) {
-        Notifications.removeNotificationSubscription(
-          notificationListener.current
-        );
-      }
-      if (responseListener.current) {
-        Notifications.removeNotificationSubscription(responseListener.current);
-      }
-    };
   }, []);
-  //==================================================================
 
-  // console.log(token);
   useEffect(() => {
     setTimeout(() => {
       setLoad(false);

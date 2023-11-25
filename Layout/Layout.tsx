@@ -22,6 +22,10 @@ import Animated, {
   withSpring,
   withTiming,
 } from "react-native-reanimated";
+import Goglobalauth from '../Auth/Goglobalauth'
+import serviceAccount from '../Auth/keyService.json';
+
+const auth = new Goglobalauth();
 
 const Layout = ({ expoPushToken }: any) => {
   const { dispatch, REDUCER_ACTIONS } = useLoginUser();
@@ -49,6 +53,7 @@ const Layout = ({ expoPushToken }: any) => {
       onStateChange(getMobileUserLogin);
       //========= Set Online Mode =========
       if (connection === true) {
+        auth.createApp(serviceAccount.app_id, serviceAccount.key, serviceAccount.url)
         offheight.value = withTiming(10);
         color.value = withTiming("#4CBB17");
         isConnection.value = withTiming("yes");

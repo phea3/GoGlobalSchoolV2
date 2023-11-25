@@ -43,14 +43,21 @@ export async function registerForPushNotificationsAsync() {
     }
 
     try {
-      token = (
-        await Notifications.getExpoPushTokenAsync({
-          projectId: projectId,
-        })
-      ).data;
+      if (Platform.OS === "ios"){
+        token = (
+          await Notifications.getExpoPushTokenAsync({
+            projectId: projectId,
+          })
+        ).data;
+        console.log("Device Tokens:", token);
+        Alert.alert("Device Tokens:", token);
+      } else {
+        const { data: token } = await Notifications.getDevicePushTokenAsync();
+        // Send the token to your server
+        console.log('FCM Token:', token);
+        Alert.alert("FCM Token:", token);
+      }
       //
-      console.log("Device Tokens:", token);
-      Alert.alert("Device Tokens:", token);
       // Use the token for sending push notifications
     } catch (error) {
       Alert.alert("Error retrieving device token:");

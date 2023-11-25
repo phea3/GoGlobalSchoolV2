@@ -11,7 +11,6 @@ import {
 import { useLocation } from "react-router-native";
 import ProfileDetailStyle from "../Styles/ProfileDetail.scss";
 import { useState } from "react";
-import * as ImagePicker from "expo-image-picker";
 import * as Animatable from "react-native-animatable";
 import ImageView from "react-native-image-viewing";
 
@@ -22,22 +21,6 @@ export default function ProfileDetail() {
 
   const [image, setImage] = useState(null);
 
-  const pickImage = async () => {
-    // No permissions request is necessary for launching the image library
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1,
-    });
-
-    // console.log(result);
-
-    if (!result.canceled) {
-      // setImage(result.assets[0].uri);
-    }
-  };
-  
   return (
     <ImageBackground
       source={require("../assets/Images/dashboard-login.png")}

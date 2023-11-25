@@ -1,4 +1,4 @@
-package com.goglobal_school.schoolmobileappios;
+package com.goglobalschool.schoolmobile;
 
 import android.app.Application;
 import android.content.res.Configuration;

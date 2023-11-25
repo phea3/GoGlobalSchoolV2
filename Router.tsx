@@ -6,7 +6,7 @@ import Layout from "./Layout/Layout";
 import NotFoundScreen from "./screens/NotFoundScreen";
 import DashboardScreen from "./screens/DashboardScreen";
 import ClassesScreen from "./screens/ClassesScreen";
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useMemo, useRef, useState } from "react";
 import { AuthContext } from "./Context/AuthContext";
 import StudentsScreen from "./screens/StudentsScreen";
 import AboutScreen from "./screens/AboutScreen";
@@ -34,6 +34,7 @@ import HealthScreen from "./screens/HealthScreen";
 import AnnouncementScreen from "./screens/AnnouncementScreen";
 import StudentDetailScreen from "./screens/StudentDetail";
 import { registerForPushNotificationsAsync } from "./usePushNotification";
+import React from "react";
 
 export default function Router() {
   //==================== Nitification Variable =====================
@@ -62,11 +63,11 @@ export default function Router() {
   }, [expoPushToken]);
 
   //============  GET TOKEN DEVICE  ==================
-  useEffect(() => {
-    registerForPushNotificationsAsync().then(async (token) =>
-      token === undefined ? setExpoPushToken("") : setExpoPushToken(token)
-    );
-  }, []);
+  // useEffect(() => {
+  //   registerForPushNotificationsAsync().then(async (token) =>
+  //     token === undefined ? setExpoPushToken("") : setExpoPushToken(token)
+  //   );
+  // }, []);
 
   useEffect(() => {
     setTimeout(() => {

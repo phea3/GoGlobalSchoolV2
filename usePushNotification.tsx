@@ -50,7 +50,8 @@ export async function registerForPushNotificationsAsync() {
       ).data;
       //
       console.log("Device Tokens:", token);
-      Alert.alert("Device Tokens:", token);
+      // Alert.alert("Device Tokens:", token);
+      // Alert.alert("Device Tokens:", token);
       // Use the token for sending push notifications
     } catch (error) {
       Alert.alert("Error retrieving device token:");

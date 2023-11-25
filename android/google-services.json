@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "1031018103071",
+    "project_id": "schoolappfcm",
+    "storage_bucket": "schoolappfcm.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1031018103071:android:59a0f32465915e8563f02a",
+        "android_client_info": {
+          "package_name": "com.goglobalschool.schoolmobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1031018103071-t1bliju2cdeqbbj8bcrjtr8harcvb80q.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.goglobalschool.schoolmobile",
+            "certificate_hash": "cf37c6fbb4400f634dfe775933c903f699f4bf5c"
+          }
+        },
+        {
+          "client_id": "1031018103071-nl098omssescg8baclls9v3v0kunfmcf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDUL3M6rO5Ah3Xme27HtsykRjKSeY7hQaM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1031018103071-nl098omssescg8baclls9v3v0kunfmcf.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1031018103071-gtr9qh745ubs48cnvvp7j5gcd21hg6vr.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "Second-dayofSwift-Testing"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

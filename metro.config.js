@@ -10,7 +10,7 @@ module.exports = (async () => {
       assetPlugins: ["expo-asset/tools/hashAssetFiles"],
     },
     resolver: {
-      sourceExts: [...sourceExts, "scss", "sass"],
+      sourceExts: [...sourceExts, "scss", "sass", "cjs"],
     },
   };
 })();

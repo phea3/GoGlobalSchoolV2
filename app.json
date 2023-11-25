@@ -85,6 +85,7 @@
     ],
     "ios": {
       "infoPlist": {
+        "CFBundleDisplayName": "Go Global School",
         "NSCameraUsageDescription": "This app uses the camera to scan barcodes on event tickets."
       },
       "supportsTablet": true,
@@ -94,7 +95,9 @@
           "Default"
         ]
       },
-      "bundleIdentifier": "Second-dayofSwift-Testing"
+      "bundleIdentifier": "Second-dayofSwift-Testing",
+      "buildNumber": "1.2.8",
+      "icon": "./assets/icon.png"
     },
     "android": {
       "permissions": [

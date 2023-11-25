@@ -21,6 +21,7 @@ import { StyleController } from "../styleProvider";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useQuery } from "@apollo/client";
 import { GET_MOBILEUSERLOGIN } from "../graphql/GetMobileUserLogin";
+import serviceAccount from '../Auth/keyService.json';
 
 const LoginScreen = () => {
   const { dispatch, REDUCER_ACTIONS } = useUser();
@@ -58,6 +59,7 @@ const LoginScreen = () => {
   }, []);
   //============== CHECK NAVIGATE ===============
   const handleNavigation = async () => {
+    await auth.createApp(serviceAccount.app_id, serviceAccount.key, serviceAccount.url);
     await auth.login(email, password).then((result) => {
       // console.log("result", result?.token);
       if (result?.status === true) {

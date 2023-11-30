@@ -49,13 +49,13 @@ export async function registerForPushNotificationsAsync() {
             projectId: projectId,
           })
         ).data;
-        console.log("Device Tokens:", token);
-        Alert.alert("Device Tokens:", token);
+        // console.log("Device Tokens:", token);
+        // Alert.alert("Device Tokens:", token);
       } else {
         const { data: token } = await Notifications.getDevicePushTokenAsync();
         // Send the token to your server
-        console.log("FCM Token:", token);
-        Alert.alert("FCM Token:", token);
+        // console.log("FCM Token:", token);
+        // Alert.alert("FCM Token:", token);
       }
       //
       console.log("Device Tokens:", token);

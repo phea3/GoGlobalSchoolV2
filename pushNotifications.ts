@@ -1,8 +1,10 @@
 import { Alert } from "react-native";
 import * as Notifications from "expo-notifications";
-import { firebase } from "./firebaseInit";
+import * as Device from "expo-device";
+import Constants from "expo-constants";
 
 export const getFCMDeviceToken = async () => {
+  // if (Device.isDevice) {
   try {
     const { status: existingStatus } =
       await Notifications.getPermissionsAsync();
@@ -16,8 +18,9 @@ export const getFCMDeviceToken = async () => {
       return;
     }
 
-    await firebase;
-    const { data: token } = await Notifications.getDevicePushTokenAsync();
+    const { data: token } = await Notifications.getExpoPushTokenAsync({
+      projectId: Constants.expoConfig?.extra?.eas?.projectId,
+    });
     // Send the token to your server for further use
     console.log("FCM Token:", token);
     Alert.alert("FCM Token:", token);
@@ -25,4 +28,7 @@ export const getFCMDeviceToken = async () => {
     console.log("Error getting FCM token:", error);
     Alert.alert("Error getting FCM token:", error.message);
   }
+  // } else {
+  //   Alert.alert("Must use physical device for Push Notifications");
+  // }
 };

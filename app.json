@@ -2,10 +2,7 @@
   "expo": {
     "name": "Go Global School",
     "slug": "school-mobile-app-ios",
-    "platforms": [
-      "ios",
-      "android"
-    ],
+    "platforms": ["ios", "android"],
     "privacy": "public",
     "version": "1.2.7",
     "orientation": "portrait",
@@ -25,7 +22,6 @@
       ]
     },
     "plugins": [
-      "@react-native-firebase/app",
       [
         "expo-notifications",
         {
@@ -40,7 +36,8 @@
               "name": "custom",
               "filename": "./assets/Images/maybe-one-day-584.mp3"
             }
-          ]
+          ],
+          "mode": "production"
         }
       ],
       [
@@ -66,13 +63,7 @@
     ],
     "packagerOpts": {
       "config": "metro.config.js",
-      "sourceExts": [
-        "tsx",
-        "js",
-        "jsx",
-        "scss",
-        "sass"
-      ],
+      "sourceExts": ["tsx", "js", "jsx", "scss", "sass"],
       "transformer": "node_modules/react-native-sass-transformer/index.js"
     },
     "splash": {
@@ -80,9 +71,7 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "infoPlist": {
         "CFBundleDisplayName": "Go Global School",
@@ -91,9 +80,7 @@
       "supportsTablet": true,
       "entitlements": {
         "com.apple.developer.networking.wifi-info": true,
-        "com.apple.developer.applesignin": [
-          "Default"
-        ]
+        "com.apple.developer.applesignin": ["Default"]
       },
       "bundleIdentifier": "Second-dayofSwift-Testing",
       "buildNumber": "1.2.8",
@@ -110,15 +97,16 @@
         "android.permission.RECEIVE_BOOT_COMPLETED",
         "android.permission.POST_NOTIFICATIONS"
       ],
-      "blockedPermissions": [
-        "android.permission.RECORD_AUDIO"
-      ],
       "adaptiveIcon": {
         "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#ffffff"
       },
       "package": "com.goglobalschool.schoolmobile",
-      "googleServicesFile": "./google-services.json"
+      "versionCode": 13,
+      "googleServicesFile": "./google-services.json",
+      "googleSignIn": {
+        "apiKey": "AIzaSyDG61L2rizoyTDIwsmBI7RlRsGVsXJcsx8"
+      }
     },
     "web": {
       "favicon": "./assets/favicon.png"

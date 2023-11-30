@@ -1,5 +1,5 @@
+import firebase from "@react-native-firebase/app";
 import "@react-native-firebase/messaging";
-import { firebase } from "@react-native-firebase/messaging";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDG61L2rizoyTDIwsmBI7RlRsGVsXJcsx8",
@@ -9,6 +9,10 @@ const firebaseConfig = {
   messagingSenderId: "1031018103071",
   appId: "1:1031018103071:web:e41684e139aa72cd63f02a",
   measurementId: "G-5YV80JM5NK",
+  databaseURL: "https://schoolappfcm.firebaseio.com/",
 };
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+}
 
-firebase.initializeApp(firebaseConfig);
+export default firebase;

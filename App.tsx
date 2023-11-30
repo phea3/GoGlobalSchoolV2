@@ -9,19 +9,9 @@ import React, { useEffect } from "react";
 import { getFCMDeviceToken } from "./pushNotifications";
 
 export default function App() {
-  const originalWarn = console.warn;
-  console.warn = function (...args) {
-    if (typeof args[0] === "string" && args[0].startsWith("Possible")) {
-      return;
-    }
-    originalWarn.apply(console, args);
-  };
-
-  //====
   useEffect(() => {
     getFCMDeviceToken();
   }, []);
-
   return (
     <>
       <MenuProvider>

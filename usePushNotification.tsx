@@ -2,7 +2,6 @@ import { Alert, Platform } from "react-native";
 import * as Notifications from "expo-notifications";
 import Constants from "expo-constants";
 import * as Device from "expo-device";
-import { useEffect, useRef } from "react";
 import { Audio } from "expo-av";
 
 //============== Notification Handler ====================
@@ -49,36 +48,20 @@ export async function registerForPushNotificationsAsync() {
             projectId: projectId,
           })
         ).data;
-        // console.log("Device Tokens:", token);
-        // Alert.alert("Device Tokens:", token);
-      } else {
-        const { data: token } = await Notifications.getDevicePushTokenAsync();
-        // Send the token to your server
-        // console.log("FCM Token:", token);
-        // Alert.alert("FCM Token:", token);
       }
-      //
-      console.log("Device Tokens:", token);
-      // Alert.alert("Device Tokens:", token);
-      // Alert.alert("Device Tokens:", token);
-      // Use the token for sending push notifications
     } catch (error) {
       Alert.alert("Error retrieving device token:");
     }
   } else {
     Alert.alert("Must use physical device for Push Notifications");
   }
-
   return token;
 }
 
 async function playSound() {
-  // console.log("Loading Sound");
   const { sound } = await Audio.Sound.createAsync(
     require("./assets/Images/maybe-one-day-584.mp3")
   );
-
-  // console.log("Playing Sound");
   await sound.playAsync();
 }
 

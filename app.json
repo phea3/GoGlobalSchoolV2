@@ -22,6 +22,7 @@
       ]
     },
     "plugins": [
+      "@react-native-firebase/app",
       [
         "expo-notifications",
         {
@@ -58,8 +59,7 @@
           "photosPermission": "Allow $(PRODUCT_NAME) to access your photos.",
           "savePhotosPermission": "Allow $(PRODUCT_NAME) to save photos."
         }
-      ],
-      "expo-build-properties"
+      ]
     ],
     "packagerOpts": {
       "config": "metro.config.js",
@@ -75,7 +75,13 @@
     "ios": {
       "infoPlist": {
         "CFBundleDisplayName": "Go Global School",
-        "NSCameraUsageDescription": "This app uses the camera to scan barcodes on event tickets."
+        "NSCameraUsageDescription": "This app uses the camera to scan barcodes on event tickets.",
+        "NSCalendarsUsageDescription": "The app needs to access your calendar.",
+        "NSRemindersUsageDescription": "Allow $(PRODUCT_NAME) to access your reminders",
+        "NSCalendarsFullAccessUsageDescription": "The app needs to access your calendar.",
+        "NSRemindersFullAccessUsageDescription": "Allow $(PRODUCT_NAME) to access your reminders",
+        "NSPhotoLibraryUsageDescription": "Allow $(PRODUCT_NAME) to access your photos.",
+        "NSPhotoLibraryAddUsageDescription": "Allow $(PRODUCT_NAME) to save photos."
       },
       "supportsTablet": true,
       "entitlements": {
@@ -87,6 +93,8 @@
       "icon": "./assets/icon.png"
     },
     "android": {
+      "useNextManifest": true,
+      "hermesEnabled": false,
       "permissions": [
         "android.permission.CAMERA",
         "android.permission.READ_EXTERNAL_STORAGE",
@@ -95,15 +103,17 @@
         "android.permission.ACCESS_FINE_LOCATION",
         "android.permission.FOREGROUND_SERVICE",
         "android.permission.RECEIVE_BOOT_COMPLETED",
-        "android.permission.POST_NOTIFICATIONS"
+        "android.permission.POST_NOTIFICATIONS",
+        "android.permission.RECORD_AUDIO",
+        "android.permission.READ_CALENDAR",
+        "android.permission.WRITE_CALENDAR"
       ],
       "adaptiveIcon": {
         "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.goglobalschool.schoolmobile",
-      "versionCode": 13,
       "googleServicesFile": "./google-services.json",
+      "package": "com.goglobalschool.schoolmobile",
       "googleSignIn": {
         "apiKey": "AIzaSyDG61L2rizoyTDIwsmBI7RlRsGVsXJcsx8"
       }

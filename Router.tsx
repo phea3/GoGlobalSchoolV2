@@ -63,11 +63,11 @@ export default function Router() {
   }, [expoPushToken]);
 
   //============  GET TOKEN DEVICE  ==================
-  // useEffect(() => {
-  //   registerForPushNotificationsAsync().then(async (token) =>
-  //     token === undefined ? setExpoPushToken("") : setExpoPushToken(token)
-  //   );
-  // }, []);
+  useEffect(() => {
+    registerForPushNotificationsAsync().then(async (token) =>
+      token === undefined ? setExpoPushToken("") : setExpoPushToken(token)
+    );
+  }, []);
 
   useEffect(() => {
     setTimeout(() => {

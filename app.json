@@ -22,7 +22,6 @@
       ]
     },
     "plugins": [
-      "@react-native-firebase/app",
       [
         "expo-notifications",
         {
@@ -67,7 +66,7 @@
       "transformer": "node_modules/react-native-sass-transformer/index.js"
     },
     "splash": {
-      "image": "./assets/Images/7nvU.gif",
+      "image": "./assets/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -93,30 +92,12 @@
       "icon": "./assets/icon.png"
     },
     "android": {
-      "useNextManifest": true,
-      "hermesEnabled": false,
-      "permissions": [
-        "android.permission.CAMERA",
-        "android.permission.READ_EXTERNAL_STORAGE",
-        "android.permission.WRITE_EXTERNAL_STORAGE",
-        "android.permission.ACCESS_COARSE_LOCATION",
-        "android.permission.ACCESS_FINE_LOCATION",
-        "android.permission.FOREGROUND_SERVICE",
-        "android.permission.RECEIVE_BOOT_COMPLETED",
-        "android.permission.POST_NOTIFICATIONS",
-        "android.permission.RECORD_AUDIO",
-        "android.permission.READ_CALENDAR",
-        "android.permission.WRITE_CALENDAR"
-      ],
       "adaptiveIcon": {
         "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#ffffff"
       },
-      "googleServicesFile": "./google-services.json",
       "package": "com.goglobalschool.schoolmobile",
-      "googleSignIn": {
-        "apiKey": "AIzaSyDG61L2rizoyTDIwsmBI7RlRsGVsXJcsx8"
-      }
+      "googleServicesFile": "./google-services.json"
     },
     "web": {
       "favicon": "./assets/favicon.png"

@@ -6,7 +6,7 @@ import Layout from "./Layout/Layout";
 import NotFoundScreen from "./screens/NotFoundScreen";
 import DashboardScreen from "./screens/DashboardScreen";
 import ClassesScreen from "./screens/ClassesScreen";
-import { useContext, useEffect, useMemo, useRef, useState } from "react";
+import React, { useContext, useEffect, useMemo, useRef, useState } from "react";
 import { AuthContext } from "./Context/AuthContext";
 import StudentsScreen from "./screens/StudentsScreen";
 import AboutScreen from "./screens/AboutScreen";
@@ -33,13 +33,15 @@ import ResetPasswordScreen from "./screens/ResetPasswordScreen";
 import HealthScreen from "./screens/HealthScreen";
 import AnnouncementScreen from "./screens/AnnouncementScreen";
 import StudentDetailScreen from "./screens/StudentDetail";
-import { registerForPushNotificationsAsync } from "./usePushNotification";
-import React from "react";
+import { usePushNotifications } from "./usePushNotifications";
+
+import { useQuery } from "@apollo/client";
+import { SENDMOBILETOKEN } from "./graphql/GetMobileUserLoginToken";
 
 export default function Router() {
   //==================== Nitification Variable =====================
-  const [expoPushToken, setExpoPushToken] = useState("");
-
+  const { expoPushToken } = usePushNotifications();
+  console.log(expoPushToken?.data);
   //==================================================================
   //context
   const { dispatch, REDUCER_ACTIONS } = useLoginUser();
@@ -50,24 +52,20 @@ export default function Router() {
   const width = Dimensions.get("screen").width;
 
   // ============ SEND DEVICE TOKEN ==================
-  // const { refetch } = useQuery(SENDMOBILETOKEN, {
-  //   variables: {
-  //     token: expoPushToken,
-  //   },
-  // });
+  const { refetch } = useQuery(SENDMOBILETOKEN, {
+    variables: {
+      token: expoPushToken,
+    },
+  });
 
   useEffect(() => {
     if (expoPushToken) {
-      // refetch();
+      refetch();
+      Alert.alert(expoPushToken?.data);
     }
   }, [expoPushToken]);
 
   //============  GET TOKEN DEVICE  ==================
-  useEffect(() => {
-    registerForPushNotificationsAsync().then(async (token) =>
-      token === undefined ? setExpoPushToken("") : setExpoPushToken(token)
-    );
-  }, []);
 
   useEffect(() => {
     setTimeout(() => {
@@ -102,7 +100,6 @@ export default function Router() {
         });
       }
 
-      //
       defineDimension({
         dimension: "",
         widthscreen: width,
@@ -112,6 +109,7 @@ export default function Router() {
     }
     getLocalStorage();
   }, []);
+
   //========= END TOKEN AND UID ================
 
   const LoadScreen = useRoutes([

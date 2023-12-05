@@ -1,4 +1,4 @@
-import { useRoutes } from "react-router-native";
+import { useLocation, useNavigate, useRoutes } from "react-router-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import LoginScreen from "./screens/LoginScreen";
 import HomeScreen from "./screens/HomeScreen";
@@ -39,8 +39,10 @@ import { useQuery } from "@apollo/client";
 import { SENDMOBILETOKEN } from "./graphql/GetMobileUserLoginToken";
 
 export default function Router() {
+  const navigate = useNavigate()
+  const location = useLocation()
   //==================== Nitification Variable =====================
-  const { expoPushToken } = usePushNotifications();
+  const { expoPushToken, notification, notificationResponse } = usePushNotifications();
   //==================================================================
   //context
   const { dispatch, REDUCER_ACTIONS } = useLoginUser();
@@ -52,16 +54,25 @@ export default function Router() {
   // ============ SEND DEVICE TOKEN ==================
   const { refetch } = useQuery(SENDMOBILETOKEN, {
     variables: {
-      token: expoPushToken,
+      token: expoPushToken?.data  ? expoPushToken?.data : "",
     },
   });
 
   useEffect(() => {
-    if (expoPushToken) {
+    if (expoPushToken?.data ) {
+      // console.log(expoPushToken)
       refetch();
     }
-  }, [expoPushToken]);
+  }, [expoPushToken?.data]);
 
+  useEffect(()=>{
+    if(notificationResponse){
+      console.log(notificationResponse?.notification?.request?.content)
+      setTimeout(() => {
+        navigate("/notification/announces")
+      }, 500)
+    }
+  }, [notificationResponse])
   //============  GET TOKEN DEVICE  ==================
 
   useEffect(() => {
@@ -164,7 +175,6 @@ export default function Router() {
       ],
     },
   ]);
-
   if (load) {
     return LoadScreen;
   } else {

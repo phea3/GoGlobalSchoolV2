@@ -17,6 +17,12 @@ import SelectDropdown from "react-native-select-dropdown";
 import { useQuery } from "@apollo/client";
 import { ATT_BY_STUDENT } from "../graphql/get_AttByStudent";
 import { GET_ACADEMIC_YEAR } from "../graphql/get_AcademicYear";
+import Animated, {
+  useAnimatedStyle,
+  useSharedValue,
+  withSpring,
+  withTiming,
+} from "react-native-reanimated";
 
 export default function AttendanceScreen() {
   const location = useLocation();
@@ -33,9 +39,15 @@ export default function AttendanceScreen() {
   const [academicYears, setAcademicYears] = useState([]);
   const [attendances, setAttendances] = useState([]);
   const [limit, setLimit] = useState(10);
+  const [disappear, setDisappear] = useState(false);
 
-  const countries = ["2021", "2022", "Summer 2023", "2024"];
+  const offset = useSharedValue(0.2);
 
+  const animatedStyles = useAnimatedStyle(() => {
+    return {
+      opacity: withSpring(offset.value),
+    };
+  });
   // console.log(stuInfo);
 
   const toggleModal1 = () => {
@@ -119,13 +131,33 @@ export default function AttendanceScreen() {
         transparent={true}
       >
         <View style={HomeStyle.homeSelectLeaveOptionContainer}>
-          <TouchableOpacity
-            style={HomeStyle.homeSelectLeaveOptionDismissArea}
-            onPress={() => toggleModal1()}
-          />
+        <Animated.View
+            style={[
+              animatedStyles,
+              {
+                width: "100%",
+                height: "100%",
+                backgroundColor: "#000",
+                position: "absolute",
+              },
+            ]}
+          >
+            <TouchableOpacity
+              style={HomeStyle.homeSelectLeaveOptionDismissArea}
+              onPress={() => {
+                setDisappear(true);
+                offset.value = withTiming(0);
+                setTimeout(() => {
+                  setDisappear(false);
+                  toggleModal1()
+                  offset.value = withTiming(0.2);
+                }, 500);
+              }}
+            />
+          </Animated.View>
           <Animatable.View
             style={HomeStyle.homeSelectLeaveOptionModalArea}
-            animation="fadeInUpBig"
+            animation={disappear ? "fadeOutDownBig" : "fadeInUpBig"}
           >
             <View
               // onPress={toggleModal1}

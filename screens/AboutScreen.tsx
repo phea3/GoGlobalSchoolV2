@@ -130,7 +130,7 @@ export default function AboutScreen() {
                       ? "Curriculum"
                       : "School Fee"}
                   </Text>
-                  <Text style={AboutStyle.AboutChartBody}>
+                  <Text style={AboutStyle.AboutChartBody} numberOfLines={1}>
                     {number % 3 === 0
                       ? "Go Global School was established since 2015"
                       : number % 3 === 1

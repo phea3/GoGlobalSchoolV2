@@ -26,6 +26,7 @@ export default function AnnouncementDetail() {
 
   const [Images, setImage] = useState("");
   // console.log("announce?.referenceFiles", announce?.referenceFiles);
+  // console.log("announce", announce);
 
   const [visible, setIsVisible] = useState(false);
 

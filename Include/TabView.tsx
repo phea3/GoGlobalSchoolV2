@@ -8,20 +8,31 @@ import Animated, {
   withSpring,
   withTiming,
 } from "react-native-reanimated";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { AuthContext } from "../Context/AuthContext";
 
 export default function TabView() {
   const navigate = useNavigate();
-  const location = useLocation();
+  const location = useLocation()
   const { dimension, widthScreen, heightScreen } = useContext(AuthContext);
 
   const offset = useSharedValue(0);
+
   const animatedStyles = useAnimatedStyle(() => {
     return {
       transform: [{ translateX: offset.value * (widthScreen / 2) }],
     };
   });
+
+  useEffect(()=>{
+    if (location.pathname === "/notification") {
+      offset.value = withTiming(0);
+      console.log(location.pathname)
+    } else if (location.pathname === "/notification/announces") {
+      offset.value = withTiming(0.95);
+      console.log(location.pathname)
+    }
+  }, [navigate])
 
   return (
     <View style={TabViewStyle.TabViewContainer}>

@@ -23,6 +23,8 @@ import { useContext, useState } from "react";
 import { AuthContext } from "../Context/AuthContext";
 import ImageView from "react-native-image-viewing";
 import * as WebBrowser from "expo-web-browser";
+import * as Sharing from 'expo-sharing';
+import * as FileSystem from 'expo-file-system';
 
 const Infomations = [
   {
@@ -118,28 +120,67 @@ export default function ProfileScreen() {
     }
   };
 
+  // const onShare = async () => {
+  //   try {
+  //     const shareOptions = {
+  //       message: "Check out this awesome app!",
+  //       url:
+  //         Platform.OS === "ios"
+  //           ? "https://apps.apple.com/kh/app/go-global-school/id1641628042"
+  //           : "https://play.google.com/store/apps/details?id=com.goglobalschool.schoolmobile&hl=en&gl=US",
+  //       title: "Go Global School",
+  //     };
+
+  //     const result = await Share.share(shareOptions);
+
+  //     if (result.action === Share.sharedAction) {
+  //       if (result.activityType) {
+  //         // Shared with activity type of result.activityType
+  //       } else {
+  //         // Shared
+  //         console.log('Shared successfully');
+  //       }
+  //     } else if (result.action === Share.dismissedAction) {
+  //       // Dismissed
+  //     } else {
+  //     }
+  //   } catch (error: any) {
+  //     console.error(error?.message);
+  //   }
+  // };
   const onShare = async () => {
+    const urlToShare = 'https://play.google.com/store/apps/details?id=com.goglobalschool.schoolmobile&hl=en&gl=US';
     try {
-      const shareOptions = {
-        message: "Check out this awesome app!",
-        url:
-          Platform.OS === "ios"
-            ? "https://apps.apple.com/kh/app/go-global-school/id1641628042"
-            : "https://play.google.com/store/apps/details?id=com.goglobalschool.schoolmobile&hl=en&gl=US",
-        title: "Go Global School",
-      };
+      if (Platform.OS === 'ios'){
+        const shareOptions = {
+          message: "Check out this awesome app!",
+          url: "https://apps.apple.com/kh/app/go-global-school/id1641628042",
+          title: "Go Global School",
+        };
+  
+        const result = await Share.share(shareOptions);
 
-      const result = await Share.share(shareOptions);
-
-      if (result.action === Share.sharedAction) {
-        if (result.activityType) {
-          // Shared with activity type of result.activityType
-        } else {
-          // Shared
+        if (result.action === Share.sharedAction) {
+          if (result.activityType) {
+            // Shared with activity type of result.activityType
+            console.log(`Shared with activity type: ${result.activityType}`);
+          } else {
+            // Shared
+            console.log('Shared successfully');
+          }
+        } else if (result.action === Share.dismissedAction) {
+          // Dismissed
+          console.log('Sharing dismissed');
         }
-      } else if (result.action === Share.dismissedAction) {
-        // Dismissed
+
       } else {
+        try {
+          const { uri } = await FileSystem.downloadAsync(urlToShare, FileSystem.documentDirectory + 'sharedfile.jpg');
+          await Sharing.shareAsync(uri);
+          console.log('Shared successfully');
+        } catch (error: any) {
+          console.error('Error sharing URL:', error.message);
+        }
       }
     } catch (error: any) {
       console.error(error?.message);

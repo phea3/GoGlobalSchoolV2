@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import HomeStyle from "../Styles/HomeScreen.scss";
-import { useNavigate } from "react-router-native";
+import { useLocation, useNavigate } from "react-router-native";
 import { getLanguage, useTranslation } from "react-multi-lang";
 import moment from "moment";
 import { useQuery } from "@apollo/client";
@@ -212,7 +212,9 @@ const HomeScreen = () => {
     variables: {
       parentsId: uid,
     },
-    onCompleted: ({ getStudentByParentsMobile }) => {},
+    onCompleted: ({ getStudentByParentsMobile }) => {
+      // console.log(getStudentByParentsMobile)
+    },
     onError: (error) => {
       console.log(error?.message);
       // setLoading(true);

@@ -13,7 +13,7 @@ import { AuthContext } from "../Context/AuthContext";
 
 export default function TabView() {
   const navigate = useNavigate();
-  const location = useLocation()
+  const location = useLocation();
   const { dimension, widthScreen, heightScreen } = useContext(AuthContext);
 
   const offset = useSharedValue(0);
@@ -24,15 +24,13 @@ export default function TabView() {
     };
   });
 
-  useEffect(()=>{
+  useEffect(() => {
     if (location.pathname === "/notification") {
       offset.value = withTiming(0);
-      console.log(location.pathname)
     } else if (location.pathname === "/notification/announces") {
       offset.value = withTiming(0.95);
-      console.log(location.pathname)
     }
-  }, [navigate])
+  }, [navigate]);
 
   return (
     <View style={TabViewStyle.TabViewContainer}>

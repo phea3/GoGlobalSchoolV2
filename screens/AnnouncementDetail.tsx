@@ -15,18 +15,34 @@ import { AuthContext } from "../Context/AuthContext";
 import { useLocation } from "react-router-native";
 import AnnounceStyle from "../Styles/AnnouncementDetailScreen.scss";
 import { useRef, useState } from "react";
-import { ExpandingDot } from "react-native-animated-pagination-dots";
 import ImageView from "react-native-image-viewing";
+import { useQuery } from "@apollo/client";
+import { GETANNOUNCEMENTBYID } from "../graphql/GetAnnouncementById";
 
 export default function AnnouncementDetail() {
   const location = useLocation();
   const { dimension, widthScreen, heightScreen } = useContext(AuthContext);
   const announce = location.state;
-  const [modalVisible, setModalVisible] = useState(false);
+
+  // console.log(announce);
+
+  const { data: announceData, refetch: announceRefetch } = useQuery(
+    GETANNOUNCEMENTBYID,
+    {
+      variables: {
+        id: announce?._id,
+      },
+      onCompleted(data) {
+        // console.log(announceData);
+      },
+    }
+  );
+
+  useEffect(() => {
+    announceRefetch();
+  }, [announce]);
 
   const [Images, setImage] = useState("");
-  // console.log("announce?.referenceFiles", announce?.referenceFiles);
-  // console.log("announce", announce);
 
   const [visible, setIsVisible] = useState(false);
 
@@ -78,50 +94,41 @@ export default function AnnouncementDetail() {
           : AnnounceStyle.AnnounceContainer
       }
     >
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        style={AnnounceStyle.AnnounceScrollViewStyle}
-      >
-        <FlatList
-          data={announce?.referenceFiles}
-          keyExtractor={(item) => item}
-          showsHorizontalScrollIndicator={false}
-          onScroll={Animated.event(
-            [{ nativeEvent: { contentOffset: { x: scrollX } } }],
-            {
-              useNativeDriver: false,
-            }
-          )}
-          pagingEnabled
-          horizontal
-          decelerationRate={"normal"}
-          scrollEventThrottle={16}
-          renderItem={({ item, index }) => (
-            <ImageData item={{ item: item, index: index }} key={index} />
-          )}
-        />
-        <ExpandingDot
-          data={announce?.referenceFiles}
-          expandingDotWidth={30}
-          scrollX={scrollX}
-          inActiveDotOpacity={0.6}
-          dotStyle={{
-            width: 10,
-            height: 10,
-            backgroundColor: "#347af0",
-            borderRadius: 5,
-            marginHorizontal: 5,
-          }}
-          containerStyle={{
-            //   bottom: 200,
-            display: "none",
-          }}
-        />
-        <Text style={AnnounceStyle.AnnouceTitle}>{announce?.title}</Text>
+      {announceData ? (
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          style={AnnounceStyle.AnnounceScrollViewStyle}
+        >
+          <FlatList
+            data={announceData?.getAnnouncementById?.referenceFiles}
+            keyExtractor={(item) => item}
+            showsHorizontalScrollIndicator={false}
+            onScroll={Animated.event(
+              [{ nativeEvent: { contentOffset: { x: scrollX } } }],
+              {
+                useNativeDriver: false,
+              }
+            )}
+            pagingEnabled
+            horizontal
+            decelerationRate={"normal"}
+            scrollEventThrottle={16}
+            renderItem={({ item, index }) => (
+              <ImageData item={{ item: item, index: index }} key={index} />
+            )}
+          />
+          <Text style={AnnounceStyle.AnnouceTitle}>
+            {announceData?.getAnnouncementById?.title}
+          </Text>
+          <Text style={AnnounceStyle.AnnouceBodyText}>
+            {announceData?.getAnnouncementById?.description}
+          </Text>
+        </ScrollView>
+      ) : (
         <Text style={AnnounceStyle.AnnouceBodyText}>
-          {announce?.description}
+          Content has been removed!
         </Text>
-      </ScrollView>
+      )}
     </View>
   );
 }

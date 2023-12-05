@@ -39,10 +39,11 @@ import { useQuery } from "@apollo/client";
 import { SENDMOBILETOKEN } from "./graphql/GetMobileUserLoginToken";
 
 export default function Router() {
-  const navigate = useNavigate()
-  const location = useLocation()
+  const navigate = useNavigate();
+  const location = useLocation();
   //==================== Nitification Variable =====================
-  const { expoPushToken, notification, notificationResponse } = usePushNotifications();
+  const { expoPushToken, notification, notificationResponse } =
+    usePushNotifications();
   //==================================================================
   //context
   const { dispatch, REDUCER_ACTIONS } = useLoginUser();
@@ -54,25 +55,35 @@ export default function Router() {
   // ============ SEND DEVICE TOKEN ==================
   const { refetch } = useQuery(SENDMOBILETOKEN, {
     variables: {
-      token: expoPushToken?.data  ? expoPushToken?.data : "",
+      token: expoPushToken?.data ? expoPushToken?.data : "",
     },
   });
 
   useEffect(() => {
-    if (expoPushToken?.data ) {
+    if (expoPushToken?.data) {
       // console.log(expoPushToken)
       refetch();
     }
   }, [expoPushToken?.data]);
 
-  useEffect(()=>{
-    if(notificationResponse){
-      console.log(notificationResponse?.notification?.request?.content)
+  useEffect(() => {
+    if (
+      notificationResponse?.notification?.request?.content?.data?.type ===
+      "Announcement"
+    ) {
+      console.log(notificationResponse?.notification?.request?.content);
       setTimeout(() => {
-        navigate("/notification/announces")
-      }, 500)
+        navigate("/notification/announces");
+      }, 500);
+    } else if (
+      notificationResponse?.notification?.request?.content?.data?.type ===
+      "Leave"
+    ) {
+      setTimeout(() => {
+        navigate("/notification");
+      }, 500);
     }
-  }, [notificationResponse])
+  }, [notificationResponse]);
   //============  GET TOKEN DEVICE  ==================
 
   useEffect(() => {

@@ -33,26 +33,26 @@ export const usePushNotifications = (): PushNotificationState => {
 
   async function registerForPushNotificationsAsync() {
     let token;
-    // if (Device.isDevice) {
-    const { status: existingStatus } =
-      await Notifications.getPermissionsAsync();
-    let finalStatus = existingStatus;
+    if (Device.isDevice) {
+      const { status: existingStatus } =
+        await Notifications.getPermissionsAsync();
+      let finalStatus = existingStatus;
 
-    if (existingStatus !== "granted") {
-      const { status } = await Notifications.requestPermissionsAsync();
-      finalStatus = status;
-    }
-    if (finalStatus !== "granted") {
-      alert("Failed to get push token for push notification");
-      return;
-    }
+      if (existingStatus !== "granted") {
+        const { status } = await Notifications.requestPermissionsAsync();
+        finalStatus = status;
+      }
+      if (finalStatus !== "granted") {
+        alert("Failed to get push token for push notification");
+        return;
+      }
 
-    token = await Notifications.getExpoPushTokenAsync({
-      projectId: Constants.expoConfig?.extra?.eas.projectId,
-    });
-    // } else {
-    //   alert("Must be using a physical device for Push notifications");
-    // }
+      token = await Notifications.getExpoPushTokenAsync({
+        projectId: Constants.expoConfig?.extra?.eas.projectId,
+      });
+    } else {
+      alert("Must be using a physical device for Push notifications");
+    }
 
     if (Platform.OS === "android") {
       Notifications.setNotificationChannelAsync("default", {

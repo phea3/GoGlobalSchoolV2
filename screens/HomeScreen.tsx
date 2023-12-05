@@ -116,7 +116,7 @@ const HomeScreen = () => {
   const { widthScreen, heightScreen, dimension } = useContext(AuthContext);
   const videoId = "A7CBbLkWqo8"; // Replace with the actual video ID
   const videoId2 = "os_6ebAPz1w"; // Replace with the actual video ID
-  const API_KEY = "AIzaSyAyT0Wj3WfxoouSYNVdS5bTs6jU0COSk-g"; // Replace with your YouTube Data API key
+  const API_KEY = "AIzaSyAlvBFERx-gzDSdi8SmcZZ4SjZ88UO0MBQ"; // Replace with your YouTube Data API key
   const [duty, setDuty] = useState("");
   const [studentId, setStudentId] = useState("");
   const [loading, setLoading] = useState(true);
@@ -329,8 +329,8 @@ const HomeScreen = () => {
       setLikeCount(likeCount);
       setCommentCount(commentCount);
       setVideoTitle(setTitleVideo);
-    } catch (error) {
-      // console.error("Error:", error);
+    } catch (error: any) {
+      // console.error("Error:", error.response.data);
     }
   }
   async function connectYoutube2() {
@@ -361,8 +361,8 @@ const HomeScreen = () => {
       setLikeCount2(likeCount);
       setCommentCount2(commentCount);
       setVideoTitle2(setTitleVideo);
-    } catch (error) {
-      // console.error("Error:", error);
+    } catch (error: any) {
+      // console.error("Error:", error.response.data);
     }
   }
   useEffect(() => {

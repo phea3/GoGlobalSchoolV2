@@ -67,12 +67,6 @@
   height: 120px;
   border-radius: 100px;
   position: absolute;
-}
-
-.ProfileDetailIconOnImageProfile {
-  width: 120px;
-  height: 120px;
-  position: absolute;
   justify-content: flex-end;
   align-items: flex-end;
 }
@@ -86,6 +80,7 @@
   border-width: 0.5px;
   border-color: $color-gray;
 }
+
 .ProfileDetailMiddleContainer {
   width: 90%;
   height: 60%;

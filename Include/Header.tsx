@@ -193,36 +193,67 @@ export default function Header() {
         <View style={HeaderStyle.titleContainer}>
           {location.pathname === "/notification" ||
           location.pathname === "/notification/announces" ? (
-            <TouchableOpacity onPress={() => navigate("/notification")}>
-              <Animatable.Image
-                source={require("../assets/Images/notification-bell.png")}
-                style={{
-                  width: dimension === "sm" ? 20 : dimension === "lg" ? 45 : 30,
-                  height:
-                    dimension === "sm" ? 20 : dimension === "lg" ? 45 : 30,
-                  marginRight: heightScreen * 0.01,
-                }}
-                animation="fadeInDown"
-              />
+            <Menu>
+              <MenuTrigger>
+                <Animatable.Image
+                  source={require("../assets/Images/notification-bell.png")}
+                  style={{
+                    width:
+                      dimension === "sm" ? 20 : dimension === "lg" ? 45 : 30,
+                    height:
+                      dimension === "sm" ? 20 : dimension === "lg" ? 45 : 30,
+                    marginRight: heightScreen * 0.01,
+                  }}
+                  animation="fadeInDown"
+                />
 
-              <Animatable.View
-                style={{
-                  width: heightScreen * 0.008,
-                  height: heightScreen * 0.008,
-                  borderRadius: 20,
-                  backgroundColor: "red",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  position: "absolute",
-                  right: heightScreen * 0.014,
-                }}
-                animation="fadeInDown"
-              >
-                <Text
-                  style={{ color: "white", fontWeight: "bold", fontSize: 10 }}
-                ></Text>
-              </Animatable.View>
-            </TouchableOpacity>
+                <Animatable.View
+                  style={{
+                    width: heightScreen * 0.008,
+                    height: heightScreen * 0.008,
+                    borderRadius: 20,
+                    backgroundColor: "red",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    position: "absolute",
+                    right: heightScreen * 0.014,
+                  }}
+                  animation="fadeInDown"
+                >
+                  <Text
+                    style={{ color: "white", fontWeight: "bold", fontSize: 10 }}
+                  ></Text>
+                </Animatable.View>
+              </MenuTrigger>
+              <MenuOptions>
+                <MenuOption onSelect={() => {}}>
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                      padding: dimension === "sm" ? 6 : 6,
+                    }}
+                  >
+                    <Text
+                      style={[
+                        HeaderStyle.headerTitle3,
+                        { fontSize: dimension === "sm" ? 12 : 16 },
+                      ]}
+                    >
+                      Mark as Read
+                    </Text>
+                    <Image
+                      source={require("../assets/Images/mail.png")}
+                      style={{
+                        width: dimension === "sm" ? 20 : 30,
+                        height: dimension === "sm" ? 20 : 30,
+                      }}
+                    />
+                  </View>
+                </MenuOption>
+              </MenuOptions>
+            </Menu>
           ) : (
             <TouchableOpacity onPress={() => navigate("/notification")}>
               <Animatable.Image

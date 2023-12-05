@@ -44,7 +44,7 @@ export default function ProfileDetail() {
         </View>
 
         <View style={ProfileDetailStyle.ProfileDetailImageBorderStyle} />
-       
+
         <Animatable.Image
           source={
             useData?.getUserProfile?.profileImg
@@ -59,52 +59,55 @@ export default function ProfileDetail() {
           style={ProfileDetailStyle.ProfileDetailImageStyle}
           animation={"zoomIn"}
         />
-        
-        {/* <View style={ProfileDetailStyle.ProfileDetailIconOnImageProfile}>
-          <Animatable.View
+
+        <View style={ProfileDetailStyle.ProfileDetailNameContainer}>
+          <Text style={ProfileDetailStyle.ProfileDetailNameTitle}>
+            {useData?.getUserProfile?.lastName +
+              " " +
+              useData?.getUserProfile?.firstName}
+          </Text>
+          <Text style={ProfileDetailStyle.ProfileDetailCutomerTypeText}>
+            Parent Type :{" "}
+            {useData?.getUserProfile?.customerType
+              ? useData?.getUserProfile?.customerType
+              : "Simple"}
+          </Text>
+        </View>
+        <TouchableOpacity
+          activeOpacity={1}
+          style={ProfileDetailStyle.ProfileDetailImageStylePreview}
+          onPress={() => {
+            if (useData?.getUserProfile?.profileImg) {
+              setIsVisible(true);
+            }
+          }}
+        >
+          <ImageView
+            images={[
+              {
+                uri:
+                  "https://storage.go-globalschool.com/api" +
+                  useData?.getUserProfile?.profileImg,
+              },
+            ]}
+            imageIndex={0}
+            visible={visible}
+            onRequestClose={() => setIsVisible(false)}
+          />
+          <TouchableOpacity
             style={ProfileDetailStyle.ProfileDetailIconOnImageProfileBorder}
-            animation={"zoomIn"}
           >
-            <Image
+            <Animatable.Image
               source={require("../assets/Images/photocamerainterfacesymbolforbutton.png")}
               resizeMode="contain"
               style={{
                 width: 18,
                 height: 18,
               }}
+              animation={"zoomIn"}
             />
-          </Animatable.View>
-        </View> */}
-
-        <View style={ProfileDetailStyle.ProfileDetailNameContainer}>
-          <Text style={ProfileDetailStyle.ProfileDetailNameTitle}>
-            {useData?.getUserProfile?.englishName
-              ? useData?.getUserProfile?.englishName
-              : useData?.getUserProfile?.firstname}
-          </Text>
-          <Text style={ProfileDetailStyle.ProfileDetailCutomerTypeText}>
-            {/* Parent Type :
-            {useData?.getUserProfile?.customerType
-              ? useData?.getUserProfile?.customerType
-              : "--:--"} */}{" "}
-          </Text>
-          {/* <Button title="Pick an image from camera roll" onPress={pickImage} />  */}
-          {/* {image && (
-            <Image
-              source={{ uri: image }}
-              style={{ width: 200, height: 200 }}
-            />
-          )} */}
-        </View>
-        <TouchableOpacity style={ProfileDetailStyle.ProfileDetailImageStylePreview} onPress={() => setIsVisible(true)}>
-            <ImageView
-                images={[{ uri: "https://storage.go-globalschool.com/api" +
-                useData?.getUserProfile?.profileImg, }]}
-                imageIndex={0}
-                visible={visible}
-                onRequestClose={() => setIsVisible(false)}
-              />
           </TouchableOpacity>
+        </TouchableOpacity>
       </View>
 
       <View style={ProfileDetailStyle.ProfileDetailMiddleContainer}>

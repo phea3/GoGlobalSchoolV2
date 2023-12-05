@@ -41,13 +41,11 @@ import { SENDMOBILETOKEN } from "./graphql/GetMobileUserLoginToken";
 export default function Router() {
   //==================== Nitification Variable =====================
   const { expoPushToken } = usePushNotifications();
-  console.log(expoPushToken?.data);
   //==================================================================
   //context
   const { dispatch, REDUCER_ACTIONS } = useLoginUser();
   const { token, defineDimension } = useContext(AuthContext);
   const [load, setLoad] = useState(true);
-
   const height = Dimensions.get("screen").height;
   const width = Dimensions.get("screen").width;
 
@@ -61,7 +59,6 @@ export default function Router() {
   useEffect(() => {
     if (expoPushToken) {
       refetch();
-      Alert.alert(expoPushToken?.data);
     }
   }, [expoPushToken]);
 

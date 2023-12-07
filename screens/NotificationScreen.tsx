@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { useQuery } from "@apollo/client";
 import { GETNOTIFICATIONS } from "../graphql/GetNotifications";
 import { useLocation, useNavigate } from "react-router-native";
+import { getLanguage } from "react-multi-lang";
 
 export default function NotificationScreen() {
   const navigate = useNavigate();
@@ -87,7 +88,7 @@ export default function NotificationScreen() {
               </View>
               <View style={NotificationStyle.NotificationBodyText}>
                 <Text style={NotificationStyle.NotificationBodyTextStyle}>
-                  {moment(noti?.createdAt).fromNow()}
+                  {moment(noti?.createdAt).locale(getLanguage()).fromNow()}
                 </Text>
               </View>
             </View>

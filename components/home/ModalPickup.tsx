@@ -32,7 +32,9 @@ export default function ModalPickup({
       variables: {
         studentId: studentId,
       },
-      onCompleted: ({}) => {},
+      onCompleted: ({}) => {
+        console.log(trackingdata);
+      },
       onError: (error) => {},
     }
   );

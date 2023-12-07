@@ -58,7 +58,6 @@ export default function Router() {
       token: expoPushToken?.data ? expoPushToken?.data : "",
     },
   });
-
   useEffect(() => {
     if (expoPushToken?.data) {
       // console.log(expoPushToken)

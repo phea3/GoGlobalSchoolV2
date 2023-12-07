@@ -9,7 +9,13 @@ import {
 import HomeStyle from "../../Styles/HomeScreen.scss";
 import * as Animatable from "react-native-animatable";
 import { Linking } from "react-native";
-import Animated, { useAnimatedStyle, useSharedValue, withSpring, withTiming } from "react-native-reanimated";
+import Animated, {
+  useAnimatedStyle,
+  useSharedValue,
+  withSpring,
+  withTiming,
+} from "react-native-reanimated";
+import { useTranslation } from "react-multi-lang";
 
 export default function ModalContactUS({
   isVisible,
@@ -18,7 +24,7 @@ export default function ModalContactUS({
 }: any) {
   const recipientUserId = "1586031671709848";
   const predefinedMessage = "Hello, this is a predefined message.";
-
+  const t = useTranslation();
   const openMessenger = async () => {
     const url = `fb-messenger://user-thread/${recipientUserId}?text=${encodeURIComponent(
       predefinedMessage
@@ -56,7 +62,7 @@ export default function ModalContactUS({
 
   const animatedStyles = useAnimatedStyle(() => {
     return {
-      opacity: withSpring(offset.value) 
+      opacity: withSpring(offset.value),
     };
   });
 
@@ -69,17 +75,30 @@ export default function ModalContactUS({
         transparent={true}
       >
         <View style={HomeStyle.ContactUsModalGroupButton}>
-        <Animated.View style={[animatedStyles, {width: '100%', height: '100%', backgroundColor: '#000', position: 'absolute'}]}>
-          <TouchableOpacity
-            style={[HomeStyle.homeModalStyle1, {backgroundColor: '#000', opacity: 0.2 ,position: 'absolute'}]}
-            onPress={() => {
-              handleClose();
-              offset.value = withTiming(0)
-              setTimeout(()=>{
-                offset.value = withTiming(0.2)
-              }, 500)
-            }}
-          />
+          <Animated.View
+            style={[
+              animatedStyles,
+              {
+                width: "100%",
+                height: "100%",
+                backgroundColor: "#000",
+                position: "absolute",
+              },
+            ]}
+          >
+            <TouchableOpacity
+              style={[
+                HomeStyle.homeModalStyle1,
+                { backgroundColor: "#000", opacity: 0.2, position: "absolute" },
+              ]}
+              onPress={() => {
+                handleClose();
+                offset.value = withTiming(0);
+                setTimeout(() => {
+                  offset.value = withTiming(0.2);
+                }, 500);
+              }}
+            />
           </Animated.View>
           <Animatable.View
             style={HomeStyle.ContactUsContentContainer}
@@ -118,13 +137,13 @@ export default function ModalContactUS({
               style={HomeStyle.ContactUsFooterModal}
               onPress={() => {
                 handleClose();
-                offset.value = withTiming(0)
-                setTimeout(()=>{
-                  offset.value = withTiming(0.2)
-                }, 500)
+                offset.value = withTiming(0);
+                setTimeout(() => {
+                  offset.value = withTiming(0.2);
+                }, 500);
               }}
             >
-              <Text style={{ fontWeight: "500" }}>Cancel</Text>
+              <Text style={{ fontWeight: "500" }}>{t("Cancel")}</Text>
             </TouchableOpacity>
           </Animatable.View>
         </View>

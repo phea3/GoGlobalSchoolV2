@@ -18,12 +18,13 @@ import { useRef, useState } from "react";
 import ImageView from "react-native-image-viewing";
 import { useQuery } from "@apollo/client";
 import { GETANNOUNCEMENTBYID } from "../graphql/GetAnnouncementById";
+import { useTranslation } from "react-multi-lang";
 
 export default function AnnouncementDetail() {
   const location = useLocation();
   const { dimension, widthScreen, heightScreen } = useContext(AuthContext);
   const announce = location.state;
-
+  const t = useTranslation();
   // console.log(announce);
 
   const { data: announceData, refetch: announceRefetch } = useQuery(
@@ -126,7 +127,7 @@ export default function AnnouncementDetail() {
         </ScrollView>
       ) : (
         <Text style={AnnounceStyle.AnnouceBodyText}>
-          Content has been removed!
+          {t("Content has been removed!")}
         </Text>
       )}
     </View>

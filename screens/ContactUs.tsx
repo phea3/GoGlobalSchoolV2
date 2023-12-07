@@ -1,13 +1,9 @@
 import {
   View,
   Text,
-  Button,
-  TextInput,
-  Alert,
   TouchableOpacity,
   Image,
   ImageBackground,
-  Modal,
   ScrollView,
 } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
@@ -19,6 +15,7 @@ import { Linking } from "react-native";
 import ModalContactUS from "../components/contact/modalContactUs";
 import * as Animatable from "react-native-animatable";
 import { AuthContext } from "../Context/AuthContext";
+import { useTranslation } from "react-multi-lang";
 
 const ContactUs = () => {
   const { widthScreen, heightScreen, dimension } = useContext(AuthContext);
@@ -28,11 +25,20 @@ const ContactUs = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [isInvisible, setIsInvisible] = useState(false);
   const [Index, setIndex] = useState(0);
+
+  const t = useTranslation();
+
   const [conversations, setConversation] = useState([
     {
       index: 1,
       question: "How do I forget a password?",
-      answer: "You have to contact us via telegram that we provide below.",
+      answer: "$answer1",
+      show: false,
+    },
+    {
+      index: 2,
+      question: "How to create my account?",
+      answer: "Email",
       show: false,
     },
   ]);
@@ -75,7 +81,9 @@ const ContactUs = () => {
         style={ContactUsScreenStyle.ContactUsContainer}
       >
         <View style={ContactUsScreenStyle.ContactUsTopContainer}>
-          <Text style={ContactUsScreenStyle.ContactUsTopTitleContent}>FAQ</Text>
+          <Text style={ContactUsScreenStyle.ContactUsTopTitleContent}>
+            {t("FAQ")}
+          </Text>
           {location.pathname === "/forget" ? (
             <TouchableOpacity
               style={ContactUsScreenStyle.ContactUsBackButton}
@@ -121,7 +129,7 @@ const ContactUs = () => {
                     <Text
                       style={{ width: "90%", fontFamily: "Kantumruy-Regular" }}
                     >
-                      {conversation.question}
+                      {t(conversation.question)}
                     </Text>
                     <Image
                       source={
@@ -157,7 +165,7 @@ const ContactUs = () => {
                           fontFamily: "Kantumruy-Regular",
                         }}
                       >
-                        {conversation.answer}
+                        {t(`${conversation.answer}`)}
                       </Text>
                     </View>
                     <Image
@@ -176,7 +184,13 @@ const ContactUs = () => {
           </ScrollView>
         </View>
 
-        <View style={dimension === "sm" ?  ContactUsScreenStyle.ContactUsFooterContainersm : ContactUsScreenStyle.ContactUsFooterContainer}>
+        <View
+          style={
+            dimension === "sm"
+              ? ContactUsScreenStyle.ContactUsFooterContainersm
+              : ContactUsScreenStyle.ContactUsFooterContainer
+          }
+        >
           <View
             style={ContactUsScreenStyle.ContactUsFooterGroupButtonContainer}
           >
@@ -197,7 +211,7 @@ const ContactUs = () => {
               <Text
                 style={ContactUsScreenStyle.ContactUsFooterImageTitleButtonBox}
               >
-                ទូរស័ព្ទ
+                {t("Phone")}
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
@@ -215,7 +229,7 @@ const ContactUs = () => {
               <Text
                 style={ContactUsScreenStyle.ContactUsFooterImageTitleButtonBox}
               >
-                សារអេឡិចត្រូនិច
+                {t("Email")}
               </Text>
             </TouchableOpacity>
           </View>

@@ -424,7 +424,7 @@ const HomeScreen = () => {
               },
             ]}
           >
-            <Text style={HomeStyle.homeModalTitle}>{duty}</Text>
+            <Text style={HomeStyle.homeModalTitle}>{t(duty)}</Text>
             <ScrollView
               horizontal
               showsHorizontalScrollIndicator={false}
@@ -437,24 +437,28 @@ const HomeScreen = () => {
                 <View style={HomeStyle.imageBox}>
                   <View
                     style={{
-                      width: "100%",
-                      height: "100%",
-                      backgroundColor: "#f1f1f1",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      borderRadius: 5,
+                      borderColor: "#9aa3a6",
+                      borderWidth: 1,
+                      borderRadius: 60,
+                      padding: 5,
                     }}
                   >
-                    <Text
-                      style={{
-                        fontFamily: "Kantumruy-Bold",
-                        fontSize: 15,
-                        color: "#9AA3A6",
-                      }}
-                    >
-                      មិនមាន{"\n"}ទិន្នន័យ
-                    </Text>
+                    <View
+                      style={[
+                        HomeStyle.imageHome,
+                        {
+                          backgroundColor: "#f1f1f1",
+                        },
+                      ]}
+                    />
                   </View>
+                  <View
+                    style={{
+                      width: 120,
+                      height: 30,
+                      backgroundColor: "#f1f1f1",
+                    }}
+                  />
                 </View>
               ) : (
                 data?.getStudentByParentsMobile?.map((stuInfo: any) => (
@@ -468,9 +472,17 @@ const HomeScreen = () => {
                   >
                     <View style={HomeStyle.homeImageBorderWidthStyle}>
                       <Animatable.Image
-                        source={{
-                          uri: `https://storage.go-globalschool.com/api${stuInfo?.profileImg}`,
-                        }}
+                        source={
+                          stuInfo?.profileImg
+                            .toLowerCase()
+                            .includes(
+                              "https://storage-server.go-globalschool.com/client/storage:academic_management/"
+                            )
+                            ? { uri: stuInfo?.profileImg }
+                            : {
+                                uri: `https://storage.go-globalschool.com/api${stuInfo?.profileImg}`,
+                              }
+                        }
                         style={HomeStyle.imageHome}
                         resizeMode="cover"
                         animation="zoomIn"
@@ -480,7 +492,9 @@ const HomeScreen = () => {
                       style={HomeStyle.studentProfileName}
                       numberOfLines={1}
                     >
-                      {stuInfo?.lastName + " " + stuInfo?.firstName}
+                      {getLanguage() === "en"
+                        ? stuInfo?.englishName
+                        : stuInfo?.lastName + " " + stuInfo?.firstName}
                     </Text>
                   </TouchableOpacity>
                 ))
@@ -610,9 +624,17 @@ const HomeScreen = () => {
                         }}
                       >
                         <Animatable.Image
-                          source={{
-                            uri: `https://storage.go-globalschool.com/api${stuInfo?.profileImg}`,
-                          }}
+                          source={
+                            stuInfo?.profileImg
+                              .toLowerCase()
+                              .includes(
+                                "https://storage-server.go-globalschool.com/"
+                              )
+                              ? { uri: stuInfo?.profileImg }
+                              : {
+                                  uri: `https://storage.go-globalschool.com/api${stuInfo?.profileImg}`,
+                                }
+                          }
                           style={HomeStyle.imageHome}
                           resizeMode="cover"
                           animation="zoomIn"
@@ -622,7 +644,9 @@ const HomeScreen = () => {
                         style={HomeStyle.studentProfileName}
                         numberOfLines={1}
                       >
-                        {stuInfo?.lastName + " " + stuInfo?.firstName}
+                        {getLanguage() === "en"
+                          ? stuInfo?.englishName
+                          : stuInfo?.lastName + " " + stuInfo?.firstName}
                       </Text>
                     </TouchableOpacity>
                   )
@@ -715,7 +739,7 @@ const HomeScreen = () => {
                 style={{ height: 20, width: 20 }}
               />
               <Text style={HomeStyle.fontTitleBarHome}>
-                {getLanguage() === "en" ? "Feature" : "មុខងារ"}
+                {getLanguage() === "en" ? "FEATURES" : "មុខងារ"}
               </Text>
               <View style={HomeStyle.homeBar} />
             </>
@@ -746,7 +770,7 @@ const HomeScreen = () => {
                     style={{ height: 30, width: 30 }}
                     animation="bounce"
                   />
-                  <Text style={HomeStyle.exploreTitle}>{row?.title}</Text>
+                  <Text style={HomeStyle.exploreTitle}>{t(row?.title)}</Text>
                 </TouchableOpacity>
               </View>
             )
@@ -763,7 +787,7 @@ const HomeScreen = () => {
                 style={{ height: 20, width: 20 }}
               />
               <Text style={HomeStyle.fontTitleBarHome}>
-                {getLanguage() === "en" ? "EXPLORE" : "ស្វែងរក"}
+                {getLanguage() === "en" ? "EXPLORES" : "ស្វែងរក"}
               </Text>
               <View style={HomeStyle.homeBar} />
             </>
@@ -798,7 +822,7 @@ const HomeScreen = () => {
                     style={{ height: 30, width: 30 }}
                     animation="bounce"
                   />
-                  <Text style={HomeStyle.exploreTitle}>{row?.title}</Text>
+                  <Text style={HomeStyle.exploreTitle}>{t(row?.title)}</Text>
                 </TouchableOpacity>
               </View>
             )

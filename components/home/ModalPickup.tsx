@@ -7,6 +7,7 @@ import {
   CHECK_STUDENTINPICKUP,
   TRANKING_STUDENTINPICKUP,
 } from "../../graphql/CheckStudentPickup";
+import { getLanguage, useTranslation } from "react-multi-lang";
 
 export default function ModalPickup({
   studentId,
@@ -14,6 +15,8 @@ export default function ModalPickup({
   handleClose,
 }: any) {
   //
+  const t = useTranslation();
+
   const [visiblePickingUp, setVisiblePickingUp] = useState(false);
   const handleOpenPickingUp = () => {
     setVisiblePickingUp(true);
@@ -78,7 +81,11 @@ export default function ModalPickup({
       >
         <View style={HomeStyle.HomePickupStudent}>
           <TouchableOpacity
-            style={[HomeStyle.homeModalStyle1, , {backgroundColor: '#000', opacity: 0.2 ,position: 'absolute'}]}
+            style={[
+              HomeStyle.homeModalStyle1,
+              ,
+              { backgroundColor: "#000", opacity: 0.2, position: "absolute" },
+            ]}
             onPress={handleClose}
           />
           <View style={HomeStyle.HomePickupStudentContent}>
@@ -86,10 +93,10 @@ export default function ModalPickup({
               <>
                 <View style={HomeStyle.HomePickupStudentTextContainer}>
                   <Text style={HomeStyle.HomePickupStudentText}>
-                    Are you sure to pick up
+                    {t("Are you sure to pick up")}
                   </Text>
                   <Text style={HomeStyle.HomePickupStudentText}>
-                    your child ?
+                    {t("your child ?")}
                   </Text>
                 </View>
                 <View style={HomeStyle.HomePickupStudentButtonContainer}>
@@ -99,7 +106,7 @@ export default function ModalPickup({
                     }}
                     style={HomeStyle.HomePickupStudentButton}
                   >
-                    <Text style={{}}>No</Text>
+                    <Text style={{}}>{t("No")}</Text>
                   </TouchableOpacity>
                   <TouchableOpacity
                     onPress={() => {
@@ -111,7 +118,7 @@ export default function ModalPickup({
                       { borderLeftWidth: 1, borderColor: "#dcdcdc" },
                     ]}
                   >
-                    <Text>Yes</Text>
+                    <Text>{t("Yes")}</Text>
                   </TouchableOpacity>
                 </View>
               </>
@@ -119,7 +126,7 @@ export default function ModalPickup({
               <>
                 <View style={HomeStyle.HomePickupStudentTextContainer1}>
                   <Text style={HomeStyle.HomePickupStudentText}>
-                    Your child's class not allow for pickup.
+                    {t("Your child's class not allow for pickup.")}
                   </Text>
                 </View>
               </>
@@ -136,7 +143,11 @@ export default function ModalPickup({
       >
         <View style={HomeStyle.HomePickupStudent}>
           <TouchableOpacity
-            style={[HomeStyle.homeModalStyle1, , {backgroundColor: '#000', opacity: 0.2 ,position: 'absolute'}]}
+            style={[
+              HomeStyle.homeModalStyle1,
+              ,
+              { backgroundColor: "#000", opacity: 0.2, position: "absolute" },
+            ]}
             onPress={() => handleClosePickingUp()}
           />
           <View style={HomeStyle.HomePickupTrackingContent}>
@@ -146,7 +157,9 @@ export default function ModalPickup({
                   source={require("../../assets/Images/_.gif")}
                   style={{ width: 150, height: 150 }}
                 />
-                <Text style={HomeStyle.HomePickupStudentText}>Please wait</Text>
+                <Text style={HomeStyle.HomePickupStudentText}>
+                  {t("Please wait")}
+                </Text>
               </>
             ) : null}
 
@@ -156,7 +169,9 @@ export default function ModalPickup({
                   source={require("../../assets/Images/check-outline.gif")}
                   style={{ width: 100, height: 100 }}
                 />
-                <Text style={HomeStyle.HomePickupStudentText}>Success</Text>
+                <Text style={HomeStyle.HomePickupStudentText}>
+                  {t("Success")}
+                </Text>
               </>
             ) : null}
 
@@ -167,6 +182,19 @@ export default function ModalPickup({
                   style={{ width: 100, height: 100 }}
                 />
                 <Text style={HomeStyle.HomePickupStudentText}>Fail</Text>
+              </>
+            ) : null}
+            {trackingdata?.trackingStudentInPickUp === "inClass" ? (
+              <>
+                <Image
+                  source={require("../../assets/Images/_.gif")}
+                  style={{ width: 100, height: 100 }}
+                />
+                <Text style={HomeStyle.HomePickupStudentText}>
+                  {getLanguage() === "en"
+                    ? `Your child is "${trackingdata?.trackingStudentInPickUp}" status.`
+                    : 'កូនរបស់លោកអ្នកស្ថិតក្នុងស្ថានភាព "inClass"'}
+                </Text>
               </>
             ) : null}
           </View>

@@ -10,12 +10,13 @@ import Animated, {
 } from "react-native-reanimated";
 import { useContext, useEffect } from "react";
 import { AuthContext } from "../Context/AuthContext";
+import { useTranslation } from "react-multi-lang";
 
-export default function TabView() {
+export default function TabView({ userId }: any) {
   const navigate = useNavigate();
   const location = useLocation();
   const { dimension, widthScreen, heightScreen } = useContext(AuthContext);
-
+  const t = useTranslation();
   const offset = useSharedValue(0);
 
   const animatedStyles = useAnimatedStyle(() => {
@@ -45,7 +46,7 @@ export default function TabView() {
               : TabViewStyle.TabViewButton
           }
           onPress={() => {
-            navigate("/notification");
+            navigate("/notification", { state: userId });
             offset.value = withTiming(0);
           }}
         >
@@ -56,7 +57,7 @@ export default function TabView() {
                 : TabViewStyle.TabViewButtonText
             }
           >
-            Actions
+            {t("Actions")}
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
@@ -66,7 +67,7 @@ export default function TabView() {
               : TabViewStyle.TabViewButton
           }
           onPress={() => {
-            navigate("/notification/announces");
+            navigate("/notification/announces", { state: userId });
             offset.value = withTiming(0.95);
           }}
         >
@@ -77,7 +78,7 @@ export default function TabView() {
                 : TabViewStyle.TabViewButtonText
             }
           >
-            Annoucements
+            {t("Annoucements")}
           </Text>
         </TouchableOpacity>
       </View>

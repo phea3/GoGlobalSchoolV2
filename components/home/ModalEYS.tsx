@@ -4,6 +4,7 @@ import { CHECK_IS_STUDENT_FOR_EYS } from "../../graphql/CheckEYS";
 import { useQuery } from "@apollo/client";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-native";
+import { getLanguage, useTranslation } from "react-multi-lang";
 
 export default function ModalEYS({
   studentId,
@@ -12,6 +13,7 @@ export default function ModalEYS({
   eys,
   setEys,
 }: any) {
+  const t = useTranslation();
   let navigate = useNavigate();
   //============= CHECK EYE REPORT CLASS ================
   const { data, refetch } = useQuery(CHECK_IS_STUDENT_FOR_EYS, {
@@ -51,7 +53,15 @@ export default function ModalEYS({
           {data?.checkIsStudentEYSReport ? (
             <>
               <TouchableOpacity
-                style={[HomeStyle.homeModalStyle1, , {backgroundColor: '#000', opacity: 0.2 ,position: 'absolute'}]}
+                style={[
+                  HomeStyle.homeModalStyle1,
+                  ,
+                  {
+                    backgroundColor: "#000",
+                    opacity: 0.2,
+                    position: "absolute",
+                  },
+                ]}
                 onPress={handleClose}
               ></TouchableOpacity>
               <View style={HomeStyle.HomePickupStudentContent}>
@@ -66,13 +76,22 @@ export default function ModalEYS({
           ) : (
             <>
               <TouchableOpacity
-                style={[HomeStyle.homeModalStyle1, {backgroundColor: '#000', opacity: 0.2 ,position: 'absolute'}]}
+                style={[
+                  HomeStyle.homeModalStyle1,
+                  {
+                    backgroundColor: "#000",
+                    opacity: 0.2,
+                    position: "absolute",
+                  },
+                ]}
                 onPress={handleClose}
               ></TouchableOpacity>
               <View style={HomeStyle.HomePickupStudentContent}>
                 <View style={HomeStyle.HomePickupStudentTextContainer1}>
                   <Text style={HomeStyle.HomePickupStudentText}>
-                    Your child's class not allow for EYS report.
+                    {getLanguage() === "en"
+                      ? "Your child's class not allow for EYS report."
+                      : "ថ្នាក់របស់កូនអ្នកមិនអនុញ្ញាតឱ្យមានរបាយការណ៍ EYS ទេ"}
                   </Text>
                 </View>
               </View>

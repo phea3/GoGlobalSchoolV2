@@ -14,11 +14,13 @@ import HomeStyle from "../Styles/HomeScreen.scss";
 import AnnouncementStyle from "../Styles/AnnouncementScreen.scss";
 import * as Animatable from "react-native-animatable";
 import { useNavigate } from "react-router-native";
+import { useTranslation } from "react-multi-lang";
 
 export default function AnnouncementScreen() {
   const [limit, setLimit] = useState(10);
   const navigate = useNavigate();
   const [isFetching, setFetching] = useState(false);
+  const t = useTranslation();
 
   //============= FUNCTION GET ANNOUMENT ================
   const [announces, setAnnounces] = useState([]);
@@ -100,7 +102,7 @@ export default function AnnouncementScreen() {
                 animation="zoomIn"
               />
               <Text style={HomeStyle.announcementHomeTitleEmpty}>
-                មិនមាន ទិន្នន័យ
+                {t("No data")}
               </Text>
             </View>
           </ScrollView>

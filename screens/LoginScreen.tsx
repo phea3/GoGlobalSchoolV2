@@ -22,6 +22,15 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useQuery } from "@apollo/client";
 import { GET_MOBILEUSERLOGIN } from "../graphql/GetMobileUserLogin";
 import serviceAccount from "../Auth/keyService.json";
+import KeyboardDismissableArea from "../Function/KeyboardDismissableArea";
+import { getLanguage, setLanguage, useTranslation } from "react-multi-lang";
+import {
+  Menu,
+  MenuOptions,
+  MenuOption,
+  MenuTrigger,
+} from "react-native-popup-menu";
+import * as Animatable from "react-native-animatable";
 
 const LoginScreen = () => {
   const { dispatch, REDUCER_ACTIONS } = useUser();
@@ -30,7 +39,7 @@ const LoginScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-
+  const t = useTranslation();
   //======== SET LOCAL STORAGE =========
   const onStateChange = useCallback((state: any) => {
     AsyncStorage.setItem("@mobileUserLogin", JSON.stringify(state));
@@ -42,6 +51,14 @@ const LoginScreen = () => {
       onStateChange(getMobileUserLogin);
     },
   });
+
+  const ChangeKh = () => {
+    setLanguage("kh");
+  };
+
+  const ChangeEng = () => {
+    setLanguage("en");
+  };
 
   useEffect(() => {
     async function getAccount() {
@@ -157,15 +174,18 @@ const LoginScreen = () => {
                 },
               ]}
             >
-              ចូលប្រើកម្មវិធី
+              {t("LogIn")}
             </Text>
           </View>
         )}
+
+        {isKeyboardVisible ? <KeyboardDismissableArea /> : null}
 
         <View
           style={{
             width: "100%",
             height: "40%",
+            marginTop: isKeyboardVisible ? 40 : 0,
             justifyContent: "space-between",
             alignItems: "center",
           }}
@@ -188,7 +208,7 @@ const LoginScreen = () => {
                 },
               ]}
             >
-              អ៉ីម៉ែល
+              {t("email")}
             </Text>
             <View
               style={[
@@ -244,7 +264,7 @@ const LoginScreen = () => {
                 },
               ]}
             >
-              ពាក្យសម្ងាត់
+              {t("password")}
             </Text>
             <View
               style={[
@@ -317,6 +337,77 @@ const LoginScreen = () => {
                 : LoginStyle.optionContainer
             }
           >
+            <Menu>
+              <MenuTrigger>
+                <Text
+                  style={[
+                    LoginStyle.LoginForgetText,
+                    {
+                      fontSize:
+                        dimension === "sm" ? 10 : dimension === "lg" ? 20 : 14,
+                    },
+                  ]}
+                >
+                  {t("Change Language")}
+                </Text>
+              </MenuTrigger>
+              <MenuOptions>
+                <MenuOption onSelect={() => ChangeEng()}>
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                      padding: dimension === "sm" ? 6 : 10,
+                    }}
+                  >
+                    <Text
+                      style={[
+                        LoginStyle.headerTitle3,
+                        { fontSize: dimension === "sm" ? 12 : 16 },
+                      ]}
+                    >
+                      {t("English")}
+                    </Text>
+                    <Image
+                      source={require("../assets/Images/English-Flag.png")}
+                      style={{
+                        width: dimension === "sm" ? 20 : 30,
+                        height: dimension === "sm" ? 20 : 30,
+                      }}
+                    />
+                  </View>
+                </MenuOption>
+                <MenuOption onSelect={() => ChangeKh()}>
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                      padding: dimension === "sm" ? 6 : 10,
+                      borderTopWidth: 1,
+                      borderColor: "#dcdcdc",
+                    }}
+                  >
+                    <Text
+                      style={[
+                        LoginStyle.headerTitle3,
+                        { fontSize: dimension === "sm" ? 12 : 16 },
+                      ]}
+                    >
+                      {t("Khmer")}
+                    </Text>
+                    <Image
+                      source={require("../assets/Images/Cambodia-Flag.png")}
+                      style={{
+                        width: dimension === "sm" ? 20 : 30,
+                        height: dimension === "sm" ? 20 : 30,
+                      }}
+                    />
+                  </View>
+                </MenuOption>
+              </MenuOptions>
+            </Menu>
             <TouchableOpacity onPress={() => navigate("/forget")}>
               <Text
                 style={[
@@ -327,7 +418,7 @@ const LoginScreen = () => {
                   },
                 ]}
               >
-                ភ្លេចពាក្យសម្ងាត់?
+                {t("Forget password?")}
               </Text>
             </TouchableOpacity>
           </View>
@@ -356,33 +447,33 @@ const LoginScreen = () => {
                 },
               ]}
             >
-              ចូលកម្មវិធី
+              {t("Login")}
             </Text>
           </TouchableOpacity>
         </View>
-        {isKeyboardVisible ? null : (
-          <View
+        {/* {isKeyboardVisible ? null : ( */}
+        <View
+          style={
+            dimension === "sm"
+              ? LoginStyle.loginFooterImgContaintersm
+              : dimension === "lg"
+              ? LoginStyle.loginFooterImgContainterlg
+              : LoginStyle.loginFooterImgContainter
+          }
+        >
+          <Image
+            source={require("../assets/Images/bottomImage.png")}
+            resizeMode="contain"
             style={
               dimension === "sm"
-                ? LoginStyle.loginFooterImgContaintersm
+                ? LoginStyle.loginFooterImgsm
                 : dimension === "lg"
-                ? LoginStyle.loginFooterImgContainterlg
-                : LoginStyle.loginFooterImgContainter
+                ? LoginStyle.loginFooterImglg
+                : LoginStyle.loginFooterImg
             }
-          >
-            <Image
-              source={require("../assets/Images/bottomImage.png")}
-              resizeMode="contain"
-              style={
-                dimension === "sm"
-                  ? LoginStyle.loginFooterImgsm
-                  : dimension === "lg"
-                  ? LoginStyle.loginFooterImglg
-                  : LoginStyle.loginFooterImg
-              }
-            />
-          </View>
-        )}
+          />
+        </View>
+        {/* )} */}
       </ImageBackground>
     </View>
   );

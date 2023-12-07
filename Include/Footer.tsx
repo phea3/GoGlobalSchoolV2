@@ -10,13 +10,14 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 import { AuthContext } from "../Context/AuthContext";
+import { useTranslation } from "react-multi-lang";
 
 const Footer = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const path = location.pathname;
   const { dimension, widthScreen, heightScreen } = useContext(AuthContext);
-
+  const t = useTranslation();
   const [mobileUserLogin, setMobileUserLogin] = useState<{
     _id: string;
     firstName: string;
@@ -33,7 +34,7 @@ const Footer = () => {
 
   const Tabs = [
     {
-      title: "ទំព័រដើម",
+      title: "HOME",
       icon: require("../assets/Images/apps.png"),
       active_icon: require("../assets/Images/apps-silver.png"),
       path: "/home",
@@ -41,7 +42,7 @@ const Footer = () => {
       value: 0,
     },
     {
-      title: "សិស្ស",
+      title: "STUDENT",
       icon: require("../assets/Images/graduation-cap.png"),
       active_icon: require("../assets/Images/graduation-cap_silver.png"),
       path: "/students",
@@ -49,7 +50,7 @@ const Footer = () => {
       value: 0.96,
     },
     {
-      title: "អំពី",
+      title: "ABOUT",
       icon: require("../assets/Images/home2.png"),
       active_icon: require("../assets/Images/home1.png"),
       path: "/about",
@@ -57,7 +58,7 @@ const Footer = () => {
       value: 1.92,
     },
     {
-      title: "គណនី",
+      title: "PROFILE",
       icon: mobileUserLogin?.profileImg
         ? {
             uri: `https://storage.go-globalschool.com/api${mobileUserLogin?.profileImg}`,
@@ -75,6 +76,12 @@ const Footer = () => {
   ];
 
   useEffect(() => {
+    Tabs.map((tab) => {
+      if (location.pathname === tab.path) offset.value = withTiming(tab.value);
+    });
+  }, [location.pathname]);
+
+  useEffect(() => {
     fetchDataLocalStorage("@mobileUserLogin").then((value) => {
       const mobileUser: string = value;
       const mobileUserLoginData = JSON.parse(mobileUser);
@@ -89,6 +96,7 @@ const Footer = () => {
   }, [location?.pathname]);
 
   const offset = useSharedValue(0);
+
   const animatedStyles = useAnimatedStyle(() => {
     return {
       transform: [{ translateX: offset.value * (widthScreen / 4) }],
@@ -150,7 +158,7 @@ const Footer = () => {
                     fontFamily: "Kantumruy-Bold",
                   }}
                 >
-                  {tab.title}
+                  {t(tab.title)}
                 </Text>
               </>
             ) : (
@@ -171,7 +179,7 @@ const Footer = () => {
                     fontFamily: "Kantumruy-Bold",
                   }}
                 >
-                  {tab.title}
+                  {t(tab.title)}
                 </Text>
               </>
             )}

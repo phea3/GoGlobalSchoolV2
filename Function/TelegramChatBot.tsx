@@ -15,7 +15,3 @@ const sendMessageToTelegram = async (message: string) => {
     // console.error("Error sending message:", error);
   }
 };
-
-const handleSend = () => {
-  sendMessageToTelegram("Hi wanna change password");
-};

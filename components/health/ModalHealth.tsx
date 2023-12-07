@@ -4,6 +4,7 @@ import { CHECK_IS_STUDENT_FOR_EYS } from "../../graphql/CheckEYS";
 import { useQuery } from "@apollo/client";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-native";
+import { getLanguage, t } from "react-multi-lang";
 
 export default function ModalHealth({
   studentId,
@@ -52,7 +53,14 @@ export default function ModalHealth({
           {data?.checkIsStudentEYSReport ? (
             <>
               <TouchableOpacity
-                style={[HomeStyle.homeModalStyle1, {backgroundColor: '#000', opacity: 0.2 ,position: 'absolute'}]}
+                style={[
+                  HomeStyle.homeModalStyle1,
+                  {
+                    backgroundColor: "#000",
+                    opacity: 0.2,
+                    position: "absolute",
+                  },
+                ]}
                 onPress={handleClose}
               ></TouchableOpacity>
               <View style={HomeStyle.HomePickupStudentContent}>
@@ -67,13 +75,23 @@ export default function ModalHealth({
           ) : (
             <>
               <TouchableOpacity
-                style={[HomeStyle.homeModalStyle1, , {backgroundColor: '#000', opacity: 0.2 ,position: 'absolute'}]}
+                style={[
+                  HomeStyle.homeModalStyle1,
+                  ,
+                  {
+                    backgroundColor: "#000",
+                    opacity: 0.2,
+                    position: "absolute",
+                  },
+                ]}
                 onPress={handleClose}
               ></TouchableOpacity>
               <View style={HomeStyle.HomePickupStudentContent}>
                 <View style={HomeStyle.HomePickupStudentTextContainer1}>
                   <Text style={HomeStyle.HomePickupStudentText}>
-                    Your child's class not allow for Health Report.
+                    {getLanguage() === "en"
+                      ? "Your child's class not allow for Health Report."
+                      : "ថ្នាក់របស់កូនអ្នកមិនអនុញ្ញាតឱ្យមានរបាយការណ៍សុខភាព EYS ទេ"}
                   </Text>
                 </View>
               </View>

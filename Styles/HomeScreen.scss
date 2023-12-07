@@ -153,7 +153,6 @@
   font-weight: bold;
   font-family: "Kantumruy-Bold";
   font-size: 14px;
-  color: #3c6efb;
   width: 95%;
 }
 .homeModalTitle3 {
@@ -162,7 +161,6 @@
   font-weight: bold;
   font-family: "Kantumruy-Bold";
   font-size: 14px;
-  color: #3c6efb;
   width: 100%;
 }
 .homeModalButtonTitle {
@@ -519,11 +517,10 @@
   padding: 10px;
 }
 
-.HomeVideoContentTitleContainer{
+.HomeVideoContentTitleContainer {
   flex: 1;
   width: 100%;
   justify-content: space-between;
-
 }
 
 .HomeVideoTitleText {
@@ -532,27 +529,27 @@
   font-size: 18px;
 }
 
-.HomeVideoReportFooterContainer{
+.HomeVideoReportFooterContainer {
   flex-direction: row;
   width: 100%;
   height: 20%;
 }
 
-.HomeVideoReportContainer{
+.HomeVideoReportContainer {
   flex-direction: row;
   align-items: center;
   height: 100%;
   padding: 5px;
 }
 
-.HomeVideoBodyText{
+.HomeVideoBodyText {
   color: $color-white;
   font-size: 12px;
   font-weight: bold;
   padding: 5px;
 }
 
-.HomeVideoBodyFakeButton{
+.HomeVideoBodyFakeButton {
   flex-direction: row;
   width: 100%;
   height: 40px;

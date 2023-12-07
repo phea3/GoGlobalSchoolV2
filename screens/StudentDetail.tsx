@@ -293,10 +293,20 @@ export default function StudentDetailScreen() {
         <View style={StudentDetailStyle.StudentDetailTopContainer}>
           <View style={StudentDetailStyle.StudentDetailTopHalfLeftContainer}>
             <Image
-              source={{
-                uri: `https://storage.go-globalschool.com/api${stuInfo?.profileImg}`,
+              source={
+                stuInfo?.profileImg
+                  .toLowerCase()
+                  .includes("https://storage-server.go-globalschool.com/")
+                  ? { uri: stuInfo?.profileImg }
+                  : {
+                      uri: `https://storage.go-globalschool.com/api${stuInfo?.profileImg}`,
+                    }
+              }
+              style={{
+                width: dimension === "sm" ? 100 : 120,
+                height: dimension === "sm" ? 100 : 120,
+                borderRadius: 20,
               }}
-              style={{ width: dimension === "sm" ? 100 : 120, height:  dimension === "sm" ? 100 : 120, borderRadius: 20 }}
             />
           </View>
 

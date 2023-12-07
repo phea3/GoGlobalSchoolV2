@@ -4,10 +4,11 @@ import { useQuery } from "@apollo/client";
 import { GET_ACADEMICYEAR_PAGINATION } from "../graphql/Get_AcademicCalendarPagination";
 import { useEffect } from "react";
 import HomeStyle from "../Styles/HomeScreen.scss";
-import { getLanguage } from "react-multi-lang";
+import { getLanguage, useTranslation } from "react-multi-lang";
 import moment from "moment";
 
 export default function CalendarScreen() {
+  const t = useTranslation();
   const { data, refetch } = useQuery(GET_ACADEMICYEAR_PAGINATION, {
     pollInterval: 2000,
     variables: {
@@ -46,9 +47,7 @@ export default function CalendarScreen() {
             source={require("../assets/Images/upcoming.png")}
             style={{ height: 20, width: 20 }}
           />
-          <Text style={HomeStyle.fontTitleBarHome}>
-            {getLanguage() === "en" ? "UPCOMING" : "ព្រឺត្តិការណ៏ថ្មីៗ"}
-          </Text>
+          <Text style={HomeStyle.fontTitleBarHome}>{t("UPCOMING NEWS")}</Text>
           <View style={HomeStyle.homeBar} />
         </View>
         {data?.getAcademicCalendarPagination?.data.map(

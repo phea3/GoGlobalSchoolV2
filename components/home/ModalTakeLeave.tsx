@@ -21,6 +21,7 @@ import Animated, {
   withSpring,
   withTiming,
 } from "react-native-reanimated";
+import { useTranslation } from "react-multi-lang";
 
 export default function ModalTakeLeave({
   studentId,
@@ -40,6 +41,7 @@ export default function ModalTakeLeave({
   const [to, setTo] = useState(new Date());
   const [reason, setReason] = useState("");
   const [disappear, setDisappear] = useState(false);
+  const t = useTranslation();
 
   const showDatePicker = () => {
     setDatePickerVisibility(true);
@@ -195,8 +197,9 @@ export default function ModalTakeLeave({
             <View
               style={{ width: "100%", alignItems: "flex-start", padding: 10 }}
             >
-              <Text style={HomeStyle.homeModalTitle}>ស្នើសុំច្បាប់</Text>
+              <Text style={HomeStyle.homeModalTitle}>{t("Leave Request")}</Text>
             </View>
+            {isKeyboardVisible ? <KeyboardDismissableArea /> : null}
 
             <View style={HomeStyle.homeRequestLeaveOptionsContainer}>
               <TouchableOpacity
@@ -226,12 +229,11 @@ export default function ModalTakeLeave({
 
                 <Text
                   style={{
-                    color: "blue",
                     fontFamily: "Kantumruy-Bold",
                     fontSize: 15,
                   }}
                 >
-                  Morning
+                  {t("Morning")}
                 </Text>
               </TouchableOpacity>
 
@@ -258,12 +260,11 @@ export default function ModalTakeLeave({
                 )}
                 <Text
                   style={{
-                    color: "blue",
                     fontFamily: "Kantumruy-Bold",
                     fontSize: 15,
                   }}
                 >
-                  Afternoon
+                  {t("Afternoon")}
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity
@@ -289,12 +290,11 @@ export default function ModalTakeLeave({
                 )}
                 <Text
                   style={{
-                    color: "blue",
                     fontFamily: "Kantumruy-Bold",
                     fontSize: 15,
                   }}
                 >
-                  Full day
+                  {t("Full day")}
                 </Text>
               </TouchableOpacity>
             </View>
@@ -307,7 +307,7 @@ export default function ModalTakeLeave({
                 }}
               >
                 <View style={{ width: "48%" }}>
-                  <Text style={HomeStyle.homeModalTitle3}>From</Text>
+                  <Text style={HomeStyle.homeModalTitle3}>{t("From")}</Text>
                   <TouchableOpacity
                     style={HomeStyle.homeSelectLeaveOptionPickupDate2}
                     onPress={showDatePicker1}
@@ -322,7 +322,7 @@ export default function ModalTakeLeave({
                 </View>
 
                 <View style={{ width: "48%", justifyContent: "flex-start" }}>
-                  <Text style={HomeStyle.homeModalTitle3}>To</Text>
+                  <Text style={HomeStyle.homeModalTitle3}>{t("To")}</Text>
                   <TouchableOpacity
                     style={HomeStyle.homeSelectLeaveOptionPickupDate2}
                     onPress={showDatePicker2}
@@ -338,7 +338,7 @@ export default function ModalTakeLeave({
               </View>
             ) : (
               <>
-                <Text style={HomeStyle.homeModalTitle2}>Date</Text>
+                <Text style={HomeStyle.homeModalTitle2}>{t("Date")}</Text>
                 <TouchableOpacity
                   style={HomeStyle.homeSelectLeaveOptionPickupDate}
                   onPress={showDatePicker}
@@ -371,7 +371,7 @@ export default function ModalTakeLeave({
               onConfirm={handleConfirm2}
               onCancel={hideDatePicker2}
             />
-            <Text style={HomeStyle.homeModalTitle2}>Reason</Text>
+            <Text style={HomeStyle.homeModalTitle2}>{t("Reason")}</Text>
             <View style={HomeStyle.homeSelectLeaveOptionTextInput}>
               <TextInput
                 placeholder="Reason"
@@ -381,6 +381,7 @@ export default function ModalTakeLeave({
                 multiline
               />
             </View>
+
             {reason == "" ? (
               <Text
                 style={{
@@ -390,7 +391,7 @@ export default function ModalTakeLeave({
                   padding: 10,
                 }}
               >
-                Require!
+                {t("Require!")}
               </Text>
             ) : null}
 
@@ -406,10 +407,8 @@ export default function ModalTakeLeave({
                 }
               }}
             >
-              <Text style={HomeStyle.homeModalButtonTitle}>Request</Text>
+              <Text style={HomeStyle.homeModalButtonTitle}>{t("Request")}</Text>
             </TouchableOpacity>
-
-            {isKeyboardVisible ? <KeyboardDismissableArea /> : null}
           </Animatable.View>
         </View>
       </Modal>

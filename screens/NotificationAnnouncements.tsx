@@ -37,6 +37,7 @@ export default function NotificationAnnouncements() {
     // Set the time difference in the state
     setTimeDifference(difference);
   }, [timeDifference]);
+
   return (
     <View style={NotificationStyle.NotificationContainer}>
       <ScrollView

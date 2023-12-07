@@ -17,16 +17,18 @@ import SelectDropdown from "react-native-select-dropdown";
 import { GET_SCHEDULEFORMOBILE } from "../graphql/GetScheduleForMobile";
 import moment from "moment";
 import * as Animatable from "react-native-animatable";
+import { getLanguage, useTranslation } from "react-multi-lang";
+import "moment/locale/km";
 
 export default function ScheduleScreen() {
   const navigate = useNavigate();
   const location = useLocation();
   const stuInfo = location.state;
-
+  const t = useTranslation();
   const { widthScreen, heightScreen } = useContext(AuthContext);
   const [classId, setClassId] = useState("");
   const [day, setDay] = useState(
-    moment(new Date()).format("dddd").toLowerCase()
+    moment(new Date()).locale("en").format("dddd").toLowerCase()
   );
 
   const { data: ActiveAcademicYearData, refetch: ActiveAcademicYearRefetch } =
@@ -174,7 +176,10 @@ export default function ScheduleScreen() {
       />
       <View style={ScheduleStyle.ScheduleTopContainer}>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          {DaysOfWeekInKhmer.map((item, index) => (
+          {(getLanguage() === "en"
+            ? DaysOfWeekInEnglish
+            : DaysOfWeekInKhmer
+          ).map((item, index) => (
             <TouchableOpacity
               onPress={() => setDay(item.enum)}
               style={[
@@ -219,7 +224,7 @@ export default function ScheduleScreen() {
             { color: "black" },
           ]}
         >
-          Ongoing
+          {t("Ongoing")}
         </Text>
       </View>
       <ScrollView showsVerticalScrollIndicator={false} style={{ width: "95%" }}>
@@ -232,8 +237,16 @@ export default function ScheduleScreen() {
                 animation={"fadeInDown"}
               >
                 <View style={ScheduleStyle.ScheduleBodyHourBox}>
-                  <Text>{moment(schedule?.startTime).format("hh:mm")}</Text>
-                  <Text>{moment(schedule?.endTime).format("hh:mm")}</Text>
+                  <Text style={ScheduleStyle.ScheduleBodyHourText}>
+                    {moment(schedule?.startTime)
+                      .locale(getLanguage())
+                      .format("hh:mm")}
+                  </Text>
+                  <Text style={ScheduleStyle.ScheduleBodyHourText}>
+                    {moment(schedule?.endTime)
+                      .locale(getLanguage())
+                      .format("hh:mm")}
+                  </Text>
                 </View>
 
                 <View
@@ -288,7 +301,7 @@ export default function ScheduleScreen() {
                       textAlign: "center",
                     }}
                   >
-                    ម៉ោងចេញលេង
+                    {t("Break Time")}
                   </Text>
                 </View>
               </Animatable.View>
@@ -300,10 +313,14 @@ export default function ScheduleScreen() {
               >
                 <View style={ScheduleStyle.ScheduleBodyHourBox}>
                   <Text style={ScheduleStyle.ScheduleBodyHourText}>
-                    {moment(schedule?.startTime).format("hh:mm")}
+                    {moment(schedule?.startTime)
+                      .locale(getLanguage())
+                      .format("hh:mm")}
                   </Text>
                   <Text style={ScheduleStyle.ScheduleBodyHourText}>
-                    {moment(schedule?.endTime).format("hh:mm")}
+                    {moment(schedule?.endTime)
+                      .locale(getLanguage())
+                      .format("hh:mm")}
                   </Text>
                 </View>
 

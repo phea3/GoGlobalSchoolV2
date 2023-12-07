@@ -17,6 +17,12 @@ import moment from "moment";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import SelectDropdown from "react-native-select-dropdown";
 import { GET_STUDENT } from "../graphql/get_studentByParent";
+import Animated, {
+  useAnimatedStyle,
+  useSharedValue,
+  withSpring,
+  withTiming,
+} from "react-native-reanimated";
 
 export default function LeaveScreen() {
   const location = useLocation();
@@ -32,6 +38,9 @@ export default function LeaveScreen() {
   const [stuImg, setStuImg] = useState("");
   const [stuName, setStuName] = useState("");
   const [stuId, setStuId] = useState("");
+  const [disappear, setDisappear] = useState(false);
+
+  console.log(stuInfo);
 
   const openModal = () => {
     setModalVisible(true);
@@ -98,6 +107,14 @@ export default function LeaveScreen() {
     refetch();
   }, [stuInfo?._id]);
 
+  const offset = useSharedValue(0.2);
+
+  const animatedStyles = useAnimatedStyle(() => {
+    return {
+      opacity: withSpring(offset.value),
+    };
+  });
+
   return (
     <View style={LeaveStyle.LeaveContainer}>
       <Modal
@@ -107,19 +124,46 @@ export default function LeaveScreen() {
         transparent={true}
       >
         <View style={LeaveStyle.ModalLeaveContainer}>
-          <TouchableOpacity
-            onPress={closeModal}
-            style={LeaveStyle.LeaveModalCloneAreaStyle}
-          />
-          <View style={LeaveStyle.LeaveModalInsideContainer}>
-            <Text style={LeaveStyle.LeaveModalTitle}>SELECT</Text>
+          <Animated.View
+            style={[
+              animatedStyles,
+              {
+                width: "100%",
+                height: "100%",
+                backgroundColor: "#000",
+                position: "absolute",
+              },
+            ]}
+          >
+            <TouchableOpacity
+              onPress={() => {
+                setDisappear(true);
+                offset.value = withTiming(0);
+                setTimeout(() => {
+                  setDisappear(false);
+                  closeModal();
+                  offset.value = withTiming(0.2);
+                }, 500);
+              }}
+              style={LeaveStyle.LeaveModalCloneAreaStyle}
+            />
+          </Animated.View>
+          <Animatable.View
+            style={LeaveStyle.LeaveModalInsideContainer}
+            animation={disappear ? "fadeOutDownBig" : "fadeInUpBig"}
+          >
+            <Text style={LeaveStyle.LeaveModalTitle}>{t("SELECT")}</Text>
             <View style={LeaveStyle.LeaveModalSelectDateContainer}>
               <TouchableOpacity
                 style={LeaveStyle.LeaveModalSelectDateButton}
                 onPress={showDatePicker1}
               >
                 <Text style={LeaveStyle.LeaveModalDateText}>
-                  {from ? from : moment(new Date()).format("YYYY-MM-DD")}
+                  {from
+                    ? from
+                    : moment(new Date())
+                        .locale(getLanguage())
+                        .format("YYYY-MM-DD")}
                 </Text>
                 <Image
                   source={require("../assets/Images/calendar-clock.png")}
@@ -132,7 +176,11 @@ export default function LeaveScreen() {
                 onPress={showDatePicker2}
               >
                 <Text style={LeaveStyle.LeaveModalDateText}>
-                  {to ? to : moment(new Date()).format("YYYY-MM-DD")}
+                  {to
+                    ? to
+                    : moment(new Date())
+                        .locale(getLanguage())
+                        .format("YYYY-MM-DD")}
                 </Text>
                 <Image
                   source={require("../assets/Images/calendar-clock.png")}
@@ -144,11 +192,21 @@ export default function LeaveScreen() {
 
             <TouchableOpacity
               style={LeaveStyle.LeaveModalButtonContainer}
-              onPress={closeModal}
+              onPress={() => {
+                setDisappear(true);
+                offset.value = withTiming(0);
+                setTimeout(() => {
+                  setDisappear(false);
+                  closeModal();
+                  offset.value = withTiming(0.2);
+                }, 500);
+              }}
             >
-              <Text style={LeaveStyle.LeaveModalButtonText}>REQUEST</Text>
+              <Text style={LeaveStyle.LeaveModalButtonText}>
+                {t("Request")}
+              </Text>
             </TouchableOpacity>
-          </View>
+          </Animatable.View>
           <DateTimePickerModal
             isVisible={datePickerVisible1}
             mode="date"
@@ -173,7 +231,9 @@ export default function LeaveScreen() {
               setStuId(selectedItem?._id);
               setStuImg(selectedItem?.profileImg);
               setStuName(
-                selectedItem?.lastName + " " + selectedItem?.firstName
+                getLanguage() === "en"
+                  ? stuInfo?.englishName
+                  : selectedItem?.lastName + " " + selectedItem?.firstName
               );
             }}
             renderCustomizedButtonChild={(selectedItem, index) => {
@@ -188,17 +248,32 @@ export default function LeaveScreen() {
                   }}
                 >
                   <Animatable.Image
-                    source={{
-                      uri: `https://storage.go-globalschool.com/api${
-                        stuImg != "" ? stuImg : stuInfo?.profileImg
-                      }`,
-                    }}
+                    source={
+                      stuImg != "" &&
+                      stuImg
+                        .toLowerCase()
+                        .includes("https://storage-server.go-globalschool.com/")
+                        ? { uri: stuImg }
+                        : stuInfo?.profileImg
+                            .toLowerCase()
+                            .includes(
+                              "https://storage-server.go-globalschool.com/"
+                            )
+                        ? { uri: stuInfo?.profileImg }
+                        : {
+                            uri: `https://storage.go-globalschool.com/api${
+                              stuImg != "" ? stuImg : stuInfo?.profileImg
+                            }`,
+                          }
+                    }
                     style={LeaveStyle.LeaveImage}
                     resizeMode="cover"
                     animation="zoomIn"
                   />
                   <Text style={LeaveStyle.LeaveTitleText3} numberOfLines={1}>
-                    {stuName != ""
+                    {getLanguage() === "en"
+                      ? stuInfo?.englishName
+                      : stuName != ""
                       ? stuName
                       : stuInfo?.lastName + " " + stuInfo?.firstName}
                   </Text>
@@ -228,15 +303,23 @@ export default function LeaveScreen() {
                   }}
                 >
                   <Animatable.Image
-                    source={{
-                      uri: `https://storage.go-globalschool.com/api${item?.profileImg}`,
-                    }}
+                    source={
+                      item?.profileImg
+                        .toLowerCase()
+                        .includes("https://storage-server.go-globalschool.com/")
+                        ? { uri: item?.profileImg }
+                        : {
+                            uri: `https://storage.go-globalschool.com/api${item?.profileImg}`,
+                          }
+                    }
                     style={LeaveStyle.LeaveImage}
                     resizeMode="cover"
                     animation="zoomIn"
                   />
                   <Text style={LeaveStyle.LeaveTitleText3} numberOfLines={1}>
-                    {item?.lastName + " " + item?.firstName}
+                    {getLanguage() === "en"
+                      ? item?.englishName
+                      : item?.lastName + " " + item?.firstName}
                   </Text>
                   <View style={{ width: 18, height: 18 }} />
                 </View>
@@ -258,10 +341,18 @@ export default function LeaveScreen() {
           </TouchableOpacity>
         </View>
         <View style={LeaveStyle.LeaveTitleContainer}>
-          <Text style={LeaveStyle.LeaveTitleText}>Type</Text>
-          <Text style={LeaveStyle.LeaveTitleText1}>Date</Text>
-          <Text style={LeaveStyle.LeaveTitleText3}>Reason</Text>
-          <Text style={LeaveStyle.LeaveTitleText}>Status</Text>
+          <Text style={LeaveStyle.LeaveTitleText} numberOfLines={1}>
+            {t("Type")}
+          </Text>
+          <Text style={LeaveStyle.LeaveTitleText1} numberOfLines={1}>
+            {t("Date")}
+          </Text>
+          <Text style={LeaveStyle.LeaveTitleText3} numberOfLines={1}>
+            {t("Reason")}
+          </Text>
+          <Text style={LeaveStyle.LeaveTitleText} numberOfLines={1}>
+            {t("Status")}
+          </Text>
         </View>
         <ScrollView
           showsVerticalScrollIndicator={false}
@@ -308,7 +399,7 @@ export default function LeaveScreen() {
               }}
             >
               <Text style={{ fontFamily: "Kantumruy-Bold", color: "#3c6efb" }}>
-                see more
+                {t("see more")}
               </Text>
             </TouchableOpacity>
           ) : null}

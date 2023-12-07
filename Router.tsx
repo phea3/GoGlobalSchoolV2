@@ -67,22 +67,31 @@ export default function Router() {
   }, [expoPushToken?.data]);
 
   useEffect(() => {
-    if (
-      notificationResponse?.notification?.request?.content?.data?.type ===
-      "Announcement"
-    ) {
-      console.log(notificationResponse?.notification?.request?.content);
-      setTimeout(() => {
-        navigate("/notification/announces");
-      }, 500);
-    } else if (
-      notificationResponse?.notification?.request?.content?.data?.type ===
-      "Leave"
-    ) {
-      setTimeout(() => {
-        navigate("/notification");
-      }, 500);
+    async function getIDUserLog() {
+      let userUid = await AsyncStorage.getItem("@userUid");
+
+      if (
+        notificationResponse?.notification?.request?.content?.data?.type ===
+        "Announcement"
+      ) {
+        console.log(notificationResponse?.notification?.request?.content);
+        setTimeout(() => {
+          navigate("/notification/announces");
+        }, 500);
+      } else if (
+        notificationResponse?.notification?.request?.content?.data?.type ===
+          "Leave Approve" ||
+        notificationResponse?.notification?.request?.content?.data?.type ===
+          "Pickup Confirmation"
+      ) {
+        console.log(notificationResponse?.notification?.request?.content);
+        setTimeout(() => {
+          navigate("/notification", { state: `${userUid}` });
+        }, 500);
+      }
     }
+
+    getIDUserLog();
   }, [notificationResponse]);
   //============  GET TOKEN DEVICE  ==================
 
@@ -97,7 +106,6 @@ export default function Router() {
     async function getLocalStorage() {
       let userToken = await AsyncStorage.getItem("@userToken");
       let userUid = await AsyncStorage.getItem("@userUid");
-
       //
       if (userToken && userUid) {
         dispatch({
@@ -186,6 +194,8 @@ export default function Router() {
       ],
     },
   ]);
+  // console.log(token);
+
   if (load) {
     return LoadScreen;
   } else {

@@ -4,6 +4,7 @@ import * as Animatable from "react-native-animatable";
 import { useContext, useEffect, useRef, useState } from "react";
 import * as WebBrowser from "expo-web-browser";
 import { AuthContext } from "../Context/AuthContext";
+import { useTranslation } from "react-multi-lang";
 
 const useOnce = (callback: any) => {
   const [hasRun, setHasRun] = useState(false);
@@ -20,7 +21,7 @@ export default function AboutScreen() {
   const { widthScreen, heightScreen, dimension } = useContext(AuthContext);
   const [number, setNumber] = useState(0);
   const [loading, setLoading] = useState(true);
-
+  const t = useTranslation();
   const numbers = Array.from({ length: 3 }, (_, index) => index);
 
   const openWebsite = async () => {
@@ -125,17 +126,17 @@ export default function AboutScreen() {
                 <View style={AboutStyle.AboutChartTextHolder}>
                   <Text style={AboutStyle.AboutChartTitle}>
                     {number % 3 === 0
-                      ? "About School"
+                      ? t("About School")
                       : number % 3 === 1
-                      ? "Curriculum"
-                      : "School Fee"}
+                      ? t("Curriculum")
+                      : t("School Fee")}
                   </Text>
                   <Text style={AboutStyle.AboutChartBody} numberOfLines={1}>
                     {number % 3 === 0
-                      ? "Go Global School was established since 2015"
+                      ? t("Go Global School was established since 2015")
                       : number % 3 === 1
-                      ? "Curriculum 2023-2023"
-                      : "School fees list for all levels"}
+                      ? t("Curriculum 2023-2023")
+                      : t("School fees list for all levels")}
                   </Text>
                 </View>
               </TouchableOpacity>

@@ -112,7 +112,9 @@ export default function Header() {
                   flexDirection: "row",
                 }}
               >
-                <Text style={{ fontFamily: "Kantumruy-Bold" }}>PROFILE</Text>
+                <Text style={{ fontFamily: "Kantumruy-Bold" }}>
+                  {t("PROFILE")}
+                </Text>
               </TouchableOpacity>
             </Animatable.View>
           ) : (
@@ -127,9 +129,15 @@ export default function Header() {
                 <Image
                   source={
                     mobileUserLogin?.profileImg
-                      ? {
-                          uri: `https://storage.go-globalschool.com/api${mobileUserLogin?.profileImg}`,
-                        }
+                      ? mobileUserLogin?.profileImg
+                          .toLowerCase()
+                          .includes(
+                            "https://storage-server.go-globalschool.com/"
+                          )
+                        ? { uri: mobileUserLogin?.profileImg }
+                        : {
+                            uri: `https://storage.go-globalschool.com/api${mobileUserLogin?.profileImg}`,
+                          }
                       : require("../assets/Images/user.png")
                   }
                   style={[
@@ -241,7 +249,7 @@ export default function Header() {
                         { fontSize: dimension === "sm" ? 12 : 16 },
                       ]}
                     >
-                      Mark as Read
+                      {t("Mark as Read")}
                     </Text>
                     <Image
                       source={require("../assets/Images/mail.png")}
@@ -255,7 +263,11 @@ export default function Header() {
               </MenuOptions>
             </Menu>
           ) : (
-            <TouchableOpacity onPress={() => navigate("/notification")}>
+            <TouchableOpacity
+              onPress={() =>
+                navigate("/notification", { state: mobileUserLogin?._id })
+              }
+            >
               <Animatable.Image
                 source={require("../assets/Images/bell.png")}
                 style={{
@@ -310,7 +322,7 @@ export default function Header() {
                         { fontSize: dimension === "sm" ? 12 : 16 },
                       ]}
                     >
-                      English
+                      {t("English")}
                     </Text>
                     <Image
                       source={require("../assets/Images/English-Flag.png")}
@@ -338,7 +350,7 @@ export default function Header() {
                         { fontSize: dimension === "sm" ? 12 : 16 },
                       ]}
                     >
-                      ខ្មែរ
+                      {t("Khmer")}
                     </Text>
                     <Image
                       source={require("../assets/Images/Cambodia-Flag.png")}

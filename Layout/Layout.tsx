@@ -22,8 +22,8 @@ import Animated, {
   withSpring,
   withTiming,
 } from "react-native-reanimated";
-import Goglobalauth from '../Auth/Goglobalauth'
-import serviceAccount from '../Auth/keyService.json';
+import Goglobalauth from "../Auth/Goglobalauth";
+import serviceAccount from "../Auth/keyService.json";
 
 const auth = new Goglobalauth();
 
@@ -53,7 +53,11 @@ const Layout = ({ expoPushToken }: any) => {
       onStateChange(getMobileUserLogin);
       //========= Set Online Mode =========
       if (connection === true) {
-        auth.createApp(serviceAccount.app_id, serviceAccount.key, serviceAccount.url)
+        auth.createApp(
+          serviceAccount.app_id,
+          serviceAccount.key,
+          serviceAccount.url
+        );
         offheight.value = withTiming(10);
         color.value = withTiming("#4CBB17");
         isConnection.value = withTiming("yes");
@@ -148,7 +152,8 @@ const Layout = ({ expoPushToken }: any) => {
         <View
           style={
             location.pathname === "/notification" ||
-            location.pathname === "/notification/announces"
+            location.pathname === "/notification/announces" ||
+            location.pathname === "/profiledetail"
               ? LayoutStyle.bodyContainerForNotificationPath
               : LayoutStyle.bodyContainer
           }
@@ -156,7 +161,8 @@ const Layout = ({ expoPushToken }: any) => {
           <Outlet />
         </View>
         {location.pathname === "/notification" ||
-        location.pathname === "/notification/announces" ? null : (
+        location.pathname === "/notification/announces" ||
+        location.pathname === "/profiledetail" ? null : (
           <Footer />
         )}
       </View>

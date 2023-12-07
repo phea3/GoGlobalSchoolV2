@@ -1,7 +1,6 @@
 import {
   Alert,
   Image,
-  ImageBackground,
   Keyboard,
   ScrollView,
   Text,
@@ -16,6 +15,8 @@ import { useEffect, useState } from "react";
 import { useMutation } from "@apollo/client";
 import { PARENTS_CHECKSTUDENTSEYS } from "../graphql/ParentsCheckStudentsEYS";
 import { useLocation } from "react-router-native";
+import { getLanguage, useTranslation } from "react-multi-lang";
+import "moment/locale/km";
 
 export default function HealthScreen() {
   const [isChecked, setChecked] = useState(true);
@@ -24,6 +25,7 @@ export default function HealthScreen() {
   const location = useLocation();
   const stuInfo = location.state;
   const [isKeyboardVisible, setKeyboardVisible] = useState(false);
+  const t = useTranslation();
 
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener(
@@ -104,9 +106,14 @@ export default function HealthScreen() {
             />
           </View> */}
           <View>
-            <Text style={HealthStyle.HealthDateTextLabel}>Date & time</Text>
+            <Text style={HealthStyle.HealthDateTextLabel}>
+              {t("Date & time")}
+            </Text>
             <Text style={HealthStyle.HealthDateText}>
-              Today, {moment(new Date()).format("Do MMMM YYYY h:mm a")}
+              {t("Today,")}{" "}
+              {moment(new Date())
+                .locale(getLanguage())
+                .format("Do MMMM YYYY h:mm a")}
             </Text>
           </View>
         </View>
@@ -164,7 +171,7 @@ export default function HealthScreen() {
             style={HealthStyle.HealthCommentStyle}
             onChangeText={setDescription}
             value={description}
-            placeholder="description"
+            placeholder={t("description")}
             keyboardType="default"
           />
         </View>
@@ -187,7 +194,7 @@ export default function HealthScreen() {
           </View>
 
           <Text style={[HealthStyle.HealthTitleLabelStyle, { marginRight: 5 }]}>
-            Parent comment
+            មតិមាតាបិតា/Parent comment
           </Text>
           <View style={{ flex: 1, backgroundColor: "#3C6EFB", height: 2 }} />
         </View>
@@ -197,7 +204,7 @@ export default function HealthScreen() {
             style={HealthStyle.HealthCommentStyle}
             onChangeText={setComment}
             value={comment}
-            placeholder="comment"
+            placeholder={t("comment")}
             keyboardType="default"
           />
         </View>
@@ -207,7 +214,7 @@ export default function HealthScreen() {
           onPress={handleParentCheck}
         >
           <Text style={{ color: "#fff", fontFamily: "Kantumruy-Bold" }}>
-            Submit
+            {t("Request")}
           </Text>
         </TouchableOpacity>
       </ScrollView>

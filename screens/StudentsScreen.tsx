@@ -6,6 +6,7 @@ import { AuthContext } from "../Context/AuthContext";
 import { useQuery } from "@apollo/client";
 import { GET_STUDENT } from "../graphql/get_studentByParent";
 import * as Animatable from "react-native-animatable";
+import { getLanguage } from "react-multi-lang";
 
 export default function StudentsScreen() {
   const navigate = useNavigate();
@@ -45,33 +46,34 @@ export default function StudentsScreen() {
               alignItems: "center",
             }}
           >
-            {data === undefined || data?.getStudentByParentsMobile.length === 0 ? (
-             <View style={HomeStyle.imageBox}>
-             <View
-               style={{
-                 borderColor: "#9aa3a6",
-                 borderWidth: 1,
-                 borderRadius: 60,
-                 padding: 5,
-               }}
-             >
-               <View
-                 style={[
-                   HomeStyle.imageHome,
-                   {
-                     backgroundColor: "#f1f1f1",
-                   },
-                 ]}
-               />
-             </View>
-             <View
-               style={{
-                 width: 120,
-                 height: 30,
-                 backgroundColor: "#f1f1f1",
-               }}
-             />
-           </View>
+            {data === undefined ||
+            data?.getStudentByParentsMobile.length === 0 ? (
+              <View style={HomeStyle.imageBox}>
+                <View
+                  style={{
+                    borderColor: "#9aa3a6",
+                    borderWidth: 1,
+                    borderRadius: 60,
+                    padding: 5,
+                  }}
+                >
+                  <View
+                    style={[
+                      HomeStyle.imageHome,
+                      {
+                        backgroundColor: "#f1f1f1",
+                      },
+                    ]}
+                  />
+                </View>
+                <View
+                  style={{
+                    width: 120,
+                    height: 30,
+                    backgroundColor: "#f1f1f1",
+                  }}
+                />
+              </View>
             ) : (
               data?.getStudentByParentsMobile?.map(
                 (stuInfo: any, index: number) =>
@@ -119,9 +121,17 @@ export default function StudentsScreen() {
                         }}
                       >
                         <Animatable.Image
-                          source={{
-                            uri: `https://storage.go-globalschool.com/api${stuInfo?.profileImg}`,
-                          }}
+                          source={
+                            stuInfo?.profileImg
+                              .toLowerCase()
+                              .includes(
+                                "https://storage-server.go-globalschool.com/"
+                              )
+                              ? { uri: stuInfo?.profileImg }
+                              : {
+                                  uri: `https://storage.go-globalschool.com/api${stuInfo?.profileImg}`,
+                                }
+                          }
                           style={HomeStyle.imageHome}
                           resizeMode="cover"
                           animation="zoomIn"
@@ -131,7 +141,9 @@ export default function StudentsScreen() {
                         style={HomeStyle.studentProfileName}
                         numberOfLines={1}
                       >
-                        {stuInfo?.lastName + " " + stuInfo?.firstName}
+                        {getLanguage() === "en"
+                          ? stuInfo?.englishName
+                          : stuInfo?.lastName + " " + stuInfo?.firstName}
                       </Text>
                     </TouchableOpacity>
                   )

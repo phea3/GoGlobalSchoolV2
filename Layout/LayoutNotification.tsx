@@ -7,10 +7,10 @@ import TabView from "../Include/TabView";
 const LayoutNotification = () => {
   const navigate = useNavigate();
   const location = useLocation();
-
+  const userId = location.state;
   return (
     <View style={LayoutNotificationStyle.LayoutNotificationContainer}>
-      <TabView />
+      <TabView userId={userId} />
       <Outlet />
     </View>
   );

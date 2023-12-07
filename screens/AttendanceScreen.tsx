@@ -23,6 +23,7 @@ import Animated, {
   withSpring,
   withTiming,
 } from "react-native-reanimated";
+import { getLanguage, useTranslation } from "react-multi-lang";
 
 export default function AttendanceScreen() {
   const location = useLocation();
@@ -40,7 +41,7 @@ export default function AttendanceScreen() {
   const [attendances, setAttendances] = useState([]);
   const [limit, setLimit] = useState(10);
   const [disappear, setDisappear] = useState(false);
-
+  const t = useTranslation();
   const offset = useSharedValue(0.2);
 
   const animatedStyles = useAnimatedStyle(() => {
@@ -81,25 +82,6 @@ export default function AttendanceScreen() {
     hideDatePicker1();
   };
 
-  
-  const { refetch } = useQuery(ATT_BY_STUDENT, {
-    pollInterval: 2000,
-    variables: {
-      studentId: stuId,
-      from: date,
-      to: date1,
-      limit: limit,
-      academicYearId: academicId,
-    },
-    onCompleted: ({ getAttendantsByStudent }) => {
-      setAttendances(getAttendantsByStudent);
-    },
-  });
-
-  useEffect(() => {
-    refetch();
-  }, [isModalVisible1, date, date1, limit, stuId]);
-
   const { data: academincYearData, refetch: academicRefetch } = useQuery(
     GET_ACADEMIC_YEAR,
     {
@@ -115,11 +97,28 @@ export default function AttendanceScreen() {
         academincYearData?.getAcademicYear.length - 1
       ]._id
     );
-  }, []);
+  }, [academincYearData?.getAcademicYear]);
 
   useEffect(() => {
     academicRefetch();
   }, [isModalVisible1]);
+
+  const { data, refetch } = useQuery(ATT_BY_STUDENT, {
+    variables: {
+      studentId: stuId,
+      from: date,
+      to: date1,
+      limit: limit,
+      academicYearId: academicId,
+    },
+    onCompleted: ({ getAttendantsByStudent }) => {
+      setAttendances(getAttendantsByStudent);
+    },
+  });
+
+  useEffect(() => {
+    refetch();
+  }, [isModalVisible1, date, date1, limit, stuId, academicId]);
 
   return (
     <View style={AttendanceStyle.AttendanceContainer}>
@@ -131,7 +130,7 @@ export default function AttendanceScreen() {
         transparent={true}
       >
         <View style={HomeStyle.homeSelectLeaveOptionContainer}>
-        <Animated.View
+          <Animated.View
             style={[
               animatedStyles,
               {
@@ -149,7 +148,7 @@ export default function AttendanceScreen() {
                 offset.value = withTiming(0);
                 setTimeout(() => {
                   setDisappear(false);
-                  toggleModal1()
+                  toggleModal1();
                   offset.value = withTiming(0.2);
                 }, 500);
               }}
@@ -163,9 +162,9 @@ export default function AttendanceScreen() {
               // onPress={toggleModal1}
               style={{ width: "100%", alignItems: "flex-start", padding: 10 }}
             >
-              <Text style={HomeStyle.homeModalTitle}>ជ្រើសរើស</Text>
+              <Text style={HomeStyle.homeModalTitle}>{t("Choose")}</Text>
             </View>
-            <Text style={HomeStyle.homeModalTitle2}>Academic</Text>
+            <Text style={HomeStyle.homeModalTitle2}>{t("Academic Years")}</Text>
             <View style={HomeStyle.homeSelectLeaveOptionTextInput}>
               <SelectDropdown
                 data={academicYears}
@@ -197,7 +196,7 @@ export default function AttendanceScreen() {
                         }}
                       >
                         <Text style={AttendanceStyle.AttendanceModalBodyText}>
-                          ឆ្នាំសិក្សា៖
+                          {t("Academic Year")}៖
                         </Text>
                         <Text style={AttendanceStyle.AttendanceModalBodyText}>
                           {selectedItem?.academicYear
@@ -224,7 +223,9 @@ export default function AttendanceScreen() {
             </View>
             <View style={AttendanceStyle.AttendanceSelectDateinModal}>
               <View style={AttendanceStyle.AttendanceSelectDateinModalFrom}>
-                <Text style={AttendanceStyle.AttendanceModalTitle2}>From</Text>
+                <Text style={AttendanceStyle.AttendanceModalTitle2}>
+                  {t("From")}
+                </Text>
                 <TouchableOpacity
                   style={AttendanceStyle.AttendanceSelectLeaveOptionPickupDate}
                   onPress={showDatePicker}
@@ -248,7 +249,9 @@ export default function AttendanceScreen() {
                 />
               </View>
               <View style={AttendanceStyle.AttendanceSelectDateinModalFrom}>
-                <Text style={AttendanceStyle.AttendanceModalTitle2}>To</Text>
+                <Text style={AttendanceStyle.AttendanceModalTitle2}>
+                  {t("To")}
+                </Text>
                 <TouchableOpacity
                   style={AttendanceStyle.AttendanceSelectLeaveOptionPickupDate}
                   onPress={showDatePicker1}
@@ -279,17 +282,16 @@ export default function AttendanceScreen() {
                 toggleModal1();
               }}
             >
-              <Text style={HomeStyle.homeModalButtonTitle}>Finish</Text>
+              <Text style={HomeStyle.homeModalButtonTitle}>{t("Request")}</Text>
             </TouchableOpacity>
           </Animatable.View>
         </View>
       </Modal>
       <View style={AttendanceStyle.AttendanceTitleContainer}>
         <Text style={AttendanceStyle.AttendanceTitle1}>
-          {stuInfo?.englishName
-            ? stuInfo?.englishName
-            : stuInfo?.lastName + " " + stuInfo?.firstName}
-          's Attendance
+          {getLanguage() === "en"
+            ? stuInfo?.englishName + "'s Attendance"
+            : "វត្តមាន " + stuInfo?.lastName + " " + stuInfo?.firstName}
         </Text>
         <TouchableOpacity
           style={AttendanceStyle.AttendanceFilterButton}
@@ -306,9 +308,11 @@ export default function AttendanceScreen() {
       </View>
       <View style={AttendanceStyle.AttendanceBodyContainer}>
         <View style={AttendanceStyle.AttendanceTitle2Container}>
-          <Text style={AttendanceStyle.AttendanceTitle2}>CLASSES</Text>
-          <Text style={AttendanceStyle.AttendanceTitle2}>DATE</Text>
-          <Text style={AttendanceStyle.AttendanceTitle2}>ATTENDANCE</Text>
+          <Text style={AttendanceStyle.AttendanceTitle2}>{t("CLASSES")}</Text>
+          <Text style={AttendanceStyle.AttendanceTitle2}>{t("DATE")}</Text>
+          <Text style={AttendanceStyle.AttendanceTitle2}>
+            {t("ATTENDANCE")}
+          </Text>
         </View>
       </View>
       <ScrollView
@@ -335,6 +339,7 @@ export default function AttendanceScreen() {
             </Text>
           </View>
         ))}
+
         {attendances.length >= limit ? (
           <TouchableOpacity
             onPress={() => {
@@ -348,7 +353,7 @@ export default function AttendanceScreen() {
             }}
           >
             <Text style={{ fontFamily: "Kantumruy-Bold", color: "#3c6efb" }}>
-              see more
+              {t("see more")}
             </Text>
           </TouchableOpacity>
         ) : null}

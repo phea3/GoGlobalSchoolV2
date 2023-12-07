@@ -40,8 +40,6 @@ export default function LeaveScreen() {
   const [stuId, setStuId] = useState("");
   const [disappear, setDisappear] = useState(false);
 
-  console.log(stuInfo);
-
   const openModal = () => {
     setModalVisible(true);
   };
@@ -67,12 +65,12 @@ export default function LeaveScreen() {
   };
 
   const handleConfirm1 = (From: Date) => {
-    setFrom(moment(From).format("YYYY-MM-DD"));
+    setFrom(moment(From).locale("en").format("YYYY-MM-DD"));
     hideDatePicker1();
   };
 
   const handleConfirm2 = (To: Date) => {
-    setTo(moment(To).format("YYYY-MM-DD"));
+    setTo(moment(To).locale("en").format("YYYY-MM-DD"));
     hideDatePicker2();
   };
 
@@ -105,7 +103,7 @@ export default function LeaveScreen() {
 
   useEffect(() => {
     refetch();
-  }, [stuInfo?._id]);
+  }, [stuInfo?._id, to, from, limit]);
 
   const offset = useSharedValue(0.2);
 
@@ -225,7 +223,7 @@ export default function LeaveScreen() {
         <View style={LeaveStyle.LeaveTopContainer}>
           <SelectDropdown
             data={stuData?.getStudentByParentsMobile}
-            buttonStyle={{ width: 200, height: 55, borderRadius: 10 }}
+            buttonStyle={{ width: 250, height: 55, borderRadius: 10 }}
             onSelect={(selectedItem, index) => {
               //   console.log(selectedItem?._id, index);
               setStuId(selectedItem?._id);
@@ -305,12 +303,16 @@ export default function LeaveScreen() {
                   <Animatable.Image
                     source={
                       item?.profileImg
-                        .toLowerCase()
-                        .includes("https://storage-server.go-globalschool.com/")
-                        ? { uri: item?.profileImg }
-                        : {
-                            uri: `https://storage.go-globalschool.com/api${item?.profileImg}`,
-                          }
+                        ? item?.profileImg
+                            .toLowerCase()
+                            .includes(
+                              "https://storage-server.go-globalschool.com/"
+                            )
+                          ? { uri: item?.profileImg }
+                          : {
+                              uri: `https://storage.go-globalschool.com/api${item?.profileImg}`,
+                            }
+                        : require("../assets/Images/user.png")
                     }
                     style={LeaveStyle.LeaveImage}
                     resizeMode="cover"

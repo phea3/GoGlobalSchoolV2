@@ -30,6 +30,7 @@ import {
   MenuOption,
   MenuTrigger,
 } from "react-native-popup-menu";
+
 import * as Animatable from "react-native-animatable";
 
 const LoginScreen = () => {

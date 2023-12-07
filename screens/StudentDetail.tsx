@@ -9,7 +9,7 @@ import SelectDropdown from "react-native-select-dropdown";
 import { GET_CLASSESBYSTUDENTFORMOBILE } from "../graphql/GetClassesByStudentForMobile";
 import HomeStyle from "../Styles/HomeScreen.scss";
 import * as Animatable from "react-native-animatable";
-import { getLanguage } from "react-multi-lang";
+import { getLanguage, useTranslation } from "react-multi-lang";
 import ModalTakeLeave from "../components/home/ModalTakeLeave";
 import ModalPickup from "../components/home/ModalPickup";
 import ModalEYS from "../components/home/ModalEYS";
@@ -157,12 +157,12 @@ export default function StudentDetailScreen() {
 
       if (months_old === 0) {
         var days_old = today.getDate() - birthDate.getDate();
-        return days_old + " days old"; // Extend the value behind with ' days old'
+        return days_old + t(" days old"); // Extend the value behind with ' days old'
       } else {
         if (today.getDate() < birthDate.getDate()) {
           months_old--; // Subtract 1 from months_old if the current day is less than the birth day
         }
-        return months_old + " months old"; // Extend the value behind with ' months old'
+        return months_old + t(" months old"); // Extend the value behind with ' months old'
       }
     } else {
       var age_now = today.getFullYear() - birthDate.getFullYear();
@@ -170,7 +170,7 @@ export default function StudentDetailScreen() {
       if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
         age_now--;
       }
-      return age_now < 2 ? age_now + " year old" : age_now + " years old"; // Extend the value behind with ' years old'
+      return age_now < 2 ? age_now + t(" year old") : age_now + t(" years old"); // Extend the value behind with ' years old'
     }
   };
 
@@ -185,7 +185,7 @@ export default function StudentDetailScreen() {
   }, []);
 
   const [classdata, setClassdata] = useState([]);
-
+  const t = useTranslation();
   const { refetch: classRefetch } = useQuery(GET_CLASSESBYSTUDENTFORMOBILE, {
     variables: {
       studentId: stuInfo?._id,
@@ -295,12 +295,14 @@ export default function StudentDetailScreen() {
             <Image
               source={
                 stuInfo?.profileImg
-                  .toLowerCase()
-                  .includes("https://storage-server.go-globalschool.com/")
-                  ? { uri: stuInfo?.profileImg }
-                  : {
-                      uri: `https://storage.go-globalschool.com/api${stuInfo?.profileImg}`,
-                    }
+                  ? stuInfo?.profileImg
+                      .toLowerCase()
+                      .includes("https://storage-server.go-globalschool.com/")
+                    ? { uri: stuInfo?.profileImg }
+                    : {
+                        uri: `https://storage.go-globalschool.com/api${stuInfo?.profileImg}`,
+                      }
+                  : require("../assets/Images/user.png")
               }
               style={{
                 width: dimension === "sm" ? 100 : 120,
@@ -325,7 +327,7 @@ export default function StudentDetailScreen() {
             style={{ width: 20, height: 20, marginRight: 5 }}
           />
           <Text style={StudentDetailStyle.StudentDetailTitleText}>
-            Personal Info
+            {t("Personal Info")}
           </Text>
           <View
             style={{
@@ -341,7 +343,7 @@ export default function StudentDetailScreen() {
             style={StudentDetailStyle.StudentDetailMiddelLeftContentContainer}
           >
             <Text style={StudentDetailStyle.StudentDetailBodyText}>
-              Gender:{" "}
+              {t("Gender:")}
             </Text>
           </View>
           <View
@@ -357,14 +359,16 @@ export default function StudentDetailScreen() {
             style={StudentDetailStyle.StudentDetailMiddelLeftContentContainer}
           >
             <Text style={StudentDetailStyle.StudentDetailBodyText}>
-              Date of birth:{" "}
+              {t("Date of birth:")}
             </Text>
           </View>
           <View
             style={StudentDetailStyle.StudentDetailMiddelRightContentContainer}
           >
             <Text style={StudentDetailStyle.StudentDetailBodyText}>
-              {moment(stuInfo?.dob).format("Do, MMMM YYYY")}
+              {moment(stuInfo?.dob)
+                .locale(getLanguage())
+                .format("Do, MMMM YYYY")}
             </Text>
           </View>
         </View>
@@ -372,7 +376,9 @@ export default function StudentDetailScreen() {
           <View
             style={StudentDetailStyle.StudentDetailMiddelLeftContentContainer}
           >
-            <Text style={StudentDetailStyle.StudentDetailBodyText}>Age: </Text>
+            <Text style={StudentDetailStyle.StudentDetailBodyText}>
+              {t("Age:")}{" "}
+            </Text>
           </View>
           <View
             style={StudentDetailStyle.StudentDetailMiddelRightContentContainer}
@@ -387,7 +393,7 @@ export default function StudentDetailScreen() {
             style={StudentDetailStyle.StudentDetailMiddelLeftContentContainer}
           >
             <Text style={StudentDetailStyle.StudentDetailBodyText}>
-              Place of birth:{" "}
+              {t("Place of birth:")}
             </Text>
           </View>
           <View
@@ -411,7 +417,7 @@ export default function StudentDetailScreen() {
             style={{ width: 20, height: 20, marginRight: 5 }}
           />
           <Text style={StudentDetailStyle.StudentDetailTitleText}>
-            Education
+            {t("Education")}
           </Text>
           <View
             style={{
@@ -458,7 +464,7 @@ export default function StudentDetailScreen() {
                       { marginRight: 10 },
                     ]}
                   >
-                    ឆ្នាំសិក្សា៖
+                    {t("Academic៖")}
                   </Text>
                   <Text style={StudentDetailStyle.StudentDetailBodyText}>
                     {selectedItem
@@ -615,7 +621,7 @@ export default function StudentDetailScreen() {
                   style={{ height: 30, width: 30 }}
                   animation="bounce"
                 />
-                <Text style={HomeStyle.exploreTitle}>{row?.title}</Text>
+                <Text style={HomeStyle.exploreTitle}>{t(row?.title)}</Text>
               </TouchableOpacity>
             </View>
           ))}

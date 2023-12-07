@@ -7,7 +7,8 @@ import { GET_EYE_REPORT } from "../graphql/GetEYSReportByStu";
 import { useLocation } from "react-router-native";
 import moment from "moment";
 import Checkbox from "expo-checkbox";
-
+import { getLanguage, useTranslation } from "react-multi-lang";
+import "moment/locale/km";
 const TabView = [
   {
     tilte: "Food",
@@ -19,16 +20,17 @@ const TabView = [
     tilte: "Health",
   },
   {
-    tilte: "Stuffs",
+    tilte: "Materials",
   },
 ];
 
 export default function EYSReportScreen() {
-  const today = moment(new Date()).format("YYYY-MM-DD");
+  const today = moment(new Date()).locale("en").format("YYYY-MM-DD");
   const [tabActive, setTabActive] = useState("Food");
   const [selectedDate, setSelectedDate] = useState(today);
   const location = useLocation();
   const uid = location.state;
+  const t = useTranslation();
 
   const { data, refetch } = useQuery(GET_EYE_REPORT, {
     pollInterval: 2000,
@@ -44,7 +46,7 @@ export default function EYSReportScreen() {
 
   useEffect(() => {
     refetch();
-  }, [uid, selectedDate]);
+  }, [uid, selectedDate, today]);
 
   return (
     <View style={EYSReportStyle.EYSContainer}>
@@ -72,7 +74,7 @@ export default function EYSReportScreen() {
                 tabActive === tab.tilte && { color: "#ffffff" },
               ]}
             >
-              {tab.tilte}
+              {t(tab.tilte)}
             </Text>
           </TouchableOpacity>
         ))}

@@ -170,14 +170,16 @@ export default function ProfileDetail() {
           <ImageView
             images={[
               useData?.getUserProfile?.profileImg
-                .toLowerCase()
-                .includes("https://storage-server.go-globalschool.com/")
-                ? { uri: useData?.getUserProfile?.profileImg }
-                : {
-                    uri:
-                      "https://storage.go-globalschool.com/api" +
-                      useData?.getUserProfile?.profileImg,
-                  },
+                ? useData?.getUserProfile?.profileImg
+                    .toLowerCase()
+                    .includes("https://storage-server.go-globalschool.com/")
+                  ? { uri: useData?.getUserProfile?.profileImg }
+                  : {
+                      uri:
+                        "https://storage.go-globalschool.com/api" +
+                        useData?.getUserProfile?.profileImg,
+                    }
+                : require("../assets/Images/user.png"),
             ]}
             imageIndex={0}
             visible={visible}

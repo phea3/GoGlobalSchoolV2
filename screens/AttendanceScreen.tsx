@@ -73,12 +73,12 @@ export default function AttendanceScreen() {
   };
 
   const handleConfirm = (date: Date) => {
-    setDate(moment(date).format("YYYY-MM-DD"));
+    setDate(moment(date).locale("en").format("YYYY-MM-DD"));
     hideDatePicker();
   };
 
   const handleConfirm1 = (date1: Date) => {
-    setDate1(moment(date1).format("YYYY-MM-DD"));
+    setDate1(moment(date1).locale("en").format("YYYY-MM-DD"));
     hideDatePicker1();
   };
 
@@ -232,8 +232,10 @@ export default function AttendanceScreen() {
                 >
                   <Text style={AttendanceStyle.AttendanceModalBodyText}>
                     {date
-                      ? moment(date).format("YYYY-MM-DD")
-                      : moment(new Date()).format("YYYY-MM-DD")}
+                      ? moment(date).locale(getLanguage()).format("YYYY-MM-DD")
+                      : moment(new Date())
+                          .locale(getLanguage())
+                          .format("YYYY-MM-DD")}
                   </Text>
                   <Image
                     source={require("../assets/Images/calendar-clock.png")}
@@ -258,8 +260,10 @@ export default function AttendanceScreen() {
                 >
                   <Text style={AttendanceStyle.AttendanceModalBodyText}>
                     {date1
-                      ? moment(date1).format("YYYY-MM-DD")
-                      : moment(new Date()).format("YYYY-MM-DD")}
+                      ? moment(date1).locale(getLanguage()).format("YYYY-MM-DD")
+                      : moment(new Date())
+                          .locale(getLanguage())
+                          .format("YYYY-MM-DD")}
                   </Text>
                   <Image
                     source={require("../assets/Images/calendar-clock.png")}
@@ -332,7 +336,9 @@ export default function AttendanceScreen() {
               {Attendance?.className}
             </Text>
             <Text style={AttendanceStyle.AttendanceBody2}>
-              {moment(Attendance?.date).format("YYYY-MM-DD")}
+              {moment(Attendance?.date)
+                .locale(getLanguage())
+                .format("YYYY-MM-DD")}
             </Text>
             <Text style={AttendanceStyle.AttendanceTitle2}>
               {Attendance?.attendace}

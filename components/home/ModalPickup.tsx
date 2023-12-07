@@ -16,7 +16,6 @@ export default function ModalPickup({
 }: any) {
   //
   const t = useTranslation();
-
   const [visiblePickingUp, setVisiblePickingUp] = useState(false);
   const handleOpenPickingUp = () => {
     setVisiblePickingUp(true);
@@ -123,13 +122,11 @@ export default function ModalPickup({
                 </View>
               </>
             ) : (
-              <>
-                <View style={HomeStyle.HomePickupStudentTextContainer1}>
-                  <Text style={HomeStyle.HomePickupStudentText}>
-                    {t("Your child's class not allow for pickup.")}
-                  </Text>
-                </View>
-              </>
+              <View style={HomeStyle.HomePickupStudentTextContainer1}>
+                <Text style={HomeStyle.HomePickupStudentText}>
+                  {t("classnotallowpickup")}
+                </Text>
+              </View>
             )}
           </View>
         </View>
@@ -181,7 +178,7 @@ export default function ModalPickup({
                   source={require("../../assets/Images/cross-outline.gif")}
                   style={{ width: 100, height: 100 }}
                 />
-                <Text style={HomeStyle.HomePickupStudentText}>Fail</Text>
+                <Text style={HomeStyle.HomePickupStudentText}>{t("Fail")}</Text>
               </>
             ) : null}
             {trackingdata?.trackingStudentInPickUp === "inClass" ? (

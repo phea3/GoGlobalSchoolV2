@@ -9,13 +9,24 @@ import {
 import React, { useContext, useEffect, useState } from "react";
 import ContactUsScreenStyle from "../Styles/ContactUsScreen.scss";
 import { useLocation, useNavigate } from "react-router-native";
+import en from "../translations/en.json";
+import kh from "../translations/kh.json";
+
 import auth from "../Auth/auth";
 import axios from "axios";
 import { Linking } from "react-native";
 import ModalContactUS from "../components/contact/modalContactUs";
 import * as Animatable from "react-native-animatable";
 import { AuthContext } from "../Context/AuthContext";
-import { useTranslation } from "react-multi-lang";
+import { getLanguage, setLanguage, useTranslation } from "react-multi-lang";
+
+import {
+  Menu,
+  MenuOptions,
+  MenuOption,
+  MenuTrigger,
+} from "react-native-popup-menu";
+import LoginStyle from "../Styles/LoginScreen.scss";
 
 const ContactUs = () => {
   const { widthScreen, heightScreen, dimension } = useContext(AuthContext);
@@ -28,17 +39,25 @@ const ContactUs = () => {
 
   const t = useTranslation();
 
+  const ChangeKh = () => {
+    setLanguage("kh");
+  };
+
+  const ChangeEng = () => {
+    setLanguage("en");
+  };
+
   const [conversations, setConversation] = useState([
     {
       index: 1,
       question: "How do I forget a password?",
-      answer: "$answer1",
+      answer: "You have to contact us",
       show: false,
     },
     {
       index: 2,
       question: "How to create my account?",
-      answer: "Email",
+      answer: "You have to contact us",
       show: false,
     },
   ]);
@@ -81,21 +100,120 @@ const ContactUs = () => {
         style={ContactUsScreenStyle.ContactUsContainer}
       >
         <View style={ContactUsScreenStyle.ContactUsTopContainer}>
-          <Text style={ContactUsScreenStyle.ContactUsTopTitleContent}>
-            {t("FAQ")}
-          </Text>
-          {location.pathname === "/forget" ? (
-            <TouchableOpacity
-              style={ContactUsScreenStyle.ContactUsBackButton}
-              onPress={() => navigate(-1)}
-            >
-              <Image
-                source={require("../assets/Images/left-arrow3.png")}
-                resizeMode="contain"
-                style={ContactUsScreenStyle.ContactUsBackButtonImage}
-              />
-            </TouchableOpacity>
-          ) : null}
+          <View style={ContactUsScreenStyle.ContactUsBackTitleContain}>
+            <Text style={ContactUsScreenStyle.ContactUsTopTitleContent}>
+              {t("FAQ")}
+            </Text>
+          </View>
+          <View style={ContactUsScreenStyle.ContactUsBackButtonsContain}>
+            {location.pathname === "/forget" ? (
+              <TouchableOpacity
+                style={ContactUsScreenStyle.ContactUsBackButton}
+                onPress={() => navigate(-1)}
+              >
+                <Image
+                  source={require("../assets/Images/left-arrow3.png")}
+                  resizeMode="contain"
+                  style={ContactUsScreenStyle.ContactUsBackButtonImage}
+                />
+              </TouchableOpacity>
+            ) : null}
+            {location.pathname === "/forget" ? (
+              <Menu>
+                <MenuTrigger>
+                  <View
+                    style={ContactUsScreenStyle.ContactUsBackChangeLangaugeLogo}
+                  >
+                    {getLanguage() === "kh" ? (
+                      <Animatable.Image
+                        source={require("../assets/Images/Cambodia-Flag.png")}
+                        style={{
+                          width:
+                            dimension === "sm"
+                              ? 20
+                              : dimension === "lg"
+                              ? 45
+                              : 30,
+                          height:
+                            dimension === "sm"
+                              ? 20
+                              : dimension === "lg"
+                              ? 45
+                              : 30,
+                        }}
+                        animation="fadeInDown"
+                      />
+                    ) : (
+                      <Animatable.Image
+                        source={require("../assets/Images/English-Flag.png")}
+                        style={{
+                          width: dimension === "sm" ? 20 : 30,
+                          height: dimension === "sm" ? 20 : 30,
+                        }}
+                        animation="fadeInDown"
+                      />
+                    )}
+                  </View>
+                </MenuTrigger>
+                <MenuOptions>
+                  <MenuOption onSelect={() => ChangeEng()}>
+                    <View
+                      style={{
+                        flexDirection: "row",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                        padding: dimension === "sm" ? 6 : 10,
+                      }}
+                    >
+                      <Text
+                        style={[
+                          LoginStyle.headerTitle3,
+                          { fontSize: dimension === "sm" ? 12 : 16 },
+                        ]}
+                      >
+                        {t("English")}
+                      </Text>
+                      <Image
+                        source={require("../assets/Images/English-Flag.png")}
+                        style={{
+                          width: dimension === "sm" ? 20 : 30,
+                          height: dimension === "sm" ? 20 : 30,
+                        }}
+                      />
+                    </View>
+                  </MenuOption>
+                  <MenuOption onSelect={() => ChangeKh()}>
+                    <View
+                      style={{
+                        flexDirection: "row",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                        padding: dimension === "sm" ? 6 : 10,
+                        borderTopWidth: 1,
+                        borderColor: "#dcdcdc",
+                      }}
+                    >
+                      <Text
+                        style={[
+                          LoginStyle.headerTitle3,
+                          { fontSize: dimension === "sm" ? 12 : 16 },
+                        ]}
+                      >
+                        {t("Khmer")}
+                      </Text>
+                      <Image
+                        source={require("../assets/Images/Cambodia-Flag.png")}
+                        style={{
+                          width: dimension === "sm" ? 20 : 30,
+                          height: dimension === "sm" ? 20 : 30,
+                        }}
+                      />
+                    </View>
+                  </MenuOption>
+                </MenuOptions>
+              </Menu>
+            ) : null}
+          </View>
         </View>
 
         <View style={ContactUsScreenStyle.ContactUsBodyContainer}>
@@ -165,7 +283,7 @@ const ContactUs = () => {
                           fontFamily: "Kantumruy-Regular",
                         }}
                       >
-                        {t(`${conversation.answer}`)}
+                        {t("You have to contact us")}
                       </Text>
                     </View>
                     <Image

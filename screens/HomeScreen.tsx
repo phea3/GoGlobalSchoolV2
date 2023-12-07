@@ -719,7 +719,9 @@ const HomeScreen = () => {
                         {event?.title}
                       </Text>
                       <Text style={HomeStyle.homeUpcomingBody}>
-                        {moment(event?.from).format("DD-MM-YYYY")}
+                        {moment(event?.from)
+                          .locale(getLanguage())
+                          .format("DD-MM-YYYY")}
                       </Text>
                     </View>
                   </View>

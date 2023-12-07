@@ -2,8 +2,10 @@ import { View, Text, Image } from "react-native";
 import React from "react";
 import NotFoundStyle from "../Styles/NotFoundScreen.scss";
 import { Link } from "react-router-native";
+import { useTranslation } from "react-multi-lang";
 
 const NotFoundScreen = () => {
+  const t = useTranslation();
   return (
     <View style={NotFoundStyle.containerNotFound}>
       <Image
@@ -26,7 +28,7 @@ const NotFoundScreen = () => {
             fontWeight: "bold",
           }}
         >
-          Go back
+          {t("Go back")}
         </Text>
       </Link>
     </View>

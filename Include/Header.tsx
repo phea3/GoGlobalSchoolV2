@@ -28,7 +28,6 @@ import { AuthContext } from "../Context/AuthContext";
 
 setTranslations({ en, kh });
 setDefaultLanguage("kh");
-setDefaultTranslations({ kh });
 
 export default function Header() {
   //
@@ -40,6 +39,10 @@ export default function Header() {
 
   const ChangeEng = () => {
     setLanguage("en");
+  };
+
+  const ChangeKh = () => {
+    setLanguage("kh");
   };
 
   const navigate = useNavigate();
@@ -57,10 +60,6 @@ export default function Header() {
       });
     });
   }, [location.pathname]);
-
-  const ChangeKh = () => {
-    setLanguage("kh");
-  };
 
   return (
     <View style={HeaderStyle.containerHeaderVertical}>

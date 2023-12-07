@@ -15,6 +15,7 @@ import { RESET_PASSWORD } from "../graphql/ResetPassword";
 import { useMutation } from "@apollo/client";
 import { AuthContext } from "../Context/AuthContext";
 import { useContext } from "react";
+import { useTranslation } from "react-multi-lang";
 
 // Declare password strength type
 type PwdStrength = "Weak" | "Medium" | "Strong";
@@ -96,7 +97,7 @@ export default function ResetPasswordScreen() {
   };
 
   const [isKeyboardVisible, setKeyboardVisible] = useState(false);
-
+  const t = useTranslation();
 
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener(
@@ -125,125 +126,135 @@ export default function ResetPasswordScreen() {
       resizeMode="repeat"
       style={SettingStyle.SettingContainer}
     >
-      <ScrollView style={{width: "100%", height: '100%'}} contentContainerStyle={{ alignItems: "center"}}>
-      <View style={isKeyboardVisible ? SettingStyle.SettingBodyContainerKeyboardShow : SettingStyle.SettingBodyContainer}>
-        <View style={SettingStyle.SettingBodyContentContainer}>
-          {isKeyboardVisible ? 
-           null :
-            <View style={SettingStyle.ResetpasswordTopContainer}>
-            <Text style={SettingStyle.ResetPasswordLabelTextStyle}>Gmail</Text>
-            <Text style={SettingStyle.ResetPasswordGmailTextStyle}>
-              {gmail}
-            </Text>
-         </View>  }
-         
-          <View style={SettingStyle.ResetpasswordBodyContainer}>
-            <Text style={SettingStyle.ResetPasswordLabelTextStyle}>
-              New Password
-            </Text>
-            <View style={SettingStyle.ResetPasswordInputTextStyle}>
-              <TextInput
-                value={password}
-                placeholder="New Password"
-                onChangeText={(e) => setPassword(e)}
-                secureTextEntry={view}
-                keyboardType="default"
-                style={{ flex: 1 }}
-              />
-              <Text style={{ padding: 2 }}>{pwdStrength}</Text>
-              {view === true ? (
-                <TouchableOpacity onPress={() => setView(!view)}>
-                  <Image
-                    source={require("../assets/Images/view.png")}
-                    resizeMode="contain"
-                    style={{ width: 20, height: 20 }}
-                  />
-                </TouchableOpacity>
-              ) : (
-                <TouchableOpacity onPress={() => setView(!view)}>
-                  <Image
-                    source={require("../assets/Images/hide.png")}
-                    resizeMode="cover"
-                    style={{ width: 20, height: 20 }}
-                  />
-                </TouchableOpacity>
-              )}
-            </View>
-            {password ? (
-              <Text
-                style={{
-                  color:
-                    pwdStrength === "Weak"
-                      ? "orange"
-                      : pwdStrength === "Medium"
-                      ? "orange"
-                      : pwdStrength === "Strong"
-                      ? "green"
-                      : "",
-                  padding: 4,
-                }}
-              >
-                {messagePwd}
-              </Text>
-            ) : null}
-
-            <Text style={SettingStyle.ResetPasswordLabelTextStyle}>
-              Repeat Password
-            </Text>
-            <View style={SettingStyle.ResetPasswordInputTextStyle}>
-              <TextInput
-                value={repeatPassword}
-                placeholder="Repeat Password"
-                onChangeText={(e) => setRepeatPassword(e)}
-                secureTextEntry={repeatView}
-                keyboardType="default"
-                style={{ flex: 1 }}
-              />
-              {repeatView === true ? (
-                <TouchableOpacity onPress={() => setRepeatView(!repeatView)}>
-                  <Image
-                    source={require("../assets/Images/view.png")}
-                    resizeMode="contain"
-                    style={{ width: 20, height: 20 }}
-                  />
-                </TouchableOpacity>
-              ) : (
-                <TouchableOpacity onPress={() => setRepeatView(!repeatView)}>
-                  <Image
-                    source={require("../assets/Images/hide.png")}
-                    resizeMode="cover"
-                    style={{ width: 20, height: 20 }}
-                  />
-                </TouchableOpacity>
-              )}
-            </View>
-            {password && repeatPassword ? (
-              <Text
-                style={{
-                  color: pwdRepeat ? "green" : "red",
-                  padding: 4,
-                }}
-              >
-                {pwdRepeat ? "Valid Password" : "Invalid Password"}
-              </Text>
-            ) : null}
-            {/* <View style={{ flex: 1 }} /> */}
-            <View style={SettingStyle.ResetPasswordButtonFooterContainer}>
-              <TouchableOpacity
-                style={SettingStyle.ResetPasswordButtonFooter}
-                disabled={isButtonDisabled || loading ? true : false}
-                onPress={handleResetPassword}
-              >
-                <Text style={{ color: "white", fontWeight: "500" }}>
-                  {loading ? "...Loading" : "Reset"}
+      <ScrollView
+        style={{ width: "100%", height: "100%" }}
+        contentContainerStyle={{ alignItems: "center" }}
+      >
+        <View
+          style={
+            isKeyboardVisible
+              ? SettingStyle.SettingBodyContainerKeyboardShow
+              : SettingStyle.SettingBodyContainer
+          }
+        >
+          <View style={SettingStyle.SettingBodyContentContainer}>
+            {isKeyboardVisible ? null : (
+              <View style={SettingStyle.ResetpasswordTopContainer}>
+                <Text style={SettingStyle.ResetPasswordLabelTextStyle}>
+                  {t("Gmail")}
                 </Text>
-              </TouchableOpacity>
+                <Text style={SettingStyle.ResetPasswordGmailTextStyle}>
+                  {gmail}
+                </Text>
+              </View>
+            )}
+
+            <View style={SettingStyle.ResetpasswordBodyContainer}>
+              <Text style={SettingStyle.ResetPasswordLabelTextStyle}>
+                {t("New Password")}
+              </Text>
+              <View style={SettingStyle.ResetPasswordInputTextStyle}>
+                <TextInput
+                  value={password}
+                  placeholder={t("New Password")}
+                  onChangeText={(e) => setPassword(e)}
+                  secureTextEntry={view}
+                  keyboardType="default"
+                  style={{ flex: 1 }}
+                />
+                <Text style={{ padding: 2 }}>{t(pwdStrength)}</Text>
+                {view === true ? (
+                  <TouchableOpacity onPress={() => setView(!view)}>
+                    <Image
+                      source={require("../assets/Images/view.png")}
+                      resizeMode="contain"
+                      style={{ width: 20, height: 20 }}
+                    />
+                  </TouchableOpacity>
+                ) : (
+                  <TouchableOpacity onPress={() => setView(!view)}>
+                    <Image
+                      source={require("../assets/Images/hide.png")}
+                      resizeMode="cover"
+                      style={{ width: 20, height: 20 }}
+                    />
+                  </TouchableOpacity>
+                )}
+              </View>
+              {password ? (
+                <Text
+                  style={{
+                    color:
+                      pwdStrength === "Weak"
+                        ? "orange"
+                        : pwdStrength === "Medium"
+                        ? "orange"
+                        : pwdStrength === "Strong"
+                        ? "green"
+                        : "",
+                    padding: 4,
+                  }}
+                >
+                  {messagePwd}
+                </Text>
+              ) : null}
+
+              <Text style={SettingStyle.ResetPasswordLabelTextStyle}>
+                {t("Repeat Password")}
+              </Text>
+              <View style={SettingStyle.ResetPasswordInputTextStyle}>
+                <TextInput
+                  value={repeatPassword}
+                  placeholder={t("Repeat Password")}
+                  onChangeText={(e) => setRepeatPassword(e)}
+                  secureTextEntry={repeatView}
+                  keyboardType="default"
+                  style={{ flex: 1 }}
+                />
+                {repeatView === true ? (
+                  <TouchableOpacity onPress={() => setRepeatView(!repeatView)}>
+                    <Image
+                      source={require("../assets/Images/view.png")}
+                      resizeMode="contain"
+                      style={{ width: 20, height: 20 }}
+                    />
+                  </TouchableOpacity>
+                ) : (
+                  <TouchableOpacity onPress={() => setRepeatView(!repeatView)}>
+                    <Image
+                      source={require("../assets/Images/hide.png")}
+                      resizeMode="cover"
+                      style={{ width: 20, height: 20 }}
+                    />
+                  </TouchableOpacity>
+                )}
+              </View>
+              {password && repeatPassword ? (
+                <Text
+                  style={{
+                    color: pwdRepeat ? "green" : "red",
+                    padding: 4,
+                  }}
+                >
+                  {pwdRepeat ? t("Valid Password") : t("Invalid Password")}
+                </Text>
+              ) : null}
+              {/* <View style={{ flex: 1 }} /> */}
+              <View style={SettingStyle.ResetPasswordButtonFooterContainer}>
+                <TouchableOpacity
+                  style={SettingStyle.ResetPasswordButtonFooter}
+                  disabled={isButtonDisabled || loading ? true : false}
+                  onPress={handleResetPassword}
+                >
+                  <Text style={{ color: "white", fontWeight: "500" }}>
+                    {loading ? t("...Loading") : t("Reset")}
+                  </Text>
+                </TouchableOpacity>
+              </View>
             </View>
           </View>
         </View>
-      </View>
       </ScrollView>
-     
     </ImageBackground>
   );
 }

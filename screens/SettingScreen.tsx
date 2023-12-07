@@ -7,12 +7,13 @@ import {
   View,
 } from "react-native";
 import SettingStyle from "../Styles/SettingScreen.scss";
-import { getLanguage } from "react-multi-lang";
+import { getLanguage, useTranslation } from "react-multi-lang";
 import { useState } from "react";
 import ModalSetting from "../components/setting/ModalSetting";
 import { useLocation, useNavigate } from "react-router-native";
 
 export default function SettingScreen() {
+  const t = useTranslation();
   const [isVisible, setIsVisible] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
@@ -44,8 +45,10 @@ export default function SettingScreen() {
                 style={SettingStyle.SettingBodyCardContentContainer}
                 onPress={handleOpen}
               >
-                <Text>Change Language</Text>
-                <Text>{getLanguage() === "kh" ? "Khmer" : "English"}</Text>
+                <Text>{t("Change Language")}</Text>
+                <Text>
+                  {getLanguage() === "kh" ? t("Khmer") : t("English")}
+                </Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={SettingStyle.SettingBodyCardContentContainer}
@@ -53,7 +56,7 @@ export default function SettingScreen() {
                   navigate("/resetpassword", { state: gmail });
                 }}
               >
-                <Text>Change Password</Text>
+                <Text>{t("Change Password")}</Text>
                 <Image
                   source={require("../assets/Images/next.png")}
                   style={SettingStyle.SettingNextIconStyle}

@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import SocialMediaStyle from "../Styles/SocialMediaScreen.scss";
 import * as WebBrowser from "expo-web-browser";
+import { useTranslation } from "react-multi-lang";
 
 const openWebsite = async (url: string) => {
   const result = await WebBrowser.openBrowserAsync(url);
@@ -49,6 +50,7 @@ const socials = [
 ];
 
 export default function SocialMediaScreen() {
+  const t = useTranslation();
   const openApp = async (url: string) => {
     const canOpen = await Linking.canOpenURL(url);
 
@@ -70,7 +72,7 @@ export default function SocialMediaScreen() {
     >
       <View style={SocialMediaStyle.SocialMediaTopContainer}>
         <Text style={SocialMediaStyle.SocialMediaTopTitleContent}>
-          Our Social Media
+          {t("Our Social Media")}
         </Text>
       </View>
       <View style={SocialMediaStyle.SocialMediaBodyContainer}>

@@ -15,11 +15,10 @@
 }
 
 .ContactUsTopTitleContent {
-  width: 100%;
   text-align: center;
+  justify-content: center;
   font-weight: 500;
   font-size: 20px;
-  position: absolute;
 }
 
 .ContactUsBackButton {
@@ -31,6 +30,27 @@
   align-items: center;
 }
 
+.ContactUsBackButtonsContain {
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.ContactUsBackTitleContain {
+  width: 100%;
+  position: absolute;
+  height: 40px;
+  justify-content: center;
+}
+
+.ContactUsBackChangeLangaugeLogo {
+  width: 40px;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+}
 .ContactUsBackButtonImage {
   width: 20px;
   height: 20px;

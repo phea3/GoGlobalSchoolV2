@@ -25,6 +25,7 @@ import ImageView from "react-native-image-viewing";
 import * as WebBrowser from "expo-web-browser";
 import * as Sharing from "expo-sharing";
 import * as FileSystem from "expo-file-system";
+import { useTranslation } from "react-multi-lang";
 
 const Infomations = [
   {
@@ -73,7 +74,7 @@ export default function ProfileScreen() {
   const itunesItemId = "id1641628042";
   const myandroidappid = "com.goglobalschool.schoolmobile";
   const [visible, setIsVisible] = useState(false);
-
+  const t = useTranslation();
   const { data, refetch } = useQuery(GET_USERPROFILE, {
     onCompleted: ({ getUserProfile }) => {
       // console.log("getUserProfile", getUserProfile);
@@ -222,14 +223,16 @@ export default function ProfileScreen() {
               <ImageView
                 images={[
                   data?.getUserProfile?.profileImg
-                    .toLowerCase()
-                    .includes("https://storage-server.go-globalschool.com/")
-                    ? { uri: data?.getUserProfile?.profileImg }
-                    : {
-                        uri:
-                          "https://storage.go-globalschool.com/api" +
-                          data?.getUserProfile?.profileImg,
-                      },
+                    ? data?.getUserProfile?.profileImg
+                        .toLowerCase()
+                        .includes("https://storage-server.go-globalschool.com/")
+                      ? { uri: data?.getUserProfile?.profileImg }
+                      : {
+                          uri:
+                            "https://storage.go-globalschool.com/api" +
+                            data?.getUserProfile?.profileImg,
+                        }
+                    : require("../assets/Images/user.png"),
                 ]}
                 imageIndex={0}
                 visible={visible}
@@ -351,7 +354,9 @@ export default function ProfileScreen() {
             alignItems: "center",
           }}
         >
-          <Text style={{ color: "#9aa3a6" }}>Current version {version}</Text>
+          <Text style={{ color: "#9aa3a6" }}>
+            {t("Current version")} {version}
+          </Text>
         </View>
         <Text
           style={{

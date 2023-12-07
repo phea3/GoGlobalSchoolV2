@@ -21,7 +21,7 @@ import Animated, {
   withSpring,
   withTiming,
 } from "react-native-reanimated";
-import { useTranslation } from "react-multi-lang";
+import { getLanguage, useTranslation } from "react-multi-lang";
 
 export default function ModalTakeLeave({
   studentId,
@@ -41,6 +41,7 @@ export default function ModalTakeLeave({
   const [to, setTo] = useState(new Date());
   const [reason, setReason] = useState("");
   const [disappear, setDisappear] = useState(false);
+
   const t = useTranslation();
 
   const showDatePicker = () => {
@@ -89,8 +90,8 @@ export default function ModalTakeLeave({
     const newValue = {
       from:
         morning || afternoon
-          ? moment(date).format("YYYY-MM-DD")
-          : moment(from).format("YYYY-MM-DD"),
+          ? moment(date).locale("en").format("YYYY-MM-DD")
+          : moment(from).locale("en").format("YYYY-MM-DD"),
       reason: reason,
       requestType: morning
         ? "morning"
@@ -102,8 +103,8 @@ export default function ModalTakeLeave({
       studentId: studentId,
       to:
         morning || afternoon
-          ? moment(date).format("YYYY-MM-DD")
-          : moment(to).format("YYYY-MM-DD"),
+          ? moment(date).locale("en").format("YYYY-MM-DD")
+          : moment(to).locale("en").format("YYYY-MM-DD"),
     };
 
     // console.log("newValue::::", newValue);
@@ -343,7 +344,9 @@ export default function ModalTakeLeave({
                   style={HomeStyle.homeSelectLeaveOptionPickupDate}
                   onPress={showDatePicker}
                 >
-                  <Text>{moment(date).format("DD/M/YYYY")}</Text>
+                  <Text>
+                    {moment(date).locale(getLanguage()).format("DD/M/YYYY")}
+                  </Text>
                   <Image
                     source={require("../../assets/Images/calendar-clock.png")}
                     style={{ width: 15, height: 15 }}

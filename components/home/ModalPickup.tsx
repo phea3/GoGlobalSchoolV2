@@ -33,7 +33,7 @@ export default function ModalPickup({
         studentId: studentId,
       },
       onCompleted: ({}) => {
-        console.log(trackingdata);
+        // console.log(trackingdata);
       },
       onError: (error) => {},
     }
@@ -57,9 +57,10 @@ export default function ModalPickup({
   }, [studentId]);
 
   //============= FUNCTION PICK UP ==============
-  const [pickingUpStudent] = useMutation(PICK_UPSTUDENT);
+  const [pickingUpStudent, { data }] = useMutation(PICK_UPSTUDENT);
 
   const PickStudentHandler = () => {
+    console.log(studentId);
     pickingUpStudent({
       variables: {
         studentId: studentId,
@@ -71,6 +72,14 @@ export default function ModalPickup({
       onError: (error) => {},
     });
   };
+
+  // useEffect(() => {
+  //   console.log("data picking", data?.pickingUpStudent?.status);
+  //   console.log(
+  //     "trackingStudentInPickUp",
+  //     trackingdata?.trackingStudentInPickUp
+  //   );
+  // });
 
   return (
     <>
@@ -174,7 +183,9 @@ export default function ModalPickup({
               </>
             ) : null}
 
-            {trackingdata?.trackingStudentInPickUp === undefined ? (
+            {trackingdata?.trackingStudentInPickUp === undefined ||
+            (data?.pickingUpStudent?.status === false &&
+              trackingdata?.trackingStudentInPickUp === "inClass") ? (
               <>
                 <Image
                   source={require("../../assets/Images/cross-outline.gif")}
@@ -183,7 +194,9 @@ export default function ModalPickup({
                 <Text style={HomeStyle.HomePickupStudentText}>{t("Fail")}</Text>
               </>
             ) : null}
-            {trackingdata?.trackingStudentInPickUp === "inClass" ? (
+
+            {trackingdata?.trackingStudentInPickUp === "inClass" &&
+            data?.pickingUpStudent?.status ? (
               <>
                 <Image
                   source={require("../../assets/Images/_.gif")}

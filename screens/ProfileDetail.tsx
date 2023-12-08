@@ -152,10 +152,11 @@ export default function ProfileDetail() {
               useData?.getUserProfile?.firstName}
           </Text>
           <Text style={ProfileDetailStyle.ProfileDetailCutomerTypeText}>
-            Parent Type :{" "}
+            {/* Parent Type :{" "}
             {useData?.getUserProfile?.customerType
               ? useData?.getUserProfile?.customerType
-              : "Simple"}
+              : "Simple"} */}
+            {/* {useData?.getUserProfile?.englishName} */}
           </Text>
         </View>
         <TouchableOpacity

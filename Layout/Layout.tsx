@@ -45,7 +45,7 @@ const Layout = ({ expoPushToken }: any) => {
   //============ GET MOBILE USER LOGIN =============
   const { data, refetch, loading } = useQuery(GET_MOBILEUSERLOGIN, {
     variables: {
-      token: expoPushToken,
+      token: expoPushToken?.data ? expoPushToken?.data : "",
     },
     pollInterval: 2000,
     onCompleted: ({ getMobileUserLogin }) => {
@@ -73,7 +73,7 @@ const Layout = ({ expoPushToken }: any) => {
         color.value = withTiming("red");
         isConnection.value = withTiming("no");
       }
-
+      console.log(error?.message);
       if (error?.message === "Not Authorized") {
         Alert.alert("Opp! Your session has been expired.", "", [
           {

@@ -9,7 +9,7 @@ import { Platform } from "react-native";
 export interface PushNotificationState {
   expoPushToken?: Notifications.ExpoPushToken;
   notification?: Notifications.Notification;
-  notificationResponse?: Notifications.NotificationResponse
+  notificationResponse?: Notifications.NotificationResponse;
 }
 
 export const usePushNotifications = (): PushNotificationState => {
@@ -30,9 +30,8 @@ export const usePushNotifications = (): PushNotificationState => {
   >();
 
   const [notificationResponse, setNotificationResponse] = useState<
-  Notifications.NotificationResponse | undefined
->()  
-
+    Notifications.NotificationResponse | undefined
+  >();
 
   const notificationListener = useRef<Notifications.Subscription>();
   const responseListener = useRef<Notifications.Subscription>();
@@ -84,7 +83,7 @@ export const usePushNotifications = (): PushNotificationState => {
 
     responseListener.current =
       Notifications.addNotificationResponseReceivedListener((response) => {
-        setNotificationResponse(response)
+        setNotificationResponse(response);
       });
 
     return () => {

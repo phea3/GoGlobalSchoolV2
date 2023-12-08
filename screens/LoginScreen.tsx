@@ -452,29 +452,29 @@ const LoginScreen = () => {
             </Text>
           </TouchableOpacity>
         </View>
-        {/* {isKeyboardVisible ? null : ( */}
-        <View
-          style={
-            dimension === "sm"
-              ? LoginStyle.loginFooterImgContaintersm
-              : dimension === "lg"
-              ? LoginStyle.loginFooterImgContainterlg
-              : LoginStyle.loginFooterImgContainter
-          }
-        >
-          <Image
-            source={require("../assets/Images/bottomImage.png")}
-            resizeMode="contain"
+        {isKeyboardVisible ? null : (
+          <View
             style={
               dimension === "sm"
-                ? LoginStyle.loginFooterImgsm
+                ? LoginStyle.loginFooterImgContaintersm
                 : dimension === "lg"
-                ? LoginStyle.loginFooterImglg
-                : LoginStyle.loginFooterImg
+                ? LoginStyle.loginFooterImgContainterlg
+                : LoginStyle.loginFooterImgContainter
             }
-          />
-        </View>
-        {/* )} */}
+          >
+            <Image
+              source={require("../assets/Images/bottomImage.png")}
+              resizeMode="contain"
+              style={
+                dimension === "sm"
+                  ? LoginStyle.loginFooterImgsm
+                  : dimension === "lg"
+                  ? LoginStyle.loginFooterImglg
+                  : LoginStyle.loginFooterImg
+              }
+            />
+          </View>
+        )}
       </ImageBackground>
     </View>
   );

@@ -1,17 +1,9 @@
-import {
-  View,
-  Text,
-  SafeAreaView,
-  TouchableOpacity,
-  Image,
-  Alert,
-} from "react-native";
-import React, { useCallback, useContext, useEffect, useState } from "react";
+import { View, SafeAreaView, Alert } from "react-native";
+import React, { useCallback, useEffect, useState } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-native";
 import Footer from "../Include/Footer";
 import LayoutStyle from "../Styles/ScreenContainer.scss";
 import Header from "../Include/Header";
-import { GET_MOBILEUSERLOGIN } from "../graphql/GetMobileUserLogin";
 import { useQuery } from "@apollo/client";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import useLoginUser from "../Hook/useLoginUser";
@@ -24,10 +16,12 @@ import Animated, {
 } from "react-native-reanimated";
 import Goglobalauth from "../Auth/Goglobalauth";
 import serviceAccount from "../Auth/keyService.json";
+import { SENDMOBILETOKEN } from "../graphql/GetMobileUserLoginToken";
 
 const auth = new Goglobalauth();
 
 const Layout = ({ expoPushToken }: any) => {
+  //
   const { dispatch, REDUCER_ACTIONS } = useLoginUser();
   const navigate = useNavigate();
   const location = useLocation();
@@ -43,21 +37,18 @@ const Layout = ({ expoPushToken }: any) => {
   }, []);
 
   //============ GET MOBILE USER LOGIN =============
-  const { data, refetch, loading } = useQuery(GET_MOBILEUSERLOGIN, {
+  const { data, refetch, loading } = useQuery(SENDMOBILETOKEN, {
     variables: {
-      token: expoPushToken?.data ? expoPushToken?.data : "",
+      token: expoPushToken !== undefined ? expoPushToken?.data : "",
     },
     pollInterval: 2000,
     onCompleted: ({ getMobileUserLogin }) => {
       //======== SET LOCAL STORAGE =========
-      onStateChange(getMobileUserLogin);
+      if (getMobileUserLogin) {
+        onStateChange(getMobileUserLogin);
+      }
       //========= Set Online Mode =========
       if (connection === true) {
-        auth.createApp(
-          serviceAccount.app_id,
-          serviceAccount.key,
-          serviceAccount.url
-        );
         offheight.value = withTiming(10);
         color.value = withTiming("#4CBB17");
         isConnection.value = withTiming("yes");
@@ -73,7 +64,6 @@ const Layout = ({ expoPushToken }: any) => {
         color.value = withTiming("red");
         isConnection.value = withTiming("no");
       }
-      console.log(error?.message);
       if (error?.message === "Not Authorized") {
         Alert.alert("Opp! Your session has been expired.", "", [
           {

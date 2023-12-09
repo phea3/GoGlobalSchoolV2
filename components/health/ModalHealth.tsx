@@ -77,7 +77,6 @@ export default function ModalHealth({
               <TouchableOpacity
                 style={[
                   HomeStyle.homeModalStyle1,
-                  ,
                   {
                     backgroundColor: "#000",
                     opacity: 0.2,

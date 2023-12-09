@@ -28,7 +28,7 @@ export default function ScheduleScreen() {
   const { widthScreen, heightScreen } = useContext(AuthContext);
   const [classId, setClassId] = useState("");
   const [day, setDay] = useState(
-    moment(new Date()).locale("en").format("dddd").toLowerCase()
+    moment(new Date()).locale("en").format("dddd")?.toLowerCase()
   );
 
   const { data: ActiveAcademicYearData, refetch: ActiveAcademicYearRefetch } =

@@ -61,8 +61,8 @@ export default function NotificationScreen() {
               source={
                 noti?.notifBy
                   ? noti?.notifBy?.image
-                      .toLowerCase()
-                      .includes("https://storage-server.go-globalschool.com/")
+                      ?.toLowerCase()
+                      ?.includes("https://storage-server.go-globalschool.com/")
                     ? { uri: noti?.notifBy?.image }
                     : {
                         uri: `https://storage.go-globalschool.com/api${noti?.notifBy?.image}`,

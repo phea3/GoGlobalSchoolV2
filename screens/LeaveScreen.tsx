@@ -249,12 +249,14 @@ export default function LeaveScreen() {
                     source={
                       stuImg != "" &&
                       stuImg
-                        .toLowerCase()
-                        .includes("https://storage-server.go-globalschool.com/")
+                        ?.toLowerCase()
+                        ?.includes(
+                          "https://storage-server.go-globalschool.com/"
+                        )
                         ? { uri: stuImg }
                         : stuInfo?.profileImg
-                            .toLowerCase()
-                            .includes(
+                            ?.toLowerCase()
+                            ?.includes(
                               "https://storage-server.go-globalschool.com/"
                             )
                         ? { uri: stuInfo?.profileImg }
@@ -304,8 +306,8 @@ export default function LeaveScreen() {
                     source={
                       item?.profileImg
                         ? item?.profileImg
-                            .toLowerCase()
-                            .includes(
+                            ?.toLowerCase()
+                            ?.includes(
                               "https://storage-server.go-globalschool.com/"
                             )
                           ? { uri: item?.profileImg }

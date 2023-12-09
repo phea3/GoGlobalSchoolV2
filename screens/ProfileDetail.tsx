@@ -121,8 +121,8 @@ export default function ProfileDetail() {
           source={
             useData?.getUserProfile?.profileImg
               ? useData?.getUserProfile?.profileImg
-                  .toLowerCase()
-                  .includes("https://storage-server.go-globalschool.com/")
+                  ?.toLowerCase()
+                  ?.includes("https://storage-server.go-globalschool.com/")
                 ? { uri: useData?.getUserProfile?.profileImg }
                 : {
                     uri:
@@ -172,8 +172,8 @@ export default function ProfileDetail() {
             images={[
               useData?.getUserProfile?.profileImg
                 ? useData?.getUserProfile?.profileImg
-                    .toLowerCase()
-                    .includes("https://storage-server.go-globalschool.com/")
+                    ?.toLowerCase()
+                    ?.includes("https://storage-server.go-globalschool.com/")
                   ? { uri: useData?.getUserProfile?.profileImg }
                   : {
                       uri:

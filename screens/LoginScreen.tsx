@@ -20,7 +20,6 @@ import useUser from "../Hook/useLoginUser";
 import { StyleController } from "../styleProvider";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useQuery } from "@apollo/client";
-import { GET_MOBILEUSERLOGIN } from "../graphql/GetMobileUserLogin";
 import serviceAccount from "../Auth/keyService.json";
 import KeyboardDismissableArea from "../Function/KeyboardDismissableArea";
 import { getLanguage, setLanguage, useTranslation } from "react-multi-lang";
@@ -41,17 +40,6 @@ const LoginScreen = () => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const t = useTranslation();
-  //======== SET LOCAL STORAGE =========
-  const onStateChange = useCallback((state: any) => {
-    AsyncStorage.setItem("@mobileUserLogin", JSON.stringify(state));
-  }, []);
-
-  //============ GET MOBILE USER LOGIN =============
-  const { refetch } = useQuery(GET_MOBILEUSERLOGIN, {
-    onCompleted: ({ getMobileUserLogin }) => {
-      onStateChange(getMobileUserLogin);
-    },
-  });
 
   const ChangeKh = () => {
     setLanguage("kh");
@@ -75,6 +63,7 @@ const LoginScreen = () => {
     }
     getAccount();
   }, []);
+
   //============== CHECK NAVIGATE ===============
   const handleNavigation = async () => {
     await auth.createApp(
@@ -82,6 +71,7 @@ const LoginScreen = () => {
       serviceAccount.key,
       serviceAccount.url
     );
+
     await auth.login(email, password).then((result) => {
       // console.log("result", result?.token);
       if (result?.status === true) {
@@ -90,8 +80,6 @@ const LoginScreen = () => {
         AsyncStorage.setItem("@userUid", result?.uid);
         AsyncStorage.setItem("@gmail", email);
         AsyncStorage.setItem("@password", password);
-
-        refetch();
 
         setTimeout(() => {
           navigate("/home");
@@ -103,7 +91,7 @@ const LoginScreen = () => {
               uid: result?.uid ? result?.uid : "",
             },
           });
-        }, 600);
+        }, 1000);
       } else {
         Alert.alert("Message", result?.message);
       }

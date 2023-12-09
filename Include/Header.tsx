@@ -128,15 +128,9 @@ export default function Header() {
                 <Image
                   source={
                     mobileUserLogin?.profileImg
-                      ? mobileUserLogin?.profileImg
-                          .toLowerCase()
-                          .includes(
-                            "https://storage-server.go-globalschool.com/"
-                          )
-                        ? { uri: mobileUserLogin?.profileImg }
-                        : {
-                            uri: `https://storage.go-globalschool.com/api${mobileUserLogin?.profileImg}`,
-                          }
+                      ? {
+                          uri: `https://storage.go-globalschool.com/api${mobileUserLogin?.profileImg}`,
+                        }
                       : require("../assets/Images/user.png")
                   }
                   style={[

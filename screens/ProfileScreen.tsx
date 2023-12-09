@@ -224,8 +224,10 @@ export default function ProfileScreen() {
                 images={[
                   data?.getUserProfile?.profileImg
                     ? data?.getUserProfile?.profileImg
-                        .toLowerCase()
-                        .includes("https://storage-server.go-globalschool.com/")
+                        ?.toLowerCase()
+                        ?.includes(
+                          "https://storage-server.go-globalschool.com/"
+                        )
                       ? { uri: data?.getUserProfile?.profileImg }
                       : {
                           uri:
@@ -244,8 +246,8 @@ export default function ProfileScreen() {
               source={
                 data?.getUserProfile?.profileImg
                   ? data?.getUserProfile?.profileImg
-                      .toLowerCase()
-                      .includes("https://storage-server.go-globalschool.com/")
+                      ?.toLowerCase()
+                      ?.includes("https://storage-server.go-globalschool.com/")
                     ? { uri: data?.getUserProfile?.profileImg }
                     : {
                         uri:
@@ -276,12 +278,16 @@ export default function ProfileScreen() {
             animation={"bounce"}
           >
             <Text style={ProfileStyle.ProfileTopTitleName}>
-              {data?.getUserProfile?.lastName +
-                " " +
-                data?.getUserProfile?.firstName}
+              {data?.getUserProfile?.lastName
+                ? data?.getUserProfile?.lastName +
+                  " " +
+                  data?.getUserProfile?.firstName
+                : "Full Name"}
             </Text>
             <Text style={ProfileStyle.ProfileTopBodytext}>
-              {data?.getUserProfile?.email}
+              {data?.getUserProfile?.email
+                ? data?.getUserProfile?.email
+                : "Example@domain.com"}
             </Text>
           </Animatable.View>
         </View>

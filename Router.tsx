@@ -6,7 +6,14 @@ import Layout from "./Layout/Layout";
 import NotFoundScreen from "./screens/NotFoundScreen";
 import DashboardScreen from "./screens/DashboardScreen";
 import ClassesScreen from "./screens/ClassesScreen";
-import React, { useContext, useEffect, useMemo, useRef, useState } from "react";
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { AuthContext } from "./Context/AuthContext";
 import StudentsScreen from "./screens/StudentsScreen";
 import AboutScreen from "./screens/AboutScreen";
@@ -52,15 +59,25 @@ export default function Router() {
   const height = Dimensions.get("screen").height;
   const width = Dimensions.get("screen").width;
 
+  //======== SET LOCAL STORAGE =========
+  const onStateChange = useCallback((state: any) => {
+    AsyncStorage.setItem("@mobileUserLogin", JSON.stringify(state));
+  }, []);
+
   // ============ SEND DEVICE TOKEN ==================
   const { refetch } = useQuery(SENDMOBILETOKEN, {
     variables: {
       token: expoPushToken?.data ? expoPushToken?.data : "",
     },
+    onCompleted: ({ getMobileUserLogin }) => {
+      if (getMobileUserLogin) {
+        onStateChange(getMobileUserLogin);
+      }
+    },
   });
+
   useEffect(() => {
     if (expoPushToken?.data) {
-      // console.log(expoPushToken)
       refetch();
     }
   }, [expoPushToken?.data]);

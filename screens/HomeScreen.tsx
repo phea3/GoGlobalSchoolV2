@@ -399,6 +399,7 @@ const HomeScreen = () => {
       );
     }
   };
+
   return (
     <View style={HomeStyle.homeContainer}>
       <Modal
@@ -474,20 +475,17 @@ const HomeScreen = () => {
                       <Animatable.Image
                         source={
                           stuInfo?.profileImg
-                            .toLowerCase()
-                            .includes(
-                              "https://storage-server.go-globalschool.com/client/storage:academic_management/"
-                            )
-                            ? { uri: stuInfo?.profileImg }
-                            : {
+                            ? {
                                 uri: `https://storage.go-globalschool.com/api${stuInfo?.profileImg}`,
                               }
+                            : require("../assets/Images/user.png")
                         }
                         style={HomeStyle.imageHome}
                         resizeMode="cover"
                         animation="zoomIn"
                       />
                     </View>
+
                     <Text
                       style={HomeStyle.studentProfileName}
                       numberOfLines={1}
@@ -626,20 +624,17 @@ const HomeScreen = () => {
                         <Animatable.Image
                           source={
                             stuInfo?.profileImg
-                              .toLowerCase()
-                              .includes(
-                                "https://storage-server.go-globalschool.com/"
-                              )
-                              ? { uri: stuInfo?.profileImg }
-                              : {
+                              ? {
                                   uri: `https://storage.go-globalschool.com/api${stuInfo?.profileImg}`,
                                 }
+                              : require("../assets/Images/user.png")
                           }
                           style={HomeStyle.imageHome}
                           resizeMode="cover"
                           animation="zoomIn"
                         />
                       </View>
+
                       <Text
                         style={HomeStyle.studentProfileName}
                         numberOfLines={1}

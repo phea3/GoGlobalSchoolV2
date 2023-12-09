@@ -296,8 +296,8 @@ export default function StudentDetailScreen() {
               source={
                 stuInfo?.profileImg
                   ? stuInfo?.profileImg
-                      .toLowerCase()
-                      .includes("https://storage-server.go-globalschool.com/")
+                      ?.toLowerCase()
+                      ?.includes("https://storage-server.go-globalschool.com/")
                     ? { uri: stuInfo?.profileImg }
                     : {
                         uri: `https://storage.go-globalschool.com/api${stuInfo?.profileImg}`,

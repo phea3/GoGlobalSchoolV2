@@ -93,7 +93,6 @@ export default function ModalPickup({
           <TouchableOpacity
             style={[
               HomeStyle.homeModalStyle1,
-              ,
               { backgroundColor: "#000", opacity: 0.2, position: "absolute" },
             ]}
             onPress={handleClose}

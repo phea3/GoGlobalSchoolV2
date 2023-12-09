@@ -123,8 +123,8 @@ export default function StudentsScreen() {
                         <Animatable.Image
                           source={
                             stuInfo?.profileImg
-                              .toLowerCase()
-                              .includes(
+                              ?.toLowerCase()
+                              ?.includes(
                                 "https://storage-server.go-globalschool.com/"
                               )
                               ? { uri: stuInfo?.profileImg }

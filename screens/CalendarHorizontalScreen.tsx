@@ -50,7 +50,7 @@ export default function CalendarHorizontalScreen({
     let dayNum = dateFirst.getDay(); // 😊  get day of week
     let diffFirst = dateFirst.getDate() - dayNum + 1;
     let date = new Date(dateFirst.setDate(diffFirst));
-    onSelectDate(moment(date).locale("en").format("YYYY-MM-DD"));
+    onSelectDate(moment(date).format("YYYY-MM-DD"));
   };
 
   useEffect(() => {
@@ -72,7 +72,7 @@ export default function CalendarHorizontalScreen({
             fontFamily: "Kantumruy-Bold",
           }}
         >
-          {moment(selected).locale(getLanguage()).format("MMMM, Do YYYY")}
+          {moment(selected).format("MMMM, Do YYYY")}
         </Text>
       </View>
       <View style={EYSReportStyle.CalendarHorizontalScrollviewDateweeklystyle}>

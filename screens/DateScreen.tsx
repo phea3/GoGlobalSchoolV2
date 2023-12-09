@@ -11,15 +11,15 @@ const DateScreen = ({ date, onSelectDate, selected }: any) => {
    */
   const t = useTranslation();
   const day =
-    moment(date).locale(getLanguage()).format("YYYY-MM-DD") ===
-    moment().locale(getLanguage()).format("YYYY-MM-DD")
+    moment(date).format("YYYY-MM-DD") ===
+    moment().format("YYYY-MM-DD")
       ? t("Today")
-      : moment(date).locale(getLanguage()).format("dddd");
+      : moment(date).format("dddd");
   // get the day number e.g 1, 2, 3, 4, 5, 6, 7
-  const dayNumber = moment(date).locale(getLanguage()).format("D");
+  const dayNumber = moment(date).format("D");
 
   // get the full date e.g 2021-01-01 - we'll use this to compare the date to the selected date
-  const fullDate = moment(date).locale("en").format("YYYY-MM-DD");
+  const fullDate = moment(date).format("YYYY-MM-DD");
 
   return (
     <TouchableOpacity

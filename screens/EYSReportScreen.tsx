@@ -8,7 +8,7 @@ import { useLocation } from "react-router-native";
 import moment from "moment";
 import Checkbox from "expo-checkbox";
 import { getLanguage, useTranslation } from "react-multi-lang";
-import "moment/locale/km";
+
 const TabView = [
   {
     tilte: "Food",
@@ -25,7 +25,7 @@ const TabView = [
 ];
 
 export default function EYSReportScreen() {
-  const today = moment(new Date()).locale("en").format("YYYY-MM-DD");
+  const today = moment(new Date()).format("YYYY-MM-DD");
   const [tabActive, setTabActive] = useState("Food");
   const [selectedDate, setSelectedDate] = useState(today);
   const location = useLocation();

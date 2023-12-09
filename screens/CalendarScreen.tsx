@@ -70,7 +70,6 @@ export default function CalendarScreen() {
                     </Text>
                     <Text style={HomeStyle.homeUpcomingBody}>
                       {moment(academic?.from)
-                        .locale(getLanguage())
                         .format("YYYY-MM-DD")}
                     </Text>
                   </View>

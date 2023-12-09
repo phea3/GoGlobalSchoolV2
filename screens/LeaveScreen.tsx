@@ -65,12 +65,12 @@ export default function LeaveScreen() {
   };
 
   const handleConfirm1 = (From: Date) => {
-    setFrom(moment(From).locale("en").format("YYYY-MM-DD"));
+    setFrom(moment(From).format("YYYY-MM-DD"));
     hideDatePicker1();
   };
 
   const handleConfirm2 = (To: Date) => {
-    setTo(moment(To).locale("en").format("YYYY-MM-DD"));
+    setTo(moment(To).format("YYYY-MM-DD"));
     hideDatePicker2();
   };
 
@@ -160,7 +160,6 @@ export default function LeaveScreen() {
                   {from
                     ? from
                     : moment(new Date())
-                        .locale(getLanguage())
                         .format("YYYY-MM-DD")}
                 </Text>
                 <Image
@@ -177,7 +176,6 @@ export default function LeaveScreen() {
                   {to
                     ? to
                     : moment(new Date())
-                        .locale(getLanguage())
                         .format("YYYY-MM-DD")}
                 </Text>
                 <Image
@@ -246,24 +244,24 @@ export default function LeaveScreen() {
                   }}
                 >
                   <Animatable.Image
-                    source={
-                      stuImg != "" &&
-                      stuImg
-                        .toLowerCase()
-                        .includes("https://storage-server.go-globalschool.com/")
-                        ? { uri: stuImg }
-                        : stuInfo?.profileImg
-                            .toLowerCase()
-                            .includes(
-                              "https://storage-server.go-globalschool.com/"
-                            )
-                        ? { uri: stuInfo?.profileImg }
-                        : {
-                            uri: `https://storage.go-globalschool.com/api${
-                              stuImg != "" ? stuImg : stuInfo?.profileImg
-                            }`,
-                          }
-                    }
+                   source={
+                    stuImg != "" &&
+                    stuImg
+                      .toLowerCase()
+                      .includes("https://storage-server.go-globalschool.com/")
+                      ? { uri: stuImg }
+                      : stuInfo?.profileImg
+                          .toLowerCase()
+                          .includes(
+                            "https://storage-server.go-globalschool.com/"
+                          )
+                      ? { uri: stuInfo?.profileImg }
+                      : {
+                          uri: `https://storage.go-globalschool.com/api${
+                            stuImg != "" ? stuImg : stuInfo?.profileImg
+                          }`,
+                        }
+                  }
                     style={LeaveStyle.LeaveImage}
                     resizeMode="cover"
                     animation="zoomIn"
@@ -301,19 +299,7 @@ export default function LeaveScreen() {
                   }}
                 >
                   <Animatable.Image
-                    source={
-                      item?.profileImg
-                        ? item?.profileImg
-                            .toLowerCase()
-                            .includes(
-                              "https://storage-server.go-globalschool.com/"
-                            )
-                          ? { uri: item?.profileImg }
-                          : {
-                              uri: `https://storage.go-globalschool.com/api${item?.profileImg}`,
-                            }
-                        : require("../assets/Images/user.png")
-                    }
+                    source={{ uri: item?.profileImg }}
                     style={LeaveStyle.LeaveImage}
                     resizeMode="cover"
                     animation="zoomIn"

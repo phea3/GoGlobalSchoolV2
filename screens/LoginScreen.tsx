@@ -33,7 +33,7 @@ import {
 
 import * as Animatable from "react-native-animatable";
 
-const LoginScreen = () => {
+const LoginScreen = ({expoPushToken}: any) => {
   const { dispatch, REDUCER_ACTIONS } = useUser();
   const { widthScreen, heightScreen, dimension } = useContext(AuthContext);
   const [view, setView] = useState(true);
@@ -48,6 +48,9 @@ const LoginScreen = () => {
 
   //============ GET MOBILE USER LOGIN =============
   const { refetch } = useQuery(GET_MOBILEUSERLOGIN, {
+    variables: {
+      token: expoPushToken?.data ? expoPushToken?.data: ""
+    },
     onCompleted: ({ getMobileUserLogin }) => {
       onStateChange(getMobileUserLogin);
     },

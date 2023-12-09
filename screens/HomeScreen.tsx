@@ -473,6 +473,7 @@ const HomeScreen = () => {
                     <View style={HomeStyle.homeImageBorderWidthStyle}>
                       <Animatable.Image
                         source={
+                          stuInfo?.profileImg ?
                           stuInfo?.profileImg
                             .toLowerCase()
                             .includes(
@@ -482,6 +483,7 @@ const HomeScreen = () => {
                             : {
                                 uri: `https://storage.go-globalschool.com/api${stuInfo?.profileImg}`,
                               }
+                              :   require('../assets/Images/user.png')
                         }
                         style={HomeStyle.imageHome}
                         resizeMode="cover"
@@ -625,6 +627,7 @@ const HomeScreen = () => {
                       >
                         <Animatable.Image
                           source={
+                            stuInfo?.profileImg ?
                             stuInfo?.profileImg
                               .toLowerCase()
                               .includes(
@@ -634,6 +637,7 @@ const HomeScreen = () => {
                               : {
                                   uri: `https://storage.go-globalschool.com/api${stuInfo?.profileImg}`,
                                 }
+                             :  require('../assets/Images/user.png')
                           }
                           style={HomeStyle.imageHome}
                           resizeMode="cover"
@@ -720,7 +724,6 @@ const HomeScreen = () => {
                       </Text>
                       <Text style={HomeStyle.homeUpcomingBody}>
                         {moment(event?.from)
-                          .locale(getLanguage())
                           .format("DD-MM-YYYY")}
                       </Text>
                     </View>

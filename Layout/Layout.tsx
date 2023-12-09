@@ -1,12 +1,9 @@
 import {
   View,
-  Text,
   SafeAreaView,
-  TouchableOpacity,
-  Image,
   Alert,
 } from "react-native";
-import React, { useCallback, useContext, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-native";
 import Footer from "../Include/Footer";
 import LayoutStyle from "../Styles/ScreenContainer.scss";

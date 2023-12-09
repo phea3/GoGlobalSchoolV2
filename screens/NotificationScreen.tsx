@@ -48,12 +48,7 @@ export default function NotificationScreen() {
         contentContainerStyle={{ justifyContent: "center" }}
       >
         {NotiData?.getNotifications.map((noti: any, index: number) => (
-          <TouchableOpacity
-            onPress={() => {
-              navigate("/leave", {
-                state: { stuInfo: noti?.notifBy, uid: idUserLogin },
-              });
-            }}
+          <View
             style={NotificationStyle.NotificationCardContainer}
             key={index}
           >
@@ -88,11 +83,11 @@ export default function NotificationScreen() {
               </View>
               <View style={NotificationStyle.NotificationBodyText}>
                 <Text style={NotificationStyle.NotificationBodyTextStyle}>
-                  {moment(noti?.createdAt).locale(getLanguage()).fromNow()}
+                  {moment(noti?.createdAt).fromNow()}
                 </Text>
               </View>
             </View>
-          </TouchableOpacity>
+          </View>
         ))}
       </ScrollView>
     </View>

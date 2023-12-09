@@ -90,8 +90,8 @@ export default function ModalTakeLeave({
     const newValue = {
       from:
         morning || afternoon
-          ? moment(date).locale("en").format("YYYY-MM-DD")
-          : moment(from).locale("en").format("YYYY-MM-DD"),
+          ? moment(date).format("YYYY-MM-DD")
+          : moment(from).format("YYYY-MM-DD"),
       reason: reason,
       requestType: morning
         ? "morning"
@@ -103,8 +103,8 @@ export default function ModalTakeLeave({
       studentId: studentId,
       to:
         morning || afternoon
-          ? moment(date).locale("en").format("YYYY-MM-DD")
-          : moment(to).locale("en").format("YYYY-MM-DD"),
+          ? moment(date).format("YYYY-MM-DD")
+          : moment(to).format("YYYY-MM-DD"),
     };
 
     // console.log("newValue::::", newValue);
@@ -345,7 +345,7 @@ export default function ModalTakeLeave({
                   onPress={showDatePicker}
                 >
                   <Text>
-                    {moment(date).locale(getLanguage()).format("DD/M/YYYY")}
+                    {moment(date).format("DD/M/YYYY")}
                   </Text>
                   <Image
                     source={require("../../assets/Images/calendar-clock.png")}

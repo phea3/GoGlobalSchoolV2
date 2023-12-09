@@ -70,7 +70,13 @@ export const usePushNotifications = (): PushNotificationState => {
 
     return token;
   }
-
+  const clearBadge = async () => {
+    try {
+      await Notifications.setBadgeCountAsync(0);
+    } catch (error) {
+      console.error('Error clearing badge:', error);
+    }
+  };
   useEffect(() => {
     registerForPushNotificationsAsync().then((token) => {
       setExpoPushToken(token);
@@ -85,7 +91,7 @@ export const usePushNotifications = (): PushNotificationState => {
       Notifications.addNotificationResponseReceivedListener((response) => {
         setNotificationResponse(response);
       });
-
+    clearBadge()
     return () => {
       Notifications.removeNotificationSubscription(
         notificationListener.current!

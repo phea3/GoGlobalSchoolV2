@@ -25,6 +25,7 @@ export default function ModalContactUS({
   const recipientUserId = "1586031671709848";
   const predefinedMessage = "Hello, this is a predefined message.";
   const t = useTranslation();
+
   const openMessenger = async () => {
     const url = `fb-messenger://user-thread/${recipientUserId}?text=${encodeURIComponent(
       predefinedMessage

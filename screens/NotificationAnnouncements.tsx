@@ -74,7 +74,7 @@ export default function NotificationAnnouncements() {
               </View>
               <View style={NotificationStyle.NotificationBodyText}>
                 <Text style={NotificationStyle.NotificationBodyTextStyle}>
-                  {moment(noti?.createdAt).locale(getLanguage()).fromNow()}
+                  {moment(noti?.createdAt).fromNow()}
                 </Text>
               </View>
             </View>

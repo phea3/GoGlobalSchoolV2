@@ -16,7 +16,6 @@ import { useMutation } from "@apollo/client";
 import { PARENTS_CHECKSTUDENTSEYS } from "../graphql/ParentsCheckStudentsEYS";
 import { useLocation } from "react-router-native";
 import { getLanguage, useTranslation } from "react-multi-lang";
-import "moment/locale/km";
 
 export default function HealthScreen() {
   const [isChecked, setChecked] = useState(true);
@@ -112,7 +111,6 @@ export default function HealthScreen() {
             <Text style={HealthStyle.HealthDateText}>
               {t("Today,")}{" "}
               {moment(new Date())
-                .locale(getLanguage())
                 .format("Do MMMM YYYY h:mm a")}
             </Text>
           </View>

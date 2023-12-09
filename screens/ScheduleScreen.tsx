@@ -18,7 +18,6 @@ import { GET_SCHEDULEFORMOBILE } from "../graphql/GetScheduleForMobile";
 import moment from "moment";
 import * as Animatable from "react-native-animatable";
 import { getLanguage, useTranslation } from "react-multi-lang";
-import "moment/locale/km";
 
 export default function ScheduleScreen() {
   const navigate = useNavigate();
@@ -28,9 +27,8 @@ export default function ScheduleScreen() {
   const { widthScreen, heightScreen } = useContext(AuthContext);
   const [classId, setClassId] = useState("");
   const [day, setDay] = useState(
-    moment(new Date()).locale("en").format("dddd")?.toLowerCase()
+    moment(new Date()).format("dddd").toLowerCase()
   );
-
   const { data: ActiveAcademicYearData, refetch: ActiveAcademicYearRefetch } =
     useQuery(GET_ACTIVE_ACADEMIC_YEAR, {
       pollInterval: 2000,
@@ -239,12 +237,10 @@ export default function ScheduleScreen() {
                 <View style={ScheduleStyle.ScheduleBodyHourBox}>
                   <Text style={ScheduleStyle.ScheduleBodyHourText}>
                     {moment(schedule?.startTime)
-                      .locale(getLanguage())
                       .format("hh:mm")}
                   </Text>
                   <Text style={ScheduleStyle.ScheduleBodyHourText}>
                     {moment(schedule?.endTime)
-                      .locale(getLanguage())
                       .format("hh:mm")}
                   </Text>
                 </View>
@@ -314,12 +310,10 @@ export default function ScheduleScreen() {
                 <View style={ScheduleStyle.ScheduleBodyHourBox}>
                   <Text style={ScheduleStyle.ScheduleBodyHourText}>
                     {moment(schedule?.startTime)
-                      .locale(getLanguage())
                       .format("hh:mm")}
                   </Text>
                   <Text style={ScheduleStyle.ScheduleBodyHourText}>
                     {moment(schedule?.endTime)
-                      .locale(getLanguage())
                       .format("hh:mm")}
                   </Text>
                 </View>

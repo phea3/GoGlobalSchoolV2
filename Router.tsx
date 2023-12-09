@@ -1,4 +1,4 @@
-import { useLocation, useNavigate, useRoutes } from "react-router-native";
+import { useNavigate, useRoutes } from "react-router-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import LoginScreen from "./screens/LoginScreen";
 import HomeScreen from "./screens/HomeScreen";
@@ -25,7 +25,7 @@ import useLoginUser from "./Hook/useLoginUser";
 import CalendarScreen from "./screens/CalendarScreen";
 import AnnouncementDetail from "./screens/AnnouncementDetail";
 import PaymentScreen from "./screens/PaymentScreen";
-import { Alert, Dimensions, Platform } from "react-native";
+import { Dimensions } from "react-native";
 import LeaveScreen from "./screens/LeaveScreen";
 import NotificationScreen from "./screens/NotificationScreen";
 import LayoutNotification from "./Layout/LayoutNotification";
@@ -47,9 +47,8 @@ import { SENDMOBILETOKEN } from "./graphql/GetMobileUserLoginToken";
 
 export default function Router() {
   const navigate = useNavigate();
-  const location = useLocation();
   //==================== Nitification Variable =====================
-  const { expoPushToken, notification, notificationResponse } =
+  const { expoPushToken, notificationResponse } =
     usePushNotifications();
   //==================================================================
   //context
@@ -90,7 +89,6 @@ export default function Router() {
         notificationResponse?.notification?.request?.content?.data?.type ===
         "Announcement"
       ) {
-        console.log(notificationResponse?.notification?.request?.content);
         setTimeout(() => {
           navigate("/notification/announces");
         }, 500);
@@ -161,8 +159,8 @@ export default function Router() {
   ]);
 
   const Login = useRoutes([
-    { path: "/", element: <LoginScreen /> },
-    { path: "/login", element: <LoginScreen /> },
+    { path: "/", element: <LoginScreen expoPushToken={expoPushToken}/> },
+    { path: "/login", element: <LoginScreen expoPushToken={expoPushToken}/> },
     { path: "/forget", element: <ContactUs /> },
     { path: "/*", element: <NotFoundScreen /> },
   ]);
@@ -210,8 +208,6 @@ export default function Router() {
       ],
     },
   ]);
-  // console.log(token);
-
   if (load) {
     return LoadScreen;
   } else {

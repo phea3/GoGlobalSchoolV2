@@ -367,7 +367,6 @@ export default function StudentDetailScreen() {
           >
             <Text style={StudentDetailStyle.StudentDetailBodyText}>
               {moment(stuInfo?.dob)
-                .locale(getLanguage())
                 .format("Do, MMMM YYYY")}
             </Text>
           </View>

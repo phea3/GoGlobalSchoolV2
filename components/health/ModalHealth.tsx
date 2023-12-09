@@ -4,7 +4,7 @@ import { CHECK_IS_STUDENT_FOR_EYS } from "../../graphql/CheckEYS";
 import { useQuery } from "@apollo/client";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-native";
-import { getLanguage, t } from "react-multi-lang";
+import { getLanguage } from "react-multi-lang";
 
 export default function ModalHealth({
   studentId,

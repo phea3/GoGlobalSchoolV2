@@ -31,8 +31,9 @@ import {
 } from "react-native-popup-menu";
 
 import * as Animatable from "react-native-animatable";
+import { SENDMOBILETOKEN } from "../graphql/GetMobileUserLoginToken";
 
-const LoginScreen = () => {
+const LoginScreen = ({expoPushToken}: any) => {
   const { dispatch, REDUCER_ACTIONS } = useUser();
   const { widthScreen, heightScreen, dimension } = useContext(AuthContext);
   const [view, setView] = useState(true);
@@ -40,6 +41,20 @@ const LoginScreen = () => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const t = useTranslation();
+  //======== SET LOCAL STORAGE =========
+  const onStateChange = useCallback((state: any) => {
+    AsyncStorage.setItem("@mobileUserLogin", JSON.stringify(state));
+  }, []);
+
+  //============ GET MOBILE USER LOGIN =============
+  const { refetch } = useQuery(SENDMOBILETOKEN, {
+    variables: {
+      token: expoPushToken?.data ? expoPushToken?.data: ""
+    },
+    onCompleted: ({ getMobileUserLogin }) => {
+      onStateChange(getMobileUserLogin);
+    },
+  });
 
   const ChangeKh = () => {
     setLanguage("kh");

@@ -161,28 +161,28 @@ export default function MealScreen() {
         allDays.map((day: any, indexDay: number) => {
           //============ True
           if (
-            moment(weekday).locale("en").format("dddd") ===
-            moment(day).locale("en").format("dddd")
+            moment(weekday).format("dddd") ===
+            moment(day).format("dddd")
           ) {
             data?.getTakeMealAttendanceMobileReport?.map(
               (item: any, index: number) => {
                 if (
-                  moment(item.day).locale("en").format("D") ===
-                    moment(day).locale("en").format("D") &&
-                  moment(item.day).locale("en").format("MM") ===
-                    moment(day).locale("en").format("MM")
+                  moment(item.day).format("D") ===
+                    moment(day).format("D") &&
+                  moment(item.day).format("MM") ===
+                    moment(day).format("MM")
                 ) {
                   if (
-                    moment(day).locale("en").format("Do") === "1st" &&
+                    moment(day).format("Do") === "1st" &&
                     indexDay === 0
                   ) {
                     setGetIndexWeekday(indexWeek + 1);
                   }
 
                   newMonthdays.push({
-                    dayName: moment(weekday).locale("en").format("dddd"),
+                    dayName: moment(weekday).format("dddd"),
                     dayNumber: parseInt(
-                      moment(day).locale("en").format("D"),
+                      moment(day).format("D"),
                       10
                     ),
                     status: item.status === false ? "false" : "true",
@@ -278,11 +278,11 @@ export default function MealScreen() {
                       }}
                     >
                       <Text style={MealScreenStyle.MealScreenMonthBodyText}>
-                        {moment(weekday).locale("en").format("dd")}
+                        {moment(weekday).format("dd")}
                       </Text>
                       {sortMonthdays?.map((day: any, i: number) =>
                         day.dayName ===
-                        moment(weekday).locale("en").format("dddd") ? (
+                        moment(weekday).format("dddd") ? (
                           <View
                             key={i}
                             style={[

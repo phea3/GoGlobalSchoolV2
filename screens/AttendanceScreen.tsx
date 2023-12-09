@@ -73,12 +73,12 @@ export default function AttendanceScreen() {
   };
 
   const handleConfirm = (date: Date) => {
-    setDate(moment(date).locale("en").format("YYYY-MM-DD"));
+    setDate(moment(date).format("YYYY-MM-DD"));
     hideDatePicker();
   };
 
   const handleConfirm1 = (date1: Date) => {
-    setDate1(moment(date1).locale("en").format("YYYY-MM-DD"));
+    setDate1(moment(date1).format("YYYY-MM-DD"));
     hideDatePicker1();
   };
 
@@ -232,9 +232,8 @@ export default function AttendanceScreen() {
                 >
                   <Text style={AttendanceStyle.AttendanceModalBodyText}>
                     {date
-                      ? moment(date).locale(getLanguage()).format("YYYY-MM-DD")
+                      ? moment(date).format("YYYY-MM-DD")
                       : moment(new Date())
-                          .locale(getLanguage())
                           .format("YYYY-MM-DD")}
                   </Text>
                   <Image
@@ -260,9 +259,8 @@ export default function AttendanceScreen() {
                 >
                   <Text style={AttendanceStyle.AttendanceModalBodyText}>
                     {date1
-                      ? moment(date1).locale(getLanguage()).format("YYYY-MM-DD")
+                      ? moment(date1).format("YYYY-MM-DD")
                       : moment(new Date())
-                          .locale(getLanguage())
                           .format("YYYY-MM-DD")}
                   </Text>
                   <Image
@@ -337,7 +335,6 @@ export default function AttendanceScreen() {
             </Text>
             <Text style={AttendanceStyle.AttendanceBody2}>
               {moment(Attendance?.date)
-                .locale(getLanguage())
                 .format("YYYY-MM-DD")}
             </Text>
             <Text style={AttendanceStyle.AttendanceTitle2}>

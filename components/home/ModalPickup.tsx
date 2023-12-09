@@ -33,7 +33,6 @@ export default function ModalPickup({
         studentId: studentId,
       },
       onCompleted: ({}) => {
-        // console.log(trackingdata);
       },
       onError: (error) => {},
     }
@@ -60,7 +59,6 @@ export default function ModalPickup({
   const [pickingUpStudent, { data }] = useMutation(PICK_UPSTUDENT);
 
   const PickStudentHandler = () => {
-    console.log(studentId);
     pickingUpStudent({
       variables: {
         studentId: studentId,
@@ -72,14 +70,6 @@ export default function ModalPickup({
       onError: (error) => {},
     });
   };
-
-  // useEffect(() => {
-  //   console.log("data picking", data?.pickingUpStudent?.status);
-  //   console.log(
-  //     "trackingStudentInPickUp",
-  //     trackingdata?.trackingStudentInPickUp
-  //   );
-  // });
 
   return (
     <>
@@ -115,7 +105,7 @@ export default function ModalPickup({
                     }}
                     style={HomeStyle.HomePickupStudentButton}
                   >
-                    <Text style={{}}>{t("No")}</Text>
+                    <Text>{t("No")}</Text>
                   </TouchableOpacity>
                   <TouchableOpacity
                     onPress={() => {

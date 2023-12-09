@@ -137,7 +137,7 @@ export default function ProfileDetail() {
         />
         {image && (
           <Image
-            source={{ uri: image }}
+            source={image ? { uri: image } : require('../assets/Images/user.png')}
             style={[
               ProfileDetailStyle.ProfileDetailImageStyle,
               { position: "absolute" },

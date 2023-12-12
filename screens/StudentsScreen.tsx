@@ -125,14 +125,16 @@ export default function StudentsScreen() {
                         <Animatable.Image
                           source={
                             stuInfo?.profileImg
-                              ?.toLowerCase()
-                              ?.includes(
-                                "https://storage-server.go-globalschool.com/"
-                              )
-                              ? { uri: stuInfo?.profileImg }
-                              : {
-                                  uri: `https://storage.go-globalschool.com/api${stuInfo?.profileImg}`,
-                                }
+                              ? stuInfo?.profileImg
+                                  ?.toLowerCase()
+                                  ?.includes(
+                                    "https://storage-server.go-globalschool.com/"
+                                  )
+                                ? { uri: stuInfo?.profileImg }
+                                : {
+                                    uri: `https://storage.go-globalschool.com/api${stuInfo?.profileImg}`,
+                                  }
+                              : require("../assets/Images/user.png")
                           }
                           style={HomeStyle.imageHome}
                           resizeMode="cover"

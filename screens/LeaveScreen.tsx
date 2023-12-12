@@ -299,7 +299,8 @@ export default function LeaveScreen() {
                   }}
                 >
                   <Animatable.Image
-                    source={{ uri: item?.profileImg }}
+                    source={ item?.profileImg ? item?.profileImg.toLowerCase().includes("https://storage-server.go-globalschool.com/") 
+                    ? { uri: item?.profileImg } : { uri: `https://storage.go-globalschool.com/api${item?.profileImg}`} : require('../assets/Images/user.png') }
                     style={LeaveStyle.LeaveImage}
                     resizeMode="cover"
                     animation="zoomIn"

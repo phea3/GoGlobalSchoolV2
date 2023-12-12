@@ -1,11 +1,4 @@
 import { useNavigate, useRoutes } from "react-router-native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import LoginScreen from "./screens/LoginScreen";
-import HomeScreen from "./screens/HomeScreen";
-import Layout from "./Layout/Layout";
-import NotFoundScreen from "./screens/NotFoundScreen";
-import DashboardScreen from "./screens/DashboardScreen";
-import ClassesScreen from "./screens/ClassesScreen";
 import React, {
   useCallback,
   useContext,
@@ -15,6 +8,19 @@ import React, {
   useState,
 } from "react";
 import { AuthContext } from "./Context/AuthContext";
+import { Dimensions } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
+import { usePushNotifications } from "./usePushNotifications";
+import { useQuery } from "@apollo/client";
+import { SENDMOBILETOKEN } from "./graphql/GetMobileUserLoginToken";
+
+import LoginScreen from "./screens/LoginScreen";
+import HomeScreen from "./screens/HomeScreen";
+import Layout from "./Layout/Layout";
+import NotFoundScreen from "./screens/NotFoundScreen";
+import DashboardScreen from "./screens/DashboardScreen";
+import ClassesScreen from "./screens/ClassesScreen";
 import StudentsScreen from "./screens/StudentsScreen";
 import AboutScreen from "./screens/AboutScreen";
 import ProfileScreen from "./screens/ProfileScreen";
@@ -25,7 +31,6 @@ import useLoginUser from "./Hook/useLoginUser";
 import CalendarScreen from "./screens/CalendarScreen";
 import AnnouncementDetail from "./screens/AnnouncementDetail";
 import PaymentScreen from "./screens/PaymentScreen";
-import { Dimensions } from "react-native";
 import LeaveScreen from "./screens/LeaveScreen";
 import NotificationScreen from "./screens/NotificationScreen";
 import LayoutNotification from "./Layout/LayoutNotification";
@@ -40,16 +45,11 @@ import ResetPasswordScreen from "./screens/ResetPasswordScreen";
 import HealthScreen from "./screens/HealthScreen";
 import AnnouncementScreen from "./screens/AnnouncementScreen";
 import StudentDetailScreen from "./screens/StudentDetail";
-import { usePushNotifications } from "./usePushNotifications";
-
-import { useQuery } from "@apollo/client";
-import { SENDMOBILETOKEN } from "./graphql/GetMobileUserLoginToken";
 
 export default function Router() {
   const navigate = useNavigate();
   //==================== Nitification Variable =====================
-  const { expoPushToken, notificationResponse } =
-    usePushNotifications();
+  const { expoPushToken, notificationResponse } = usePushNotifications();
   //==================================================================
   //context
   const { dispatch, REDUCER_ACTIONS } = useLoginUser();
@@ -159,8 +159,8 @@ export default function Router() {
   ]);
 
   const Login = useRoutes([
-    { path: "/", element: <LoginScreen expoPushToken={expoPushToken}/> },
-    { path: "/login", element: <LoginScreen expoPushToken={expoPushToken}/> },
+    { path: "/", element: <LoginScreen expoPushToken={expoPushToken} /> },
+    { path: "/login", element: <LoginScreen expoPushToken={expoPushToken} /> },
     { path: "/forget", element: <ContactUs /> },
     { path: "/*", element: <NotFoundScreen /> },
   ]);
@@ -208,6 +208,7 @@ export default function Router() {
       ],
     },
   ]);
+
   if (load) {
     return LoadScreen;
   } else {

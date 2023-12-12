@@ -33,7 +33,7 @@ import {
 import * as Animatable from "react-native-animatable";
 import { SENDMOBILETOKEN } from "../graphql/GetMobileUserLoginToken";
 
-const LoginScreen = ({expoPushToken}: any) => {
+const LoginScreen = ({ expoPushToken }: any) => {
   const { dispatch, REDUCER_ACTIONS } = useUser();
   const { widthScreen, heightScreen, dimension } = useContext(AuthContext);
   const [view, setView] = useState(true);
@@ -49,7 +49,7 @@ const LoginScreen = ({expoPushToken}: any) => {
   //============ GET MOBILE USER LOGIN =============
   const { refetch } = useQuery(SENDMOBILETOKEN, {
     variables: {
-      token: expoPushToken?.data ? expoPushToken?.data: ""
+      token: expoPushToken?.data ? expoPushToken?.data : "",
     },
     onCompleted: ({ getMobileUserLogin }) => {
       onStateChange(getMobileUserLogin);

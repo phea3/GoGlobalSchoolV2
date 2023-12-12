@@ -3,8 +3,6 @@ package com.goglobalschool.schoolmobile;
 import android.os.Build;
 import android.os.Bundle;
 
-import com.goglobalschool.schoolmobile.R;
-
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
 import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint;

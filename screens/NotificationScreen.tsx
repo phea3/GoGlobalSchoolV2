@@ -1,21 +1,18 @@
-import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { Image, ScrollView, Text, View } from "react-native";
 import NotificationStyle from "../Styles/NotificationScreen.scss";
 import moment from "moment";
 import { useEffect, useState } from "react";
 import { useQuery } from "@apollo/client";
 import { GETNOTIFICATIONS } from "../graphql/GetNotifications";
 import { useLocation, useNavigate } from "react-router-native";
-import { getLanguage } from "react-multi-lang";
 
 export default function NotificationScreen() {
-  const navigate = useNavigate();
 
   const location = useLocation();
   const idUserLogin = location.state;
   const [timeDifference, setTimeDifference] = useState("");
   const [limit, setLimit] = useState(100);
 
-  // console.log(location);
 
   const { data: NotiData, refetch: NotiRefetch } = useQuery(GETNOTIFICATIONS, {
     pollInterval: 2000,
@@ -23,9 +20,6 @@ export default function NotificationScreen() {
       userId: idUserLogin,
       limit: limit,
       type: "",
-    },
-    onCompleted(data) {
-      console.log(NotiData?.getNotifications);
     },
   });
 

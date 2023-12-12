@@ -211,6 +211,7 @@ export default function ProfileScreen() {
             flexDirection: "row",
             alignItems: "center",
             justifyContent: "space-between",
+            backgroundColor: "white",
           }}
         >
           <TouchableOpacity

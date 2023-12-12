@@ -38,6 +38,7 @@ export default function StudentsScreen() {
         contentContainerStyle={{
           alignItems: "center",
         }}
+        showsVerticalScrollIndicator={false}
       >
         <View style={HomeStyle.imageGroup}>
           <ScrollView
@@ -45,6 +46,7 @@ export default function StudentsScreen() {
             contentContainerStyle={{
               alignItems: "center",
             }}
+            showsHorizontalScrollIndicator={false}
           >
             {data === undefined ||
             data?.getStudentByParentsMobile.length === 0 ? (

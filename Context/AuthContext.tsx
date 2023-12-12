@@ -1,4 +1,3 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
   useMemo,
   useReducer,
@@ -102,7 +101,10 @@ const useValueContext = (initUserState: UserStateType) => {
   const token = state?.user?.token;
   const uid = state?.user?.uid;
 
-  const dimension = HandleDefineDimension(dimensionScreen?.widthscreen, dimensionScreen?.heightscreen);
+  const dimension = HandleDefineDimension(
+    dimensionScreen?.widthscreen,
+    dimensionScreen?.heightscreen
+  );
   const widthScreen = dimensionScreen?.widthscreen;
   const heightScreen = dimensionScreen?.heightscreen;
 

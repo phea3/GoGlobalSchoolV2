@@ -14,11 +14,11 @@ import Animated, {
   withSpring,
   withTiming,
 } from "react-native-reanimated";
-import Goglobalauth from "../Auth/Goglobalauth";
-import serviceAccount from "../Auth/keyService.json";
 import { SENDMOBILETOKEN } from "../graphql/GetMobileUserLoginToken";
-
-const auth = new Goglobalauth();
+import * as Notifications from "expo-notifications";
+import { AppVersions } from "../Function/FetchDataLocalStorage";
+import getAppVersion from "../getAppVersion";
+import Constants from "expo-constants";
 
 const Layout = ({ expoPushToken }: any) => {
   //
@@ -124,6 +124,55 @@ const Layout = ({ expoPushToken }: any) => {
       unsubscribe;
     };
   }, [connection, data?.getMobileUserLogin]);
+
+  const [versions, setVersions] = useState<AppVersions | null>(null);
+  const LocalVersion = Constants.expoConfig?.version;
+
+  useEffect(() => {
+    const fetchAppVersion = async () => {
+      const appVersions = await getAppVersion();
+      if (appVersions) {
+        setVersions(appVersions);
+      }
+    };
+
+    fetchAppVersion();
+  }, []);
+
+  async function schedulePushNotification() {
+    await Notifications.scheduleNotificationAsync({
+      content: {
+        title: "You've got new version! 📬",
+        body: "Here is the notification about new release version.",
+        data: { data: "goes here" },
+        sound: "default", // You can replace 'default' with the name of a custom sound file
+        badge: 1,
+      },
+      trigger: { seconds: 2 },
+    });
+  }
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (
+        versions?.appStoreVersion &&
+        LocalVersion &&
+        LocalVersion < versions?.appStoreVersion
+      ) {
+        schedulePushNotification();
+      } else if (
+        versions?.appStoreVersion &&
+        LocalVersion &&
+        LocalVersion < versions?.playStoreVersion
+      ) {
+        schedulePushNotification();
+      }
+    }, 3000);
+  }, [LocalVersion]);
+
+  // useEffect(() => {
+  //   console.log(versions);
+  // }, [versions]);
 
   return (
     <SafeAreaView>

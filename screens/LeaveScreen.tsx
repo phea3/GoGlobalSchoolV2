@@ -157,10 +157,7 @@ export default function LeaveScreen() {
                 onPress={showDatePicker1}
               >
                 <Text style={LeaveStyle.LeaveModalDateText}>
-                  {from
-                    ? from
-                    : moment(new Date())
-                        .format("YYYY-MM-DD")}
+                  {from ? from : moment(new Date()).format("YYYY-MM-DD")}
                 </Text>
                 <Image
                   source={require("../assets/Images/calendar-clock.png")}
@@ -173,10 +170,7 @@ export default function LeaveScreen() {
                 onPress={showDatePicker2}
               >
                 <Text style={LeaveStyle.LeaveModalDateText}>
-                  {to
-                    ? to
-                    : moment(new Date())
-                        .format("YYYY-MM-DD")}
+                  {to ? to : moment(new Date()).format("YYYY-MM-DD")}
                 </Text>
                 <Image
                   source={require("../assets/Images/calendar-clock.png")}
@@ -244,29 +238,29 @@ export default function LeaveScreen() {
                   }}
                 >
                   <Animatable.Image
-                   source={
-                    stuImg != "" &&
-                    stuImg
-                      .toLowerCase()
-                      .includes("https://storage-server.go-globalschool.com/")
-                      ? { uri: stuImg }
-                      : stuInfo?.profileImg
-                          .toLowerCase()
-                          .includes(
-                            "https://storage-server.go-globalschool.com/"
-                          )
-                      ? { uri: stuInfo?.profileImg }
-                      : {
-                          uri: `https://storage.go-globalschool.com/api${
-                            stuImg != "" ? stuImg : stuInfo?.profileImg
-                          }`,
-                        }
-                  }
+                    source={
+                      stuImg != "" &&
+                      stuImg
+                        .toLowerCase()
+                        .includes("https://storage-server.go-globalschool.com/")
+                        ? { uri: stuImg }
+                        : stuInfo?.profileImg
+                            .toLowerCase()
+                            .includes(
+                              "https://storage-server.go-globalschool.com/"
+                            )
+                        ? { uri: stuInfo?.profileImg }
+                        : {
+                            uri: `https://storage.go-globalschool.com/api${
+                              stuImg != "" ? stuImg : stuInfo?.profileImg
+                            }`,
+                          }
+                    }
                     style={LeaveStyle.LeaveImage}
                     resizeMode="cover"
                     animation="zoomIn"
                   />
-                  <Text style={LeaveStyle.LeaveTitleText3} numberOfLines={1}>
+                  <Text style={LeaveStyle.LeaveTitleText4} numberOfLines={1}>
                     {getLanguage() === "en"
                       ? stuInfo?.englishName
                       : stuName != ""
@@ -299,8 +293,19 @@ export default function LeaveScreen() {
                   }}
                 >
                   <Animatable.Image
-                    source={ item?.profileImg ? item?.profileImg.toLowerCase().includes("https://storage-server.go-globalschool.com/") 
-                    ? { uri: item?.profileImg } : { uri: `https://storage.go-globalschool.com/api${item?.profileImg}`} : require('../assets/Images/user.png') }
+                    source={
+                      item?.profileImg
+                        ? item?.profileImg
+                            .toLowerCase()
+                            .includes(
+                              "https://storage-server.go-globalschool.com/"
+                            )
+                          ? { uri: item?.profileImg }
+                          : {
+                              uri: `https://storage.go-globalschool.com/api${item?.profileImg}`,
+                            }
+                        : require("../assets/Images/user.png")
+                    }
                     style={LeaveStyle.LeaveImage}
                     resizeMode="cover"
                     animation="zoomIn"
@@ -358,7 +363,13 @@ export default function LeaveScreen() {
                   ? "Full day"
                   : ""}
               </Text>
-              <Text style={LeaveStyle.LeaveBodyText2}>{leave?.requestAt}</Text>
+              <Text style={LeaveStyle.LeaveBodyText2}>
+                {leave?.from === leave?.to
+                  ? moment(leave?.from).format("DD-MM-YY")
+                  : moment(leave?.from).format("DD-MM-YY") +
+                    " - " +
+                    moment(leave?.to).format("DD-MM-YY")}
+              </Text>
               <Text style={LeaveStyle.LeaveBodyText1}>{leave?.reason}</Text>
               <Text
                 style={

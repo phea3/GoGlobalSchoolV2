@@ -8,6 +8,11 @@ interface userLogin {
   profileImg: string;
 }
 
+export interface AppVersions {
+  playStoreVersion: string;
+  appStoreVersion: string;
+}
+
 export const initMobileUserLogin: userLogin = {
   _id: "",
   firstName: "",

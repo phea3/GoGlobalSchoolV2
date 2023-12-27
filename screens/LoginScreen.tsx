@@ -190,7 +190,7 @@ const LoginScreen = ({ expoPushToken }: any) => {
             width: "100%",
             height: "40%",
             marginTop: isKeyboardVisible ? 40 : 0,
-            justifyContent: "space-between",
+            justifyContent: "flex-start",
             alignItems: "center",
           }}
         >
@@ -220,6 +220,7 @@ const LoginScreen = ({ expoPushToken }: any) => {
                 {
                   padding:
                     dimension === "sm" ? 5 : dimension === "lg" ? 25 : 15,
+                  marginVertical: "sm" ? 5 : 10,
                 },
               ]}
             >
@@ -276,6 +277,7 @@ const LoginScreen = ({ expoPushToken }: any) => {
                 {
                   padding:
                     dimension === "sm" ? 5 : dimension === "lg" ? 25 : 15,
+                  marginVertical: "sm" ? 5 : 10,
                 },
               ]}
             >

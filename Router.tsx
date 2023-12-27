@@ -98,13 +98,19 @@ export default function Router() {
         notificationResponse?.notification?.request?.content?.data?.type ===
           "Pickup Confirmation"
       ) {
-        console.log(notificationResponse?.notification?.request?.content);
+        // console.log(notificationResponse?.notification?.request?.content);
+        setTimeout(() => {
+          navigate("/notification", { state: `${userUid}` });
+        }, 500);
+      } else if (
+        notificationResponse?.notification?.request?.content?.data?.data ===
+        "goes here"
+      ) {
         setTimeout(() => {
           navigate("/notification", { state: `${userUid}` });
         }, 500);
       }
     }
-
     getIDUserLog();
   }, [notificationResponse]);
   //============  GET TOKEN DEVICE  ==================

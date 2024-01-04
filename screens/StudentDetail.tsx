@@ -366,8 +366,7 @@ export default function StudentDetailScreen() {
             style={StudentDetailStyle.StudentDetailMiddelRightContentContainer}
           >
             <Text style={StudentDetailStyle.StudentDetailBodyText}>
-              {moment(stuInfo?.dob)
-                .format("Do, MMMM YYYY")}
+              {moment(stuInfo?.dob).format("Do, MMMM YYYY")}
             </Text>
           </View>
         </View>

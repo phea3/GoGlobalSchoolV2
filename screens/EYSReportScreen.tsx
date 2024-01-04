@@ -46,7 +46,7 @@ export default function EYSReportScreen() {
 
   useEffect(() => {
     refetch();
-  }, [uid, selectedDate, today]);
+  }, [uid, selectedDate]);
 
   return (
     <View style={EYSReportStyle.EYSContainer}>
@@ -69,6 +69,7 @@ export default function EYSReportScreen() {
             }}
           >
             <Text
+              numberOfLines={1}
               style={[
                 EYSReportStyle.EYSTapViewEachTabTitleText,
                 tabActive === tab.tilte && { color: "#ffffff" },

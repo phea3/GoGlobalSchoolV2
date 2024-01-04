@@ -1,4 +1,4 @@
-import { useNavigate, useRoutes } from "react-router-native";
+import { useLocation, useNavigate, useRoutes } from "react-router-native";
 import React, {
   useCallback,
   useContext,
@@ -45,9 +45,11 @@ import ResetPasswordScreen from "./screens/ResetPasswordScreen";
 import HealthScreen from "./screens/HealthScreen";
 import AnnouncementScreen from "./screens/AnnouncementScreen";
 import StudentDetailScreen from "./screens/StudentDetail";
+import * as Location from "expo-location";
 
 export default function Router() {
   const navigate = useNavigate();
+  const local = useLocation();
   //==================== Nitification Variable =====================
   const { expoPushToken, notificationResponse } = usePushNotifications();
   //==================================================================
@@ -74,6 +76,41 @@ export default function Router() {
       }
     },
   });
+
+  const [locate, setLocation] = useState<Location.LocationObject | null>(null);
+
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
+
+  useEffect(() => {
+    (async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== "granted") {
+        setErrorMsg("Permission to access location was denied.");
+
+        return;
+      }
+
+      let location = await Location.getCurrentPositionAsync({});
+      setLocation(location);
+
+      const locationSubscription = await Location.watchPositionAsync(
+        {
+          accuracy: Location.Accuracy.High,
+          timeInterval: 5000, // Set the interval to 2000 milliseconds (2 seconds)
+          distanceInterval: 1,
+        },
+        (newLocation) => {
+          setLocation(newLocation);
+        }
+      );
+
+      return () => {
+        if (locationSubscription) {
+          locationSubscription.remove();
+        }
+      };
+    })();
+  }, [local.pathname, load]);
 
   useEffect(() => {
     if (expoPushToken?.data) {
@@ -176,8 +213,8 @@ export default function Router() {
       path: "/",
       element: <Layout expoPushToken={expoPushToken} />,
       children: [
-        { path: "/", element: <HomeScreen /> },
-        { path: "/home", element: <HomeScreen /> },
+        { path: "/", element: <HomeScreen locate={locate} /> },
+        { path: "/home", element: <HomeScreen locate={locate} /> },
         { path: "/dashboard", element: <DashboardScreen /> },
         { path: "/classes", element: <ClassesScreen /> },
         { path: "/schedule", element: <ScheduleScreen /> },

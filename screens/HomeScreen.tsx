@@ -108,7 +108,7 @@ const useOnce = (callback: any) => {
   }, [hasRun, callback]);
 };
 
-const HomeScreen = () => {
+const HomeScreen = ({ locate }: any) => {
   const navigate = useNavigate();
   const { uid } = useContext(AuthContext);
   const [isModalVisible, setModalVisible] = useState(false);
@@ -473,19 +473,19 @@ const HomeScreen = () => {
                   >
                     <View style={HomeStyle.homeImageBorderWidthStyle}>
                       <Animatable.Image
-                       source={
-                        stuInfo?.profileImg ?
-                        stuInfo?.profileImg
-                          .toLowerCase()
-                          .includes(
-                            "https://storage-server.go-globalschool.com/client/storage:academic_management/"
-                          )
-                          ? { uri: stuInfo?.profileImg }
-                          : {
-                              uri: `https://storage.go-globalschool.com/api${stuInfo?.profileImg}`,
-                            }
-                            :   require('../assets/Images/user.png')
-                      }
+                        source={
+                          stuInfo?.profileImg
+                            ? stuInfo?.profileImg
+                                .toLowerCase()
+                                .includes(
+                                  "https://storage-server.go-globalschool.com/client/storage:academic_management/"
+                                )
+                              ? { uri: stuInfo?.profileImg }
+                              : {
+                                  uri: `https://storage.go-globalschool.com/api${stuInfo?.profileImg}`,
+                                }
+                            : require("../assets/Images/user.png")
+                        }
                         style={HomeStyle.imageHome}
                         resizeMode="cover"
                         animation="zoomIn"
@@ -521,6 +521,7 @@ const HomeScreen = () => {
         studentId={studentId}
         isVisible={visiblePickup}
         handleClose={toggleModalClosePickup}
+        locate={locate}
       />
       {/* ======== EYS MODAL =========*/}
       <ModalEYS
@@ -629,17 +630,17 @@ const HomeScreen = () => {
                       >
                         <Animatable.Image
                           source={
-                            stuInfo?.profileImg ?
                             stuInfo?.profileImg
-                              .toLowerCase()
-                              .includes(
-                                "https://storage-server.go-globalschool.com/client/storage:academic_management/"
-                              )
-                              ? { uri: stuInfo?.profileImg }
-                              : {
-                                  uri: `https://storage.go-globalschool.com/api${stuInfo?.profileImg}`,
-                                }
-                                :   require('../assets/Images/user.png')
+                              ? stuInfo?.profileImg
+                                  .toLowerCase()
+                                  .includes(
+                                    "https://storage-server.go-globalschool.com/client/storage:academic_management/"
+                                  )
+                                ? { uri: stuInfo?.profileImg }
+                                : {
+                                    uri: `https://storage.go-globalschool.com/api${stuInfo?.profileImg}`,
+                                  }
+                              : require("../assets/Images/user.png")
                           }
                           style={HomeStyle.imageHome}
                           resizeMode="cover"
@@ -726,8 +727,7 @@ const HomeScreen = () => {
                         {event?.title}
                       </Text>
                       <Text style={HomeStyle.homeUpcomingBody}>
-                        {moment(event?.from)
-                          .format("DD-MM-YYYY")}
+                        {moment(event?.from).format("DD-MM-YYYY")}
                       </Text>
                     </View>
                   </View>

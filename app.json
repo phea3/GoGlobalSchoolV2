@@ -4,7 +4,7 @@
     "slug": "school-mobile-app-ios",
     "platforms": ["ios", "android"],
     "privacy": "public",
-    "version": "1.2.8",
+    "version": "2.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -80,7 +80,11 @@
         "NSCalendarsFullAccessUsageDescription": "The app needs to access your calendar.",
         "NSRemindersFullAccessUsageDescription": "Allow $(PRODUCT_NAME) to access your reminders",
         "NSPhotoLibraryUsageDescription": "Allow $(PRODUCT_NAME) to access your photos.",
-        "NSPhotoLibraryAddUsageDescription": "Allow $(PRODUCT_NAME) to save photos."
+        "NSPhotoLibraryAddUsageDescription": "Allow $(PRODUCT_NAME) to save photos.",
+        "NSLocationAlwaysAndWhenInUseUsageDescription": "Allow $(PRODUCT_NAME) to access your location to ensure you are close to the school.",
+        "NSLocationAlwaysUsageDescription": "Allow $(PRODUCT_NAME) to access your location to ensure you are close to the school.",
+        "NSLocationWhenInUseUsageDescription": "Allow $(PRODUCT_NAME) to access your location to ensure you are close to the school.",
+        "NSDataCollectionAndStorage": "Allow $(PRODUCT_NAME) to collect your data and storage."
       },
       "supportsTablet": true,
       "entitlements": {
@@ -88,7 +92,7 @@
         "com.apple.developer.applesignin": ["Default"]
       },
       "bundleIdentifier": "Second-dayofSwift-Testing",
-      "buildNumber": "35",
+      "buildNumber": "36",
       "icon": "./assets/icon.png"
     },
     "android": {
@@ -103,7 +107,7 @@
         "android.permission.ACCESS_BACKGROUND_LOCATION"
       ],
       "adaptiveIcon": {
-        "versionCode": 35,
+        "versionCode": 36,
         "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#ffffff"
       },

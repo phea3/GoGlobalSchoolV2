@@ -17,7 +17,7 @@ import { useNavigate } from "react-router-native";
 import { useTranslation } from "react-multi-lang";
 
 export default function AnnouncementScreen() {
-  const [limit, setLimit] = useState(10);
+  const [limit, setLimit] = useState(100);
   const navigate = useNavigate();
   const [isFetching, setFetching] = useState(false);
   const t = useTranslation();
@@ -116,17 +116,35 @@ export default function AnnouncementScreen() {
             data={announces}
             renderItem={({ item }) => <Item item={item} />}
             keyExtractor={(announce: any) => announce?._id.toString()}
-            onEndReached={loadMoreItems}
-            ListFooterComponent={() =>
-              loading && (
-                <ActivityIndicator
-                  size="large"
-                  style={{ marginVertical: 20 }}
-                />
-              )
-            }
+            // onEndReached={loadMoreItems}
+            // ListFooterComponent={() =>
+            //   loading && (
+            //     <ActivityIndicator
+            //       size="large"
+            //       style={{ marginVertical: 20 }}
+            //     />
+            //   )
+            // }
           />
         )}
+
+        {announces.length >= limit ? (
+          <TouchableOpacity
+            onPress={() => {
+              setLimit(10 + limit);
+            }}
+            style={{
+              width: "100%",
+              alignItems: "center",
+              justifyContent: "center",
+              height: 40,
+            }}
+          >
+            <Text style={{ fontFamily: "Kantumruy-Bold", color: "#3c6efb" }}>
+              {t("see more")}
+            </Text>
+          </TouchableOpacity>
+        ) : null}
       </View>
     </View>
   );

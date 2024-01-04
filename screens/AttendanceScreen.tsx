@@ -233,8 +233,7 @@ export default function AttendanceScreen() {
                   <Text style={AttendanceStyle.AttendanceModalBodyText}>
                     {date
                       ? moment(date).format("YYYY-MM-DD")
-                      : moment(new Date())
-                          .format("YYYY-MM-DD")}
+                      : moment(new Date()).format("YYYY-MM-DD")}
                   </Text>
                   <Image
                     source={require("../assets/Images/calendar-clock.png")}
@@ -260,8 +259,7 @@ export default function AttendanceScreen() {
                   <Text style={AttendanceStyle.AttendanceModalBodyText}>
                     {date1
                       ? moment(date1).format("YYYY-MM-DD")
-                      : moment(new Date())
-                          .format("YYYY-MM-DD")}
+                      : moment(new Date()).format("YYYY-MM-DD")}
                   </Text>
                   <Image
                     source={require("../assets/Images/calendar-clock.png")}
@@ -334,8 +332,7 @@ export default function AttendanceScreen() {
               {Attendance?.className}
             </Text>
             <Text style={AttendanceStyle.AttendanceBody2}>
-              {moment(Attendance?.date)
-                .format("YYYY-MM-DD")}
+              {moment(Attendance?.date).format("YYYY-MM-DD")}
             </Text>
             <Text style={AttendanceStyle.AttendanceTitle2}>
               {Attendance?.attendace}

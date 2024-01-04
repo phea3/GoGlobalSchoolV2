@@ -1,5 +1,12 @@
 import { useEffect, useState } from "react";
-import { Image, Modal, Text, TouchableOpacity, View } from "react-native";
+import {
+  Alert,
+  Image,
+  Modal,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import HomeStyle from "../../Styles/HomeScreen.scss";
 import { useMutation, useQuery } from "@apollo/client";
 import { PICK_UPSTUDENT } from "../../graphql/PickupStudentForMobile";
@@ -13,6 +20,7 @@ export default function ModalPickup({
   studentId,
   isVisible,
   handleClose,
+  locate,
 }: any) {
   //
   const t = useTranslation();
@@ -32,8 +40,7 @@ export default function ModalPickup({
       variables: {
         studentId: studentId,
       },
-      onCompleted: ({}) => {
-      },
+      onCompleted: ({}) => {},
       onError: (error) => {},
     }
   );
@@ -54,7 +61,6 @@ export default function ModalPickup({
   useEffect(() => {
     checkrefetch();
   }, [studentId]);
-
   //============= FUNCTION PICK UP ==============
   const [pickingUpStudent, { data }] = useMutation(PICK_UPSTUDENT);
 
@@ -90,14 +96,31 @@ export default function ModalPickup({
           <View style={HomeStyle.HomePickupStudentContent}>
             {checkdata?.checkIsStudentInPickUp === true ? (
               <>
-                <View style={HomeStyle.HomePickupStudentTextContainer}>
-                  <Text style={HomeStyle.HomePickupStudentText}>
-                    {t("Are you sure to pick up")}
-                  </Text>
-                  <Text style={HomeStyle.HomePickupStudentText}>
-                    {t("your child ?")}
-                  </Text>
-                </View>
+                {locate ? (
+                  <View style={HomeStyle.HomePickupStudentTextContainer}>
+                    <Text style={HomeStyle.HomePickupStudentText}>
+                      {t("Are you sure to pick up")}
+                    </Text>
+                    <Text style={HomeStyle.HomePickupStudentText}>
+                      {t("your child ?")}
+                    </Text>
+                  </View>
+                ) : (
+                  <View
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Image
+                      source={require("../../assets/Images/18-location-pin-gradient.gif")}
+                      style={{ width: 80, height: 80 }}
+                    />
+                  </View>
+                )}
+
                 <View style={HomeStyle.HomePickupStudentButtonContainer}>
                   <TouchableOpacity
                     onPress={() => {
@@ -109,8 +132,15 @@ export default function ModalPickup({
                   </TouchableOpacity>
                   <TouchableOpacity
                     onPress={() => {
-                      handleClose();
-                      PickStudentHandler();
+                      if (
+                        locate?.coords.latitude >= 13.34572060724703 &&
+                        locate?.coords.latitude <= 13.349565026819539 &&
+                        locate?.coords.longitude >= 103.84319363518682 &&
+                        locate?.coords.longitude <= 103.84595763628897
+                      ) {
+                        handleClose();
+                        PickStudentHandler();
+                      }
                     }}
                     style={[
                       HomeStyle.HomePickupStudentButton,

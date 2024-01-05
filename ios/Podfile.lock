@@ -17,6 +17,8 @@ PODS:
   - EXImageLoader (4.3.0):
     - ExpoModulesCore
     - React-Core
+  - EXLocation (16.1.0):
+    - ExpoModulesCore
   - EXMediaLibrary (15.4.1):
     - ExpoModulesCore
     - RCT-Folly (= 2021.07.22.00)
@@ -535,6 +537,7 @@ DEPENDENCIES:
   - EXFileSystem (from `../node_modules/expo-file-system/ios`)
   - EXFont (from `../node_modules/expo-font/ios`)
   - EXImageLoader (from `../node_modules/expo-image-loader/ios`)
+  - EXLocation (from `../node_modules/expo-location/ios`)
   - EXMediaLibrary (from `../node_modules/expo-media-library/ios`)
   - EXNotifications (from `../node_modules/expo-notifications/ios`)
   - Expo (from `../node_modules/expo`)
@@ -621,6 +624,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/expo-font/ios"
   EXImageLoader:
     :path: "../node_modules/expo-image-loader/ios"
+  EXLocation:
+    :path: "../node_modules/expo-location/ios"
   EXMediaLibrary:
     :path: "../node_modules/expo-media-library/ios"
   EXNotifications:
@@ -749,6 +754,7 @@ SPEC CHECKSUMS:
   EXFileSystem: f8b838a880254de42a5a7da20ed5ce12e2697c1b
   EXFont: 738c44c390953ebcbab075a4848bfbef025fd9ee
   EXImageLoader: 34b214f9387e98f3c73989f15d8d5b399c9ab3f7
+  EXLocation: a425ace19c0445e7ea9702982fc6b9a402791510
   EXMediaLibrary: 8ac14ce76f266026b10cac2ab049debe032d7ae7
   EXNotifications: 09394cbd7165f9a4a00a53328aa09bf874bae717
   Expo: 61a8e1aa94311557c137c0a4dfd4fe78281cfbb4

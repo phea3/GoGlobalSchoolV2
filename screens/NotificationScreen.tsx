@@ -19,6 +19,7 @@ import * as Notifications from "expo-notifications";
 import { clearBadge } from "../usePushNotifications";
 
 export default function NotificationScreen() {
+  const navigate = useNavigate();
   const location = useLocation();
   const idUserLogin = location.state;
   const [timeDifference, setTimeDifference] = useState("");
@@ -49,7 +50,7 @@ export default function NotificationScreen() {
   });
 
   // useEffect(() => {
-  //   console.log(versions);
+  // console.log(versions);
   // }, [versions]);
 
   useEffect(() => {
@@ -163,7 +164,15 @@ export default function NotificationScreen() {
           )}
 
         {NotiData?.getNotifications.map((noti: any, index: number) => (
-          <View style={NotificationStyle.NotificationCardContainer} key={index}>
+          <TouchableOpacity
+            onPress={() => {
+              if (noti?.type === "Attendance") {
+                // navigate("/attendance", { state:  });
+              }
+            }}
+            style={NotificationStyle.NotificationCardContainer}
+            key={index}
+          >
             <Image
               source={
                 noti?.notifBy
@@ -199,7 +208,7 @@ export default function NotificationScreen() {
                 </Text>
               </View>
             </View>
-          </View>
+          </TouchableOpacity>
         ))}
       </ScrollView>
     </View>

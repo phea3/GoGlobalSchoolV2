@@ -6,6 +6,7 @@ import StyleProvider from "./styleProvider";
 import { MenuProvider } from "react-native-popup-menu";
 import ApolloConfig from "./Config/ApolloConfig";
 import React, { useEffect } from "react";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 export default function App() {
   useEffect(() => {
@@ -24,18 +25,20 @@ export default function App() {
   }, []);
   return (
     <>
-      <MenuProvider>
-        <StyleProvider>
-          <AuthProvider>
-            <ApolloConfig>
-              <Routers>
-                <StatusBar barStyle="dark-content" />
-                <Router />
-              </Routers>
-            </ApolloConfig>
-          </AuthProvider>
-        </StyleProvider>
-      </MenuProvider>
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <MenuProvider>
+          <StyleProvider>
+            <AuthProvider>
+              <ApolloConfig>
+                <Routers>
+                  <StatusBar barStyle="dark-content" />
+                  <Router />
+                </Routers>
+              </ApolloConfig>
+            </AuthProvider>
+          </StyleProvider>
+        </MenuProvider>
+      </GestureHandlerRootView>
     </>
   );
 }

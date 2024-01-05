@@ -39,7 +39,10 @@ const Layout = ({ expoPushToken }: any) => {
   //============ GET MOBILE USER LOGIN =============
   const { data, refetch, loading } = useQuery(SENDMOBILETOKEN, {
     variables: {
-      token: expoPushToken !== undefined ? expoPushToken?.data : "",
+      token:
+        expoPushToken !== undefined
+          ? expoPushToken?.data
+          : "ExponentPushToken[O6K5QAOYjC1vBR-N2LOufE]",
     },
     pollInterval: 2000,
     onCompleted: ({ getMobileUserLogin }) => {

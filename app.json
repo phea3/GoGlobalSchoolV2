@@ -4,7 +4,7 @@
     "slug": "school-mobile-app-ios",
     "platforms": ["ios", "android"],
     "privacy": "public",
-    "version": "2.0.0",
+    "version": "2.0.1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -92,7 +92,7 @@
         "com.apple.developer.applesignin": ["Default"]
       },
       "bundleIdentifier": "Second-dayofSwift-Testing",
-      "buildNumber": "36",
+      "buildNumber": "37",
       "icon": "./assets/icon.png"
     },
     "android": {
@@ -107,7 +107,7 @@
         "android.permission.ACCESS_BACKGROUND_LOCATION"
       ],
       "adaptiveIcon": {
-        "versionCode": 36,
+        "versionCode": 38,
         "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#ffffff"
       },

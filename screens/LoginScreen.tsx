@@ -219,7 +219,7 @@ const LoginScreen = ({ expoPushToken }: any) => {
                 LoginStyle.textinput,
                 {
                   padding:
-                    dimension === "sm" ? 5 : dimension === "lg" ? 25 : 15,
+                    dimension === "sm" ? 10 : dimension === "lg" ? 25 : 15,
                   marginVertical: "sm" ? 5 : 10,
                 },
               ]}
@@ -276,7 +276,7 @@ const LoginScreen = ({ expoPushToken }: any) => {
                 LoginStyle.textinput,
                 {
                   padding:
-                    dimension === "sm" ? 5 : dimension === "lg" ? 25 : 15,
+                    dimension === "sm" ? 10 : dimension === "lg" ? 25 : 15,
                   marginVertical: "sm" ? 5 : 10,
                 },
               ]}
@@ -343,77 +343,6 @@ const LoginScreen = ({ expoPushToken }: any) => {
                 : LoginStyle.optionContainer
             }
           >
-            <Menu>
-              <MenuTrigger>
-                <Text
-                  style={[
-                    LoginStyle.LoginForgetText,
-                    {
-                      fontSize:
-                        dimension === "sm" ? 10 : dimension === "lg" ? 20 : 14,
-                    },
-                  ]}
-                >
-                  {t("Change Language")}
-                </Text>
-              </MenuTrigger>
-              <MenuOptions>
-                <MenuOption onSelect={() => ChangeEng()}>
-                  <View
-                    style={{
-                      flexDirection: "row",
-                      alignItems: "center",
-                      justifyContent: "space-between",
-                      padding: dimension === "sm" ? 6 : 10,
-                    }}
-                  >
-                    <Text
-                      style={[
-                        LoginStyle.headerTitle3,
-                        { fontSize: dimension === "sm" ? 12 : 16 },
-                      ]}
-                    >
-                      {t("English")}
-                    </Text>
-                    <Image
-                      source={require("../assets/Images/English-Flag.png")}
-                      style={{
-                        width: dimension === "sm" ? 20 : 30,
-                        height: dimension === "sm" ? 20 : 30,
-                      }}
-                    />
-                  </View>
-                </MenuOption>
-                <MenuOption onSelect={() => ChangeKh()}>
-                  <View
-                    style={{
-                      flexDirection: "row",
-                      alignItems: "center",
-                      justifyContent: "space-between",
-                      padding: dimension === "sm" ? 6 : 10,
-                      borderTopWidth: 1,
-                      borderColor: "#dcdcdc",
-                    }}
-                  >
-                    <Text
-                      style={[
-                        LoginStyle.headerTitle3,
-                        { fontSize: dimension === "sm" ? 12 : 16 },
-                      ]}
-                    >
-                      {t("Khmer")}
-                    </Text>
-                    <Image
-                      source={require("../assets/Images/Cambodia-Flag.png")}
-                      style={{
-                        width: dimension === "sm" ? 20 : 30,
-                        height: dimension === "sm" ? 20 : 30,
-                      }}
-                    />
-                  </View>
-                </MenuOption>
-              </MenuOptions>
-            </Menu>
             <TouchableOpacity onPress={() => navigate("/forget")}>
               <Text
                 style={[
@@ -421,6 +350,7 @@ const LoginScreen = ({ expoPushToken }: any) => {
                   {
                     fontSize:
                       dimension === "sm" ? 10 : dimension === "lg" ? 20 : 14,
+                    padding: 5,
                   },
                 ]}
               >
@@ -480,6 +410,86 @@ const LoginScreen = ({ expoPushToken }: any) => {
             />
           </View>
         )}
+        <Menu style={{ position: "absolute", top: 30, right: 30 }}>
+          <MenuTrigger>
+            {getLanguage() === "kh" ? (
+              <Animatable.Image
+                source={require("../assets/Images/Cambodia-Flag.png")}
+                style={{
+                  width: dimension === "sm" ? 20 : dimension === "lg" ? 45 : 30,
+                  height:
+                    dimension === "sm" ? 20 : dimension === "lg" ? 45 : 30,
+                }}
+                animation="fadeInDown"
+              />
+            ) : (
+              <Animatable.Image
+                source={require("../assets/Images/English-Flag.png")}
+                style={{
+                  width: dimension === "sm" ? 20 : 30,
+                  height: dimension === "sm" ? 20 : 30,
+                }}
+                animation="fadeInDown"
+              />
+            )}
+          </MenuTrigger>
+          <MenuOptions>
+            <MenuOption onSelect={() => ChangeEng()}>
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  padding: dimension === "sm" ? 6 : 10,
+                }}
+              >
+                <Text
+                  style={[
+                    LoginStyle.headerTitle3,
+                    { fontSize: dimension === "sm" ? 12 : 16 },
+                  ]}
+                >
+                  {t("English")}
+                </Text>
+                <Image
+                  source={require("../assets/Images/English-Flag.png")}
+                  style={{
+                    width: dimension === "sm" ? 20 : 30,
+                    height: dimension === "sm" ? 20 : 30,
+                  }}
+                />
+              </View>
+            </MenuOption>
+            <MenuOption onSelect={() => ChangeKh()}>
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  padding: dimension === "sm" ? 6 : 10,
+                  borderTopWidth: 1,
+                  borderColor: "#dcdcdc",
+                }}
+              >
+                <Text
+                  style={[
+                    LoginStyle.headerTitle3,
+                    { fontSize: dimension === "sm" ? 12 : 16 },
+                  ]}
+                >
+                  {t("Khmer")}
+                </Text>
+                <Image
+                  source={require("../assets/Images/Cambodia-Flag.png")}
+                  style={{
+                    width: dimension === "sm" ? 20 : 30,
+                    height: dimension === "sm" ? 20 : 30,
+                  }}
+                />
+              </View>
+            </MenuOption>
+          </MenuOptions>
+        </Menu>
       </ImageBackground>
     </View>
   );

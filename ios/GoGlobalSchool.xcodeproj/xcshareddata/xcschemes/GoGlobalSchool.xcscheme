@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "Second-dayofSwift-Testing.app"
+               BuildableName = "Go Global School.app"
                BlueprintName = "GoGlobalSchool"
                ReferencedContainer = "container:GoGlobalSchool.xcodeproj">
             </BuildableReference>
@@ -55,7 +55,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "Second-dayofSwift-Testing.app"
+            BuildableName = "Go Global School.app"
             BlueprintName = "GoGlobalSchool"
             ReferencedContainer = "container:GoGlobalSchool.xcodeproj">
          </BuildableReference>
@@ -72,7 +72,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "Second-dayofSwift-Testing.app"
+            BuildableName = "Go Global School.app"
             BlueprintName = "GoGlobalSchool"
             ReferencedContainer = "container:GoGlobalSchool.xcodeproj">
          </BuildableReference>

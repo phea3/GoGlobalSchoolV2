@@ -133,10 +133,11 @@ export default function ModalPickup({
                   <TouchableOpacity
                     onPress={() => {
                       if (
-                        locate?.coords.latitude >= 13.34572060724703 &&
-                        locate?.coords.latitude <= 13.349565026819539 &&
-                        locate?.coords.longitude >= 103.84319363518682 &&
-                        locate?.coords.longitude <= 103.84595763628897
+                        locate
+                        // locate?.coords.latitude >= 13.34572060724703 &&
+                        // locate?.coords.latitude <= 13.349565026819539 &&
+                        // locate?.coords.longitude >= 103.84319363518682 &&
+                        // locate?.coords.longitude <= 103.84595763628897
                       ) {
                         handleClose();
                         PickStudentHandler();

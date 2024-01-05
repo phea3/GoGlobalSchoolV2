@@ -410,7 +410,7 @@ const LoginScreen = ({ expoPushToken }: any) => {
             />
           </View>
         )}
-        <Menu style={{ position: "absolute", top: 30, right: 30 }}>
+        <Menu style={{ position: "absolute", top: 50, right: 30 }}>
           <MenuTrigger>
             {getLanguage() === "kh" ? (
               <Animatable.Image

@@ -107,7 +107,7 @@
         "android.permission.ACCESS_BACKGROUND_LOCATION"
       ],
       "adaptiveIcon": {
-        "versionCode": 38,
+        "versionCode": 37,
         "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#ffffff"
       },

@@ -16,6 +16,7 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 import { useTranslation } from "react-multi-lang";
+import { moderateScale } from "../../ Metrics";
 
 export default function ModalContactUS({
   isVisible,
@@ -115,9 +116,19 @@ export default function ModalContactUS({
                 <Image
                   source={require("../../assets/Images/telegram-colorful.png")}
                   resizeMode="contain"
-                  style={{ width: 60, height: 60 }}
+                  style={{
+                    width: moderateScale(60),
+                    height: moderateScale(60),
+                  }}
                 />
-                <Text style={HomeStyle.ContactUsTitleContent}>Telegram</Text>
+                <Text
+                  style={[
+                    HomeStyle.ContactUsTitleContent,
+                    { fontSize: moderateScale(14), padding: moderateScale(10) },
+                  ]}
+                >
+                  Telegram
+                </Text>
               </TouchableOpacity>
 
               <TouchableOpacity
@@ -129,9 +140,19 @@ export default function ModalContactUS({
                 <Image
                   source={require("../../assets/Images/facebook-colorful.png")}
                   resizeMode="contain"
-                  style={{ width: 60, height: 60 }}
+                  style={{
+                    width: moderateScale(60),
+                    height: moderateScale(60),
+                  }}
                 />
-                <Text style={HomeStyle.ContactUsTitleContent}>Facebook</Text>
+                <Text
+                  style={[
+                    HomeStyle.ContactUsTitleContent,
+                    { fontSize: moderateScale(14), padding: moderateScale(10) },
+                  ]}
+                >
+                  Facebook
+                </Text>
               </TouchableOpacity>
             </View>
             <TouchableOpacity
@@ -144,7 +165,9 @@ export default function ModalContactUS({
                 }, 500);
               }}
             >
-              <Text style={{ fontWeight: "500" }}>{t("Cancel")}</Text>
+              <Text style={{ fontWeight: "500", fontSize: moderateScale(16) }}>
+                {t("Cancel")}
+              </Text>
             </TouchableOpacity>
           </Animatable.View>
         </View>

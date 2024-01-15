@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import HomeStyle from "../Styles/HomeScreen.scss";
-import { useLocation, useNavigate } from "react-router-native";
+import { useNavigate } from "react-router-native";
 import { getLanguage, useTranslation } from "react-multi-lang";
 import moment from "moment";
 import { useQuery } from "@apollo/client";
@@ -24,6 +24,7 @@ import ModalEYS from "../components/home/ModalEYS";
 import ModalHealth from "../components/health/ModalHealth";
 import axios from "axios";
 import * as WebBrowser from "expo-web-browser";
+import { moderateScale } from "../ Metrics";
 
 const features = [
   {
@@ -113,10 +114,9 @@ const HomeScreen = ({ locate }: any) => {
   const { uid } = useContext(AuthContext);
   const [isModalVisible, setModalVisible] = useState(false);
   const [isModalVisible1, setModalVisible1] = useState(false);
-  const { widthScreen, heightScreen, dimension } = useContext(AuthContext);
-  const videoId = "A7CBbLkWqo8"; // Replace with the actual video ID
-  const videoId2 = "os_6ebAPz1w"; // Replace with the actual video ID
-  const API_KEY = "AIzaSyAlvBFERx-gzDSdi8SmcZZ4SjZ88UO0MBQ"; // Replace with your YouTube Data API key
+  const videoId = "A7CBbLkWqo8";
+  const videoId2 = "os_6ebAPz1w";
+  const API_KEY = "AIzaSyAlvBFERx-gzDSdi8SmcZZ4SjZ88UO0MBQ";
   const [duty, setDuty] = useState("");
   const [studentId, setStudentId] = useState("");
   const [loading, setLoading] = useState(true);
@@ -128,7 +128,6 @@ const HomeScreen = ({ locate }: any) => {
   const [logoName, setLogoName] = useState("");
   const [subscriberCount, setSubscriberCount] = useState(0);
   const [logoUrl, setLogoUrl] = useState("");
-
   const [likeCount2, setLikeCount2] = useState(0);
   const [commentCount2, setCommentCount2] = useState(0);
   const [viewCount2, setViewCount2] = useState(0);
@@ -198,12 +197,10 @@ const HomeScreen = ({ locate }: any) => {
   };
 
   useOnce(() => {
-    // Code to run only once
     const timer = setTimeout(() => {
       setLoading(false);
     }, 500);
     return () => clearTimeout(timer);
-    // console.log('This code runs only once');
   });
 
   //================ GET STUDENT ===============
@@ -217,7 +214,6 @@ const HomeScreen = ({ locate }: any) => {
     },
     onError: (error) => {
       console.log(error?.message);
-      // setLoading(true);
     },
   });
 
@@ -420,12 +416,20 @@ const HomeScreen = ({ locate }: any) => {
             style={[
               HomeStyle.modalinsideStyle,
               {
-                width: dimension === "sm" ? 200 : 350,
-                height: dimension === "sm" ? 250 : 300,
+                width: moderateScale(350),
+                height: moderateScale(350),
+                padding: moderateScale(10),
               },
             ]}
           >
-            <Text style={HomeStyle.homeModalTitle}>{t(duty)}</Text>
+            <Text
+              style={[
+                HomeStyle.homeModalTitle,
+                { fontSize: moderateScale(16), padding: moderateScale(10) },
+              ]}
+            >
+              {t(duty)}
+            </Text>
             <ScrollView
               horizontal
               showsHorizontalScrollIndicator={false}
@@ -435,13 +439,21 @@ const HomeScreen = ({ locate }: any) => {
             >
               {data?.getStudentByParentsMobile.length === 0 ||
               data === undefined ? (
-                <View style={HomeStyle.imageBox}>
+                <View
+                  style={[
+                    HomeStyle.imageBox,
+                    {
+                      width: moderateScale(130),
+                      height: moderateScale(200),
+                    },
+                  ]}
+                >
                   <View
                     style={{
                       borderColor: "#9aa3a6",
-                      borderWidth: 1,
-                      borderRadius: 60,
-                      padding: 5,
+                      borderWidth: moderateScale(1),
+                      borderRadius: moderateScale(200),
+                      padding: moderateScale(5),
                     }}
                   >
                     <View
@@ -449,14 +461,16 @@ const HomeScreen = ({ locate }: any) => {
                         HomeStyle.imageHome,
                         {
                           backgroundColor: "#f1f1f1",
+                          width: moderateScale(100),
+                          height: moderateScale(100),
                         },
                       ]}
                     />
                   </View>
                   <View
                     style={{
-                      width: 120,
-                      height: 30,
+                      width: moderateScale(100),
+                      height: moderateScale(30),
                       backgroundColor: "#f1f1f1",
                     }}
                   />
@@ -469,9 +483,23 @@ const HomeScreen = ({ locate }: any) => {
                       ConditionsOfStudentFeatures(stuInfo);
                     }}
                     key={stuInfo?._id}
-                    style={HomeStyle.imageBox}
+                    style={[
+                      HomeStyle.imageBox,
+                      {
+                        width: moderateScale(130),
+                        height: moderateScale(200),
+                      },
+                    ]}
                   >
-                    <View style={HomeStyle.homeImageBorderWidthStyle}>
+                    <View
+                      style={[
+                        HomeStyle.homeImageBorderWidthStyle,
+                        {
+                          borderWidth: moderateScale(1),
+                          padding: moderateScale(5),
+                        },
+                      ]}
+                    >
                       <Animatable.Image
                         source={
                           stuInfo?.profileImg
@@ -486,14 +514,23 @@ const HomeScreen = ({ locate }: any) => {
                                 }
                             : require("../assets/Images/user.png")
                         }
-                        style={HomeStyle.imageHome}
+                        style={[
+                          HomeStyle.imageHome,
+                          {
+                            width: moderateScale(100),
+                            height: moderateScale(100),
+                          },
+                        ]}
                         resizeMode="cover"
                         animation="zoomIn"
                       />
                     </View>
 
                     <Text
-                      style={HomeStyle.studentProfileName}
+                      style={[
+                        HomeStyle.studentProfileName,
+                        { fontSize: moderateScale(14) },
+                      ]}
                       numberOfLines={1}
                     >
                       {getLanguage() === "en"
@@ -548,7 +585,7 @@ const HomeScreen = ({ locate }: any) => {
           alignItems: "center",
         }}
       >
-        <View style={HomeStyle.imageGroup}>
+        <View style={[HomeStyle.imageGroup, { height: moderateScale(200) }]}>
           <ScrollView
             horizontal
             showsHorizontalScrollIndicator={false}
@@ -556,13 +593,21 @@ const HomeScreen = ({ locate }: any) => {
           >
             {data === undefined ||
             data?.getStudentByParentsMobile.length === 0 ? (
-              <View style={HomeStyle.imageBox}>
+              <View
+                style={[
+                  HomeStyle.imageBox,
+                  {
+                    width: moderateScale(130),
+                    height: moderateScale(200),
+                  },
+                ]}
+              >
                 <View
                   style={{
                     borderColor: "#9aa3a6",
-                    borderWidth: 1,
-                    borderRadius: 60,
-                    padding: 5,
+                    borderWidth: moderateScale(1),
+                    borderRadius: 200,
+                    padding: moderateScale(5),
                   }}
                 >
                   <View
@@ -570,14 +615,16 @@ const HomeScreen = ({ locate }: any) => {
                       HomeStyle.imageHome,
                       {
                         backgroundColor: "#f1f1f1",
+                        width: moderateScale(100),
+                        height: moderateScale(100),
                       },
                     ]}
                   />
                 </View>
                 <View
                   style={{
-                    width: 120,
-                    height: 30,
+                    width: moderateScale(100),
+                    height: moderateScale(30),
                     backgroundColor: "#f1f1f1",
                   }}
                 />
@@ -586,13 +633,22 @@ const HomeScreen = ({ locate }: any) => {
               data?.getStudentByParentsMobile?.map(
                 (stuInfo: any, index: number) =>
                   loading === true ? (
-                    <View style={HomeStyle.imageBox} key={index}>
+                    <View
+                      style={[
+                        HomeStyle.imageBox,
+                        {
+                          width: moderateScale(130),
+                          height: moderateScale(200),
+                        },
+                      ]}
+                      key={index}
+                    >
                       <View
                         style={{
                           borderColor: "#9aa3a6",
-                          borderWidth: 1,
-                          borderRadius: 60,
-                          padding: 5,
+                          borderWidth: moderateScale(1),
+                          borderRadius: 100,
+                          padding: moderateScale(5),
                         }}
                       >
                         <View
@@ -600,14 +656,16 @@ const HomeScreen = ({ locate }: any) => {
                             HomeStyle.imageHome,
                             {
                               backgroundColor: "#f1f1f1",
+                              width: moderateScale(100),
+                              height: moderateScale(100),
                             },
                           ]}
                         />
                       </View>
                       <View
                         style={{
-                          width: 120,
-                          height: 30,
+                          width: moderateScale(100),
+                          height: moderateScale(30),
                           backgroundColor: "#f1f1f1",
                         }}
                       />
@@ -618,14 +676,20 @@ const HomeScreen = ({ locate }: any) => {
                         navigate("/studentdetail", { state: { stuInfo, uid } })
                       }
                       key={stuInfo?._id}
-                      style={HomeStyle.imageBox}
+                      style={[
+                        HomeStyle.imageBox,
+                        {
+                          width: moderateScale(130),
+                          height: moderateScale(200),
+                        },
+                      ]}
                     >
                       <View
                         style={{
                           borderColor: "#3C6EFB",
-                          borderWidth: 1,
-                          borderRadius: 60,
-                          padding: 5,
+                          borderWidth: moderateScale(1),
+                          borderRadius: 100,
+                          padding: moderateScale(5),
                         }}
                       >
                         <Animatable.Image
@@ -642,14 +706,23 @@ const HomeScreen = ({ locate }: any) => {
                                   }
                               : require("../assets/Images/user.png")
                           }
-                          style={HomeStyle.imageHome}
+                          style={[
+                            HomeStyle.imageHome,
+                            {
+                              width: moderateScale(100),
+                              height: moderateScale(100),
+                            },
+                          ]}
                           resizeMode="cover"
                           animation="zoomIn"
                         />
                       </View>
 
                       <Text
-                        style={HomeStyle.studentProfileName}
+                        style={[
+                          HomeStyle.studentProfileName,
+                          { fontSize: moderateScale(14) },
+                        ]}
                         numberOfLines={1}
                       >
                         {getLanguage() === "en"
@@ -663,21 +736,29 @@ const HomeScreen = ({ locate }: any) => {
           </ScrollView>
         </View>
 
-        <View style={HomeStyle.titleBarHome}>
+        <View style={[HomeStyle.titleBarHome, { height: moderateScale(50) }]}>
           {loading === true ? (
             <View style={HomeStyle.titleBarHomeLoading} />
           ) : (
             <>
               <Image
                 source={require("../assets/Images/upcoming.png")}
-                style={{ height: 20, width: 20 }}
+                style={{ height: moderateScale(20), width: moderateScale(20) }}
               />
-              <Text style={HomeStyle.fontTitleBarHome}>
+              <Text
+                style={[
+                  HomeStyle.fontTitleBarHome,
+                  {
+                    fontSize: moderateScale(14),
+                    paddingHorizontal: moderateScale(10),
+                  },
+                ]}
+              >
                 {getLanguage() === "en"
                   ? "UPCOMING NEWS"
                   : "ព្រឺត្តិការណ៏ថ្មីៗ"}
               </Text>
-              <View style={HomeStyle.homeBar} />
+              <View style={[HomeStyle.homeBar, { height: moderateScale(2) }]} />
             </>
           )}
         </View>
@@ -685,11 +766,26 @@ const HomeScreen = ({ locate }: any) => {
         {eventData === undefined ||
         eventData?.getUpcomingEventMobile.length === 0 ? (
           <View style={HomeStyle.upcomingcardhome}>
-            <View style={HomeStyle.homeUpcomingEventStyleBoxEmpty}>
+            <View
+              style={[
+                HomeStyle.homeUpcomingEventStyleBoxEmpty,
+                { marginVertical: moderateScale(5) },
+              ]}
+            >
               <View style={HomeStyle.homeUpcominginSideViewContainer}>
                 <View style={HomeStyle.homeUpcomingPillarEmpty} />
                 <View style={HomeStyle.homeUpcominginSideViewContainer2}>
-                  <Text style={HomeStyle.homeUpcomingTitleEmpty}> </Text>
+                  <Text
+                    style={[
+                      HomeStyle.homeUpcomingTitleEmpty,
+                      {
+                        fontSize: moderateScale(14),
+                        height: moderateScale(50),
+                      },
+                    ]}
+                  >
+                    {" "}
+                  </Text>
                   <Text style={HomeStyle.homeUpcomingBody}> </Text>
                 </View>
               </View>
@@ -699,9 +795,29 @@ const HomeScreen = ({ locate }: any) => {
           eventData?.getUpcomingEventMobile.map((event: any, index: number) =>
             loading === true ? (
               <View style={HomeStyle.upcomingcardhome} key={index}>
-                <View style={HomeStyle.homeUpcomingEventStyleBoxEmpty}>
-                  <View style={HomeStyle.homeUpcominginSideViewContainer}>
-                    <View style={HomeStyle.homeUpcomingPillarEmpty} />
+                <View
+                  style={[
+                    HomeStyle.homeUpcomingEventStyleBoxEmpty,
+                    {
+                      marginTop: moderateScale(5),
+                      marginBottom: moderateScale(5),
+                    },
+                  ]}
+                >
+                  <View
+                    style={[
+                      HomeStyle.homeUpcominginSideViewContainer,
+                      {
+                        padding: moderateScale(15),
+                      },
+                    ]}
+                  >
+                    <View
+                      style={[
+                        HomeStyle.homeUpcomingPillarEmpty,
+                        { width: moderateScale(2) },
+                      ]}
+                    />
                     <View style={HomeStyle.homeUpcominginSideViewContainer2}>
                       <Text style={HomeStyle.homeUpcomingTitleEmpty}> </Text>
                       <Text style={HomeStyle.homeUpcomingBody}> </Text>
@@ -712,21 +828,50 @@ const HomeScreen = ({ locate }: any) => {
             ) : (
               <View style={HomeStyle.upcomingcardhome} key={index}>
                 <View
-                  style={
+                  style={[
                     index % 3 === 0
                       ? HomeStyle.homeUpcomingEventStyleBox1
                       : index % 3 === 1
                       ? HomeStyle.homeUpcomingEventStyleBox2
-                      : HomeStyle.homeUpcomingEventStyleBox3
-                  }
+                      : HomeStyle.homeUpcomingEventStyleBox3,
+                    {
+                      marginTop: moderateScale(5),
+                      marginBottom: moderateScale(5),
+                    },
+                  ]}
                 >
-                  <View style={HomeStyle.homeUpcominginSideViewContainer}>
-                    <View style={HomeStyle.homeUpcomingPillar} />
-                    <View style={HomeStyle.homeUpcominginSideViewContainer2}>
-                      <Text style={HomeStyle.homeUpcomingTitle}>
+                  <View
+                    style={[
+                      HomeStyle.homeUpcominginSideViewContainer,
+                      { padding: moderateScale(15) },
+                    ]}
+                  >
+                    <View
+                      style={[
+                        HomeStyle.homeUpcomingPillar,
+                        { width: moderateScale(2) },
+                      ]}
+                    />
+                    <View
+                      style={[
+                        HomeStyle.homeUpcominginSideViewContainer2,
+                        { left: moderateScale(10) },
+                      ]}
+                    >
+                      <Text
+                        style={[
+                          HomeStyle.homeUpcomingTitle,
+                          { fontSize: moderateScale(14) },
+                        ]}
+                      >
                         {event?.title}
                       </Text>
-                      <Text style={HomeStyle.homeUpcomingBody}>
+                      <Text
+                        style={[
+                          HomeStyle.homeUpcomingBody,
+                          { fontSize: moderateScale(12) },
+                        ]}
+                      >
                         {moment(event?.from).format("DD-MM-YYYY")}
                       </Text>
                     </View>
@@ -737,19 +882,27 @@ const HomeScreen = ({ locate }: any) => {
           )
         )}
 
-        <View style={HomeStyle.titleBarHome}>
+        <View style={[HomeStyle.titleBarHome, { height: moderateScale(50) }]}>
           {loading === true ? (
             <View style={HomeStyle.titleBarHomeLoading} />
           ) : (
             <>
               <Image
                 source={require("../assets/Images/customer-service.png")}
-                style={{ height: 20, width: 20 }}
+                style={{ height: moderateScale(20), width: moderateScale(20) }}
               />
-              <Text style={HomeStyle.fontTitleBarHome}>
+              <Text
+                style={[
+                  HomeStyle.fontTitleBarHome,
+                  {
+                    fontSize: moderateScale(14),
+                    paddingHorizontal: moderateScale(10),
+                  },
+                ]}
+              >
                 {getLanguage() === "en" ? "FEATURES" : "មុខងារ"}
               </Text>
-              <View style={HomeStyle.homeBar} />
+              <View style={[HomeStyle.homeBar, { height: moderateScale(2) }]} />
             </>
           )}
         </View>
@@ -761,13 +914,45 @@ const HomeScreen = ({ locate }: any) => {
         >
           {features.map((row: any, index: number) =>
             loading === true ? (
-              <View style={HomeStyle.explorecontainer} key={index}>
-                <View style={HomeStyle.exploreBoxSkeleton} />
+              <View
+                style={[
+                  HomeStyle.explorecontainer,
+                  {
+                    height: moderateScale(100),
+                    marginRight: moderateScale(10),
+                  },
+                ]}
+                key={index}
+              >
+                <View
+                  style={[
+                    HomeStyle.exploreBoxSkeleton,
+                    {
+                      width: moderateScale(130),
+                      borderWidth: moderateScale(1),
+                    },
+                  ]}
+                />
               </View>
             ) : (
-              <View style={HomeStyle.explorecontainer} key={index}>
+              <View
+                style={[
+                  HomeStyle.explorecontainer,
+                  {
+                    height: moderateScale(100),
+                    marginRight: moderateScale(10),
+                  },
+                ]}
+                key={index}
+              >
                 <TouchableOpacity
-                  style={HomeStyle.exploreBox}
+                  style={[
+                    HomeStyle.exploreBox,
+                    {
+                      width: moderateScale(130),
+                      borderWidth: moderateScale(1),
+                    },
+                  ]}
                   onPress={() => {
                     setDuty(row?.title);
                     toggleModal();
@@ -775,29 +960,47 @@ const HomeScreen = ({ locate }: any) => {
                 >
                   <Animatable.Image
                     source={row.icon}
-                    style={{ height: 30, width: 30 }}
+                    style={{
+                      height: moderateScale(30),
+                      width: moderateScale(30),
+                    }}
                     animation="bounce"
                   />
-                  <Text style={HomeStyle.exploreTitle}>{t(row?.title)}</Text>
+                  <Text
+                    style={[
+                      HomeStyle.exploreTitle,
+                      { fontSize: moderateScale(10) },
+                    ]}
+                  >
+                    {t(row?.title)}
+                  </Text>
                 </TouchableOpacity>
               </View>
             )
           )}
         </ScrollView>
 
-        <View style={HomeStyle.titleBarHome}>
+        <View style={[HomeStyle.titleBarHome, { height: moderateScale(50) }]}>
           {loading === true ? (
             <View style={HomeStyle.titleBarHomeLoading} />
           ) : (
             <>
               <Image
                 source={require("../assets/Images/rocket.png")}
-                style={{ height: 20, width: 20 }}
+                style={{ height: moderateScale(20), width: moderateScale(20) }}
               />
-              <Text style={HomeStyle.fontTitleBarHome}>
+              <Text
+                style={[
+                  HomeStyle.fontTitleBarHome,
+                  {
+                    fontSize: moderateScale(14),
+                    paddingHorizontal: moderateScale(10),
+                  },
+                ]}
+              >
                 {getLanguage() === "en" ? "EXPLORES" : "ស្វែងរក"}
               </Text>
-              <View style={HomeStyle.homeBar} />
+              <View style={[HomeStyle.homeBar, { height: moderateScale(2) }]} />
             </>
           )}
         </View>
@@ -809,13 +1012,45 @@ const HomeScreen = ({ locate }: any) => {
         >
           {explore.map((row: any, index: number) =>
             loading === true ? (
-              <View style={HomeStyle.explorecontainer} key={index}>
-                <View style={HomeStyle.exploreBoxSkeleton} />
+              <View
+                style={[
+                  HomeStyle.explorecontainer,
+                  {
+                    height: moderateScale(100),
+                    marginRight: moderateScale(10),
+                  },
+                ]}
+                key={index}
+              >
+                <View
+                  style={[
+                    HomeStyle.exploreBoxSkeleton,
+                    {
+                      width: moderateScale(130),
+                      borderWidth: moderateScale(1),
+                    },
+                  ]}
+                />
               </View>
             ) : (
-              <View style={HomeStyle.explorecontainer} key={index}>
+              <View
+                style={[
+                  HomeStyle.explorecontainer,
+                  {
+                    height: moderateScale(100),
+                    marginRight: moderateScale(10),
+                  },
+                ]}
+                key={index}
+              >
                 <TouchableOpacity
-                  style={HomeStyle.exploreBox}
+                  style={[
+                    HomeStyle.exploreBox,
+                    {
+                      width: moderateScale(130),
+                      borderWidth: moderateScale(1),
+                    },
+                  ]}
                   onPress={() => {
                     if (row?.modal) {
                       setDuty(row?.title);
@@ -827,52 +1062,110 @@ const HomeScreen = ({ locate }: any) => {
                 >
                   <Animatable.Image
                     source={row?.icon}
-                    style={{ height: 30, width: 30 }}
+                    style={{
+                      height: moderateScale(30),
+                      width: moderateScale(30),
+                    }}
                     animation="bounce"
                   />
-                  <Text style={HomeStyle.exploreTitle}>{t(row?.title)}</Text>
+                  <Text
+                    style={[
+                      HomeStyle.exploreTitle,
+                      { fontSize: moderateScale(10) },
+                    ]}
+                  >
+                    {t(row?.title)}
+                  </Text>
                 </TouchableOpacity>
               </View>
             )
           )}
         </ScrollView>
 
-        <View style={HomeStyle.titleBarHome}>
+        <View style={[HomeStyle.titleBarHome, { height: moderateScale(50) }]}>
           <Image
             source={require("../assets/Images/megaphone.png")}
-            style={{ height: 20, width: 20 }}
+            style={{ height: moderateScale(20), width: moderateScale(20) }}
           />
-          <Text style={HomeStyle.fontTitleBarHome}>
+          <Text
+            style={[
+              HomeStyle.fontTitleBarHome,
+              {
+                fontSize: moderateScale(14),
+                paddingHorizontal: moderateScale(10),
+              },
+            ]}
+          >
             {getLanguage() === "en" ? "NEWS" : "ដំណឹងថ្មីៗ"}
           </Text>
-          <View style={HomeStyle.homeBar} />
+          <View style={[HomeStyle.homeBar, { height: moderateScale(2) }]} />
         </View>
 
         <View style={HomeStyle.announceHomeHolderContainer}>
           {announces.length === 0 ? (
-            <View style={HomeStyle.announcementHomeContainer}>
+            <View
+              style={[
+                HomeStyle.announcementHomeContainer,
+                {
+                  height: moderateScale(200),
+                  padding: moderateScale(10),
+                  marginBottom: moderateScale(10),
+                },
+              ]}
+            >
               <Animatable.Image
                 source={require("../assets/Images/No-Data-Found.jpeg")}
-                style={{ width: "100%", height: "80%", borderRadius: 5 }}
+                style={{
+                  width: "100%",
+                  height: "80%",
+                  borderRadius: moderateScale(5),
+                }}
                 resizeMode="cover"
                 animation="zoomIn"
               />
-              <Text style={HomeStyle.announcementHomeTitleEmpty}> </Text>
+              <Text
+                style={[
+                  HomeStyle.announcementHomeTitleEmpty,
+                  { padding: moderateScale(5) },
+                ]}
+              >
+                {" "}
+              </Text>
             </View>
           ) : (
             announces.map((announce: any) => (
               <TouchableOpacity
                 onPress={() => navigate("/announce", { state: announce })}
-                style={HomeStyle.announcementHomeContainer}
+                style={[
+                  HomeStyle.announcementHomeContainer,
+                  {
+                    height: moderateScale(200),
+                    padding: moderateScale(10),
+                    marginBottom: moderateScale(10),
+                  },
+                ]}
                 key={announce?._id}
               >
                 <Animatable.Image
                   source={{ uri: announce?.coverSrc }}
-                  style={{ width: "100%", height: "80%", borderRadius: 5 }}
+                  style={{
+                    width: "100%",
+                    height: "80%",
+                    borderRadius: moderateScale(5),
+                  }}
                   resizeMode="cover"
                   animation="zoomIn"
                 />
-                <Text style={HomeStyle.announcementHomeTitle} numberOfLines={1}>
+                <Text
+                  style={[
+                    HomeStyle.announcementHomeTitle,
+                    {
+                      fontSize: moderateScale(15),
+                      paddingVertical: moderateScale(10),
+                    },
+                  ]}
+                  numberOfLines={1}
+                >
                   {announce?.title}
                 </Text>
               </TouchableOpacity>
@@ -880,32 +1173,60 @@ const HomeScreen = ({ locate }: any) => {
           )}
         </View>
 
-        <View style={HomeStyle.titleBarHome}>
+        <View style={[HomeStyle.titleBarHome, { height: moderateScale(50) }]}>
           {loading === true ? (
             <View style={HomeStyle.titleBarHomeLoading} />
           ) : (
             <>
               <Image
                 source={require("../assets/Images/video.png")}
-                style={{ height: 20, width: 20 }}
+                style={{ height: moderateScale(20), width: moderateScale(20) }}
               />
-              <Text style={HomeStyle.fontTitleBarHome}>
+              <Text
+                style={[
+                  HomeStyle.fontTitleBarHome,
+                  {
+                    fontSize: moderateScale(14),
+                    paddingHorizontal: moderateScale(10),
+                  },
+                ]}
+              >
                 {getLanguage() === "en" ? "VIDEOS" : "វីដេអូថ្មីៗ"}
               </Text>
-              <View style={HomeStyle.homeBar} />
+              <View style={[HomeStyle.homeBar, { height: moderateScale(2) }]} />
             </>
           )}
         </View>
         <View style={HomeStyle.announceHomeHolderContainer}>
           {loading === true ? (
-            <View style={HomeStyle.announcementHomeContainer}>
+            <View
+              style={[
+                HomeStyle.announcementHomeContainer,
+                {
+                  height: moderateScale(200),
+                  padding: moderateScale(10),
+                  marginBottom: moderateScale(10),
+                },
+              ]}
+            >
               <Animatable.Image
                 source={require("../assets/Images/No-Data-Found.jpeg")}
-                style={{ width: "100%", height: "80%", borderRadius: 5 }}
+                style={{
+                  width: "100%",
+                  height: "80%",
+                  borderRadius: moderateScale(5),
+                }}
                 resizeMode="cover"
                 animation="zoomIn"
               />
-              <Text style={HomeStyle.announcementHomeTitleEmpty}> </Text>
+              <Text
+                style={[
+                  HomeStyle.announcementHomeTitleEmpty,
+                  { padding: moderateScale(5) },
+                ]}
+              >
+                {" "}
+              </Text>
             </View>
           ) : (
             // announces.map((announce: any) => (
@@ -914,7 +1235,13 @@ const HomeScreen = ({ locate }: any) => {
                 onPress={() => {
                   openWebsite();
                 }}
-                style={HomeStyle.HomeVideoBigContainer}
+                style={[
+                  HomeStyle.HomeVideoBigContainer,
+                  {
+                    height: moderateScale(250),
+                    marginBottom: moderateScale(16),
+                  },
+                ]}
               >
                 <Animatable.Image
                   source={require("../assets/Images/loading-gif.gif")}
@@ -922,7 +1249,12 @@ const HomeScreen = ({ locate }: any) => {
                   resizeMode="cover"
                   animation="zoomIn"
                 />
-                <View style={HomeStyle.HomeVideoContentContainer}>
+                <View
+                  style={[
+                    HomeStyle.HomeVideoContentContainer,
+                    { padding: moderateScale(10) },
+                  ]}
+                >
                   <View style={HomeStyle.HomeVideoContentTitleContainer}>
                     <View>
                       <View
@@ -931,76 +1263,145 @@ const HomeScreen = ({ locate }: any) => {
                         {logoUrl ? (
                           <Image
                             source={{ uri: logoUrl }}
-                            style={{ width: 20, height: 20, borderRadius: 100 }}
+                            style={{
+                              width: moderateScale(20),
+                              height: moderateScale(20),
+                              borderRadius: moderateScale(100),
+                            }}
                           />
                         ) : null}
                         <Text
-                          style={HomeStyle.HomeVideoTitleText}
+                          style={[
+                            HomeStyle.HomeVideoTitleText,
+                            { fontSize: moderateScale(18) },
+                          ]}
                           numberOfLines={1}
                         >
                           {logoName}
                         </Text>
                       </View>
                       <Text
-                        style={HomeStyle.HomeVideoBodyText}
+                        style={[
+                          HomeStyle.HomeVideoBodyText,
+                          {
+                            fontSize: moderateScale(12),
+                            padding: moderateScale(5),
+                          },
+                        ]}
                         numberOfLines={1}
                       >
                         {subscriberCount + " subscribers"}
                       </Text>
                     </View>
-                    <View style={HomeStyle.HomeVideoBodyFakeButton}>
+                    <View
+                      style={[
+                        HomeStyle.HomeVideoBodyFakeButton,
+                        { height: moderateScale(40) },
+                      ]}
+                    >
                       <Image
                         source={require("../assets/Images/play-rotated.png")}
                         resizeMode="contain"
-                        style={{ width: "33%", height: 20 }}
+                        style={{ width: "33%", height: moderateScale(20) }}
                       />
                       <Image
                         source={require("../assets/Images/play-buttton.png")}
                         resizeMode="contain"
                         style={{
                           width: "33%",
-                          height: 20,
-                          paddingHorizontal: 10,
+                          height: moderateScale(20),
+                          paddingHorizontal: moderateScale(10),
                         }}
                       />
                       <Image
                         source={require("../assets/Images/play.png")}
                         resizeMode="contain"
-                        style={{ width: "33%", height: 20 }}
+                        style={{ width: "33%", height: moderateScale(20) }}
                       />
                     </View>
                     <Text
-                      style={HomeStyle.HomeVideoTitleText}
+                      style={[
+                        HomeStyle.HomeVideoTitleText,
+                        { fontSize: moderateScale(18) },
+                      ]}
                       numberOfLines={1}
                     >
                       {videoTitle}
                     </Text>
                   </View>
                   <View style={HomeStyle.HomeVideoReportFooterContainer}>
-                    <View style={HomeStyle.HomeVideoReportContainer}>
+                    <View
+                      style={[
+                        HomeStyle.HomeVideoReportContainer,
+                        { padding: moderateScale(5) },
+                      ]}
+                    >
                       <Image
                         source={require("../assets/Images/white-eye.png")}
-                        style={{ width: 20, height: 20 }}
+                        style={{
+                          width: moderateScale(20),
+                          height: moderateScale(20),
+                        }}
                       />
-                      <Text style={HomeStyle.HomeVideoBodyText}>
+                      <Text
+                        style={[
+                          HomeStyle.HomeVideoBodyText,
+                          {
+                            fontSize: moderateScale(12),
+                            padding: moderateScale(5),
+                          },
+                        ]}
+                      >
                         {viewCount.toString()}
                       </Text>
                     </View>
-                    <View style={HomeStyle.HomeVideoReportContainer}>
+                    <View
+                      style={[
+                        HomeStyle.HomeVideoReportContainer,
+                        { padding: moderateScale(5) },
+                      ]}
+                    >
                       <Image
                         source={require("../assets/Images/like.png")}
-                        style={{ width: 20, height: 20 }}
+                        style={{
+                          width: moderateScale(20),
+                          height: moderateScale(20),
+                        }}
                       />
-                      <Text style={HomeStyle.HomeVideoBodyText}>
+                      <Text
+                        style={[
+                          HomeStyle.HomeVideoBodyText,
+                          {
+                            fontSize: moderateScale(12),
+                            padding: moderateScale(5),
+                          },
+                        ]}
+                      >
                         {likeCount.toString()}
                       </Text>
                     </View>
-                    <View style={HomeStyle.HomeVideoReportContainer}>
+                    <View
+                      style={[
+                        HomeStyle.HomeVideoReportContainer,
+                        { padding: moderateScale(5) },
+                      ]}
+                    >
                       <Image
                         source={require("../assets/Images/white-comment.png")}
-                        style={{ width: 20, height: 20 }}
+                        style={{
+                          width: moderateScale(20),
+                          height: moderateScale(20),
+                        }}
                       />
-                      <Text style={HomeStyle.HomeVideoBodyText}>
+                      <Text
+                        style={[
+                          HomeStyle.HomeVideoBodyText,
+                          {
+                            fontSize: moderateScale(12),
+                            padding: moderateScale(5),
+                          },
+                        ]}
+                      >
                         {commentCount.toString()}
                       </Text>
                     </View>
@@ -1011,15 +1412,30 @@ const HomeScreen = ({ locate }: any) => {
                 onPress={() => {
                   openWebsite2();
                 }}
-                style={HomeStyle.HomeVideoBigContainer}
+                style={[
+                  HomeStyle.HomeVideoBigContainer,
+                  {
+                    height: moderateScale(250),
+                    marginBottom: moderateScale(16),
+                  },
+                ]}
               >
                 <Animatable.Image
                   source={require("../assets/Images/intro-video.gif")}
-                  style={{ width: "100%", height: "100%", borderRadius: 5 }}
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    borderRadius: moderateScale(5),
+                  }}
                   resizeMode="cover"
                   animation="zoomIn"
                 />
-                <View style={HomeStyle.HomeVideoContentContainer}>
+                <View
+                  style={[
+                    HomeStyle.HomeVideoContentContainer,
+                    { padding: moderateScale(10) },
+                  ]}
+                >
                   <View style={HomeStyle.HomeVideoContentTitleContainer}>
                     <View>
                       <View
@@ -1028,78 +1444,147 @@ const HomeScreen = ({ locate }: any) => {
                         {logoUrl2 ? (
                           <Image
                             source={{ uri: logoUrl2 }}
-                            style={{ width: 20, height: 20, borderRadius: 100 }}
+                            style={{
+                              width: moderateScale(20),
+                              height: moderateScale(20),
+                              borderRadius: 200,
+                            }}
                           />
                         ) : null}
                         <Text
-                          style={HomeStyle.HomeVideoTitleText}
+                          style={[
+                            HomeStyle.HomeVideoTitleText,
+                            { fontSize: moderateScale(18) },
+                          ]}
                           numberOfLines={1}
                         >
                           {logoName2}
                         </Text>
                       </View>
                       <Text
-                        style={HomeStyle.HomeVideoBodyText}
+                        style={[
+                          HomeStyle.HomeVideoBodyText,
+                          {
+                            fontSize: moderateScale(12),
+                            padding: moderateScale(5),
+                          },
+                        ]}
                         numberOfLines={1}
                       >
                         {subscriberCount2 + " subscribers"}
                       </Text>
                     </View>
 
-                    <View style={HomeStyle.HomeVideoBodyFakeButton}>
+                    <View
+                      style={[
+                        HomeStyle.HomeVideoBodyFakeButton,
+                        { height: moderateScale(40) },
+                      ]}
+                    >
                       <Image
                         source={require("../assets/Images/play-rotated.png")}
                         resizeMode="contain"
-                        style={{ width: "33%", height: 20 }}
+                        style={{ width: "33%", height: moderateScale(20) }}
                       />
                       <Image
                         source={require("../assets/Images/play-buttton.png")}
                         resizeMode="contain"
                         style={{
                           width: "33%",
-                          height: 20,
-                          paddingHorizontal: 10,
+                          height: moderateScale(20),
+                          paddingHorizontal: moderateScale(10),
                         }}
                       />
                       <Image
                         source={require("../assets/Images/play.png")}
                         resizeMode="contain"
-                        style={{ width: "33%", height: 20 }}
+                        style={{ width: "33%", height: moderateScale(20) }}
                       />
                     </View>
 
                     <Text
-                      style={HomeStyle.HomeVideoTitleText}
+                      style={[
+                        HomeStyle.HomeVideoTitleText,
+                        { fontSize: moderateScale(18) },
+                      ]}
                       numberOfLines={1}
                     >
                       {videoTitle2}
                     </Text>
                   </View>
                   <View style={HomeStyle.HomeVideoReportFooterContainer}>
-                    <View style={HomeStyle.HomeVideoReportContainer}>
+                    <View
+                      style={[
+                        HomeStyle.HomeVideoReportContainer,
+                        { padding: moderateScale(5) },
+                      ]}
+                    >
                       <Image
                         source={require("../assets/Images/white-eye.png")}
-                        style={{ width: 20, height: 20 }}
+                        style={{
+                          width: moderateScale(20),
+                          height: moderateScale(20),
+                        }}
                       />
-                      <Text style={HomeStyle.HomeVideoBodyText}>
+                      <Text
+                        style={[
+                          HomeStyle.HomeVideoBodyText,
+                          {
+                            fontSize: moderateScale(12),
+                            padding: moderateScale(5),
+                          },
+                        ]}
+                      >
                         {viewCount2.toString()}
                       </Text>
                     </View>
-                    <View style={HomeStyle.HomeVideoReportContainer}>
+                    <View
+                      style={[
+                        HomeStyle.HomeVideoReportContainer,
+                        { padding: moderateScale(5) },
+                      ]}
+                    >
                       <Image
                         source={require("../assets/Images/like.png")}
-                        style={{ width: 20, height: 20 }}
+                        style={{
+                          width: moderateScale(20),
+                          height: moderateScale(20),
+                        }}
                       />
-                      <Text style={HomeStyle.HomeVideoBodyText}>
+                      <Text
+                        style={[
+                          HomeStyle.HomeVideoBodyText,
+                          {
+                            fontSize: moderateScale(12),
+                            padding: moderateScale(5),
+                          },
+                        ]}
+                      >
                         {likeCount2.toString()}
                       </Text>
                     </View>
-                    <View style={HomeStyle.HomeVideoReportContainer}>
+                    <View
+                      style={[
+                        HomeStyle.HomeVideoReportContainer,
+                        { padding: moderateScale(5) },
+                      ]}
+                    >
                       <Image
                         source={require("../assets/Images/white-comment.png")}
-                        style={{ width: 20, height: 20 }}
+                        style={{
+                          width: moderateScale(20),
+                          height: moderateScale(20),
+                        }}
                       />
-                      <Text style={HomeStyle.HomeVideoBodyText}>
+                      <Text
+                        style={[
+                          HomeStyle.HomeVideoBodyText,
+                          {
+                            fontSize: moderateScale(12),
+                            padding: moderateScale(5),
+                          },
+                        ]}
+                      >
                         {commentCount2.toString()}
                       </Text>
                     </View>

@@ -10,10 +10,10 @@
 .EYSTopContainer {
   width: 95%;
   height: 25%;
-  padding: 10px;
-  border-radius: 30px;
-  border-radius: 40px;
-  border-width: 0.5px;
+  // padding: 10px;
+  // border-radius: 30px;
+  // border-radius: 40px;
+  // border-width: 0.5px;
   border-color: $color-gray;
   background-color: $color-light-grey;
 }
@@ -41,13 +41,13 @@
 
 .CalendarHorizontalIconArrowStyle {
   background-color: $color-white;
-  padding: 6px;
-  width: 30px;
-  height: 30px;
-  border-radius: 50px;
+  // padding: 6px;
+  // width: 30px;
+  // height: 30px;
+  border-radius: 200px;
   justify-content: center;
   align-items: center;
-  border-width: 2px;
+  // border-width: 2px;
   border-color: $color-gray;
 }
 
@@ -66,23 +66,23 @@
 
 .DateScreenCard {
   background-color: white;
-  height: 80px;
-  width: 60px;
-  margin-right: 10px;
+  // height: 80px;
+  // width: 60px;
+  // margin-right: 10px;
   justify-content: center;
   align-items: center;
-  border-radius: 20px;
+  // border-radius: 20px;
   background-color: $color-light-grey;
-  border-width: 0.5px;
+  // border-width: 0.5px;
   border-color: $color-gray;
 }
 
 .DateScreenCardBarTop {
   background-color: green;
   width: 40%;
-  height: 4px;
-  border-bottom-right-radius: 30px;
-  border-bottom-left-radius: 30px;
+  // height: 4px;
+  // border-bottom-right-radius: 30px;
+  // border-bottom-left-radius: 30px;
 }
 
 .DateScreenCardContentBody {
@@ -170,9 +170,9 @@
   width: 22%;
   height: 80%;
   background-color: $color-white;
-  border-width: 0.5px;
+  // border-width: 0.5px;
   border-color: $color-gray;
-  border-radius: 25px;
+  // border-radius: 25px;
   justify-content: center;
   align-items: center;
 }

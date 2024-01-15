@@ -1,4 +1,5 @@
 import { Image, ImageBackground, View } from "react-native";
+import { moderateScale } from "../ Metrics";
 
 export default function LoadingScreen() {
   return (
@@ -15,7 +16,7 @@ export default function LoadingScreen() {
     >
       <Image
         source={require("../assets/Images/Logo.png")}
-        style={{ width: 100, height: 100 }}
+        style={{ width: moderateScale(100), height: moderateScale(100) }}
         resizeMode="contain"
       />
     </ImageBackground>

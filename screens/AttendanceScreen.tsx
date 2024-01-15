@@ -24,6 +24,7 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 import { getLanguage, useTranslation } from "react-multi-lang";
+import { moderateScale } from "../ Metrics";
 
 export default function AttendanceScreen() {
   const location = useLocation();
@@ -155,23 +156,56 @@ export default function AttendanceScreen() {
             />
           </Animated.View>
           <Animatable.View
-            style={HomeStyle.homeSelectLeaveOptionModalArea}
+            style={[
+              HomeStyle.homeSelectLeaveOptionModalArea,
+              {
+                paddingBottom: moderateScale(50),
+                borderTopLeftRadius: moderateScale(5),
+                borderTopRightRadius: moderateScale(5),
+              },
+            ]}
             animation={disappear ? "fadeOutDownBig" : "fadeInUpBig"}
           >
             <View
               // onPress={toggleModal1}
-              style={{ width: "100%", alignItems: "flex-start", padding: 10 }}
+              style={{
+                width: "100%",
+                alignItems: "flex-start",
+                padding: moderateScale(10),
+              }}
             >
-              <Text style={HomeStyle.homeModalTitle}>{t("Choose")}</Text>
+              <Text
+                style={[
+                  HomeStyle.homeModalTitle,
+                  { fontSize: moderateScale(14) },
+                ]}
+              >
+                {t("Choose")}
+              </Text>
             </View>
-            <Text style={HomeStyle.homeModalTitle2}>{t("Academic Years")}</Text>
-            <View style={HomeStyle.homeSelectLeaveOptionTextInput}>
+            <Text
+              style={[
+                HomeStyle.homeModalTitle2,
+                {
+                  fontSize: moderateScale(14),
+                  marginVertical: moderateScale(10),
+                },
+              ]}
+            >
+              {t("Academic Years")}
+            </Text>
+            <View
+              style={[
+                HomeStyle.homeSelectLeaveOptionTextInput,
+                { padding: moderateScale(10), borderWidth: moderateScale(1) },
+              ]}
+            >
               <SelectDropdown
                 data={academicYears}
                 buttonStyle={{
                   width: "100%",
-                  height: 35,
-                  borderRadius: 10,
+                  height: moderateScale(35),
+                  borderRadius: moderateScale(10),
                   backgroundColor: "white",
                 }}
                 onSelect={(selectedItem, index) => {
@@ -195,10 +229,20 @@ export default function AttendanceScreen() {
                           alignItems: "center",
                         }}
                       >
-                        <Text style={AttendanceStyle.AttendanceModalBodyText}>
+                        <Text
+                          style={[
+                            AttendanceStyle.AttendanceModalBodyText,
+                            { fontSize: moderateScale(14) },
+                          ]}
+                        >
                           {t("Academic Year")}៖
                         </Text>
-                        <Text style={AttendanceStyle.AttendanceModalBodyText}>
+                        <Text
+                          style={[
+                            AttendanceStyle.AttendanceModalBodyText,
+                            { fontSize: moderateScale(14) },
+                          ]}
+                        >
                           {selectedItem?.academicYear
                             ? selectedItem?.academicYear
                             : academincYearData?.getAcademicYear[
@@ -209,7 +253,10 @@ export default function AttendanceScreen() {
 
                       <Image
                         source={require("../assets/Images/arrow-down-sign-to-navigate.png")}
-                        style={{ width: 20, height: 20 }}
+                        style={{
+                          width: moderateScale(20),
+                          height: moderateScale(20),
+                        }}
                       />
                     </View>
                   );
@@ -223,21 +270,43 @@ export default function AttendanceScreen() {
             </View>
             <View style={AttendanceStyle.AttendanceSelectDateinModal}>
               <View style={AttendanceStyle.AttendanceSelectDateinModalFrom}>
-                <Text style={AttendanceStyle.AttendanceModalTitle2}>
+                <Text
+                  style={[
+                    AttendanceStyle.AttendanceModalTitle2,
+                    {
+                      fontSize: moderateScale(14),
+                      marginVertical: moderateScale(10),
+                    },
+                  ]}
+                >
                   {t("From")}
                 </Text>
                 <TouchableOpacity
-                  style={AttendanceStyle.AttendanceSelectLeaveOptionPickupDate}
+                  style={[
+                    AttendanceStyle.AttendanceSelectLeaveOptionPickupDate,
+                    {
+                      padding: moderateScale(10),
+                      borderWidth: moderateScale(1),
+                    },
+                  ]}
                   onPress={showDatePicker}
                 >
-                  <Text style={AttendanceStyle.AttendanceModalBodyText}>
+                  <Text
+                    style={[
+                      AttendanceStyle.AttendanceModalBodyText,
+                      { fontSize: moderateScale(14) },
+                    ]}
+                  >
                     {date
                       ? moment(date).format("YYYY-MM-DD")
                       : moment(new Date()).format("YYYY-MM-DD")}
                   </Text>
                   <Image
                     source={require("../assets/Images/calendar-clock.png")}
-                    style={{ width: 15, height: 15 }}
+                    style={{
+                      width: moderateScale(15),
+                      height: moderateScale(15),
+                    }}
                     resizeMode="cover"
                   />
                 </TouchableOpacity>
@@ -249,21 +318,43 @@ export default function AttendanceScreen() {
                 />
               </View>
               <View style={AttendanceStyle.AttendanceSelectDateinModalFrom}>
-                <Text style={AttendanceStyle.AttendanceModalTitle2}>
+                <Text
+                  style={[
+                    AttendanceStyle.AttendanceModalTitle2,
+                    {
+                      fontSize: moderateScale(14),
+                      marginVertical: moderateScale(10),
+                    },
+                  ]}
+                >
                   {t("To")}
                 </Text>
                 <TouchableOpacity
-                  style={AttendanceStyle.AttendanceSelectLeaveOptionPickupDate}
+                  style={[
+                    AttendanceStyle.AttendanceSelectLeaveOptionPickupDate,
+                    {
+                      padding: moderateScale(10),
+                      borderWidth: moderateScale(1),
+                    },
+                  ]}
                   onPress={showDatePicker1}
                 >
-                  <Text style={AttendanceStyle.AttendanceModalBodyText}>
+                  <Text
+                    style={[
+                      AttendanceStyle.AttendanceModalBodyText,
+                      { fontSize: moderateScale(14) },
+                    ]}
+                  >
                     {date1
                       ? moment(date1).format("YYYY-MM-DD")
                       : moment(new Date()).format("YYYY-MM-DD")}
                   </Text>
                   <Image
                     source={require("../assets/Images/calendar-clock.png")}
-                    style={{ width: 15, height: 15 }}
+                    style={{
+                      width: moderateScale(15),
+                      height: moderateScale(15),
+                    }}
                     resizeMode="cover"
                   />
                 </TouchableOpacity>
@@ -277,40 +368,86 @@ export default function AttendanceScreen() {
             </View>
 
             <TouchableOpacity
-              style={HomeStyle.homeSelectLeaveOptionButtonRequest}
+              style={[
+                HomeStyle.homeSelectLeaveOptionButtonRequest,
+                { padding: moderateScale(10), marginTop: moderateScale(20) },
+              ]}
               onPress={() => {
                 toggleModal1();
               }}
             >
-              <Text style={HomeStyle.homeModalButtonTitle}>{t("Request")}</Text>
+              <Text
+                style={[
+                  HomeStyle.homeModalButtonTitle,
+                  { fontSize: moderateScale(14) },
+                ]}
+              >
+                {t("Request")}
+              </Text>
             </TouchableOpacity>
           </Animatable.View>
         </View>
       </Modal>
+
       <View style={AttendanceStyle.AttendanceTitleContainer}>
-        <Text style={AttendanceStyle.AttendanceTitle1}>
+        <Text
+          style={[
+            AttendanceStyle.AttendanceTitle1,
+            { fontSize: moderateScale(14) },
+          ]}
+        >
           {getLanguage() === "en"
             ? stuInfo?.englishName + "'s Attendance"
             : "វត្តមាន " + stuInfo?.lastName + " " + stuInfo?.firstName}
         </Text>
         <TouchableOpacity
-          style={AttendanceStyle.AttendanceFilterButton}
+          style={[
+            AttendanceStyle.AttendanceFilterButton,
+            { width: moderateScale(40), height: moderateScale(40) },
+          ]}
           onPress={() => {
             toggleModal1();
           }}
         >
           <Animatable.Image
             source={require("../assets/Images/edit.png")}
-            style={{ width: 25, height: 25, padding: 10 }}
+            style={{
+              width: moderateScale(25),
+              height: moderateScale(25),
+            }}
             animation="bounce"
           />
         </TouchableOpacity>
       </View>
       <View style={AttendanceStyle.AttendanceBodyContainer}>
-        <View style={AttendanceStyle.AttendanceTitle2Container}>
-          <Text style={AttendanceStyle.AttendanceTitle2}>{t("CLASSES")}</Text>
-          <Text style={AttendanceStyle.AttendanceTitle2}>{t("DATE")}</Text>
-          <Text style={AttendanceStyle.AttendanceTitle2}>
+        <View
+          style={[
+            AttendanceStyle.AttendanceTitle2Container,
+            { padding: moderateScale(10), marginVertical: moderateScale(10) },
+          ]}
+        >
+          <Text
+            style={[
+              AttendanceStyle.AttendanceTitle2,
+              { fontSize: moderateScale(14) },
+            ]}
+          >
+            {t("CLASSES")}
+          </Text>
+          <Text
+            style={[
+              AttendanceStyle.AttendanceTitle2,
+              { fontSize: moderateScale(14) },
+            ]}
+          >
+            {t("DATE")}
+          </Text>
+          <Text
+            style={[
+              AttendanceStyle.AttendanceTitle2,
+              { fontSize: moderateScale(14) },
+            ]}
+          >
             {t("ATTENDANCE")}
           </Text>
         </View>
@@ -323,18 +460,45 @@ export default function AttendanceScreen() {
           <View
             style={
               index % 2 === 1
-                ? AttendanceStyle.AttendanceTitle2Container2
-                : AttendanceStyle.AttendanceTitle2Container1
+                ? [
+                    AttendanceStyle.AttendanceTitle2Container2,
+                    {
+                      padding: moderateScale(10),
+                      marginBottom: moderateScale(10),
+                    },
+                  ]
+                : [
+                    AttendanceStyle.AttendanceTitle2Container1,
+                    {
+                      padding: moderateScale(10),
+                      marginBottom: moderateScale(10),
+                    },
+                  ]
             }
             key={index}
           >
-            <Text style={AttendanceStyle.AttendanceBody1}>
+            <Text
+              style={[
+                AttendanceStyle.AttendanceBody1,
+                { fontSize: moderateScale(12) },
+              ]}
+            >
               {Attendance?.className}
             </Text>
-            <Text style={AttendanceStyle.AttendanceBody2}>
+            <Text
+              style={[
+                AttendanceStyle.AttendanceBody2,
+                { fontSize: moderateScale(12) },
+              ]}
+            >
               {moment(Attendance?.date).format("YYYY-MM-DD")}
             </Text>
-            <Text style={AttendanceStyle.AttendanceTitle2}>
+            <Text
+              style={[
+                AttendanceStyle.AttendanceTitle2,
+                { fontSize: moderateScale(12) },
+              ]}
+            >
               {Attendance?.attendace}
             </Text>
           </View>
@@ -349,10 +513,16 @@ export default function AttendanceScreen() {
               width: "100%",
               alignItems: "center",
               justifyContent: "center",
-              height: 40,
+              height: moderateScale(40),
             }}
           >
-            <Text style={{ fontFamily: "Kantumruy-Bold", color: "#3c6efb" }}>
+            <Text
+              style={{
+                fontFamily: "Kantumruy-Bold",
+                color: "#3c6efb",
+                fontSize: moderateScale(14),
+              }}
+            >
               {t("see more")}
             </Text>
           </TouchableOpacity>

@@ -5,12 +5,14 @@ import { useEffect, useState } from "react";
 import { useQuery } from "@apollo/client";
 import { GETNOTIFICATIONS } from "../graphql/GetNotifications";
 import { useNavigate } from "react-router-native";
-import { getLanguage } from "react-multi-lang";
+import { getLanguage, useTranslation } from "react-multi-lang";
+import { moderateScale } from "../ Metrics";
 
 export default function NotificationAnnouncements() {
   const navigate = useNavigate();
   const [timeDifference, setTimeDifference] = useState("");
   const [limit, setLimit] = useState(100);
+  const t = useTranslation();
 
   const { data: NotiData, refetch: NotiRefetch } = useQuery(GETNOTIFICATIONS, {
     pollInterval: 2000,
@@ -41,46 +43,59 @@ export default function NotificationAnnouncements() {
 
   return (
     <View style={NotificationStyle.NotificationContainer}>
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        style={{ width: "95%", height: "100%", paddingTop: 10 }}
-        contentContainerStyle={{ justifyContent: "center" }}
-      >
-        {NotiData?.getNotifications.map((noti: any, index: number) => (
-          <TouchableOpacity
-            style={NotificationStyle.NotificationCardContainer}
-            onPress={() => {
-              navigate("/announce", { state: { _id: noti?.navigetId } });
-            }}
-            key={index}
-          >
-            <View
-              style={NotificationStyle.AnnouncementNotificationCardImgContainer}
+      {NotiData ? (
+        <Text
+          style={[
+            NotificationStyle.NotificationTitleStyle,
+            { fontSize: moderateScale(12) },
+          ]}
+        >
+          {t("No data")}
+        </Text>
+      ) : (
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          style={{ width: "95%", height: "100%", paddingTop: 10 }}
+          contentContainerStyle={{ justifyContent: "center" }}
+        >
+          {NotiData?.getNotifications.map((noti: any, index: number) => (
+            <TouchableOpacity
+              style={NotificationStyle.NotificationCardContainer}
+              onPress={() => {
+                navigate("/announce", { state: { _id: noti?.navigetId } });
+              }}
+              key={index}
             >
-              <Image
-                source={require("../assets/Images/Logo.png")}
-                style={{
-                  width: 40,
-                  height: 40,
-                  borderRadius: 100,
-                }}
-              />
-            </View>
-            <View style={NotificationStyle.NotificationCardText}>
-              <View style={NotificationStyle.NotificationTitle}>
-                <Text style={NotificationStyle.NotificationTitleStyle}>
-                  {noti?.title}
-                </Text>
+              <View
+                style={
+                  NotificationStyle.AnnouncementNotificationCardImgContainer
+                }
+              >
+                <Image
+                  source={require("../assets/Images/Logo.png")}
+                  style={{
+                    width: 40,
+                    height: 40,
+                    borderRadius: 100,
+                  }}
+                />
               </View>
-              <View style={NotificationStyle.NotificationBodyText}>
-                <Text style={NotificationStyle.NotificationBodyTextStyle}>
-                  {moment(noti?.createdAt).fromNow()}
-                </Text>
+              <View style={NotificationStyle.NotificationCardText}>
+                <View style={NotificationStyle.NotificationTitle}>
+                  <Text style={NotificationStyle.NotificationTitleStyle}>
+                    {noti?.title}
+                  </Text>
+                </View>
+                <View style={NotificationStyle.NotificationBodyText}>
+                  <Text style={NotificationStyle.NotificationBodyTextStyle}>
+                    {moment(noti?.createdAt).fromNow()}
+                  </Text>
+                </View>
               </View>
-            </View>
-          </TouchableOpacity>
-        ))}
-      </ScrollView>
+            </TouchableOpacity>
+          ))}
+        </ScrollView>
+      )}
     </View>
   );
 }

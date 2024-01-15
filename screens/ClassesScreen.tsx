@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import { useLocation, useNavigate } from "react-router-native";
 import SelectDropdown from "react-native-select-dropdown";
+import { moderateScale } from "../ Metrics";
 
 export default function ClassesScreen() {
   const location = useLocation();
@@ -57,13 +58,17 @@ export default function ClassesScreen() {
               backgroundColor: "#f5f5f5",
               width: "100%",
               height: "50%",
-              borderTopEndRadius: 30,
-              borderTopStartRadius: 30,
+              borderTopEndRadius: moderateScale(30),
+              borderTopStartRadius: moderateScale(30),
             }}
           >
             <TouchableOpacity
               onPress={toggleModal}
-              style={{ width: "100%", alignItems: "flex-end", padding: 20 }}
+              style={{
+                width: "100%",
+                alignItems: "flex-end",
+                padding: moderateScale(20),
+              }}
             >
               <Text>Close</Text>
             </TouchableOpacity>
@@ -77,7 +82,7 @@ export default function ClassesScreen() {
                 style={{
                   color: "blue",
                   fontFamily: "Kantumruy-Bold",
-                  fontSize: 15,
+                  fontSize: moderateScale(15),
                 }}
               >
                 កាលវិភាគ {classData}
@@ -93,7 +98,7 @@ export default function ClassesScreen() {
                 style={{
                   color: "blue",
                   fontFamily: "Kantumruy-Bold",
-                  fontSize: 15,
+                  fontSize: moderateScale(15),
                 }}
               >
                 វត្តមាន {classData}
@@ -126,7 +131,11 @@ export default function ClassesScreen() {
       >
         <SelectDropdown
           data={countries}
-          buttonStyle={{ width: "95%", borderRadius: 10, marginTop: 10 }}
+          buttonStyle={{
+            width: "95%",
+            borderRadius: moderateScale(10),
+            marginTop: moderateScale(10),
+          }}
           onSelect={(selectedItem, index) => {
             console.log(selectedItem, index);
           }}
@@ -153,7 +162,10 @@ export default function ClassesScreen() {
 
                 <Image
                   source={require("../assets/Images/angle-down-gray.png")}
-                  style={{ width: 20, height: 20 }}
+                  style={{
+                    width: moderateScale(20),
+                    height: moderateScale(20),
+                  }}
                 />
               </View>
             );
@@ -174,10 +186,10 @@ export default function ClassesScreen() {
             style={{
               flex: 1,
               backgroundColor: "#0000ff",
-              marginTop: 10,
+              marginTop: moderateScale(10),
               width: "95%",
-              borderRadius: 10,
-              padding: 10,
+              borderRadius: moderateScale(10),
+              padding: moderateScale(10),
               flexDirection: "row",
               alignItems: "center",
             }}

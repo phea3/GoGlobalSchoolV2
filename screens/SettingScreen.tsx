@@ -11,6 +11,7 @@ import { getLanguage, useTranslation } from "react-multi-lang";
 import { useState } from "react";
 import ModalSetting from "../components/setting/ModalSetting";
 import { useLocation, useNavigate } from "react-router-native";
+import { moderateScale } from "../ Metrics";
 
 export default function SettingScreen() {
   const t = useTranslation();
@@ -35,31 +36,77 @@ export default function SettingScreen() {
         resizeMode="repeat"
         style={SettingStyle.SettingContainer}
       >
-        <View style={SettingStyle.SettingBodyContainer}>
+        <View
+          style={[
+            SettingStyle.SettingBodyContainer,
+            { borderWidth: moderateScale(0.5) },
+          ]}
+        >
           <ScrollView
             showsVerticalScrollIndicator={false}
             style={{ width: "100%", height: "80%" }}
           >
-            <View style={SettingStyle.SettingBodyContentContainer}>
+            <View
+              style={[
+                SettingStyle.SettingBodyContentContainer,
+                { padding: moderateScale(10) },
+              ]}
+            >
               <TouchableOpacity
-                style={SettingStyle.SettingBodyCardContentContainer}
+                style={[
+                  SettingStyle.SettingBodyCardContentContainer,
+                  {
+                    borderWidth: moderateScale(0.5),
+                    padding: moderateScale(10),
+                    marginBottom: moderateScale(10),
+                  },
+                ]}
                 onPress={handleOpen}
               >
-                <Text>{t("Change Language")}</Text>
-                <Text>
+                <Text
+                  style={{
+                    fontSize: moderateScale(14),
+                    fontFamily: "Kantumruy-Regular",
+                  }}
+                >
+                  {t("Change Language")}
+                </Text>
+                <Text
+                  style={{
+                    fontSize: moderateScale(14),
+                    fontFamily: "Kantumruy-Regular",
+                  }}
+                >
                   {getLanguage() === "kh" ? t("Khmer") : t("English")}
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity
-                style={SettingStyle.SettingBodyCardContentContainer}
+                style={[
+                  SettingStyle.SettingBodyCardContentContainer,
+                  {
+                    borderWidth: moderateScale(0.5),
+                    padding: moderateScale(10),
+                    marginBottom: moderateScale(10),
+                  },
+                ]}
                 onPress={() => {
                   navigate("/resetpassword", { state: gmail });
                 }}
               >
-                <Text>{t("Change Password")}</Text>
+                <Text
+                  style={{
+                    fontSize: moderateScale(14),
+                    fontFamily: "Kantumruy-Regular",
+                  }}
+                >
+                  {t("Change Password")}
+                </Text>
                 <Image
                   source={require("../assets/Images/next.png")}
-                  style={SettingStyle.SettingNextIconStyle}
+                  style={{
+                    width: moderateScale(20),
+                    height: moderateScale(20),
+                  }}
                 />
               </TouchableOpacity>
             </View>

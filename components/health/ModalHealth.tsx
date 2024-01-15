@@ -5,6 +5,7 @@ import { useQuery } from "@apollo/client";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-native";
 import { getLanguage } from "react-multi-lang";
+import { moderateScale } from "../../ Metrics";
 
 export default function ModalHealth({
   studentId,
@@ -64,10 +65,18 @@ export default function ModalHealth({
                 onPress={handleClose}
               ></TouchableOpacity>
               <View style={HomeStyle.HomePickupStudentContent}>
-                <View style={HomeStyle.HomePickupStudentTextContainer1}>
+                <View
+                  style={[
+                    HomeStyle.HomePickupStudentTextContainer1,
+                    { padding: moderateScale(10) },
+                  ]}
+                >
                   <Image
                     source={require("../../assets/Images/loader-1.gif")}
-                    style={{ width: 60, height: 60 }}
+                    style={{
+                      width: moderateScale(60),
+                      height: moderateScale(60),
+                    }}
                   />
                 </View>
               </View>
@@ -86,8 +95,18 @@ export default function ModalHealth({
                 onPress={handleClose}
               ></TouchableOpacity>
               <View style={HomeStyle.HomePickupStudentContent}>
-                <View style={HomeStyle.HomePickupStudentTextContainer1}>
-                  <Text style={HomeStyle.HomePickupStudentText}>
+                <View
+                  style={[
+                    HomeStyle.HomePickupStudentTextContainer1,
+                    { padding: moderateScale(10) },
+                  ]}
+                >
+                  <Text
+                    style={[
+                      HomeStyle.HomePickupStudentText,
+                      { fontSize: moderateScale(14) },
+                    ]}
+                  >
                     {getLanguage() === "en"
                       ? "Your child's class not allow for Health Report."
                       : "ថ្នាក់របស់កូនអ្នកមិនអនុញ្ញាតឱ្យមានរបាយការណ៍សុខភាព EYS ទេ"}

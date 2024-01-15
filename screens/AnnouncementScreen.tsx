@@ -15,11 +15,11 @@ import AnnouncementStyle from "../Styles/AnnouncementScreen.scss";
 import * as Animatable from "react-native-animatable";
 import { useNavigate } from "react-router-native";
 import { useTranslation } from "react-multi-lang";
+import { moderateScale } from "../ Metrics";
 
 export default function AnnouncementScreen() {
   const [limit, setLimit] = useState(100);
   const navigate = useNavigate();
-  const [isFetching, setFetching] = useState(false);
   const t = useTranslation();
 
   //============= FUNCTION GET ANNOUMENT ================
@@ -58,16 +58,36 @@ export default function AnnouncementScreen() {
         >
           <TouchableOpacity
             onPress={() => navigate("/announce", { state: item })}
-            style={AnnouncementStyle.AnnouncementCardContainer}
+            style={[
+              AnnouncementStyle.AnnouncementCardContainer,
+              {
+                height: moderateScale(200),
+                padding: moderateScale(10),
+                marginBottom: moderateScale(16),
+              },
+            ]}
             key={index}
           >
             <Animatable.Image
               source={{ uri: item.coverSrc }}
-              style={{ width: "100%", height: "80%", borderRadius: 5 }}
+              style={{
+                width: "100%",
+                height: "80%",
+                borderRadius: moderateScale(5),
+              }}
               resizeMode="cover"
               animation="zoomIn"
             />
-            <Text style={HomeStyle.announcementHomeTitle} numberOfLines={1}>
+            <Text
+              style={[
+                HomeStyle.announcementHomeTitle,
+                {
+                  fontSize: moderateScale(15),
+                  paddingVertical: moderateScale(5),
+                },
+              ]}
+              numberOfLines={1}
+            >
               {item?.title}
             </Text>
           </TouchableOpacity>
@@ -94,14 +114,32 @@ export default function AnnouncementScreen() {
               alignItems: "center",
             }}
           >
-            <View style={HomeStyle.announcementHomeContainer}>
+            <View
+              style={[
+                HomeStyle.announcementHomeContainer,
+                {
+                  height: moderateScale(200),
+                  padding: moderateScale(10),
+                  marginBottom: moderateScale(16),
+                },
+              ]}
+            >
               <Animatable.Image
                 source={require("../assets/Images/No-Data-Found.jpeg")}
-                style={{ width: "100%", height: "80%", borderRadius: 5 }}
+                style={{
+                  width: "100%",
+                  height: "80%",
+                  borderRadius: moderateScale(5),
+                }}
                 resizeMode="cover"
                 animation="zoomIn"
               />
-              <Text style={HomeStyle.announcementHomeTitleEmpty}>
+              <Text
+                style={[
+                  HomeStyle.announcementHomeTitleEmpty,
+                  { fontSize: moderateScale(14) },
+                ]}
+              >
                 {t("No data")}
               </Text>
             </View>
@@ -137,7 +175,7 @@ export default function AnnouncementScreen() {
               width: "100%",
               alignItems: "center",
               justifyContent: "center",
-              height: 40,
+              height: moderateScale(40),
             }}
           >
             <Text style={{ fontFamily: "Kantumruy-Bold", color: "#3c6efb" }}>

@@ -5,6 +5,7 @@ import { useQuery } from "@apollo/client";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-native";
 import { getLanguage, useTranslation } from "react-multi-lang";
+import { moderateScale } from "../../ Metrics";
 
 export default function ModalEYS({
   studentId,
@@ -67,7 +68,10 @@ export default function ModalEYS({
                 <View style={HomeStyle.HomePickupStudentTextContainer1}>
                   <Image
                     source={require("../../assets/Images/loader-1.gif")}
-                    style={{ width: 60, height: 60 }}
+                    style={{
+                      width: moderateScale(60),
+                      height: moderateScale(60),
+                    }}
                   />
                 </View>
               </View>
@@ -86,8 +90,18 @@ export default function ModalEYS({
                 onPress={handleClose}
               ></TouchableOpacity>
               <View style={HomeStyle.HomePickupStudentContent}>
-                <View style={HomeStyle.HomePickupStudentTextContainer1}>
-                  <Text style={HomeStyle.HomePickupStudentText}>
+                <View
+                  style={[
+                    HomeStyle.HomePickupStudentTextContainer1,
+                    { padding: moderateScale(10) },
+                  ]}
+                >
+                  <Text
+                    style={[
+                      HomeStyle.HomePickupStudentText,
+                      { fontSize: moderateScale(14) },
+                    ]}
+                  >
                     {getLanguage() === "en"
                       ? "Your child's class not allow for EYS report."
                       : "ថ្នាក់របស់កូនអ្នកមិនអនុញ្ញាតឱ្យមានរបាយការណ៍ EYS ទេ"}

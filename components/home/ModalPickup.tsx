@@ -15,6 +15,7 @@ import {
   TRANKING_STUDENTINPICKUP,
 } from "../../graphql/CheckStudentPickup";
 import { getLanguage, useTranslation } from "react-multi-lang";
+import { moderateScale } from "../../ Metrics";
 
 export default function ModalPickup({
   studentId,
@@ -98,10 +99,20 @@ export default function ModalPickup({
               <>
                 {locate ? (
                   <View style={HomeStyle.HomePickupStudentTextContainer}>
-                    <Text style={HomeStyle.HomePickupStudentText}>
+                    <Text
+                      style={[
+                        HomeStyle.HomePickupStudentText,
+                        { fontSize: moderateScale(14) },
+                      ]}
+                    >
                       {t("Are you sure to pick up")}
                     </Text>
-                    <Text style={HomeStyle.HomePickupStudentText}>
+                    <Text
+                      style={[
+                        HomeStyle.HomePickupStudentText,
+                        { fontSize: moderateScale(14) },
+                      ]}
+                    >
                       {t("your child ?")}
                     </Text>
                   </View>
@@ -116,12 +127,20 @@ export default function ModalPickup({
                   >
                     <Image
                       source={require("../../assets/Images/18-location-pin-gradient.gif")}
-                      style={{ width: 80, height: 80 }}
+                      style={{
+                        width: moderateScale(80),
+                        height: moderateScale(80),
+                      }}
                     />
                   </View>
                 )}
 
-                <View style={HomeStyle.HomePickupStudentButtonContainer}>
+                <View
+                  style={[
+                    HomeStyle.HomePickupStudentButtonContainer,
+                    { borderTopWidth: moderateScale(1) },
+                  ]}
+                >
                   <TouchableOpacity
                     onPress={() => {
                       handleClose();
@@ -133,11 +152,11 @@ export default function ModalPickup({
                   <TouchableOpacity
                     onPress={() => {
                       if (
-                        locate
-                        // locate?.coords.latitude >= 13.34572060724703 &&
-                        // locate?.coords.latitude <= 13.349565026819539 &&
-                        // locate?.coords.longitude >= 103.84319363518682 &&
-                        // locate?.coords.longitude <= 103.84595763628897
+                        // locate
+                        locate?.coords.latitude >= 13.34572060724703 &&
+                        locate?.coords.latitude <= 13.349565026819539 &&
+                        locate?.coords.longitude >= 103.84319363518682 &&
+                        locate?.coords.longitude <= 103.84595763628897
                       ) {
                         handleClose();
                         PickStudentHandler();
@@ -154,7 +173,12 @@ export default function ModalPickup({
               </>
             ) : (
               <View style={HomeStyle.HomePickupStudentTextContainer1}>
-                <Text style={HomeStyle.HomePickupStudentText}>
+                <Text
+                  style={[
+                    HomeStyle.HomePickupStudentText,
+                    { fontSize: moderateScale(14) },
+                  ]}
+                >
                   {t("classnotallowpickup")}
                 </Text>
               </View>
@@ -183,9 +207,17 @@ export default function ModalPickup({
               <>
                 <Image
                   source={require("../../assets/Images/_.gif")}
-                  style={{ width: 150, height: 150 }}
+                  style={{
+                    width: moderateScale(150),
+                    height: moderateScale(150),
+                  }}
                 />
-                <Text style={HomeStyle.HomePickupStudentText}>
+                <Text
+                  style={[
+                    HomeStyle.HomePickupStudentText,
+                    { fontSize: moderateScale(14) },
+                  ]}
+                >
                   {t("Please wait")}
                 </Text>
               </>
@@ -195,9 +227,17 @@ export default function ModalPickup({
               <>
                 <Image
                   source={require("../../assets/Images/check-outline.gif")}
-                  style={{ width: 100, height: 100 }}
+                  style={{
+                    width: moderateScale(100),
+                    height: moderateScale(100),
+                  }}
                 />
-                <Text style={HomeStyle.HomePickupStudentText}>
+                <Text
+                  style={[
+                    HomeStyle.HomePickupStudentText,
+                    { fontSize: moderateScale(14) },
+                  ]}
+                >
                   {t("Success")}
                 </Text>
               </>
@@ -209,9 +249,19 @@ export default function ModalPickup({
               <>
                 <Image
                   source={require("../../assets/Images/cross-outline.gif")}
-                  style={{ width: 100, height: 100 }}
+                  style={{
+                    width: moderateScale(100),
+                    height: moderateScale(100),
+                  }}
                 />
-                <Text style={HomeStyle.HomePickupStudentText}>{t("Fail")}</Text>
+                <Text
+                  style={[
+                    HomeStyle.HomePickupStudentText,
+                    { fontSize: moderateScale(14) },
+                  ]}
+                >
+                  {t("Fail")}
+                </Text>
               </>
             ) : null}
 
@@ -220,9 +270,17 @@ export default function ModalPickup({
               <>
                 <Image
                   source={require("../../assets/Images/_.gif")}
-                  style={{ width: 100, height: 100 }}
+                  style={{
+                    width: moderateScale(100),
+                    height: moderateScale(100),
+                  }}
                 />
-                <Text style={HomeStyle.HomePickupStudentText}>
+                <Text
+                  style={[
+                    HomeStyle.HomePickupStudentText,
+                    { fontSize: moderateScale(14) },
+                  ]}
+                >
                   {getLanguage() === "en"
                     ? `Your child is "${trackingdata?.trackingStudentInPickUp}" status.`
                     : 'កូនរបស់លោកអ្នកស្ថិតក្នុងស្ថានភាព "inClass"'}

@@ -16,14 +16,14 @@
 
 .SocialMediaTopTitleContent {
   font-weight: 500;
-  font-size: 20px;
+  // font-size: 20px;
 }
 
 .SocialMediaBodyContainer {
   width: 80%;
   height: 80%;
   background-color: $color-white;
-  border-width: 0.5px;
+  // border-width: 0.5px;
   border-color: $color-gray;
   border-radius: $border-radius-main;
 }
@@ -33,17 +33,17 @@
   height: 100%;
   justify-content: center;
   align-items: center;
-  padding: 10px;
+  // padding: 10px;
 }
 
 .SocialMediaCardRowStyle {
   width: 100%;
-  padding: 10px;
+  // padding: 10px;
   background-color: $color-light-grey;
   border-radius: $border-radius-main;
-  border-width: 0.5px;
+  // border-width: 0.5px;
   border-color: $color-gray;
-  margin-bottom: 10px;
+  // margin-bottom: 10px;
   flex-direction: row;
   align-items: center;
 }
@@ -61,5 +61,5 @@
 .SocialMediaTitleStyle {
   flex: 1;
   text-align: left;
-  padding-left: 10px;
+  // padding-left: 10px;
 }

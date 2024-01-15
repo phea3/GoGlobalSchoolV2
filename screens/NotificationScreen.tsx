@@ -1,6 +1,7 @@
 import {
   Image,
   Linking,
+  Platform,
   ScrollView,
   Text,
   TouchableOpacity,
@@ -17,6 +18,7 @@ import { AppVersions } from "../Function/FetchDataLocalStorage";
 import Constants from "expo-constants";
 import * as Notifications from "expo-notifications";
 import { clearBadge } from "../usePushNotifications";
+import { moderateScale } from "../ Metrics";
 
 export default function NotificationScreen() {
   const navigate = useNavigate();
@@ -68,12 +70,13 @@ export default function NotificationScreen() {
     <View style={NotificationStyle.NotificationContainer}>
       <ScrollView
         showsVerticalScrollIndicator={false}
-        style={{ width: "95%", height: "100%", paddingTop: 10 }}
+        style={{ width: "95%", height: "100%", paddingTop: moderateScale(10) }}
         contentContainerStyle={{ justifyContent: "center" }}
       >
         {versions?.appStoreVersion &&
           LocalVersion &&
-          LocalVersion < versions?.appStoreVersion && (
+          LocalVersion < versions?.appStoreVersion &&
+          Platform.OS === "ios" && (
             <TouchableOpacity
               style={NotificationStyle.NotificationUpdateCardContainer}
               onPress={() => {
@@ -88,19 +91,29 @@ export default function NotificationScreen() {
               <Image
                 source={require("../assets/Images/update-6894_256.gif")}
                 style={{
-                  width: 50,
-                  height: 50,
-                  borderRadius: 100,
+                  width: moderateScale(50),
+                  height: moderateScale(50),
+                  borderRadius: 200,
                 }}
               />
               <View style={NotificationStyle.NotificationCardText}>
-                <View style={NotificationStyle.NotificationTitle}>
-                  <Text style={NotificationStyle.NotificationTitleStyle}>
+                <View style={{ paddingLeft: moderateScale(10) }}>
+                  <Text
+                    style={[
+                      NotificationStyle.NotificationTitleStyle,
+                      { fontSize: moderateScale(12) },
+                    ]}
+                  >
                     iOS Update Required
                   </Text>
                 </View>
                 <View style={NotificationStyle.NotificationCardText}>
-                  <Text style={NotificationStyle.NotificationBodyText}>
+                  <Text
+                    style={{
+                      paddingLeft: moderateScale(10),
+                      fontSize: moderateScale(12),
+                    }}
+                  >
                     New version{" "}
                     {versions?.appStoreVersion
                       ? versions?.appStoreVersion
@@ -108,8 +121,17 @@ export default function NotificationScreen() {
                     is now available for iOS.
                   </Text>
                 </View>
-                <View style={NotificationStyle.NotificationBodyText}>
-                  <Text style={NotificationStyle.NotificationBodyTextStyle}>
+                <View
+                  style={{
+                    paddingLeft: moderateScale(10),
+                  }}
+                >
+                  <Text
+                    style={[
+                      NotificationStyle.NotificationBodyTextStyle,
+                      { fontSize: moderateScale(12) },
+                    ]}
+                  >
                     {moment(new Date()).fromNow()}
                   </Text>
                 </View>
@@ -119,7 +141,8 @@ export default function NotificationScreen() {
 
         {versions?.appStoreVersion &&
           LocalVersion &&
-          LocalVersion < versions?.playStoreVersion && (
+          LocalVersion < versions?.playStoreVersion &&
+          Platform.OS === "android" && (
             <TouchableOpacity
               style={NotificationStyle.NotificationUpdateCardContainer}
               onPress={() => {
@@ -134,28 +157,47 @@ export default function NotificationScreen() {
               <Image
                 source={require("../assets/Images/update-6894_256.gif")}
                 style={{
-                  width: 50,
-                  height: 50,
-                  borderRadius: 100,
+                  width: moderateScale(50),
+                  height: moderateScale(50),
+                  borderRadius: 200,
                 }}
               />
               <View style={NotificationStyle.NotificationCardText}>
-                <View style={NotificationStyle.NotificationTitle}>
-                  <Text style={NotificationStyle.NotificationTitleStyle}>
+                <View style={{ paddingLeft: moderateScale(10) }}>
+                  <Text
+                    style={[
+                      NotificationStyle.NotificationTitleStyle,
+                      { fontSize: moderateScale(12) },
+                    ]}
+                  >
                     Android Update Required
                   </Text>
                 </View>
                 <View style={NotificationStyle.NotificationCardText}>
-                  <Text style={NotificationStyle.NotificationBodyText}>
+                  <Text
+                    style={{
+                      paddingLeft: moderateScale(10),
+                      fontSize: moderateScale(12),
+                    }}
+                  >
                     New version{" "}
-                    {versions?.playStoreVersion
-                      ? versions?.playStoreVersion
+                    {versions?.appStoreVersion
+                      ? versions?.appStoreVersion
                       : "*"}{" "}
                     is now available for Android.
                   </Text>
                 </View>
-                <View style={NotificationStyle.NotificationBodyText}>
-                  <Text style={NotificationStyle.NotificationBodyTextStyle}>
+                <View
+                  style={{
+                    paddingLeft: moderateScale(10),
+                  }}
+                >
+                  <Text
+                    style={[
+                      NotificationStyle.NotificationBodyTextStyle,
+                      { fontSize: moderateScale(12) },
+                    ]}
+                  >
                     {moment(new Date()).fromNow()}
                   </Text>
                 </View>
@@ -186,24 +228,43 @@ export default function NotificationScreen() {
                   : require("../assets/Images/user.png")
               }
               style={{
-                width: 50,
-                height: 50,
-                borderRadius: 100,
+                width: moderateScale(50),
+                height: moderateScale(50),
+                borderRadius: 200,
               }}
             />
             <View style={NotificationStyle.NotificationCardText}>
-              <View style={NotificationStyle.NotificationTitle}>
-                <Text style={NotificationStyle.NotificationTitleStyle}>
+              <View style={{ paddingLeft: moderateScale(10) }}>
+                <Text
+                  style={[
+                    NotificationStyle.NotificationTitleStyle,
+                    { fontSize: moderateScale(12) },
+                  ]}
+                >
                   {noti?.title}
                 </Text>
               </View>
               <View style={NotificationStyle.NotificationCardText}>
-                <Text style={NotificationStyle.NotificationBodyText}>
+                <Text
+                  style={{
+                    paddingLeft: moderateScale(10),
+                    fontSize: moderateScale(12),
+                  }}
+                >
                   {noti?.body}
                 </Text>
               </View>
-              <View style={NotificationStyle.NotificationBodyText}>
-                <Text style={NotificationStyle.NotificationBodyTextStyle}>
+              <View
+                style={{
+                  paddingLeft: moderateScale(10),
+                }}
+              >
+                <Text
+                  style={[
+                    NotificationStyle.NotificationBodyTextStyle,
+                    { fontSize: moderateScale(12) },
+                  ]}
+                >
                   {moment(noti?.createdAt).fromNow()}
                 </Text>
               </View>

@@ -3,6 +3,7 @@ import React from "react";
 import NotFoundStyle from "../Styles/NotFoundScreen.scss";
 import { Link } from "react-router-native";
 import { useTranslation } from "react-multi-lang";
+import { moderateScale } from "../ Metrics";
 
 const NotFoundScreen = () => {
   const t = useTranslation();
@@ -10,21 +11,21 @@ const NotFoundScreen = () => {
     <View style={NotFoundStyle.containerNotFound}>
       <Image
         source={require("../assets/Images/giphy.gif")}
-        style={{ width: 200, height: 200 }}
+        style={{ width: moderateScale(200), height: moderateScale(200) }}
       />
       <Link
         to="/"
         style={{
           backgroundColor: "#0000ff",
-          borderRadius: 10,
-          paddingVertical: 10,
-          paddingHorizontal: 20,
+          borderRadius: moderateScale(10),
+          paddingVertical: moderateScale(10),
+          paddingHorizontal: moderateScale(20),
         }}
       >
         <Text
           style={{
             color: "white",
-
+            fontSize: moderateScale(14),
             fontWeight: "bold",
           }}
         >

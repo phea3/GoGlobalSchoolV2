@@ -4,6 +4,7 @@ import moment from "moment";
 import DateScreen from "./DateScreen";
 import EYSReportStyle from "../Styles/EYSReportScreen.scss";
 import { getLanguage } from "react-multi-lang";
+import { moderateScale } from "../ Metrics";
 
 export default function CalendarHorizontalScreen({
   onSelectDate,
@@ -71,7 +72,7 @@ export default function CalendarHorizontalScreen({
       <View style={EYSReportStyle.CalendarHorizontalScrollviewcentered}>
         <Text
           style={{
-            fontSize: 20,
+            fontSize: moderateScale(20),
             fontFamily: "Kantumruy-Bold",
           }}
         >
@@ -81,12 +82,20 @@ export default function CalendarHorizontalScreen({
       <View style={EYSReportStyle.CalendarHorizontalScrollviewDateweeklystyle}>
         <View style={EYSReportStyle.CalendarHorizontalIconArrowContainer}>
           <TouchableOpacity
-            style={EYSReportStyle.CalendarHorizontalIconArrowStyle}
+            style={[
+              EYSReportStyle.CalendarHorizontalIconArrowStyle,
+              {
+                width: moderateScale(30),
+                height: moderateScale(30),
+                padding: moderateScale(6),
+                borderWidth: moderateScale(2),
+              },
+            ]}
             onPress={subtractWeek}
           >
             <Image
               source={require("../assets/Images/left.png")}
-              style={{ width: 20, height: 20 }}
+              style={{ width: moderateScale(20), height: moderateScale(20) }}
             />
           </TouchableOpacity>
         </View>
@@ -109,12 +118,20 @@ export default function CalendarHorizontalScreen({
         </ScrollView>
         <View style={EYSReportStyle.CalendarHorizontalIconArrowContainer}>
           <TouchableOpacity
-            style={EYSReportStyle.CalendarHorizontalIconArrowStyle}
+            style={[
+              EYSReportStyle.CalendarHorizontalIconArrowStyle,
+              {
+                width: moderateScale(30),
+                height: moderateScale(30),
+                padding: moderateScale(6),
+                borderWidth: moderateScale(2),
+              },
+            ]}
             onPress={addWeek}
           >
             <Image
               source={require("../assets/Images/next.png")}
-              style={{ width: 20, height: 20 }}
+              style={{ width: moderateScale(20), height: moderateScale(20) }}
             />
           </TouchableOpacity>
         </View>

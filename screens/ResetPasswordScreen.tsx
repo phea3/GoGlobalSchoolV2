@@ -16,6 +16,7 @@ import { useMutation } from "@apollo/client";
 import { AuthContext } from "../Context/AuthContext";
 import { useContext } from "react";
 import { useTranslation } from "react-multi-lang";
+import { moderateScale } from "../ Metrics";
 
 // Declare password strength type
 type PwdStrength = "Weak" | "Medium" | "Strong";
@@ -134,41 +135,109 @@ export default function ResetPasswordScreen() {
           style={
             isKeyboardVisible
               ? SettingStyle.SettingBodyContainerKeyboardShow
-              : SettingStyle.SettingBodyContainer
+              : [
+                  SettingStyle.SettingBodyContainer,
+                  { borderWidth: moderateScale(0.5) },
+                ]
           }
         >
-          <View style={SettingStyle.SettingBodyContentContainer}>
+          <View
+            style={[
+              SettingStyle.SettingBodyContentContainer,
+              { padding: moderateScale(10) },
+            ]}
+          >
             {isKeyboardVisible ? null : (
-              <View style={SettingStyle.ResetpasswordTopContainer}>
-                <Text style={SettingStyle.ResetPasswordLabelTextStyle}>
+              <View
+                style={[
+                  SettingStyle.ResetpasswordTopContainer,
+                  {
+                    borderWidth: moderateScale(0.5),
+                    padding: moderateScale(10),
+                    marginBottom: moderateScale(10),
+                  },
+                ]}
+              >
+                <Text
+                  style={[
+                    SettingStyle.ResetPasswordLabelTextStyle,
+                    {
+                      fontSize: moderateScale(14),
+                      paddingVertical: moderateScale(10),
+                      fontFamily: "Kantumruy-Regular",
+                    },
+                  ]}
+                >
                   {t("Gmail")}
                 </Text>
-                <Text style={SettingStyle.ResetPasswordGmailTextStyle}>
-                  {gmail}
+                <Text
+                  style={[
+                    SettingStyle.ResetPasswordGmailTextStyle,
+                    {
+                      fontSize: moderateScale(12),
+                      padding: moderateScale(10),
+                      borderWidth: moderateScale(0.5),
+                    },
+                  ]}
+                >
+                  {gmail ? gmail : " "}
                 </Text>
               </View>
             )}
 
             <View style={SettingStyle.ResetpasswordBodyContainer}>
-              <Text style={SettingStyle.ResetPasswordLabelTextStyle}>
+              <Text
+                style={[
+                  SettingStyle.ResetPasswordLabelTextStyle,
+                  {
+                    fontSize: moderateScale(14),
+                    paddingVertical: moderateScale(10),
+                    fontFamily: "Kantumruy-Regular",
+                  },
+                ]}
+              >
                 {t("New Password")}
               </Text>
-              <View style={SettingStyle.ResetPasswordInputTextStyle}>
+              <View
+                style={[
+                  SettingStyle.ResetPasswordInputTextStyle,
+                  {
+                    borderWidth: moderateScale(0.5),
+                    padding: moderateScale(10),
+                  },
+                ]}
+              >
                 <TextInput
                   value={password}
                   placeholder={t("New Password")}
                   onChangeText={(e) => setPassword(e)}
                   secureTextEntry={view}
                   keyboardType="default"
-                  style={{ flex: 1 }}
+                  style={{
+                    flex: 1,
+                    fontSize: moderateScale(12),
+                    fontFamily: "Kantumruy-Regular",
+                  }}
                 />
-                <Text style={{ padding: 2 }}>{t(pwdStrength)}</Text>
+                <Text
+                  style={{
+                    padding: moderateScale(2),
+                    fontSize: moderateScale(12),
+                    marginRight: moderateScale(5),
+                    fontFamily: "Kantumruy-Regular",
+                  }}
+                >
+                  {t(pwdStrength)}
+                </Text>
                 {view === true ? (
                   <TouchableOpacity onPress={() => setView(!view)}>
                     <Image
                       source={require("../assets/Images/view.png")}
                       resizeMode="contain"
-                      style={{ width: 20, height: 20 }}
+                      style={{
+                        width: moderateScale(20),
+                        height: moderateScale(20),
+                      }}
                     />
                   </TouchableOpacity>
                 ) : (
@@ -176,7 +245,10 @@ export default function ResetPasswordScreen() {
                     <Image
                       source={require("../assets/Images/hide.png")}
                       resizeMode="cover"
-                      style={{ width: 20, height: 20 }}
+                      style={{
+                        width: moderateScale(20),
+                        height: moderateScale(20),
+                      }}
                     />
                   </TouchableOpacity>
                 )}
@@ -184,6 +256,8 @@ export default function ResetPasswordScreen() {
               {password ? (
                 <Text
                   style={{
+                    fontSize: moderateScale(12),
+                    fontFamily: "Kantumruy-Regular",
                     color:
                       pwdStrength === "Weak"
                         ? "orange"
@@ -199,24 +273,48 @@ export default function ResetPasswordScreen() {
                 </Text>
               ) : null}
 
-              <Text style={SettingStyle.ResetPasswordLabelTextStyle}>
+              <Text
+                style={[
+                  SettingStyle.ResetPasswordLabelTextStyle,
+                  {
+                    fontSize: moderateScale(14),
+                    paddingVertical: moderateScale(10),
+                    fontFamily: "Kantumruy-Regular",
+                  },
+                ]}
+              >
                 {t("Repeat Password")}
               </Text>
-              <View style={SettingStyle.ResetPasswordInputTextStyle}>
+              <View
+                style={[
+                  SettingStyle.ResetPasswordInputTextStyle,
+                  {
+                    borderWidth: moderateScale(0.5),
+                    padding: moderateScale(10),
+                  },
+                ]}
+              >
                 <TextInput
                   value={repeatPassword}
                   placeholder={t("Repeat Password")}
                   onChangeText={(e) => setRepeatPassword(e)}
                   secureTextEntry={repeatView}
                   keyboardType="default"
-                  style={{ flex: 1 }}
+                  style={{
+                    flex: 1,
+                    fontSize: moderateScale(12),
+                    fontFamily: "Kantumruy-Regular",
+                  }}
                 />
                 {repeatView === true ? (
                   <TouchableOpacity onPress={() => setRepeatView(!repeatView)}>
                     <Image
                       source={require("../assets/Images/view.png")}
                       resizeMode="contain"
-                      style={{ width: 20, height: 20 }}
+                      style={{
+                        width: moderateScale(20),
+                        height: moderateScale(20),
+                      }}
                     />
                   </TouchableOpacity>
                 ) : (
@@ -224,7 +322,10 @@ export default function ResetPasswordScreen() {
                     <Image
                       source={require("../assets/Images/hide.png")}
                       resizeMode="cover"
-                      style={{ width: 20, height: 20 }}
+                      style={{
+                        width: moderateScale(20),
+                        height: moderateScale(20),
+                      }}
                     />
                   </TouchableOpacity>
                 )}
@@ -233,7 +334,8 @@ export default function ResetPasswordScreen() {
                 <Text
                   style={{
                     color: pwdRepeat ? "green" : "red",
-                    padding: 4,
+                    padding: moderateScale(4),
+                    fontFamily: "Kantumruy-Regular",
                   }}
                 >
                   {pwdRepeat ? t("Valid Password") : t("Invalid Password")}
@@ -242,11 +344,21 @@ export default function ResetPasswordScreen() {
               {/* <View style={{ flex: 1 }} /> */}
               <View style={SettingStyle.ResetPasswordButtonFooterContainer}>
                 <TouchableOpacity
-                  style={SettingStyle.ResetPasswordButtonFooter}
+                  style={[
+                    SettingStyle.ResetPasswordButtonFooter,
+                    { marginTop: moderateScale(20), height: moderateScale(40) },
+                  ]}
                   disabled={isButtonDisabled || loading ? true : false}
                   onPress={handleResetPassword}
                 >
-                  <Text style={{ color: "white", fontWeight: "500" }}>
+                  <Text
+                    style={{
+                      color: "white",
+                      fontWeight: "500",
+                      fontSize: moderateScale(14),
+                      fontFamily: "Kantumruy-Bold",
+                    }}
+                  >
                     {loading ? t("...Loading") : t("Reset")}
                   </Text>
                 </TouchableOpacity>

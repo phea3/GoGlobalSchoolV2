@@ -11,6 +11,7 @@ import {
 import SocialMediaStyle from "../Styles/SocialMediaScreen.scss";
 import * as WebBrowser from "expo-web-browser";
 import { useTranslation } from "react-multi-lang";
+import { moderateScale } from "../ Metrics";
 
 const openWebsite = async (url: string) => {
   const result = await WebBrowser.openBrowserAsync(url);
@@ -71,19 +72,41 @@ export default function SocialMediaScreen() {
       style={SocialMediaStyle.SocialMediaContainer}
     >
       <View style={SocialMediaStyle.SocialMediaTopContainer}>
-        <Text style={SocialMediaStyle.SocialMediaTopTitleContent}>
+        <Text
+          style={[
+            SocialMediaStyle.SocialMediaTopTitleContent,
+            { fontSize: moderateScale(20), fontFamily: "Kantumruy-Regular" },
+          ]}
+        >
           {t("Our Social Media")}
         </Text>
       </View>
-      <View style={SocialMediaStyle.SocialMediaBodyContainer}>
+      <View
+        style={[
+          SocialMediaStyle.SocialMediaBodyContainer,
+          { borderWidth: moderateScale(0.5) },
+        ]}
+      >
         <ScrollView
           showsVerticalScrollIndicator={false}
           style={{ width: "100%", height: "100%" }}
         >
-          <View style={SocialMediaStyle.SocialMediaBodyContentContainer}>
+          <View
+            style={[
+              SocialMediaStyle.SocialMediaBodyContentContainer,
+              { padding: moderateScale(10) },
+            ]}
+          >
             {socials?.map((social, index) => (
               <TouchableOpacity
-                style={SocialMediaStyle.SocialMediaCardRowStyle}
+                style={[
+                  SocialMediaStyle.SocialMediaCardRowStyle,
+                  {
+                    padding: moderateScale(10),
+                    borderWidth: moderateScale(0.5),
+                    marginBottom: moderateScale(10),
+                  },
+                ]}
                 key={index}
                 onPress={() => {
                   if (social.title == "Facebook" || social.title == "Tik Tok") {
@@ -96,14 +119,25 @@ export default function SocialMediaScreen() {
                 <Image
                   source={social.icon}
                   resizeMode="contain"
-                  style={SocialMediaStyle.SocialMediaIconStyle}
+                  style={{
+                    height: moderateScale(60),
+                    width: moderateScale(60),
+                  }}
                 />
-                <Text style={SocialMediaStyle.SocialMediaTitleStyle}>
+                <Text
+                  style={[
+                    SocialMediaStyle.SocialMediaTitleStyle,
+                    { padding: moderateScale(10), fontSize: moderateScale(14) },
+                  ]}
+                >
                   {social.title}
                 </Text>
                 <Image
                   source={require("../assets/Images/next.png")}
-                  style={SocialMediaStyle.SocialMediaNextIconStyle}
+                  style={{
+                    height: moderateScale(20),
+                    width: moderateScale(20),
+                  }}
                 />
               </TouchableOpacity>
             ))}

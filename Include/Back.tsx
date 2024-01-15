@@ -4,6 +4,7 @@ import * as Animatable from "react-native-animatable";
 import { useContext } from "react";
 import { AuthContext } from "../Context/AuthContext";
 import { useTranslation } from "react-multi-lang";
+import { moderateScale } from "../ Metrics";
 
 export default function Back({ title }: any) {
   const { dimension, widthScreen, heightScreen } = useContext(AuthContext);
@@ -34,15 +35,15 @@ export default function Back({ title }: any) {
         <Image
           source={require("../assets/Images/back.png")}
           style={{
-            width: dimension === "sm" ? 12 : 20,
-            height: dimension === "sm" ? 12 : 20,
-            marginRight: 10,
+            width: moderateScale(20),
+            height: moderateScale(20),
+            marginRight: moderateScale(10),
           }}
         />
         <Text
           style={{
             fontFamily: "Kantumruy-Bold",
-            fontSize: dimension === "sm" ? 12 : 14,
+            fontSize: moderateScale(14),
           }}
         >
           {t(title)}

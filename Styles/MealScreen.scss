@@ -9,31 +9,31 @@
 
 .MealScreenCalendarContainer {
   width: 95%;
-  height: 350px;
+  // height: 350px;
   flex-direction: row;
   justify-content: center;
 }
 
 .MealScreenTopButtonContainer {
   width: 90%;
-  height: 60px;
+  // height: 60px;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
 }
 
 .MealScreenTopImageContainer {
-  width: 200px;
-  height: 100px;
+  // width: 200px;
+  // height: 100px;
   justify-content: center;
   align-items: center;
 }
 
 .MealScreenMonthButtonContainer {
-  width: 30px;
-  height: 30px;
-  border-width: 2px;
-  border-radius: 100px;
+  // width: 30px;
+  // height: 30px;
+  // border-width: 2px;
+  border-radius: 200px;
   justify-content: center;
   align-items: center;
   border-color: $color-gray;
@@ -48,11 +48,11 @@
 }
 
 .MealScreenCalendarExamRowContainer {
-  width: 40px;
-  height: 40px;
+  // width: 40px;
+  // height: 40px;
   justify-content: center;
   align-items: center;
-  margin-right: 10px;
+  // margin-right: 10px;
 }
 
 .MealScreenCalendarTaskContainer {
@@ -64,10 +64,10 @@
 
 .MealScreenMonthTitle {
   font-family: $kantumruy-bold;
-  font-size: $title-font-size;
+  // font-size: $title-font-size;
 }
 
 .MealScreenMonthBodyText {
   font-family: $kantumruy-regular;
-  font-size: $base-font-size;
+  // font-size: $base-font-size;
 }

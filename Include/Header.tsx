@@ -25,6 +25,7 @@ import {
 } from "../Function/FetchDataLocalStorage";
 import { useContext, useEffect, useMemo, useState } from "react";
 import { AuthContext } from "../Context/AuthContext";
+import { moderateScale } from "../ Metrics";
 
 setTranslations({ en, kh });
 setDefaultLanguage("kh");
@@ -64,7 +65,12 @@ export default function Header() {
   return (
     <View style={HeaderStyle.containerHeaderVertical}>
       <View style={HeaderStyle.containerHeader}>
-        <View style={HeaderStyle.titleContainer}>
+        <View
+          style={[
+            HeaderStyle.titleContainer,
+            { paddingHorizontal: moderateScale(15) },
+          ]}
+        >
           {location.pathname === "/leave" ? (
             <Back title={"LEAVE HISTORY"} />
           ) : location.pathname === "/classes" ? (
@@ -111,7 +117,12 @@ export default function Header() {
                   flexDirection: "row",
                 }}
               >
-                <Text style={{ fontFamily: "Kantumruy-Bold" }}>
+                <Text
+                  style={{
+                    fontFamily: "Kantumruy-Bold",
+                    fontSize: moderateScale(14),
+                  }}
+                >
                   {t("PROFILE")}
                 </Text>
               </TouchableOpacity>
@@ -136,25 +147,15 @@ export default function Header() {
                   style={[
                     HeaderStyle.logoHeader,
                     {
-                      width:
-                        dimension === "sm"
-                          ? heightScreen * 0.038
-                          : dimension === "lg"
-                          ? heightScreen * 0.045
-                          : heightScreen * 0.038,
-                      height:
-                        dimension === "sm"
-                          ? heightScreen * 0.038
-                          : dimension === "lg"
-                          ? heightScreen * 0.045
-                          : heightScreen * 0.038,
+                      width: moderateScale(30),
+                      height: moderateScale(30),
                     },
                   ]}
                 />
               </Animatable.View>
               <Animatable.View
                 style={{
-                  marginLeft: heightScreen * 0.01,
+                  marginLeft: moderateScale(10),
                   flexDirection: "column",
                   justifyContent: "center",
                 }}
@@ -164,8 +165,7 @@ export default function Header() {
                   style={[
                     HeaderStyle.headerTitle1,
                     {
-                      fontSize:
-                        dimension === "sm" ? 12 : dimension === "lg" ? 24 : 16,
+                      fontSize: moderateScale(14),
                     },
                   ]}
                 >
@@ -180,8 +180,7 @@ export default function Header() {
                   style={[
                     HeaderStyle.headerTitle2,
                     {
-                      fontSize:
-                        dimension === "sm" ? 8 : dimension === "lg" ? 18 : 12,
+                      fontSize: moderateScale(12),
                     },
                   ]}
                 >
@@ -191,7 +190,12 @@ export default function Header() {
             </>
           )}
         </View>
-        <View style={HeaderStyle.titleContainer}>
+        <View
+          style={[
+            HeaderStyle.titleContainer,
+            { paddingHorizontal: moderateScale(15) },
+          ]}
+        >
           {location.pathname === "/notification" ||
           location.pathname === "/notification/announces" ? (
             <Menu>
@@ -199,30 +203,28 @@ export default function Header() {
                 <Animatable.Image
                   source={require("../assets/Images/notification-bell.png")}
                   style={{
-                    width:
-                      dimension === "sm" ? 20 : dimension === "lg" ? 45 : 30,
-                    height:
-                      dimension === "sm" ? 20 : dimension === "lg" ? 45 : 30,
-                    marginRight: heightScreen * 0.01,
+                    width: moderateScale(30),
+                    height: moderateScale(30),
+                    marginRight: moderateScale(10),
                   }}
                   animation="fadeInDown"
                 />
 
                 <Animatable.View
                   style={{
-                    width: heightScreen * 0.008,
-                    height: heightScreen * 0.008,
-                    borderRadius: 20,
+                    width: moderateScale(10),
+                    height: moderateScale(10),
+                    borderRadius: moderateScale(20),
                     backgroundColor: "red",
                     justifyContent: "center",
                     alignItems: "center",
                     position: "absolute",
-                    right: heightScreen * 0.014,
+                    right: moderateScale(12),
                   }}
                   animation="fadeInDown"
                 >
                   <Text
-                    style={{ color: "white", fontWeight: "bold", fontSize: 10 }}
+                    style={{ color: "white", fontWeight: "bold", fontSize: 12 }}
                   ></Text>
                 </Animatable.View>
               </MenuTrigger>
@@ -233,13 +235,13 @@ export default function Header() {
                       flexDirection: "row",
                       alignItems: "center",
                       justifyContent: "space-between",
-                      padding: dimension === "sm" ? 6 : 6,
+                      padding: moderateScale(5),
                     }}
                   >
                     <Text
                       style={[
                         HeaderStyle.headerTitle3,
-                        { fontSize: dimension === "sm" ? 12 : 16 },
+                        { fontSize: moderateScale(14) },
                       ]}
                     >
                       {t("Mark as Read")}
@@ -247,8 +249,8 @@ export default function Header() {
                     <Image
                       source={require("../assets/Images/mail.png")}
                       style={{
-                        width: dimension === "sm" ? 20 : 30,
-                        height: dimension === "sm" ? 20 : 30,
+                        width: moderateScale(25),
+                        height: moderateScale(25),
                       }}
                     />
                   </View>
@@ -264,10 +266,9 @@ export default function Header() {
               <Animatable.Image
                 source={require("../assets/Images/bell.png")}
                 style={{
-                  width: dimension === "sm" ? 20 : dimension === "lg" ? 45 : 30,
-                  height:
-                    dimension === "sm" ? 20 : dimension === "lg" ? 45 : 30,
-                  marginRight: heightScreen * 0.01,
+                  width: moderateScale(30),
+                  height: moderateScale(30),
+                  marginRight: moderateScale(10),
                 }}
                 animation="fadeInDown"
               />
@@ -281,10 +282,8 @@ export default function Header() {
                   <Animatable.Image
                     source={require("../assets/Images/Cambodia-Flag.png")}
                     style={{
-                      width:
-                        dimension === "sm" ? 20 : dimension === "lg" ? 45 : 30,
-                      height:
-                        dimension === "sm" ? 20 : dimension === "lg" ? 45 : 30,
+                      width: moderateScale(25),
+                      height: moderateScale(25),
                     }}
                     animation="fadeInDown"
                   />
@@ -292,8 +291,8 @@ export default function Header() {
                   <Animatable.Image
                     source={require("../assets/Images/English-Flag.png")}
                     style={{
-                      width: dimension === "sm" ? 20 : 30,
-                      height: dimension === "sm" ? 20 : 30,
+                      width: moderateScale(25),
+                      height: moderateScale(25),
                     }}
                     animation="fadeInDown"
                   />
@@ -306,13 +305,13 @@ export default function Header() {
                       flexDirection: "row",
                       alignItems: "center",
                       justifyContent: "space-between",
-                      padding: dimension === "sm" ? 6 : 10,
+                      padding: moderateScale(5),
                     }}
                   >
                     <Text
                       style={[
                         HeaderStyle.headerTitle3,
-                        { fontSize: dimension === "sm" ? 12 : 16 },
+                        { fontSize: moderateScale(14) },
                       ]}
                     >
                       {t("English")}
@@ -320,8 +319,8 @@ export default function Header() {
                     <Image
                       source={require("../assets/Images/English-Flag.png")}
                       style={{
-                        width: dimension === "sm" ? 20 : 30,
-                        height: dimension === "sm" ? 20 : 30,
+                        width: moderateScale(25),
+                        height: moderateScale(25),
                       }}
                     />
                   </View>
@@ -332,7 +331,7 @@ export default function Header() {
                       flexDirection: "row",
                       alignItems: "center",
                       justifyContent: "space-between",
-                      padding: dimension === "sm" ? 6 : 10,
+                      padding: moderateScale(5),
                       borderTopWidth: 1,
                       borderColor: "#dcdcdc",
                     }}
@@ -340,7 +339,7 @@ export default function Header() {
                     <Text
                       style={[
                         HeaderStyle.headerTitle3,
-                        { fontSize: dimension === "sm" ? 12 : 16 },
+                        { fontSize: moderateScale(14) },
                       ]}
                     >
                       {t("Khmer")}
@@ -348,8 +347,8 @@ export default function Header() {
                     <Image
                       source={require("../assets/Images/Cambodia-Flag.png")}
                       style={{
-                        width: dimension === "sm" ? 20 : 30,
-                        height: dimension === "sm" ? 20 : 30,
+                        width: moderateScale(25),
+                        height: moderateScale(25),
                       }}
                     />
                   </View>

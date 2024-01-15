@@ -4,7 +4,7 @@
     "slug": "school-mobile-app-ios",
     "platforms": ["ios", "android"],
     "privacy": "public",
-    "version": "2.0.1",
+    "version": "2.0.2",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -83,8 +83,7 @@
         "NSPhotoLibraryAddUsageDescription": "Allow $(PRODUCT_NAME) to save photos.",
         "NSLocationAlwaysAndWhenInUseUsageDescription": "Allow $(PRODUCT_NAME) to access your location to ensure you are close to the school.",
         "NSLocationAlwaysUsageDescription": "Allow $(PRODUCT_NAME) to access your location to ensure you are close to the school.",
-        "NSLocationWhenInUseUsageDescription": "Allow $(PRODUCT_NAME) to access your location to ensure you are close to the school.",
-        "NSDataCollectionAndStorage": "Allow $(PRODUCT_NAME) to collect your data and storage."
+        "NSLocationWhenInUseUsageDescription": "Allow $(PRODUCT_NAME) to access your location to ensure you are close to the school."
       },
       "supportsTablet": true,
       "entitlements": {
@@ -92,7 +91,7 @@
         "com.apple.developer.applesignin": ["Default"]
       },
       "bundleIdentifier": "Second-dayofSwift-Testing",
-      "buildNumber": "37",
+      "buildNumber": "38",
       "icon": "./assets/icon.png"
     },
     "android": {
@@ -107,7 +106,7 @@
         "android.permission.ACCESS_BACKGROUND_LOCATION"
       ],
       "adaptiveIcon": {
-        "versionCode": 37,
+        "versionCode": 38,
         "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#ffffff"
       },

@@ -18,6 +18,7 @@ import { GET_SCHEDULEFORMOBILE } from "../graphql/GetScheduleForMobile";
 import moment from "moment";
 import * as Animatable from "react-native-animatable";
 import { getLanguage, useTranslation } from "react-multi-lang";
+import { moderateScale } from "../ Metrics";
 
 export default function ScheduleScreen() {
   const navigate = useNavigate();
@@ -115,9 +116,9 @@ export default function ScheduleScreen() {
         }
         buttonStyle={{
           width: "95%",
-          height: 55,
-          borderRadius: 5,
-          marginVertical: 10,
+          height: moderateScale(55),
+          borderRadius: moderateScale(5),
+          marginVertical: moderateScale(10),
           backgroundColor: "white",
         }}
         onSelect={(selectedItem, index) => {
@@ -125,25 +126,46 @@ export default function ScheduleScreen() {
         }}
         renderCustomizedButtonChild={(selectedItem, index) => {
           return (
-            <View style={ScheduleStyle.ScheduleOnSelectStyle}>
+            <View
+              style={[
+                ScheduleStyle.ScheduleOnSelectStyle,
+                { borderWidth: moderateScale(1), padding: moderateScale(10) },
+              ]}
+            >
               {selectedItem ? (
                 <>
-                  <Text style={ScheduleStyle.ScheduleOnSelectTextStyle}>
+                  <Text
+                    style={[
+                      ScheduleStyle.ScheduleOnSelectTextStyle,
+                      { fontSize: moderateScale(14) },
+                    ]}
+                  >
                     {selectedItem?.classesName}
                   </Text>
                   <Image
                     source={require("../assets/Images/arrow-down-sign-to-navigate.png")}
-                    style={{ width: 18, height: 18 }}
+                    style={{
+                      width: moderateScale(18),
+                      height: moderateScale(18),
+                    }}
                   />
                 </>
               ) : (
                 <>
-                  <Text style={ScheduleStyle.ScheduleOnSelectTextStyle}>
+                  <Text
+                    style={[
+                      ScheduleStyle.ScheduleOnSelectTextStyle,
+                      { fontSize: moderateScale(14) },
+                    ]}
+                  >
                     {classData?.getClassesByStudentForMobile[0]?.classesName}
                   </Text>
                   <Image
                     source={require("../assets/Images/arrow-down-sign-to-navigate.png")}
-                    style={{ width: 18, height: 18 }}
+                    style={{
+                      width: moderateScale(18),
+                      height: moderateScale(18),
+                    }}
                   />
                 </>
               )}
@@ -151,8 +173,8 @@ export default function ScheduleScreen() {
           );
         }}
         dropdownStyle={{
-          borderRadius: 10,
-          paddingHorizontal: 10,
+          borderRadius: moderateScale(10),
+          paddingHorizontal: moderateScale(10),
         }}
         renderCustomizedRowChild={(item, index) => {
           // text represented for each item in dropdown
@@ -163,11 +185,20 @@ export default function ScheduleScreen() {
                 flexDirection: "row",
                 alignItems: "center",
                 justifyContent: "center",
-                borderRadius: 10,
+                borderRadius: moderateScale(10),
               }}
             >
-              <Text>{item?.classesName}</Text>
-              <View style={{ width: 18, height: 18 }} />
+              <Text
+                style={[
+                  ScheduleStyle.ScheduleOnSelectTextStyle,
+                  { fontSize: moderateScale(12) },
+                ]}
+              >
+                {item?.classesName}
+              </Text>
+              <View
+                style={{ width: moderateScale(18), height: moderateScale(18) }}
+              />
             </View>
           );
         }}
@@ -182,7 +213,7 @@ export default function ScheduleScreen() {
               onPress={() => setDay(item.enum)}
               style={[
                 ScheduleStyle.ScheduleDayBox,
-                day === item.enum && { backgroundColor: "#3c6efb" },
+                { backgroundColor: day === item.enum ? "#3c6efb" : "#fff" },
               ]}
               key={index}
             >
@@ -236,12 +267,10 @@ export default function ScheduleScreen() {
               >
                 <View style={ScheduleStyle.ScheduleBodyHourBox}>
                   <Text style={ScheduleStyle.ScheduleBodyHourText}>
-                    {moment(schedule?.startTime)
-                      .format("hh:mm")}
+                    {moment(schedule?.startTime).format("hh:mm")}
                   </Text>
                   <Text style={ScheduleStyle.ScheduleBodyHourText}>
-                    {moment(schedule?.endTime)
-                      .format("hh:mm")}
+                    {moment(schedule?.endTime).format("hh:mm")}
                   </Text>
                 </View>
 
@@ -309,12 +338,10 @@ export default function ScheduleScreen() {
               >
                 <View style={ScheduleStyle.ScheduleBodyHourBox}>
                   <Text style={ScheduleStyle.ScheduleBodyHourText}>
-                    {moment(schedule?.startTime)
-                      .format("hh:mm")}
+                    {moment(schedule?.startTime).format("hh:mm")}
                   </Text>
                   <Text style={ScheduleStyle.ScheduleBodyHourText}>
-                    {moment(schedule?.endTime)
-                      .format("hh:mm")}
+                    {moment(schedule?.endTime).format("hh:mm")}
                   </Text>
                 </View>
 

@@ -11,6 +11,7 @@ import Animated, {
 } from "react-native-reanimated";
 import { AuthContext } from "../Context/AuthContext";
 import { useTranslation } from "react-multi-lang";
+import { moderateScale } from "../ Metrics";
 
 const Footer = () => {
   const navigate = useNavigate();
@@ -104,7 +105,14 @@ const Footer = () => {
   });
 
   return (
-    <View style={FooterStyle.containerFooter}>
+    <View
+      style={[
+        FooterStyle.containerFooter,
+        {
+          borderTopWidth: moderateScale(0.5),
+        },
+      ]}
+    >
       <Animated.View
         style={[
           {
@@ -144,16 +152,17 @@ const Footer = () => {
                 <Image
                   source={tab.icon}
                   style={{
-                    width: heightScreen * 0.03,
-                    height: heightScreen * 0.03,
+                    width: moderateScale(30),
+                    height: moderateScale(30),
                     borderRadius: tab.path === "/profile" ? 100 : 0,
-                    borderWidth: tab.path === "/profile" ? 0.5 : 0,
+                    borderWidth:
+                      tab.path === "/profile" ? moderateScale(0.5) : 0,
                     borderColor: "#3C6EFB",
                   }}
                 />
                 <Text
                   style={{
-                    fontSize: heightScreen * 0.012,
+                    fontSize: moderateScale(12),
                     color: "#3C6EFB",
                     fontFamily: "Kantumruy-Bold",
                   }}
@@ -166,16 +175,17 @@ const Footer = () => {
                 <Image
                   source={tab.active_icon}
                   style={{
-                    width: heightScreen * 0.028,
-                    height: heightScreen * 0.028,
+                    width: moderateScale(28),
+                    height: moderateScale(28),
                     borderRadius: tab.path === "/profile" ? 100 : 0,
-                    borderWidth: tab.path === "/profile" ? 0.5 : 0,
+                    borderWidth:
+                      tab.path === "/profile" ? moderateScale(0.5) : 0,
                     borderColor: "#3C6EFB",
                   }}
                 />
                 <Text
                   style={{
-                    fontSize: heightScreen * 0.011,
+                    fontSize: moderateScale(11),
                     fontFamily: "Kantumruy-Bold",
                   }}
                 >

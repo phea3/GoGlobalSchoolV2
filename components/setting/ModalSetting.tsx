@@ -10,6 +10,7 @@ import Animated, {
   withSpring,
   withTiming,
 } from "react-native-reanimated";
+import { moderateScale } from "../../ Metrics";
 
 export default function ModalSetting({ isVisible, handleClose }: any) {
   const [disappear, setDisappear] = useState(false);
@@ -73,9 +74,17 @@ export default function ModalSetting({ isVisible, handleClose }: any) {
             style={HomeStyle.SettingContentContainer}
             animation={disappear ? "fadeOutDownBig" : "fadeInUpBig"}
           >
-            <View style={HomeStyle.SettingBodyContentContainer}>
+            <View
+              style={[
+                HomeStyle.SettingBodyContentContainer,
+                { padding: moderateScale(10) },
+              ]}
+            >
               <TouchableOpacity
-                style={HomeStyle.SettingContentButton}
+                style={[
+                  HomeStyle.SettingContentButton,
+                  { padding: moderateScale(10) },
+                ]}
                 onPress={() => {
                   setDisappear(true);
                   setTimeout(() => {
@@ -87,20 +96,36 @@ export default function ModalSetting({ isVisible, handleClose }: any) {
               >
                 <Animatable.Image
                   source={require("../../assets/Images/Cambodia-Flag.png")}
-                  style={{ width: 30, height: 30 }}
+                  style={{
+                    width: moderateScale(30),
+                    height: moderateScale(30),
+                  }}
                   animation="fadeInDown"
                 />
-                <Text style={HomeStyle.SettingTitleContent}>{t("Khmer")}</Text>
+                <Text
+                  style={{
+                    paddingHorizontal: moderateScale(10),
+                    fontSize: moderateScale(16),
+                  }}
+                >
+                  {t("Khmer")}
+                </Text>
                 {getLanguage() === "kh" ? (
                   <Image
                     source={require("../../assets/Images/check-mark-active.png")}
-                    style={{ width: 30, height: 30 }}
+                    style={{
+                      width: moderateScale(30),
+                      height: moderateScale(30),
+                    }}
                   />
                 ) : null}
               </TouchableOpacity>
 
               <TouchableOpacity
-                style={HomeStyle.SettingContentButton}
+                style={[
+                  HomeStyle.SettingContentButton,
+                  { padding: moderateScale(10) },
+                ]}
                 onPress={() => {
                   setDisappear(true);
                   setTimeout(() => {
@@ -112,16 +137,27 @@ export default function ModalSetting({ isVisible, handleClose }: any) {
               >
                 <Animatable.Image
                   source={require("../../assets/Images/English-Flag.png")}
-                  style={{ width: 30, height: 30 }}
+                  style={{
+                    width: moderateScale(30),
+                    height: moderateScale(30),
+                  }}
                   animation="fadeInDown"
                 />
-                <Text style={HomeStyle.SettingTitleContent}>
+                <Text
+                  style={{
+                    paddingHorizontal: moderateScale(10),
+                    fontSize: moderateScale(16),
+                  }}
+                >
                   {t("English")}
                 </Text>
                 {getLanguage() === "en" ? (
                   <Image
                     source={require("../../assets/Images/check-mark-active.png")}
-                    style={{ width: 30, height: 30 }}
+                    style={{
+                      width: moderateScale(30),
+                      height: moderateScale(30),
+                    }}
                   />
                 ) : null}
               </TouchableOpacity>
@@ -136,7 +172,9 @@ export default function ModalSetting({ isVisible, handleClose }: any) {
                 }, 500);
               }}
             >
-              <Text style={{ fontWeight: "500" }}>{t("Cancel")}</Text>
+              <Text style={{ fontWeight: "500", fontSize: moderateScale(14) }}>
+                {t("Cancel")}
+              </Text>
             </TouchableOpacity>
           </Animatable.View>
         </View>

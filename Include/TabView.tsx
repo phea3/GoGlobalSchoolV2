@@ -11,6 +11,7 @@ import Animated, {
 import { useContext, useEffect } from "react";
 import { AuthContext } from "../Context/AuthContext";
 import { useTranslation } from "react-multi-lang";
+import { moderateScale } from "../ Metrics";
 
 export default function TabView({ userId }: any) {
   const navigate = useNavigate();
@@ -40,43 +41,47 @@ export default function TabView({ userId }: any) {
           style={[TabViewStyle.TabViewContainerFlexAnimation, animatedStyles]}
         />
         <TouchableOpacity
-          style={
+          style={[
             location.pathname === "/notification"
               ? TabViewStyle.TabViewButtonActive
-              : TabViewStyle.TabViewButton
-          }
+              : TabViewStyle.TabViewButton,
+            { borderBottomWidth: moderateScale(0.5) },
+          ]}
           onPress={() => {
             navigate("/notification", { state: userId });
             offset.value = withTiming(0);
           }}
         >
           <Text
-            style={
+            style={[
               location.pathname === "/notification"
                 ? TabViewStyle.TabViewButtonTextActive
-                : TabViewStyle.TabViewButtonText
-            }
+                : TabViewStyle.TabViewButtonText,
+              { fontSize: moderateScale(14) },
+            ]}
           >
             {t("Actions")}
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
-          style={
+          style={[
             location.pathname === "/notification/announces"
               ? TabViewStyle.TabViewButtonActive
-              : TabViewStyle.TabViewButton
-          }
+              : TabViewStyle.TabViewButton,
+            { borderBottomWidth: moderateScale(0.5) },
+          ]}
           onPress={() => {
             navigate("/notification/announces", { state: userId });
             offset.value = withTiming(0.95);
           }}
         >
           <Text
-            style={
+            style={[
               location.pathname === "/notification/announces"
                 ? TabViewStyle.TabViewButtonTextActive
-                : TabViewStyle.TabViewButtonText
-            }
+                : TabViewStyle.TabViewButtonText,
+              { fontSize: moderateScale(14) },
+            ]}
           >
             {t("Annoucements")}
           </Text>

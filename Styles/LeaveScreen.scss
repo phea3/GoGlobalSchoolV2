@@ -16,25 +16,25 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 10px;
-  padding: 5px;
+  // margin-bottom: 10px;
+  // padding: 5px;
   border-radius: $border-radius-main;
 }
 
 .LeaveCardContainer {
   background-color: #eef3ff;
-  margin-bottom: 10px;
+  // margin-bottom: 10px;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  padding: 5px;
+  // padding: 5px;
   border-radius: $border-radius-main;
 }
 
 .LeaveTitleText {
   color: #3c6efb;
   font-family: "Kantumruy-Bold";
-  font-size: 16px;
+  // font-size: 16px;
   width: 20%;
   text-align: center;
 }
@@ -42,14 +42,14 @@
 .LeaveTitleText1 {
   color: #3c6efb;
   font-family: "Kantumruy-Bold";
-  font-size: 16px;
+  // font-size: 16px;
   width: 30%;
   text-align: center;
 }
 
 .LeaveTitleText2 {
   font-family: "Kantumruy-Bold";
-  font-size: 14px;
+  // font-size: 14px;
   width: 20%;
   text-align: center;
 }
@@ -57,14 +57,14 @@
 .LeaveTitleText4 {
   color: #3c6efb;
   font-family: "Kantumruy-Bold";
-  font-size: 16px;
+  // font-size: 16px;
   text-align: left;
 }
 
 .LeaveTitleText3 {
   color: #3c6efb;
   font-family: "Kantumruy-Bold";
-  font-size: 16px;
+  // font-size: 16px;
   width: 30%;
   text-align: left;
 }
@@ -116,14 +116,14 @@
 
 .LeaveBodyText1 {
   font-family: "Kantumruy-Regular";
-  font-size: 14px;
+  // font-size: 14px;
   width: 30%;
   text-align: justify;
 }
 
 .LeaveBodyText2 {
   font-family: "Kantumruy-Regular";
-  font-size: 14px;
+  // font-size: 14px;
   width: 30%;
   text-align: center;
 }
@@ -133,26 +133,26 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 10px;
+  // margin-bottom: 10px;
 }
 
 .LeaveFilterButton {
   background-color: #d9e3ff;
-  padding: 5px;
+  // padding: 5px;
   border-radius: $border-radius-main;
-  width: 40px;
-  height: 40px;
+  // width: 40px;
+  // height: 40px;
   justify-content: center;
   align-items: center;
 }
 
 .LeaveImage {
-  width: 40px;
-  height: 40px;
-  border-radius: 50px;
+  // width: 40px;
+  // height: 40px;
+  border-radius: 100px;
   border-color: #dcdcdc;
-  border-width: 1px;
-  margin-right: 10px;
+  // border-width: 1px;
+  // margin-right: 10px;
 }
 
 .ModalLeaveContainer {
@@ -173,9 +173,9 @@
 .LeaveModalInsideContainer {
   background-color: white;
   width: 100%;
-  height: 30%;
-  border-top-right-radius: 20px;
-  border-top-left-radius: 20px;
+  // height: 30%;
+  // border-top-right-radius: 20px;
+  // border-top-left-radius: 20px;
   justify-content: flex-start;
   align-items: center;
 }
@@ -184,15 +184,15 @@
   flex-direction: row;
   width: 90%;
   justify-content: space-between;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  // margin-top: 20px;
+  // margin-bottom: 20px;
 }
 
 .LeaveModalSelectDateButton {
   width: 45%;
-  border-width: 1px;
+  // border-width: 1px;
   border-radius: $border-radius-main;
-  padding: 10px;
+  // padding: 10px;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
@@ -205,9 +205,9 @@
 .LeaveModalButtonContainer {
   background-color: #3c6efb;
   width: 90%;
-  padding: 15px;
+  // padding: 15px;
   border-radius: $border-radius-main;
-  margin-top: 10px;
+  // margin-top: 10px;
   align-items: center;
 }
 
@@ -219,6 +219,6 @@
 .LeaveModalTitle {
   width: 90%;
   font-family: "Kantumruy-Bold";
-  font-size: 16px;
-  margin-top: 20px;
+  // font-size: 16px;
+  // margin-top: 20px;
 }

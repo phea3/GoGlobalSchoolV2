@@ -24,16 +24,16 @@
   width: 65%;
   justify-content: center;
   align-items: flex-start;
-  padding-left: 20px;
+  // padding-left: 20px;
 }
 
 .StudentDetailMiddelTitleContainer {
   width: 100%;
-  margin-top: 20px;
+  // margin-top: 20px;
+  // margin-bottom: 10px;
   align-items: center;
   justify-content: center;
   flex-direction: row;
-  margin-bottom: 10px;
 }
 
 .StudentDetailMiddelContentContainer {
@@ -44,19 +44,16 @@
 }
 
 .StudentDetailTitleText {
-  font-size: $base-font-size;
   font-family: $kantumruy-bold;
   text-align: center;
 }
 
 .StudentDetailBodyText {
-  font-size: $base-font-size;
   font-family: $kantumruy-regular;
   text-align: left;
 }
 
 .StudentDetailBodyClassText {
-  font-size: $base-font-size;
   font-family: $kantumruy-regular;
   text-align: center;
 }
@@ -72,9 +69,9 @@
 .StudentDetailSelectDropdownAcademicYearContainer {
   width: 100%;
   background-color: $color-light-grey;
-  border-width: 0.5px;
+  // border-width: 0.5px;
   border-color: $color-gray;
-  padding: 10px;
+  // padding: 10px;
   border-radius: $border-radius-main;
 }
 
@@ -90,7 +87,7 @@
 }
 
 .StudentDetailDropdownStyleAcademicYearContainer {
-  border-radius: $border-radius-main;
+  // border-radius: $border-radius-main;
   background-color: $color-white;
 }
 
@@ -104,8 +101,8 @@
   flex-direction: row;
   align-items: center;
   justify-content: flex-end;
-  height: 100px;
-  margin-bottom: 10px;
+  // height: 100px;
+  // margin-bottom: 10px;
 }
 
 .StudentDetailClassBackgroundContainer {
@@ -115,8 +112,6 @@
   justify-content: flex-start;
   align-items: center;
   position: absolute;
-  border-width: 1px;
-  border-radius: 30px;
   border-color: $color-gray;
   background-color: $color-light-grey;
 }

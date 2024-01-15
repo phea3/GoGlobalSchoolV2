@@ -26,6 +26,7 @@ import * as WebBrowser from "expo-web-browser";
 import * as Sharing from "expo-sharing";
 import * as FileSystem from "expo-file-system";
 import { useTranslation } from "react-multi-lang";
+import { moderateScale } from "../ Metrics";
 
 const Infomations = [
   {
@@ -220,7 +221,12 @@ export default function ProfileScreen() {
               setIsVisible(true);
             }}
           >
-            <View style={ProfileStyle.ProfileStyleBackgroundProfile}>
+            <View
+              style={[
+                ProfileStyle.ProfileStyleBackgroundProfile,
+                { width: moderateScale(120), height: moderateScale(120) },
+              ]}
+            >
               <ImageView
                 images={[
                   data?.getUserProfile?.profileImg
@@ -257,35 +263,53 @@ export default function ProfileScreen() {
                       }
                   : require("../assets/Images/user.png")
               }
-              style={
-                dimension === "sm"
-                  ? ProfileStyle.ProfileImagesm
-                  : ProfileStyle.ProfileImage
-              }
+              style={[
+                ProfileStyle.ProfileImage,
+                {
+                  width: moderateScale(110),
+                  height: moderateScale(110),
+                },
+              ]}
               animation={"zoomIn"}
             />
             <Animatable.View
-              style={
-                dimension === "sm"
-                  ? ProfileStyle.ProfileImageFramesm
-                  : ProfileStyle.ProfileImageFrame
-              }
+              style={[
+                ProfileStyle.ProfileImageFrame,
+                {
+                  width: moderateScale(120),
+                  height: moderateScale(120),
+                  borderWidth: moderateScale(1),
+                },
+              ]}
               animation={"zoomIn"}
             />
           </TouchableOpacity>
 
           <Animatable.View
-            style={ProfileStyle.ProfileTopTitleContainer}
+            style={[
+              ProfileStyle.ProfileTopTitleContainer,
+              { marginLeft: moderateScale(10) },
+            ]}
             animation={"bounce"}
           >
-            <Text style={ProfileStyle.ProfileTopTitleName}>
+            <Text
+              style={[
+                ProfileStyle.ProfileTopTitleName,
+                { fontSize: moderateScale(14) },
+              ]}
+            >
               {data?.getUserProfile?.lastName
                 ? data?.getUserProfile?.lastName +
                   " " +
                   data?.getUserProfile?.firstName
                 : "Full Name"}
             </Text>
-            <Text style={ProfileStyle.ProfileTopBodytext}>
+            <Text
+              style={[
+                ProfileStyle.ProfileTopBodytext,
+                { fontSize: moderateScale(14) },
+              ]}
+            >
               {data?.getUserProfile?.email
                 ? data?.getUserProfile?.email
                 : "Example@domain.com"}
@@ -298,7 +322,7 @@ export default function ProfileScreen() {
         >
           <Animatable.Image
             source={require("../assets/Images/next.png")}
-            style={{ width: 40, height: 40 }}
+            style={{ width: moderateScale(40), height: moderateScale(40) }}
             animation={"fadeInRight"}
           />
         </TouchableOpacity>
@@ -309,7 +333,14 @@ export default function ProfileScreen() {
       >
         {Infomations.map((info, index) => (
           <TouchableOpacity
-            style={ProfileStyle.ProfileMiddleCard}
+            style={[
+              ProfileStyle.ProfileMiddleCard,
+              {
+                height: moderateScale(60),
+                paddingLeft: moderateScale(10),
+                borderBottomWidth: moderateScale(0.5),
+              },
+            ]}
             onPress={() => {
               if (info?.action === "version") {
                 Linking.openURL(
@@ -339,16 +370,31 @@ export default function ProfileScreen() {
             >
               <Image
                 source={info?.icon}
-                style={ProfileStyle.ProfileMiddleCardImage}
+                style={{
+                  height: moderateScale(20),
+                  width: moderateScale(20),
+                  marginRight: moderateScale(10),
+                }}
               />
-              <Text>
+              <Text
+                style={[
+                  ProfileStyle.ProfileTopBodytext,
+                  {
+                    fontSize: moderateScale(14),
+                  },
+                ]}
+              >
                 {info?.title}
                 {/* {info?.title === "App Version" || info?.title === "Play Version" ? " " + version : null} */}
               </Text>
             </Animatable.View>
             <Animatable.Image
               source={require("../assets/Images/next.png")}
-              style={ProfileStyle.ProfileMiddleCardImage}
+              style={{
+                height: moderateScale(20),
+                width: moderateScale(20),
+                marginRight: moderateScale(10),
+              }}
               animation={"fadeInRight"}
             />
           </TouchableOpacity>
@@ -361,7 +407,14 @@ export default function ProfileScreen() {
             alignItems: "center",
           }}
         >
-          <Text style={{ color: "#9aa3a6" }}>
+          <Text
+            style={{
+              color: "#9aa3a6",
+              fontSize: moderateScale(14),
+              marginTop: moderateScale(10),
+              fontFamily: "Kantumruy-Regular",
+            }}
+          >
             {t("Current version")} {version}
           </Text>
         </View>
@@ -369,7 +422,7 @@ export default function ProfileScreen() {
           style={{
             color: "gray",
             width: "100%",
-            height: 50,
+            height: moderateScale(50),
             justifyContent: "center",
             textAlign: "center",
             alignItems: "center",
@@ -379,9 +432,23 @@ export default function ProfileScreen() {
       <View style={ProfileStyle.ProfileBottomContainer}>
         <TouchableOpacity
           onPress={() => Logouthandle()}
-          style={ProfileStyle.ProfileLogoutButtonBox}
+          style={[
+            ProfileStyle.ProfileLogoutButtonBox,
+            {
+              height: moderateScale(40),
+              marginBottom: moderateScale(10),
+              borderRadius: moderateScale(10),
+            },
+          ]}
         >
-          <Text style={ProfileStyle.ProfileLogoutButtonText}>Logout</Text>
+          <Text
+            style={[
+              ProfileStyle.ProfileLogoutButtonText,
+              { fontSize: moderateScale(14) },
+            ]}
+          >
+            Logout
+          </Text>
         </TouchableOpacity>
       </View>
     </View>

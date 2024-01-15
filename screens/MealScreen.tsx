@@ -14,6 +14,7 @@ import { useQuery } from "@apollo/client";
 import { GET_TAKEMEALATTENDANCEMOBILEREPORT } from "../graphql/GetTakeMealAttendanceMobileReport";
 import { useLocation } from "react-router-native";
 import { getLanguage } from "react-multi-lang";
+import { moderateScale } from "../ Metrics";
 
 const weekdays = [
   moment().startOf("isoWeek").add(0, "days"),
@@ -205,16 +206,33 @@ export default function MealScreen() {
         contentContainerStyle={{ alignItems: "center" }}
         showsVerticalScrollIndicator={false}
       >
-        <View style={MealScreenStyle.MealScreenTopImageContainer}>
+        <View
+          style={[
+            MealScreenStyle.MealScreenTopImageContainer,
+            { width: moderateScale(200), height: moderateScale(100) },
+          ]}
+        >
           <Image
             source={require("../assets/Images/4246838-01.png")}
             resizeMode="contain"
             style={{ width: "100%", height: "100%" }}
           />
         </View>
-        <View style={MealScreenStyle.MealScreenTopButtonContainer}>
+        <View
+          style={[
+            MealScreenStyle.MealScreenTopButtonContainer,
+            { height: moderateScale(60) },
+          ]}
+        >
           <TouchableOpacity
-            style={MealScreenStyle.MealScreenMonthButtonContainer}
+            style={[
+              MealScreenStyle.MealScreenMonthButtonContainer,
+              {
+                height: moderateScale(30),
+                width: moderateScale(30),
+                borderWidth: moderateScale(2),
+              },
+            ]}
             onPress={() => {
               setloadingCalendar(true);
               MinusCurrentMonth();
@@ -222,14 +240,26 @@ export default function MealScreen() {
           >
             <Image
               source={require("../assets/Images/left.png")}
-              style={{ width: 20, height: 20 }}
+              style={{ width: moderateScale(20), height: moderateScale(20) }}
             />
           </TouchableOpacity>
-          <Text style={MealScreenStyle.MealScreenMonthTitle}>
+          <Text
+            style={[
+              MealScreenStyle.MealScreenMonthTitle,
+              { fontSize: moderateScale(14) },
+            ]}
+          >
             {currentMonth + ", " + currentYear}
           </Text>
           <TouchableOpacity
-            style={MealScreenStyle.MealScreenMonthButtonContainer}
+            style={[
+              MealScreenStyle.MealScreenMonthButtonContainer,
+              {
+                height: moderateScale(30),
+                width: moderateScale(30),
+                borderWidth: moderateScale(2),
+              },
+            ]}
             onPress={() => {
               setloadingCalendar(true);
               AddCurrentMonth();
@@ -237,7 +267,7 @@ export default function MealScreen() {
           >
             <Image
               source={require("../assets/Images/next.png")}
-              style={{ width: 20, height: 20 }}
+              style={{ width: moderateScale(20), height: moderateScale(20) }}
             />
           </TouchableOpacity>
         </View>
@@ -251,10 +281,15 @@ export default function MealScreen() {
               alignItems: "center",
             }}
           >
-            <Text>Loading...</Text>
+            <Text style={{ fontSize: moderateScale(14) }}>Loading...</Text>
           </View>
         ) : (
-          <View style={MealScreenStyle.MealScreenCalendarContainer}>
+          <View
+            style={[
+              MealScreenStyle.MealScreenCalendarContainer,
+              { height: moderateScale(350) },
+            ]}
+          >
             {weekdays ? (
               <View style={MealScreenStyle.MealScreenCalendarTaskContainer}>
                 {weekdays.map((weekday: any, index: number) => (
@@ -266,7 +301,12 @@ export default function MealScreen() {
                         alignItems: "center",
                       }}
                     >
-                      <Text style={MealScreenStyle.MealScreenMonthBodyText}>
+                      <Text
+                        style={[
+                          MealScreenStyle.MealScreenMonthBodyText,
+                          { fontSize: moderateScale(14) },
+                        ]}
+                      >
                         {moment(weekday).format("dd")}
                       </Text>
                       {sortMonthdays?.map((day: any, i: number) =>
@@ -276,10 +316,13 @@ export default function MealScreen() {
                             style={[
                               MealScreenStyle.MealScreenCalendarRowContainer,
                               {
+                                width: moderateScale(40),
+                                height: moderateScale(40),
+                                marginRight: moderateScale(10),
                                 backgroundColor:
                                   day.status === "true" ? "#F7F8FE" : "white",
                                 borderBottomWidth:
-                                  day.status === "true" ? 2 : 0,
+                                  day.status === "true" ? moderateScale(2) : 0,
                                 borderColor: "#3c6efb",
                               },
                             ]}
@@ -288,6 +331,7 @@ export default function MealScreen() {
                               style={[
                                 MealScreenStyle.MealScreenMonthBodyText,
                                 {
+                                  fontSize: moderateScale(14),
                                   color:
                                     day.status === "true" ? "#3c6efb" : "black",
                                 },
@@ -300,9 +344,14 @@ export default function MealScreen() {
                           i < getIndexWeekday ? (
                           <View
                             key={i}
-                            style={
-                              MealScreenStyle.MealScreenCalendarRowContainer
-                            }
+                            style={[
+                              MealScreenStyle.MealScreenCalendarRowContainer,
+                              {
+                                width: moderateScale(40),
+                                height: moderateScale(40),
+                                marginRight: moderateScale(10),
+                              },
+                            ]}
                           ></View>
                         ) : null
                       )}
@@ -317,18 +366,25 @@ export default function MealScreen() {
         <View
           style={{
             width: "90%",
-            height: 60,
+            height: moderateScale(60),
             flexDirection: "row",
             alignItems: "center",
             justifyContent: "flex-start",
           }}
         >
-          <Text style={MealScreenStyle.MealScreenMonthTitle}>សម្គាល់</Text>
+          <Text
+            style={[
+              MealScreenStyle.MealScreenMonthTitle,
+              { fontSize: moderateScale(14) },
+            ]}
+          >
+            សម្គាល់
+          </Text>
         </View>
         <View
           style={{
             width: "90%",
-            height: 60,
+            height: moderateScale(60),
             flexDirection: "row",
             alignItems: "center",
             justifyContent: "flex-start",
@@ -338,18 +394,28 @@ export default function MealScreen() {
             style={[
               MealScreenStyle.MealScreenCalendarExamRowContainer,
               {
+                width: moderateScale(40),
+                height: moderateScale(40),
+                marginRight: moderateScale(10),
                 backgroundColor: "#F7F8FE",
-                borderBottomWidth: 2,
+                borderBottomWidth: moderateScale(2),
                 borderColor: "#3c6efb",
               },
             ]}
           >
             <Image
               source={require("../assets/Images/one.png")}
-              style={{ width: 12, height: 12 }}
+              style={{ width: moderateScale(12), height: moderateScale(12) }}
             />
           </View>
-          <Text style={MealScreenStyle.MealScreenMonthBodyText}>បានញ៉ាំ</Text>
+          <Text
+            style={[
+              MealScreenStyle.MealScreenMonthBodyText,
+              { fontSize: moderateScale(14) },
+            ]}
+          >
+            បានញ៉ាំ
+          </Text>
         </View>
       </ScrollView>
     </View>

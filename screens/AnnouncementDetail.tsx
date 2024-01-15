@@ -19,6 +19,7 @@ import ImageView from "react-native-image-viewing";
 import { useQuery } from "@apollo/client";
 import { GETANNOUNCEMENTBYID } from "../graphql/GetAnnouncementById";
 import { useTranslation } from "react-multi-lang";
+import { moderateScale } from "../ Metrics";
 
 export default function AnnouncementDetail() {
   const location = useLocation();
@@ -66,7 +67,7 @@ export default function AnnouncementDetail() {
           height: heightScreen * 0.3,
           justifyContent: "center",
           alignItems: "center",
-          marginBottom: 20,
+          marginBottom: moderateScale(20),
         }}
       >
         <Image
@@ -118,15 +119,30 @@ export default function AnnouncementDetail() {
               <ImageData item={{ item: item, index: index }} key={index} />
             )}
           />
-          <Text style={AnnounceStyle.AnnouceTitle}>
+          <Text
+            style={[
+              AnnounceStyle.AnnouceTitle,
+              { fontSize: moderateScale(16) },
+            ]}
+          >
             {announceData?.getAnnouncementById?.title}
           </Text>
-          <Text style={AnnounceStyle.AnnouceBodyText}>
+          <Text
+            style={[
+              AnnounceStyle.AnnouceBodyText,
+              { fontSize: moderateScale(14) },
+            ]}
+          >
             {announceData?.getAnnouncementById?.description}
           </Text>
         </ScrollView>
       ) : (
-        <Text style={AnnounceStyle.AnnouceBodyText}>
+        <Text
+          style={[
+            AnnounceStyle.AnnouceBodyText,
+            { fontSize: moderateScale(14) },
+          ]}
+        >
           {t("Content has been removed!")}
         </Text>
       )}

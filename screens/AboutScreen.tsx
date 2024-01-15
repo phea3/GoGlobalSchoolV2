@@ -5,6 +5,7 @@ import { useContext, useEffect, useRef, useState } from "react";
 import * as WebBrowser from "expo-web-browser";
 import { AuthContext } from "../Context/AuthContext";
 import { useTranslation } from "react-multi-lang";
+import { moderateScale } from "../ Metrics";
 
 const useOnce = (callback: any) => {
   const [hasRun, setHasRun] = useState(false);
@@ -46,7 +47,10 @@ export default function AboutScreen() {
 
   return (
     <View style={AboutStyle.AboutContainer}>
-      <ScrollView style={{ width: "100%", height: "100%" }}>
+      <ScrollView
+        style={{ width: "100%", height: "100%" }}
+        showsVerticalScrollIndicator={false}
+      >
         {loading === false ? (
           <View
             style={{
@@ -54,17 +58,15 @@ export default function AboutScreen() {
               height: "35%",
               alignItems: "center",
               justifyContent: "center",
-              marginBottom: 20,
+              marginBottom: moderateScale(20),
             }}
           >
             <Animatable.Image
               source={require("../assets/Images/goglobal-school.png")}
               resizeMode="contain"
               style={{
-                width:
-                  dimension === "sm" ? 150 : dimension === "lg" ? 300 : 200,
-                height:
-                  dimension === "sm" ? 250 : dimension === "lg" ? 600 : 400,
+                width: moderateScale(200),
+                height: moderateScale(400),
               }}
               animation="fadeInDown"
             />
@@ -76,15 +78,13 @@ export default function AboutScreen() {
               height: "35%",
               alignItems: "center",
               justifyContent: "center",
-              marginBottom: 20,
+              marginBottom: moderateScale(20),
             }}
           >
             <View
               style={{
-                width:
-                  dimension === "sm" ? 150 : dimension === "lg" ? 300 : 200,
-                height:
-                  dimension === "sm" ? 250 : dimension === "lg" ? 600 : 400,
+                width: moderateScale(200),
+                height: moderateScale(400),
                 alignItems: "center",
                 justifyContent: "center",
               }}
@@ -92,10 +92,9 @@ export default function AboutScreen() {
               <View
                 style={{
                   width: "100%",
-                  height:
-                    dimension === "sm" ? 125 : dimension === "lg" ? 400 : 200,
+                  height: moderateScale(200),
                   backgroundColor: "#f1f1f1",
-                  borderRadius: 10,
+                  borderRadius: moderateScale(10),
                 }}
               />
             </View>
@@ -116,22 +115,53 @@ export default function AboutScreen() {
                 }}
                 style={
                   number % 3 === 0
-                    ? AboutStyle.AboutChatContainer1
+                    ? [
+                        AboutStyle.AboutChatContainer1,
+                        {
+                          height: moderateScale(80),
+                          paddingLeft: moderateScale(20),
+                          marginBottom: moderateScale(10),
+                        },
+                      ]
                     : number % 3 === 1
-                    ? AboutStyle.AboutChatContainer2
-                    : AboutStyle.AboutChatContainer3
+                    ? [
+                        AboutStyle.AboutChatContainer2,
+                        {
+                          height: moderateScale(80),
+                          paddingLeft: moderateScale(20),
+                          marginBottom: moderateScale(10),
+                        },
+                      ]
+                    : [
+                        AboutStyle.AboutChatContainer3,
+                        {
+                          height: moderateScale(80),
+                          paddingLeft: moderateScale(20),
+                        },
+                      ]
                 }
                 key={number}
               >
                 <View style={AboutStyle.AboutChartTextHolder}>
-                  <Text style={AboutStyle.AboutChartTitle}>
+                  <Text
+                    style={[
+                      AboutStyle.AboutChartTitle,
+                      { fontSize: moderateScale(16) },
+                    ]}
+                  >
                     {number % 3 === 0
                       ? t("About School")
                       : number % 3 === 1
                       ? t("Curriculum")
                       : t("School Fee")}
                   </Text>
-                  <Text style={AboutStyle.AboutChartBody} numberOfLines={1}>
+                  <Text
+                    style={[
+                      AboutStyle.AboutChartBody,
+                      { fontSize: moderateScale(14) },
+                    ]}
+                    numberOfLines={1}
+                  >
                     {number % 3 === 0
                       ? t("Go Global School was established since 2015")
                       : number % 3 === 1
@@ -141,7 +171,18 @@ export default function AboutScreen() {
                 </View>
               </TouchableOpacity>
             ) : (
-              <View style={AboutStyle.AboutChatContainer4} key={number}>
+              <View
+                style={[
+                  AboutStyle.AboutChatContainer4,
+                  {
+                    height: moderateScale(80),
+                    paddingLeft: moderateScale(20),
+                    marginBottom: moderateScale(10),
+                    borderWidth: moderateScale(1),
+                  },
+                ]}
+                key={number}
+              >
                 <View style={AboutStyle.AboutChartTextHolder}></View>
               </View>
             )

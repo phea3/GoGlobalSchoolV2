@@ -22,6 +22,7 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 import { getLanguage, useTranslation } from "react-multi-lang";
+import { moderateScale } from "../../ Metrics";
 
 export default function ModalTakeLeave({
   studentId,
@@ -190,19 +191,42 @@ export default function ModalTakeLeave({
           <Animatable.View
             style={
               isKeyboardVisible
-                ? HomeStyle.homeSelectLeaveOptionModalArea1
+                ? [
+                    HomeStyle.homeSelectLeaveOptionModalArea1,
+                    {
+                      paddingBottom: moderateScale(50),
+                      borderTopRightRadius: moderateScale(5),
+                      borderTopLeftRadius: moderateScale(5),
+                    },
+                  ]
                 : HomeStyle.homeSelectLeaveOptionModalArea
             }
             animation={disappear ? "fadeOutDownBig" : "fadeInUpBig"}
           >
             <View
-              style={{ width: "100%", alignItems: "flex-start", padding: 10 }}
+              style={{
+                width: "100%",
+                alignItems: "flex-start",
+                padding: moderateScale(10),
+              }}
             >
-              <Text style={HomeStyle.homeModalTitle}>{t("Leave Request")}</Text>
+              <Text
+                style={[
+                  HomeStyle.homeModalTitle,
+                  { fontSize: moderateScale(14) },
+                ]}
+              >
+                {t("Leave Request")}
+              </Text>
             </View>
             {isKeyboardVisible ? <KeyboardDismissableArea /> : null}
 
-            <View style={HomeStyle.homeRequestLeaveOptionsContainer}>
+            <View
+              style={[
+                HomeStyle.homeRequestLeaveOptionsContainer,
+                { paddingBottom: moderateScale(10) },
+              ]}
+            >
               <TouchableOpacity
                 onPress={() => {
                   setMorning(true);
@@ -215,15 +239,18 @@ export default function ModalTakeLeave({
                   <Image
                     source={require("../../assets/Images/black-circle.png")}
                     style={{
-                      width: 25,
-                      height: 12,
+                      width: moderateScale(25),
+                      height: moderateScale(12),
                     }}
                     resizeMode="contain"
                   />
                 ) : (
                   <Image
                     source={require("../../assets/Images/record.png")}
-                    style={{ width: 25, height: 15 }}
+                    style={{
+                      width: moderateScale(25),
+                      height: moderateScale(15),
+                    }}
                     resizeMode="contain"
                   />
                 )}
@@ -231,7 +258,7 @@ export default function ModalTakeLeave({
                 <Text
                   style={{
                     fontFamily: "Kantumruy-Bold",
-                    fontSize: 15,
+                    fontSize: moderateScale(15),
                   }}
                 >
                   {t("Morning")}
@@ -249,20 +276,26 @@ export default function ModalTakeLeave({
                 {afternoon === true ? (
                   <Image
                     source={require("../../assets/Images/black-circle.png")}
-                    style={{ width: 25, height: 12 }}
+                    style={{
+                      width: moderateScale(25),
+                      height: moderateScale(12),
+                    }}
                     resizeMode="contain"
                   />
                 ) : (
                   <Image
                     source={require("../../assets/Images/record.png")}
-                    style={{ width: 25, height: 15 }}
+                    style={{
+                      width: moderateScale(25),
+                      height: moderateScale(15),
+                    }}
                     resizeMode="contain"
                   />
                 )}
                 <Text
                   style={{
                     fontFamily: "Kantumruy-Bold",
-                    fontSize: 15,
+                    fontSize: moderateScale(15),
                   }}
                 >
                   {t("Afternoon")}
@@ -279,20 +312,26 @@ export default function ModalTakeLeave({
                 {fullday === true ? (
                   <Image
                     source={require("../../assets/Images/black-circle.png")}
-                    style={{ width: 25, height: 12 }}
+                    style={{
+                      width: moderateScale(25),
+                      height: moderateScale(12),
+                    }}
                     resizeMode="contain"
                   />
                 ) : (
                   <Image
                     source={require("../../assets/Images/record.png")}
-                    style={{ width: 25, height: 15 }}
+                    style={{
+                      width: moderateScale(25),
+                      height: moderateScale(15),
+                    }}
                     resizeMode="contain"
                   />
                 )}
                 <Text
                   style={{
                     fontFamily: "Kantumruy-Bold",
-                    fontSize: 15,
+                    fontSize: moderateScale(15),
                   }}
                 >
                   {t("Full day")}
@@ -308,30 +347,90 @@ export default function ModalTakeLeave({
                 }}
               >
                 <View style={{ width: "48%" }}>
-                  <Text style={HomeStyle.homeModalTitle3}>{t("From")}</Text>
+                  <Text
+                    style={[
+                      HomeStyle.homeModalTitle3,
+                      {
+                        paddingVertical: moderateScale(10),
+                        fontSize: moderateScale(14),
+                      },
+                    ]}
+                  >
+                    {t("From")}
+                  </Text>
                   <TouchableOpacity
-                    style={HomeStyle.homeSelectLeaveOptionPickupDate2}
+                    style={[
+                      HomeStyle.homeSelectLeaveOptionPickupDate2,
+                      {
+                        paddingHorizontal: moderateScale(10),
+                        borderWidth: moderateScale(1),
+                        height: moderateScale(50),
+                      },
+                    ]}
                     onPress={showDatePicker1}
                   >
-                    <Text>{moment(from).format("DD/M/YYYY")}</Text>
+                    <Text
+                      style={[
+                        HomeStyle.homeModalTitle4,
+                        {
+                          paddingVertical: moderateScale(10),
+                          fontSize: moderateScale(14),
+                        },
+                      ]}
+                    >
+                      {moment(from).format("DD/M/YYYY")}
+                    </Text>
                     <Image
                       source={require("../../assets/Images/calendar-clock.png")}
-                      style={{ width: 15, height: 15 }}
+                      style={{
+                        width: moderateScale(15),
+                        height: moderateScale(15),
+                      }}
                       resizeMode="cover"
                     />
                   </TouchableOpacity>
                 </View>
 
                 <View style={{ width: "48%", justifyContent: "flex-start" }}>
-                  <Text style={HomeStyle.homeModalTitle3}>{t("To")}</Text>
+                  <Text
+                    style={[
+                      HomeStyle.homeModalTitle3,
+                      {
+                        paddingVertical: moderateScale(10),
+                        fontSize: moderateScale(14),
+                      },
+                    ]}
+                  >
+                    {t("To")}
+                  </Text>
                   <TouchableOpacity
-                    style={HomeStyle.homeSelectLeaveOptionPickupDate2}
+                    style={[
+                      HomeStyle.homeSelectLeaveOptionPickupDate2,
+                      {
+                        paddingHorizontal: moderateScale(10),
+                        borderWidth: moderateScale(1),
+                        height: moderateScale(50),
+                      },
+                    ]}
                     onPress={showDatePicker2}
                   >
-                    <Text>{moment(to).format("DD/M/YYYY")}</Text>
+                    <Text
+                      style={[
+                        HomeStyle.homeModalTitle4,
+                        {
+                          paddingVertical: moderateScale(10),
+                          fontSize: moderateScale(14),
+                        },
+                      ]}
+                    >
+                      {moment(to).format("DD/M/YYYY")}
+                    </Text>
                     <Image
                       source={require("../../assets/Images/calendar-clock.png")}
-                      style={{ width: 15, height: 15 }}
+                      style={{
+                        width: moderateScale(15),
+                        height: moderateScale(15),
+                      }}
                       resizeMode="cover"
                     />
                   </TouchableOpacity>
@@ -339,17 +438,42 @@ export default function ModalTakeLeave({
               </View>
             ) : (
               <>
-                <Text style={HomeStyle.homeModalTitle2}>{t("Date")}</Text>
+                <Text
+                  style={[
+                    HomeStyle.homeModalTitle2,
+                    { padding: moderateScale(10), fontSize: moderateScale(14) },
+                  ]}
+                >
+                  {t("Date")}
+                </Text>
                 <TouchableOpacity
-                  style={HomeStyle.homeSelectLeaveOptionPickupDate}
+                  style={[
+                    HomeStyle.homeSelectLeaveOptionPickupDate,
+                    {
+                      paddingHorizontal: moderateScale(10),
+                      borderWidth: moderateScale(1),
+                      height: moderateScale(50),
+                    },
+                  ]}
                   onPress={showDatePicker}
                 >
-                  <Text>
+                  <Text
+                    style={[
+                      HomeStyle.homeModalTitle4,
+                      {
+                        paddingVertical: moderateScale(10),
+                        fontSize: moderateScale(14),
+                      },
+                    ]}
+                  >
                     {moment(date).format("DD/M/YYYY")}
                   </Text>
                   <Image
                     source={require("../../assets/Images/calendar-clock.png")}
-                    style={{ width: 15, height: 15 }}
+                    style={{
+                      width: moderateScale(15),
+                      height: moderateScale(15),
+                    }}
                     resizeMode="cover"
                   />
                 </TouchableOpacity>
@@ -374,14 +498,37 @@ export default function ModalTakeLeave({
               onConfirm={handleConfirm2}
               onCancel={hideDatePicker2}
             />
-            <Text style={HomeStyle.homeModalTitle2}>{t("Reason")}</Text>
-            <View style={HomeStyle.homeSelectLeaveOptionTextInput}>
+            <Text
+              style={[
+                HomeStyle.homeModalTitle2,
+                { padding: moderateScale(10), fontSize: moderateScale(14) },
+              ]}
+            >
+              {t("Reason")}
+            </Text>
+            <View
+              style={[
+                HomeStyle.homeSelectLeaveOptionTextInput,
+                {
+                  paddingHorizontal: moderateScale(10),
+                  borderWidth: moderateScale(1),
+                  height: moderateScale(50),
+                },
+              ]}
+            >
               <TextInput
                 placeholder="Reason"
                 value={reason}
                 onChangeText={(e) => setReason(e)}
                 keyboardType="default"
                 multiline
+                style={[
+                  HomeStyle.homeModalTitle4,
+                  {
+                    paddingHorizontal: moderateScale(10),
+                    fontSize: moderateScale(14),
+                  },
+                ]}
               />
             </View>
 
@@ -391,7 +538,8 @@ export default function ModalTakeLeave({
                   color: "red",
                   textAlign: "left",
                   width: "95%",
-                  padding: 10,
+                  padding: moderateScale(10),
+                  fontSize: moderateScale(14),
                 }}
               >
                 {t("Require!")}
@@ -399,7 +547,13 @@ export default function ModalTakeLeave({
             ) : null}
 
             <TouchableOpacity
-              style={HomeStyle.homeSelectLeaveOptionButtonRequest}
+              style={[
+                HomeStyle.homeSelectLeaveOptionButtonRequest,
+                {
+                  marginVertical: moderateScale(20),
+                  height: moderateScale(40),
+                },
+              ]}
               onPress={() => {
                 if (
                   (reason != "" && morning) ||
@@ -410,7 +564,14 @@ export default function ModalTakeLeave({
                 }
               }}
             >
-              <Text style={HomeStyle.homeModalButtonTitle}>{t("Request")}</Text>
+              <Text
+                style={[
+                  HomeStyle.homeModalButtonTitle,
+                  { fontSize: moderateScale(14) },
+                ]}
+              >
+                {t("Request")}
+              </Text>
             </TouchableOpacity>
           </Animatable.View>
         </View>

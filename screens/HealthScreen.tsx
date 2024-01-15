@@ -16,6 +16,7 @@ import { useMutation } from "@apollo/client";
 import { PARENTS_CHECKSTUDENTSEYS } from "../graphql/ParentsCheckStudentsEYS";
 import { useLocation } from "react-router-native";
 import { getLanguage, useTranslation } from "react-multi-lang";
+import { moderateScale } from "../ Metrics";
 
 export default function HealthScreen() {
   const [isChecked, setChecked] = useState(true);
@@ -84,11 +85,27 @@ export default function HealthScreen() {
         </View>
       )}
       <ScrollView
-        style={HealthStyle.HealthMiddleContainer}
+        style={[
+          HealthStyle.HealthMiddleContainer,
+          {
+            borderTopRightRadius: moderateScale(40),
+            borderTopLeftRadius: moderateScale(40),
+          },
+        ]}
         contentContainerStyle={{ alignItems: "center" }}
         showsVerticalScrollIndicator={false}
       >
-        <View style={HealthStyle.HealthDateContainer}>
+        <View
+          style={[
+            HealthStyle.HealthDateContainer,
+            {
+              paddingTop: moderateScale(20),
+              paddingLeft: moderateScale(30),
+              paddingRight: moderateScale(30),
+              paddingBottom: moderateScale(10),
+            },
+          ]}
+        >
           {/* <View
             style={{
               backgroundColor: "white",
@@ -105,40 +122,80 @@ export default function HealthScreen() {
             />
           </View> */}
           <View>
-            <Text style={HealthStyle.HealthDateTextLabel}>
+            <Text
+              style={[
+                HealthStyle.HealthDateTextLabel,
+                {
+                  paddingBottom: moderateScale(5),
+                  fontSize: moderateScale(12),
+                },
+              ]}
+            >
               {t("Date & time")}
             </Text>
-            <Text style={HealthStyle.HealthDateText}>
-              {t("Today,")}{" "}
-              {moment(new Date())
-                .format("Do MMMM YYYY h:mm a")}
+            <Text
+              style={[
+                HealthStyle.HealthDateText,
+                { fontSize: moderateScale(14) },
+              ]}
+            >
+              {t("Today,")} {moment(new Date()).format("Do MMMM YYYY h:mm a")}
             </Text>
           </View>
         </View>
-        <View style={HealthStyle.HealthAllCheckboxContainer}>
+        <View
+          style={[
+            HealthStyle.HealthAllCheckboxContainer,
+            {
+              paddingTop: moderateScale(10),
+              paddingRight: moderateScale(10),
+              paddingBottom: moderateScale(10),
+            },
+          ]}
+        >
           <View
             style={{
               backgroundColor: "white",
-              width: 40,
-              height: 40,
-              borderRadius: 50,
+              width: moderateScale(40),
+              height: moderateScale(40),
+              borderRadius: moderateScale(50),
               justifyContent: "center",
               alignItems: "center",
-              marginRight: 5,
+              marginRight: moderateScale(5),
             }}
           >
             <Image
               source={require("../assets/Images/health-check.png")}
-              style={{ width: 20, height: 20 }}
+              style={{ width: moderateScale(20), height: moderateScale(20) }}
             />
           </View>
 
-          <Text style={[HealthStyle.HealthTitleLabelStyle, { marginRight: 5 }]}>
+          <Text
+            style={[
+              HealthStyle.HealthTitleLabelStyle,
+              { marginRight: moderateScale(5), fontSize: moderateScale(14) },
+            ]}
+          >
             សុខភាព/Health៖
           </Text>
-          <View style={{ flex: 1, backgroundColor: "#3C6EFB", height: 2 }} />
+          <View
+            style={{
+              flex: 1,
+              backgroundColor: "#3C6EFB",
+              height: moderateScale(2),
+            }}
+          />
         </View>
-        <View style={HealthStyle.HealthAllCheckboxContainer}>
+        <View
+          style={[
+            HealthStyle.HealthAllCheckboxContainer,
+            {
+              paddingTop: moderateScale(10),
+              paddingRight: moderateScale(10),
+              paddingBottom: moderateScale(10),
+            },
+          ]}
+        >
           <View style={HealthStyle.HealthCheckboxContainer}>
             <Checkbox
               style={HealthStyle.HealthCheckbox}
@@ -147,7 +204,14 @@ export default function HealthScreen() {
                 setChecked(true);
               }}
             />
-            <Text style={HealthStyle.HealthCheckboxTitle}>ធម្មតា/Normal</Text>
+            <Text
+              style={[
+                HealthStyle.HealthCheckboxTitle,
+                { fontSize: moderateScale(14) },
+              ]}
+            >
+              ធម្មតា/Normal
+            </Text>
           </View>
           <View style={HealthStyle.HealthCheckboxContainer}>
             <Checkbox
@@ -157,49 +221,120 @@ export default function HealthScreen() {
                 setChecked(false);
               }}
             />
-            <Text style={HealthStyle.HealthCheckboxTitle}>ឈឺ/Sick</Text>
+            <Text
+              style={[
+                HealthStyle.HealthCheckboxTitle,
+                { fontSize: moderateScale(14) },
+              ]}
+            >
+              ឈឺ/Sick
+            </Text>
           </View>
         </View>
 
-        <View style={HealthStyle.HealthCommentContainer}>
-          <Text style={HealthStyle.HealthCheckboxTitle}>
+        <View
+          style={[
+            HealthStyle.HealthCommentContainer,
+            {
+              paddingRight: moderateScale(10),
+              paddingVertical: moderateScale(10),
+            },
+          ]}
+        >
+          <Text
+            style={[
+              HealthStyle.HealthCheckboxTitle,
+              { fontSize: moderateScale(14) },
+            ]}
+          >
             បរិយាយ/Description ៖
           </Text>
           <TextInput
-            style={HealthStyle.HealthCommentStyle}
+            style={[
+              HealthStyle.HealthCommentStyle,
+              {
+                padding: moderateScale(10),
+                marginTop: moderateScale(6),
+                fontSize: moderateScale(14),
+                borderWidth: moderateScale(1),
+              },
+            ]}
             onChangeText={setDescription}
             value={description}
             placeholder={t("description")}
             keyboardType="default"
           />
         </View>
-        <View style={HealthStyle.HealthAllCheckboxContainer}>
+        <View
+          style={[
+            HealthStyle.HealthAllCheckboxContainer,
+            {
+              paddingTop: moderateScale(10),
+              paddingRight: moderateScale(10),
+              paddingBottom: moderateScale(10),
+            },
+          ]}
+        >
           <View
             style={{
               backgroundColor: "white",
-              width: 40,
-              height: 40,
-              borderRadius: 50,
+              width: moderateScale(40),
+              height: moderateScale(40),
+              borderRadius: moderateScale(50),
               justifyContent: "center",
               alignItems: "center",
-              marginRight: 5,
+              marginRight: moderateScale(5),
             }}
           >
             <Image
               source={require("../assets/Images/comment-colorful.png")}
-              style={{ width: 20, height: 20 }}
+              style={{ width: moderateScale(20), height: moderateScale(20) }}
             />
           </View>
 
-          <Text style={[HealthStyle.HealthTitleLabelStyle, { marginRight: 5 }]}>
+          <Text
+            style={[
+              HealthStyle.HealthTitleLabelStyle,
+              { marginRight: moderateScale(5), fontSize: moderateScale(14) },
+            ]}
+          >
             មតិមាតាបិតា/Parent comment
           </Text>
-          <View style={{ flex: 1, backgroundColor: "#3C6EFB", height: 2 }} />
+          <View
+            style={{
+              flex: 1,
+              backgroundColor: "#3C6EFB",
+              height: moderateScale(2),
+            }}
+          />
         </View>
-        <View style={HealthStyle.HealthCommentContainer}>
-          <Text style={HealthStyle.HealthCheckboxTitle}>មតិ/Comment ៖</Text>
+        <View
+          style={[
+            HealthStyle.HealthCommentContainer,
+            {
+              paddingRight: moderateScale(10),
+              paddingVertical: moderateScale(10),
+            },
+          ]}
+        >
+          <Text
+            style={[
+              HealthStyle.HealthCheckboxTitle,
+              { fontSize: moderateScale(14) },
+            ]}
+          >
+            មតិ/Comment ៖
+          </Text>
           <TextInput
-            style={HealthStyle.HealthCommentStyle}
+            style={[
+              HealthStyle.HealthCommentStyle,
+              {
+                padding: moderateScale(10),
+                marginTop: moderateScale(6),
+                fontSize: moderateScale(14),
+                borderWidth: moderateScale(1),
+              },
+            ]}
             onChangeText={setComment}
             value={comment}
             placeholder={t("comment")}
@@ -208,10 +343,19 @@ export default function HealthScreen() {
         </View>
 
         <TouchableOpacity
-          style={HealthStyle.HealthSubmitStyleButton}
+          style={[
+            HealthStyle.HealthSubmitStyleButton,
+            { padding: moderateScale(10), marginVertical: moderateScale(10) },
+          ]}
           onPress={handleParentCheck}
         >
-          <Text style={{ color: "#fff", fontFamily: "Kantumruy-Bold" }}>
+          <Text
+            style={{
+              color: "#fff",
+              fontFamily: "Kantumruy-Bold",
+              fontSize: moderateScale(14),
+            }}
+          >
             {t("Request")}
           </Text>
         </TouchableOpacity>

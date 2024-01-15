@@ -15,6 +15,7 @@ import ModalPickup from "../components/home/ModalPickup";
 import ModalEYS from "../components/home/ModalEYS";
 import ModalHealth from "../components/health/ModalHealth";
 import { AuthContext } from "../Context/AuthContext";
+import { moderateScale } from "../ Metrics";
 
 const features = [
   {
@@ -97,6 +98,13 @@ export default function StudentDetailScreen() {
   const [duty, setDuty] = useState("");
   const navigate = useNavigate();
   const [StuInfo, setStuInfo] = useState({});
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 500);
+  });
 
   //============== Modal Pick ==============
   const [visibleTakeLeave, setVisibleTakeLeave] = useState(false);
@@ -305,36 +313,65 @@ export default function StudentDetailScreen() {
                   : require("../assets/Images/user.png")
               }
               style={{
-                width: dimension === "sm" ? 100 : 120,
-                height: dimension === "sm" ? 100 : 120,
-                borderRadius: 20,
+                width: moderateScale(120),
+                height: moderateScale(120),
+                borderRadius: moderateScale(20),
               }}
             />
           </View>
 
-          <View style={StudentDetailStyle.StudentDetailTopHalfRightContainer}>
-            <Text style={StudentDetailStyle.StudentDetailTitleText}>
+          <View
+            style={[
+              StudentDetailStyle.StudentDetailTopHalfRightContainer,
+              { paddingLeft: moderateScale(20) },
+            ]}
+          >
+            <Text
+              style={[
+                StudentDetailStyle.StudentDetailTitleText,
+                { fontSize: moderateScale(14) },
+              ]}
+            >
               {stuInfo?.lastName + " " + stuInfo?.firstName}
             </Text>
-            <Text style={StudentDetailStyle.StudentDetailTitleText}>
+            <Text
+              style={[
+                StudentDetailStyle.StudentDetailTitleText,
+                { fontSize: moderateScale(14) },
+              ]}
+            >
               {stuInfo?.englishName}
             </Text>
           </View>
         </View>
-        <View style={StudentDetailStyle.StudentDetailMiddelTitleContainer}>
+        <View
+          style={[
+            StudentDetailStyle.StudentDetailMiddelTitleContainer,
+            { marginTop: moderateScale(20), marginBottom: moderateScale(10) },
+          ]}
+        >
           <Image
             source={require("../assets/Images/about-us.png")}
-            style={{ width: 20, height: 20, marginRight: 5 }}
+            style={{
+              width: moderateScale(20),
+              height: moderateScale(20),
+              marginRight: moderateScale(5),
+            }}
           />
-          <Text style={StudentDetailStyle.StudentDetailTitleText}>
+          <Text
+            style={[
+              StudentDetailStyle.StudentDetailTitleText,
+              { fontSize: moderateScale(14) },
+            ]}
+          >
             {t("Personal Info")}
           </Text>
           <View
             style={{
               flex: 1,
-              height: 2,
+              height: moderateScale(2),
               backgroundColor: "#3c6efb",
-              marginLeft: 5,
+              marginLeft: moderateScale(5),
             }}
           />
         </View>
@@ -342,14 +379,24 @@ export default function StudentDetailScreen() {
           <View
             style={StudentDetailStyle.StudentDetailMiddelLeftContentContainer}
           >
-            <Text style={StudentDetailStyle.StudentDetailBodyText}>
+            <Text
+              style={[
+                StudentDetailStyle.StudentDetailBodyText,
+                { fontSize: moderateScale(14) },
+              ]}
+            >
               {t("Gender:")}
             </Text>
           </View>
           <View
             style={StudentDetailStyle.StudentDetailMiddelRightContentContainer}
           >
-            <Text style={StudentDetailStyle.StudentDetailBodyText}>
+            <Text
+              style={[
+                StudentDetailStyle.StudentDetailBodyText,
+                { fontSize: moderateScale(14) },
+              ]}
+            >
               {stuInfo?.gender}
             </Text>
           </View>
@@ -358,14 +405,24 @@ export default function StudentDetailScreen() {
           <View
             style={StudentDetailStyle.StudentDetailMiddelLeftContentContainer}
           >
-            <Text style={StudentDetailStyle.StudentDetailBodyText}>
+            <Text
+              style={[
+                StudentDetailStyle.StudentDetailBodyText,
+                { fontSize: moderateScale(14) },
+              ]}
+            >
               {t("Date of birth:")}
             </Text>
           </View>
           <View
             style={StudentDetailStyle.StudentDetailMiddelRightContentContainer}
           >
-            <Text style={StudentDetailStyle.StudentDetailBodyText}>
+            <Text
+              style={[
+                StudentDetailStyle.StudentDetailBodyText,
+                { fontSize: moderateScale(14) },
+              ]}
+            >
               {moment(stuInfo?.dob).format("Do, MMMM YYYY")}
             </Text>
           </View>
@@ -374,14 +431,24 @@ export default function StudentDetailScreen() {
           <View
             style={StudentDetailStyle.StudentDetailMiddelLeftContentContainer}
           >
-            <Text style={StudentDetailStyle.StudentDetailBodyText}>
+            <Text
+              style={[
+                StudentDetailStyle.StudentDetailBodyText,
+                { fontSize: moderateScale(14) },
+              ]}
+            >
               {t("Age:")}{" "}
             </Text>
           </View>
           <View
             style={StudentDetailStyle.StudentDetailMiddelRightContentContainer}
           >
-            <Text style={StudentDetailStyle.StudentDetailBodyText}>
+            <Text
+              style={[
+                StudentDetailStyle.StudentDetailBodyText,
+                { fontSize: moderateScale(14) },
+              ]}
+            >
               {calculate_age(stuInfo?.dob)}
             </Text>
           </View>
@@ -390,14 +457,24 @@ export default function StudentDetailScreen() {
           <View
             style={StudentDetailStyle.StudentDetailMiddelLeftContentContainer}
           >
-            <Text style={StudentDetailStyle.StudentDetailBodyText}>
+            <Text
+              style={[
+                StudentDetailStyle.StudentDetailBodyText,
+                { fontSize: moderateScale(14) },
+              ]}
+            >
               {t("Place of birth:")}
             </Text>
           </View>
           <View
             style={StudentDetailStyle.StudentDetailMiddelRightContentContainer}
           >
-            <Text style={StudentDetailStyle.StudentDetailBodyText}>
+            <Text
+              style={[
+                StudentDetailStyle.StudentDetailBodyText,
+                { fontSize: moderateScale(14) },
+              ]}
+            >
               {"ភូមិ" +
                 stuInfo?.village +
                 ", ឃុំ" +
@@ -409,20 +486,34 @@ export default function StudentDetailScreen() {
             </Text>
           </View>
         </View>
-        <View style={StudentDetailStyle.StudentDetailMiddelTitleContainer}>
+        <View
+          style={[
+            StudentDetailStyle.StudentDetailMiddelTitleContainer,
+            { marginTop: moderateScale(20), marginBottom: moderateScale(10) },
+          ]}
+        >
           <Image
             source={require("../assets/Images/education.png")}
-            style={{ width: 20, height: 20, marginRight: 5 }}
+            style={{
+              width: moderateScale(20),
+              height: moderateScale(20),
+              marginRight: moderateScale(5),
+            }}
           />
-          <Text style={StudentDetailStyle.StudentDetailTitleText}>
+          <Text
+            style={[
+              StudentDetailStyle.StudentDetailTitleText,
+              { fontSize: moderateScale(14) },
+            ]}
+          >
             {t("Education")}
           </Text>
           <View
             style={{
               flex: 1,
-              height: 2,
+              height: moderateScale(2),
               backgroundColor: "#3c6efb",
-              marginLeft: 5,
+              marginLeft: moderateScale(5),
             }}
           />
         </View>
@@ -433,9 +524,14 @@ export default function StudentDetailScreen() {
               AcademicYearData?.getAcademicYearsForSelect.length - 1
             ].academicYearTitle
           }
-          buttonStyle={
-            StudentDetailStyle.StudentDetailSelectDropdownAcademicYearContainer
-          }
+          buttonStyle={[
+            StudentDetailStyle.StudentDetailSelectDropdownAcademicYearContainer,
+            {
+              borderWidth: moderateScale(0.5),
+              paddingHorizontal: moderateScale(10),
+              height: moderateScale(50),
+            },
+          ]}
           onSelect={(selectedItem, index) => {
             setAcademicId(selectedItem?._id);
           }}
@@ -459,12 +555,20 @@ export default function StudentDetailScreen() {
                   <Text
                     style={[
                       StudentDetailStyle.StudentDetailTitleText,
-                      { marginRight: 10 },
+                      {
+                        marginRight: moderateScale(10),
+                        fontSize: moderateScale(14),
+                      },
                     ]}
                   >
                     {t("Academic៖")}
                   </Text>
-                  <Text style={StudentDetailStyle.StudentDetailBodyText}>
+                  <Text
+                    style={[
+                      StudentDetailStyle.StudentDetailBodyText,
+                      { fontSize: moderateScale(14) },
+                    ]}
+                  >
                     {selectedItem
                       ? selectedItem?.academicYearTitle
                       : AcademicYearData?.getAcademicYearsForSelect[
@@ -475,14 +579,18 @@ export default function StudentDetailScreen() {
 
                 <Image
                   source={require("../assets/Images/arrow-down-sign-to-navigate.png")}
-                  style={{ width: 20, height: 20 }}
+                  style={{
+                    width: moderateScale(20),
+                    height: moderateScale(20),
+                  }}
                 />
               </View>
             );
           }}
-          dropdownStyle={
-            StudentDetailStyle.StudentDetailDropdownStyleAcademicYearContainer
-          }
+          dropdownStyle={[
+            StudentDetailStyle.StudentDetailDropdownStyleAcademicYearContainer,
+            { borderRadius: moderateScale(20) },
+          ]}
           renderCustomizedRowChild={(item, index) => {
             // text represented for each item in dropdown
             // if data array is an array of objects then return item.property to represent item in dropdown
@@ -495,7 +603,10 @@ export default function StudentDetailScreen() {
                 <Text
                   style={[
                     StudentDetailStyle.StudentDetailBodyText,
-                    { color: item?._id === academicId ? "#3C6EFB" : "black" },
+                    {
+                      color: item?._id === academicId ? "#3C6EFB" : "black",
+                      fontSize: moderateScale(14),
+                    },
                   ]}
                 >
                   {item?.academicYearTitle}
@@ -510,38 +621,58 @@ export default function StudentDetailScreen() {
         >
           {classdata?.map((row: any, index: number) => (
             <View
-              style={StudentDetailStyle.StudentDetailClassContainer}
+              style={[
+                StudentDetailStyle.StudentDetailClassContainer,
+                {
+                  height: moderateScale(100),
+                  paddingBottom: moderateScale(10),
+                },
+              ]}
               key={index}
             >
               <View
-                style={StudentDetailStyle.StudentDetailClassBackgroundContainer}
+                style={[
+                  StudentDetailStyle.StudentDetailClassBackgroundContainer,
+                  {
+                    borderWidth: moderateScale(1),
+                    borderRadius: moderateScale(30),
+                  },
+                ]}
               >
                 <View
                   style={{
-                    width: 4,
+                    width: moderateScale(4),
                     height: "50%",
                     backgroundColor: "#3c6efb",
-                    borderTopEndRadius: 5,
-                    borderBottomEndRadius: 5,
+                    borderTopEndRadius: moderateScale(5),
+                    borderBottomEndRadius: moderateScale(5),
                   }}
                 />
                 <Animatable.Image
                   source={require("../assets/Images/teaching.png")}
                   style={{
-                    height: 60,
-                    width: 60,
-                    marginLeft: 15,
+                    height: moderateScale(60),
+                    width: moderateScale(60),
+                    marginLeft: moderateScale(15),
                   }}
                   animation="bounce"
                 />
               </View>
               <View style={StudentDetailStyle.StudentDetailClassBox}>
-                <Text style={StudentDetailStyle.StudentDetailTitleText}>
+                <Text
+                  style={[
+                    StudentDetailStyle.StudentDetailTitleText,
+                    { fontSize: moderateScale(12) },
+                  ]}
+                >
                   {row?.classesName}
                 </Text>
 
                 <Text
-                  style={[StudentDetailStyle.StudentDetailBodyClassText, {}]}
+                  style={[
+                    StudentDetailStyle.StudentDetailBodyClassText,
+                    { fontSize: moderateScale(12) },
+                  ]}
                   numberOfLines={1}
                 >
                   {row?.programmeName}
@@ -586,43 +717,104 @@ export default function StudentDetailScreen() {
           ))}
         </ScrollView> */}
 
-        <View style={HomeStyle.titleBarHome}>
-          <Image
-            source={require("../assets/Images/rocket.png")}
-            style={{ height: 20, width: 20 }}
-          />
-          <Text style={HomeStyle.fontTitleBarHome}>
-            {getLanguage() === "en" ? "EXPLORE" : "ស្វែងរក"}
-          </Text>
-          <View style={HomeStyle.homeBar} />
+        <View style={[HomeStyle.titleBarHome, { height: moderateScale(50) }]}>
+          {loading === true ? (
+            <View style={HomeStyle.titleBarHomeLoading} />
+          ) : (
+            <>
+              <Image
+                source={require("../assets/Images/rocket.png")}
+                style={{ height: moderateScale(20), width: moderateScale(20) }}
+              />
+              <Text
+                style={[
+                  HomeStyle.fontTitleBarHome,
+                  {
+                    fontSize: moderateScale(14),
+                    paddingHorizontal: moderateScale(10),
+                  },
+                ]}
+              >
+                {getLanguage() === "en" ? "EXPLORES" : "ស្វែងរក"}
+              </Text>
+              <View style={[HomeStyle.homeBar, { height: moderateScale(2) }]} />
+            </>
+          )}
         </View>
-
         <ScrollView
           horizontal
           showsHorizontalScrollIndicator={false}
           style={{ width: "95%", marginBottom: 10 }}
         >
-          {explore.map((row: any, index: number) => (
-            <View style={HomeStyle.explorecontainer} key={index}>
-              <TouchableOpacity
-                style={HomeStyle.exploreBox}
-                onPress={() => {
-                  if (row?.modal) {
-                    ConditionsOfStudentFeatures(row?.title);
-                  } else {
-                    navigate(row?.naviage);
-                  }
-                }}
+          {explore.map((row: any, index: number) =>
+            loading === true ? (
+              <View
+                style={[
+                  HomeStyle.explorecontainer,
+                  {
+                    height: moderateScale(100),
+                    marginRight: moderateScale(10),
+                  },
+                ]}
+                key={index}
               >
-                <Animatable.Image
-                  source={row?.icon}
-                  style={{ height: 30, width: 30 }}
-                  animation="bounce"
+                <View
+                  style={[
+                    HomeStyle.exploreBoxSkeleton,
+                    {
+                      width: moderateScale(130),
+                      borderWidth: moderateScale(1),
+                    },
+                  ]}
                 />
-                <Text style={HomeStyle.exploreTitle}>{t(row?.title)}</Text>
-              </TouchableOpacity>
-            </View>
-          ))}
+              </View>
+            ) : (
+              <View
+                style={[
+                  HomeStyle.explorecontainer,
+                  {
+                    height: moderateScale(100),
+                    marginRight: moderateScale(10),
+                  },
+                ]}
+                key={index}
+              >
+                <TouchableOpacity
+                  style={[
+                    HomeStyle.exploreBox,
+                    {
+                      width: moderateScale(130),
+                      borderWidth: moderateScale(1),
+                    },
+                  ]}
+                  onPress={() => {
+                    if (row?.modal) {
+                      ConditionsOfStudentFeatures(row?.title);
+                    } else {
+                      navigate(row?.naviage);
+                    }
+                  }}
+                >
+                  <Animatable.Image
+                    source={row?.icon}
+                    style={{
+                      height: moderateScale(30),
+                      width: moderateScale(30),
+                    }}
+                    animation="bounce"
+                  />
+                  <Text
+                    style={[
+                      HomeStyle.exploreTitle,
+                      { fontSize: moderateScale(10) },
+                    ]}
+                  >
+                    {t(row?.title)}
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            )
+          )}
         </ScrollView>
       </ScrollView>
     </View>

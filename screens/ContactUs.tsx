@@ -27,6 +27,7 @@ import {
   MenuTrigger,
 } from "react-native-popup-menu";
 import LoginStyle from "../Styles/LoginScreen.scss";
+import { moderateScale } from "../ Metrics";
 
 const ContactUs = () => {
   const { widthScreen, heightScreen, dimension } = useContext(AuthContext);
@@ -99,22 +100,49 @@ const ContactUs = () => {
         resizeMode="repeat"
         style={ContactUsScreenStyle.ContactUsContainer}
       >
-        <View style={ContactUsScreenStyle.ContactUsTopContainer}>
-          <View style={ContactUsScreenStyle.ContactUsBackTitleContain}>
-            <Text style={ContactUsScreenStyle.ContactUsTopTitleContent}>
+        <View
+          style={[
+            ContactUsScreenStyle.ContactUsTopContainer,
+            { marginVertical: moderateScale(15) },
+          ]}
+        >
+          <View
+            style={[
+              ContactUsScreenStyle.ContactUsBackTitleContain,
+              { height: moderateScale(40) },
+            ]}
+          >
+            <Text
+              style={[
+                ContactUsScreenStyle.ContactUsTopTitleContent,
+                {
+                  fontSize: moderateScale(20),
+                  fontFamily: "Kantumruy-Regular",
+                },
+              ]}
+            >
               {t("FAQ")}
             </Text>
           </View>
           <View style={ContactUsScreenStyle.ContactUsBackButtonsContain}>
             {location.pathname === "/forget" ? (
               <TouchableOpacity
-                style={ContactUsScreenStyle.ContactUsBackButton}
+                style={[
+                  ContactUsScreenStyle.ContactUsBackButton,
+                  {
+                    width: moderateScale(40),
+                    height: moderateScale(40),
+                  },
+                ]}
                 onPress={() => navigate(-1)}
               >
                 <Image
                   source={require("../assets/Images/left-arrow3.png")}
                   resizeMode="contain"
-                  style={ContactUsScreenStyle.ContactUsBackButtonImage}
+                  style={{
+                    width: moderateScale(20),
+                    height: moderateScale(20),
+                  }}
                 />
               </TouchableOpacity>
             ) : null}
@@ -128,18 +156,8 @@ const ContactUs = () => {
                       <Animatable.Image
                         source={require("../assets/Images/Cambodia-Flag.png")}
                         style={{
-                          width:
-                            dimension === "sm"
-                              ? 20
-                              : dimension === "lg"
-                              ? 45
-                              : 30,
-                          height:
-                            dimension === "sm"
-                              ? 20
-                              : dimension === "lg"
-                              ? 45
-                              : 30,
+                          width: moderateScale(30),
+                          height: moderateScale(30),
                         }}
                         animation="fadeInDown"
                       />
@@ -147,8 +165,8 @@ const ContactUs = () => {
                       <Animatable.Image
                         source={require("../assets/Images/English-Flag.png")}
                         style={{
-                          width: dimension === "sm" ? 20 : 30,
-                          height: dimension === "sm" ? 20 : 30,
+                          width: moderateScale(30),
+                          height: moderateScale(30),
                         }}
                         animation="fadeInDown"
                       />
@@ -162,13 +180,13 @@ const ContactUs = () => {
                         flexDirection: "row",
                         alignItems: "center",
                         justifyContent: "space-between",
-                        padding: dimension === "sm" ? 6 : 10,
+                        padding: moderateScale(10),
                       }}
                     >
                       <Text
                         style={[
                           LoginStyle.headerTitle3,
-                          { fontSize: dimension === "sm" ? 12 : 16 },
+                          { fontSize: moderateScale(16) },
                         ]}
                       >
                         {t("English")}
@@ -176,8 +194,8 @@ const ContactUs = () => {
                       <Image
                         source={require("../assets/Images/English-Flag.png")}
                         style={{
-                          width: dimension === "sm" ? 20 : 30,
-                          height: dimension === "sm" ? 20 : 30,
+                          width: moderateScale(30),
+                          height: moderateScale(30),
                         }}
                       />
                     </View>
@@ -188,7 +206,7 @@ const ContactUs = () => {
                         flexDirection: "row",
                         alignItems: "center",
                         justifyContent: "space-between",
-                        padding: dimension === "sm" ? 6 : 10,
+                        padding: moderateScale(10),
                         borderTopWidth: 1,
                         borderColor: "#dcdcdc",
                       }}
@@ -196,7 +214,7 @@ const ContactUs = () => {
                       <Text
                         style={[
                           LoginStyle.headerTitle3,
-                          { fontSize: dimension === "sm" ? 12 : 16 },
+                          { fontSize: moderateScale(16) },
                         ]}
                       >
                         {t("Khmer")}
@@ -204,8 +222,8 @@ const ContactUs = () => {
                       <Image
                         source={require("../assets/Images/Cambodia-Flag.png")}
                         style={{
-                          width: dimension === "sm" ? 20 : 30,
-                          height: dimension === "sm" ? 20 : 30,
+                          width: moderateScale(30),
+                          height: moderateScale(30),
                         }}
                       />
                     </View>
@@ -216,10 +234,18 @@ const ContactUs = () => {
           </View>
         </View>
 
-        <View style={ContactUsScreenStyle.ContactUsBodyContainer}>
+        <View
+          style={[
+            ContactUsScreenStyle.ContactUsBodyContainer,
+            {
+              borderWidth: moderateScale(0.5),
+              marginBottom: moderateScale(10),
+            },
+          ]}
+        >
           <ScrollView
             showsVerticalScrollIndicator={false}
-            style={{ width: "100%", height: "100%" }}
+            style={{ flex: 1, width: "100%" }}
           >
             {conversations.map((conversation, index) => (
               <View
@@ -230,22 +256,35 @@ const ContactUs = () => {
                   style={[
                     ContactUsScreenStyle.ContactUsBodyRowContainer,
                     {
-                      padding:
-                        dimension === "sm" ? 5 : dimension === "lg" ? 20 : 10,
+                      padding: moderateScale(10),
                     },
                   ]}
                 >
                   <Image
                     source={require("../assets/Images/user.png")}
                     resizeMode="cover"
-                    style={{ width: 40, height: 40, marginRight: 10 }}
+                    style={{
+                      width: moderateScale(40),
+                      height: moderateScale(40),
+                      marginRight: moderateScale(10),
+                    }}
                   />
                   <TouchableOpacity
-                    style={ContactUsScreenStyle.ContactUsBodyTitleRowContainer}
+                    style={[
+                      ContactUsScreenStyle.ContactUsBodyTitleRowContainer,
+                      {
+                        padding: moderateScale(10),
+                        borderWidth: moderateScale(0.5),
+                      },
+                    ]}
                     onPress={() => handleClick(index)}
                   >
                     <Text
-                      style={{ width: "90%", fontFamily: "Kantumruy-Regular" }}
+                      style={{
+                        width: "90%",
+                        fontFamily: "Kantumruy-Regular",
+                        fontSize: moderateScale(14),
+                      }}
                     >
                       {t(conversation.question)}
                     </Text>
@@ -256,7 +295,10 @@ const ContactUs = () => {
                           : require("../assets/Images/arrow-down-sign-to-navigate.png")
                       }
                       resizeMode="cover"
-                      style={{ width: 20, height: 20 }}
+                      style={{
+                        width: moderateScale(20),
+                        height: moderateScale(20),
+                      }}
                     />
                   </TouchableOpacity>
                 </View>
@@ -266,21 +308,25 @@ const ContactUs = () => {
                     style={[
                       ContactUsScreenStyle.ContactUsBodyRowContainer,
                       {
-                        padding:
-                          dimension === "sm" ? 5 : dimension === "lg" ? 20 : 10,
+                        padding: moderateScale(10),
                       },
                     ]}
                     animation={"flipInX"}
                   >
                     <View
-                      style={
-                        ContactUsScreenStyle.ContactUsBodyTitleRowContainer
-                      }
+                      style={[
+                        ContactUsScreenStyle.ContactUsBodyTitleRowContainer,
+                        {
+                          padding: moderateScale(10),
+                          borderWidth: moderateScale(0.5),
+                        },
+                      ]}
                     >
                       <Text
                         style={{
                           width: "90%",
                           fontFamily: "Kantumruy-Regular",
+                          fontSize: moderateScale(14),
                         }}
                       >
                         {t("You have to contact us")}
@@ -290,9 +336,9 @@ const ContactUs = () => {
                       source={require("../assets/Images/user.png")}
                       resizeMode="cover"
                       style={{
-                        width: 40,
-                        height: 40,
-                        marginLeft: 10,
+                        width: moderateScale(40),
+                        height: moderateScale(40),
+                        marginLeft: moderateScale(10),
                       }}
                     />
                   </Animatable.View>
@@ -303,14 +349,19 @@ const ContactUs = () => {
         </View>
 
         <View
-          style={
-            dimension === "sm"
-              ? ContactUsScreenStyle.ContactUsFooterContainersm
-              : ContactUsScreenStyle.ContactUsFooterContainer
-          }
+          style={[
+            ContactUsScreenStyle.ContactUsFooterContainer,
+            {
+              borderWidth: moderateScale(0.5),
+              marginBottom: moderateScale(10),
+            },
+          ]}
         >
           <View
-            style={ContactUsScreenStyle.ContactUsFooterGroupButtonContainer}
+            style={[
+              ContactUsScreenStyle.ContactUsFooterGroupButtonContainer,
+              { padding: moderateScale(10) },
+            ]}
           >
             <TouchableOpacity
               style={ContactUsScreenStyle.ContactUsFooterGroupButtonTitleBox}
@@ -318,16 +369,29 @@ const ContactUs = () => {
                 Linking.openURL(`tel:${phoneNumber}`);
               }}
             >
-              <View style={ContactUsScreenStyle.ContactUsFooterGroupButtonBox}>
+              <View
+                style={[
+                  ContactUsScreenStyle.ContactUsFooterGroupButtonBox,
+                  { padding: moderateScale(10) },
+                ]}
+              >
                 <Image
                   source={require("../assets/Images/call-center-service.png")}
                   resizeMode="contain"
-                  style={ContactUsScreenStyle.ContactUsFooterImageButtonBox}
+                  style={{
+                    width: moderateScale(40),
+                    height: moderateScale(40),
+                  }}
                 />
               </View>
 
               <Text
-                style={ContactUsScreenStyle.ContactUsFooterImageTitleButtonBox}
+                style={[
+                  ContactUsScreenStyle.ContactUsFooterImageTitleButtonBox,
+                  {
+                    fontSize: moderateScale(14),
+                  },
+                ]}
               >
                 {t("Phone")}
               </Text>
@@ -336,16 +400,29 @@ const ContactUs = () => {
               style={ContactUsScreenStyle.ContactUsFooterGroupButtonTitleBox}
               onPress={handleOpen}
             >
-              <View style={ContactUsScreenStyle.ContactUsFooterGroupButtonBox}>
+              <View
+                style={[
+                  ContactUsScreenStyle.ContactUsFooterGroupButtonBox,
+                  { padding: moderateScale(10) },
+                ]}
+              >
                 <Image
                   source={require("../assets/Images/chat.png")}
                   resizeMode="contain"
-                  style={ContactUsScreenStyle.ContactUsFooterImageButtonBox}
+                  style={{
+                    width: moderateScale(40),
+                    height: moderateScale(40),
+                  }}
                 />
               </View>
 
               <Text
-                style={ContactUsScreenStyle.ContactUsFooterImageTitleButtonBox}
+                style={[
+                  ContactUsScreenStyle.ContactUsFooterImageTitleButtonBox,
+                  {
+                    fontSize: moderateScale(14),
+                  },
+                ]}
               >
                 {t("Email")}
               </Text>

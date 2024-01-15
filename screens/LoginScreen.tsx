@@ -32,6 +32,7 @@ import {
 
 import * as Animatable from "react-native-animatable";
 import { SENDMOBILETOKEN } from "../graphql/GetMobileUserLoginToken";
+import { moderateScale } from "../ Metrics";
 
 const LoginScreen = ({ expoPushToken }: any) => {
   const { dispatch, REDUCER_ACTIONS } = useUser();
@@ -150,22 +151,23 @@ const LoginScreen = ({ expoPushToken }: any) => {
         {isKeyboardVisible ? null : (
           <View
             style={{
+              flex: 1,
               width: "100%",
-              height: "40%",
-              justifyContent: "space-evenly",
+              // height: "40%",
+              justifyContent: "flex-end",
               alignItems: "center",
             }}
           >
             <Image
               source={require("../assets/Images/Logo.png")}
               resizeMode="contain"
-              style={
-                dimension === "sm"
-                  ? LoginStyle.logoLoginScreensm
-                  : dimension === "lg"
-                  ? LoginStyle.logoLoginScreenlg
-                  : LoginStyle.logoLoginScreen
-              }
+              style={[
+                LoginStyle.logoLoginScreen,
+                {
+                  height: moderateScale(100),
+                  width: moderateScale(100),
+                },
+              ]}
             />
             <Text
               style={[
@@ -173,8 +175,7 @@ const LoginScreen = ({ expoPushToken }: any) => {
                   ? LoginStyle.titleLoginios
                   : LoginStyle.titleLogin,
                 {
-                  fontSize:
-                    dimension === "sm" ? 15 : dimension === "lg" ? 35 : 25,
+                  fontSize: moderateScale(20),
                 },
               ]}
             >
@@ -187,8 +188,9 @@ const LoginScreen = ({ expoPushToken }: any) => {
 
         <View
           style={{
+            flex: 1,
             width: "100%",
-            height: "40%",
+            // height: "40%",
             marginTop: isKeyboardVisible ? 40 : 0,
             justifyContent: "flex-start",
             alignItems: "center",
@@ -198,8 +200,6 @@ const LoginScreen = ({ expoPushToken }: any) => {
             style={[
               isKeyboardVisible === true
                 ? LoginStyle.textinputContainerkeyboard
-                : dimension === "sm"
-                ? LoginStyle.textinputContainersm
                 : LoginStyle.textinputContainer,
             ]}
           >
@@ -207,8 +207,7 @@ const LoginScreen = ({ expoPushToken }: any) => {
               style={[
                 LoginStyle.inputTitle,
                 {
-                  fontSize:
-                    dimension === "sm" ? 12 : dimension === "lg" ? 20 : 15,
+                  fontSize: moderateScale(15),
                 },
               ]}
             >
@@ -218,9 +217,8 @@ const LoginScreen = ({ expoPushToken }: any) => {
               style={[
                 LoginStyle.textinput,
                 {
-                  padding:
-                    dimension === "sm" ? 10 : dimension === "lg" ? 25 : 15,
-                  marginVertical: "sm" ? 5 : 10,
+                  padding: moderateScale(15),
+                  marginVertical: moderateScale(10),
                 },
               ]}
             >
@@ -228,11 +226,9 @@ const LoginScreen = ({ expoPushToken }: any) => {
                 source={require("../assets/Images/mail.png")}
                 resizeMode="contain"
                 style={{
-                  width: dimension === "sm" ? 14 : dimension === "lg" ? 30 : 20,
-                  height:
-                    dimension === "sm" ? 14 : dimension === "lg" ? 30 : 20,
-                  marginRight:
-                    dimension === "sm" ? 8 : dimension === "lg" ? 15 : 10,
+                  width: moderateScale(20),
+                  height: moderateScale(20),
+                  marginRight: moderateScale(10),
                   alignItems: "center",
                   justifyContent: "center",
                 }}
@@ -244,8 +240,7 @@ const LoginScreen = ({ expoPushToken }: any) => {
                 keyboardType="default"
                 style={{
                   flex: 1,
-                  fontSize:
-                    dimension === "sm" ? 12 : dimension === "lg" ? 20 : 15,
+                  fontSize: moderateScale(15),
                 }}
               />
             </View>
@@ -255,8 +250,6 @@ const LoginScreen = ({ expoPushToken }: any) => {
             style={[
               isKeyboardVisible === true
                 ? LoginStyle.textinputContainerkeyboard
-                : dimension === "sm"
-                ? LoginStyle.textinputContainersm
                 : LoginStyle.textinputContainer,
             ]}
           >
@@ -264,8 +257,7 @@ const LoginScreen = ({ expoPushToken }: any) => {
               style={[
                 LoginStyle.inputTitle,
                 {
-                  fontSize:
-                    dimension === "sm" ? 12 : dimension === "lg" ? 20 : 15,
+                  fontSize: moderateScale(15),
                 },
               ]}
             >
@@ -275,9 +267,8 @@ const LoginScreen = ({ expoPushToken }: any) => {
               style={[
                 LoginStyle.textinput,
                 {
-                  padding:
-                    dimension === "sm" ? 10 : dimension === "lg" ? 25 : 15,
-                  marginVertical: "sm" ? 5 : 10,
+                  padding: moderateScale(15),
+                  marginVertical: moderateScale(10),
                 },
               ]}
             >
@@ -285,11 +276,9 @@ const LoginScreen = ({ expoPushToken }: any) => {
                 source={require("../assets/Images/lock.png")}
                 resizeMode="contain"
                 style={{
-                  width: dimension === "sm" ? 14 : dimension === "lg" ? 30 : 20,
-                  height:
-                    dimension === "sm" ? 14 : dimension === "lg" ? 30 : 20,
-                  marginRight:
-                    dimension === "sm" ? 8 : dimension === "lg" ? 15 : 10,
+                  width: moderateScale(20),
+                  height: moderateScale(20),
+                  marginRight: moderateScale(10),
                   alignItems: "center",
                   justifyContent: "center",
                 }}
@@ -302,8 +291,7 @@ const LoginScreen = ({ expoPushToken }: any) => {
                 keyboardType="default"
                 style={{
                   flex: 1,
-                  fontSize:
-                    dimension === "sm" ? 12 : dimension === "lg" ? 20 : 15,
+                  fontSize: moderateScale(10),
                 }}
               />
               {view === true ? (
@@ -312,10 +300,8 @@ const LoginScreen = ({ expoPushToken }: any) => {
                     source={require("../assets/Images/view.png")}
                     resizeMode="contain"
                     style={{
-                      width:
-                        dimension === "sm" ? 14 : dimension === "lg" ? 30 : 20,
-                      height:
-                        dimension === "sm" ? 14 : dimension === "lg" ? 30 : 20,
+                      width: moderateScale(20),
+                      height: moderateScale(20),
                     }}
                   />
                 </TouchableOpacity>
@@ -325,10 +311,8 @@ const LoginScreen = ({ expoPushToken }: any) => {
                     source={require("../assets/Images/hide.png")}
                     resizeMode="cover"
                     style={{
-                      width:
-                        dimension === "sm" ? 14 : dimension === "lg" ? 30 : 20,
-                      height:
-                        dimension === "sm" ? 14 : dimension === "lg" ? 30 : 20,
+                      width: moderateScale(20),
+                      height: moderateScale(20),
                     }}
                   />
                 </TouchableOpacity>
@@ -336,20 +320,13 @@ const LoginScreen = ({ expoPushToken }: any) => {
             </View>
           </View>
 
-          <View
-            style={
-              dimension === "sm"
-                ? LoginStyle.optionContainersm
-                : LoginStyle.optionContainer
-            }
-          >
+          <View style={LoginStyle.optionContainer}>
             <TouchableOpacity onPress={() => navigate("/forget")}>
               <Text
                 style={[
                   LoginStyle.LoginForgetText,
                   {
-                    fontSize:
-                      dimension === "sm" ? 10 : dimension === "lg" ? 20 : 14,
+                    fontSize: moderateScale(14),
                     padding: 5,
                   },
                 ]}
@@ -362,13 +339,10 @@ const LoginScreen = ({ expoPushToken }: any) => {
           <TouchableOpacity
             onPress={handleNavigation}
             style={[
-              dimension === "sm"
-                ? LoginStyle.buttonContainersm
-                : dimension === "lg"
-                ? LoginStyle.buttonContainerlg
-                : LoginStyle.buttonContainer,
+              LoginStyle.buttonContainer,
               {
-                marginTop: dimension === "sm" ? 0 : 10,
+                marginTop: moderateScale(10),
+                height: moderateScale(40),
               },
             ]}
           >
@@ -378,8 +352,7 @@ const LoginScreen = ({ expoPushToken }: any) => {
                   ? LoginStyle.buttonTextios
                   : LoginStyle.buttonText,
                 {
-                  fontSize:
-                    dimension === "sm" ? 14 : dimension === "lg" ? 25 : 20,
+                  fontSize: moderateScale(18),
                 },
               ]}
             >
@@ -389,36 +362,32 @@ const LoginScreen = ({ expoPushToken }: any) => {
         </View>
         {isKeyboardVisible ? null : (
           <View
-            style={
-              dimension === "sm"
-                ? LoginStyle.loginFooterImgContaintersm
-                : dimension === "lg"
-                ? LoginStyle.loginFooterImgContainterlg
-                : LoginStyle.loginFooterImgContainter
-            }
+            style={[
+              LoginStyle.loginFooterImgContainter,
+              { height: moderateScale(100), width: moderateScale(100) },
+            ]}
           >
             <Image
               source={require("../assets/Images/bottomImage.png")}
               resizeMode="contain"
-              style={
-                dimension === "sm"
-                  ? LoginStyle.loginFooterImgsm
-                  : dimension === "lg"
-                  ? LoginStyle.loginFooterImglg
-                  : LoginStyle.loginFooterImg
-              }
+              style={LoginStyle.loginFooterImg}
             />
           </View>
         )}
-        <Menu style={{ position: "absolute", top: 50, right: 30 }}>
+        <Menu
+          style={{
+            position: "absolute",
+            top: moderateScale(50),
+            right: moderateScale(30),
+          }}
+        >
           <MenuTrigger>
             {getLanguage() === "kh" ? (
               <Animatable.Image
                 source={require("../assets/Images/Cambodia-Flag.png")}
                 style={{
-                  width: dimension === "sm" ? 20 : dimension === "lg" ? 45 : 30,
-                  height:
-                    dimension === "sm" ? 20 : dimension === "lg" ? 45 : 30,
+                  width: moderateScale(30),
+                  height: moderateScale(30),
                 }}
                 animation="fadeInDown"
               />
@@ -426,8 +395,8 @@ const LoginScreen = ({ expoPushToken }: any) => {
               <Animatable.Image
                 source={require("../assets/Images/English-Flag.png")}
                 style={{
-                  width: dimension === "sm" ? 20 : 30,
-                  height: dimension === "sm" ? 20 : 30,
+                  width: moderateScale(30),
+                  height: moderateScale(30),
                 }}
                 animation="fadeInDown"
               />
@@ -440,13 +409,13 @@ const LoginScreen = ({ expoPushToken }: any) => {
                   flexDirection: "row",
                   alignItems: "center",
                   justifyContent: "space-between",
-                  padding: dimension === "sm" ? 6 : 10,
+                  padding: moderateScale(10),
                 }}
               >
                 <Text
                   style={[
                     LoginStyle.headerTitle3,
-                    { fontSize: dimension === "sm" ? 12 : 16 },
+                    { fontSize: moderateScale(16) },
                   ]}
                 >
                   {t("English")}
@@ -454,8 +423,8 @@ const LoginScreen = ({ expoPushToken }: any) => {
                 <Image
                   source={require("../assets/Images/English-Flag.png")}
                   style={{
-                    width: dimension === "sm" ? 20 : 30,
-                    height: dimension === "sm" ? 20 : 30,
+                    width: moderateScale(30),
+                    height: moderateScale(30),
                   }}
                 />
               </View>
@@ -466,7 +435,7 @@ const LoginScreen = ({ expoPushToken }: any) => {
                   flexDirection: "row",
                   alignItems: "center",
                   justifyContent: "space-between",
-                  padding: dimension === "sm" ? 6 : 10,
+                  padding: moderateScale(10),
                   borderTopWidth: 1,
                   borderColor: "#dcdcdc",
                 }}
@@ -474,7 +443,7 @@ const LoginScreen = ({ expoPushToken }: any) => {
                 <Text
                   style={[
                     LoginStyle.headerTitle3,
-                    { fontSize: dimension === "sm" ? 12 : 16 },
+                    { fontSize: moderateScale(16) },
                   ]}
                 >
                   {t("Khmer")}
@@ -482,8 +451,8 @@ const LoginScreen = ({ expoPushToken }: any) => {
                 <Image
                   source={require("../assets/Images/Cambodia-Flag.png")}
                   style={{
-                    width: dimension === "sm" ? 20 : 30,
-                    height: dimension === "sm" ? 20 : 30,
+                    width: moderateScale(30),
+                    height: moderateScale(30),
                   }}
                 />
               </View>

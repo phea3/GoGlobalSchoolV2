@@ -23,6 +23,7 @@ import Animated, {
   withSpring,
   withTiming,
 } from "react-native-reanimated";
+import { moderateScale } from "../ Metrics";
 
 export default function LeaveScreen() {
   const location = useLocation();
@@ -147,41 +148,91 @@ export default function LeaveScreen() {
             />
           </Animated.View>
           <Animatable.View
-            style={LeaveStyle.LeaveModalInsideContainer}
+            style={[
+              LeaveStyle.LeaveModalInsideContainer,
+              {
+                borderTopRightRadius: moderateScale(30),
+                borderTopLeftRadius: moderateScale(30),
+                padding: moderateScale(10),
+              },
+            ]}
             animation={disappear ? "fadeOutDownBig" : "fadeInUpBig"}
           >
-            <Text style={LeaveStyle.LeaveModalTitle}>{t("SELECT")}</Text>
-            <View style={LeaveStyle.LeaveModalSelectDateContainer}>
+            <Text
+              style={[
+                LeaveStyle.LeaveModalTitle,
+                { fontSize: moderateScale(16) },
+              ]}
+            >
+              {t("SELECT")}
+            </Text>
+            <View
+              style={[
+                LeaveStyle.LeaveModalSelectDateContainer,
+                { marginVertical: moderateScale(10) },
+              ]}
+            >
               <TouchableOpacity
-                style={LeaveStyle.LeaveModalSelectDateButton}
+                style={[
+                  LeaveStyle.LeaveModalSelectDateButton,
+                  {
+                    padding: moderateScale(10),
+                    borderWidth: moderateScale(1),
+                  },
+                ]}
                 onPress={showDatePicker1}
               >
-                <Text style={LeaveStyle.LeaveModalDateText}>
+                <Text
+                  style={[
+                    LeaveStyle.LeaveModalDateText,
+                    { fontSize: moderateScale(14) },
+                  ]}
+                >
                   {from ? from : moment(new Date()).format("YYYY-MM-DD")}
                 </Text>
                 <Image
                   source={require("../assets/Images/calendar-clock.png")}
-                  style={{ width: 15, height: 15 }}
+                  style={{
+                    width: moderateScale(15),
+                    height: moderateScale(15),
+                  }}
                   resizeMode="cover"
                 />
               </TouchableOpacity>
               <TouchableOpacity
-                style={LeaveStyle.LeaveModalSelectDateButton}
+                style={[
+                  LeaveStyle.LeaveModalSelectDateButton,
+                  {
+                    padding: moderateScale(10),
+                    borderWidth: moderateScale(1),
+                  },
+                ]}
                 onPress={showDatePicker2}
               >
-                <Text style={LeaveStyle.LeaveModalDateText}>
+                <Text
+                  style={[
+                    LeaveStyle.LeaveModalDateText,
+                    { fontSize: moderateScale(14) },
+                  ]}
+                >
                   {to ? to : moment(new Date()).format("YYYY-MM-DD")}
                 </Text>
                 <Image
                   source={require("../assets/Images/calendar-clock.png")}
-                  style={{ width: 15, height: 15 }}
+                  style={{
+                    width: moderateScale(15),
+                    height: moderateScale(15),
+                  }}
                   resizeMode="cover"
                 />
               </TouchableOpacity>
             </View>
 
             <TouchableOpacity
-              style={LeaveStyle.LeaveModalButtonContainer}
+              style={[
+                LeaveStyle.LeaveModalButtonContainer,
+                { padding: moderateScale(10), marginTop: moderateScale(10) },
+              ]}
               onPress={() => {
                 setDisappear(true);
                 offset.value = withTiming(0);
@@ -192,7 +243,12 @@ export default function LeaveScreen() {
                 }, 500);
               }}
             >
-              <Text style={LeaveStyle.LeaveModalButtonText}>
+              <Text
+                style={[
+                  LeaveStyle.LeaveModalButtonText,
+                  { fontSize: moderateScale(14) },
+                ]}
+              >
                 {t("Request")}
               </Text>
             </TouchableOpacity>
@@ -212,10 +268,19 @@ export default function LeaveScreen() {
         </View>
       </Modal>
       <View style={LeaveStyle.LeaveContainerList}>
-        <View style={LeaveStyle.LeaveTopContainer}>
+        <View
+          style={[
+            LeaveStyle.LeaveTopContainer,
+            { marginBottom: moderateScale(10) },
+          ]}
+        >
           <SelectDropdown
             data={stuData?.getStudentByParentsMobile}
-            buttonStyle={{ width: 250, height: 55, borderRadius: 10 }}
+            buttonStyle={{
+              width: moderateScale(220),
+              height: moderateScale(55),
+              borderRadius: moderateScale(10),
+            }}
             onSelect={(selectedItem, index) => {
               //   console.log(selectedItem?._id, index);
               setStuId(selectedItem?._id);
@@ -256,29 +321,51 @@ export default function LeaveScreen() {
                             }`,
                           }
                     }
-                    style={LeaveStyle.LeaveImage}
+                    style={[
+                      LeaveStyle.LeaveImage,
+                      {
+                        width: moderateScale(40),
+                        height: moderateScale(40),
+                        borderWidth: moderateScale(1),
+                        marginRight: moderateScale(10),
+                      },
+                    ]}
                     resizeMode="cover"
                     animation="zoomIn"
                   />
-                  <Text style={LeaveStyle.LeaveTitleText4} numberOfLines={1}>
+                  <Text
+                    style={[
+                      LeaveStyle.LeaveTitleText4,
+                      { fontSize: moderateScale(16) },
+                    ]}
+                    numberOfLines={1}
+                  >
                     {getLanguage() === "en"
                       ? stuInfo?.englishName
                       : stuName != ""
                       ? stuName
                       : stuInfo?.lastName + " " + stuInfo?.firstName}
                   </Text>
-                  <View style={LeaveStyle.LeaveFilterButton}>
+                  <View
+                    style={[
+                      LeaveStyle.LeaveFilterButton,
+                      { width: moderateScale(40), height: moderateScale(40) },
+                    ]}
+                  >
                     <Image
                       source={require("../assets/Images/arrow-down-sign-to-navigate.png")}
-                      style={{ width: 18, height: 18 }}
+                      style={{
+                        width: moderateScale(18),
+                        height: moderateScale(18),
+                      }}
                     />
                   </View>
                 </View>
               );
             }}
             dropdownStyle={{
-              borderRadius: 10,
-              paddingHorizontal: 10,
+              borderRadius: moderateScale(10),
+              paddingHorizontal: moderateScale(10),
             }}
             renderCustomizedRowChild={(item, index) => {
               // text represented for each item in dropdown
@@ -289,7 +376,7 @@ export default function LeaveScreen() {
                     flexDirection: "row",
                     alignItems: "center",
                     justifyContent: "space-between",
-                    borderRadius: 10,
+                    borderRadius: moderateScale(10),
                   }}
                 >
                   <Animatable.Image
@@ -306,45 +393,98 @@ export default function LeaveScreen() {
                             }
                         : require("../assets/Images/user.png")
                     }
-                    style={LeaveStyle.LeaveImage}
+                    style={[
+                      LeaveStyle.LeaveImage,
+                      {
+                        width: moderateScale(40),
+                        height: moderateScale(40),
+                        borderWidth: moderateScale(1),
+                        marginRight: moderateScale(10),
+                      },
+                    ]}
                     resizeMode="cover"
                     animation="zoomIn"
                   />
-                  <Text style={LeaveStyle.LeaveTitleText3} numberOfLines={1}>
+                  <Text
+                    style={[
+                      LeaveStyle.LeaveTitleText3,
+                      { fontSize: moderateScale(16) },
+                    ]}
+                    numberOfLines={1}
+                  >
                     {getLanguage() === "en"
                       ? item?.englishName
                       : item?.lastName + " " + item?.firstName}
                   </Text>
-                  <View style={{ width: 18, height: 18 }} />
+                  <View
+                    style={{
+                      width: moderateScale(18),
+                      height: moderateScale(18),
+                    }}
+                  />
                 </View>
               );
             }}
           />
 
           <TouchableOpacity
-            style={LeaveStyle.LeaveFilterButton}
+            style={[
+              LeaveStyle.LeaveFilterButton,
+              { width: moderateScale(40), height: moderateScale(40) },
+            ]}
             onPress={() => {
               openModal();
             }}
           >
             <Animatable.Image
               source={require("../assets/Images/edit.png")}
-              style={{ width: 25, height: 25, padding: 10 }}
+              style={{
+                width: moderateScale(25),
+                height: moderateScale(25),
+                padding: moderateScale(10),
+              }}
               animation="bounce"
             />
           </TouchableOpacity>
         </View>
-        <View style={LeaveStyle.LeaveTitleContainer}>
-          <Text style={LeaveStyle.LeaveTitleText} numberOfLines={1}>
+        <View
+          style={[
+            LeaveStyle.LeaveTitleContainer,
+            {
+              padding: moderateScale(5),
+              marginBottom: moderateScale(10),
+              height: moderateScale(40),
+            },
+          ]}
+        >
+          <Text
+            style={[LeaveStyle.LeaveTitleText, { fontSize: moderateScale(16) }]}
+            numberOfLines={1}
+          >
             {t("Type")}
           </Text>
-          <Text style={LeaveStyle.LeaveTitleText1} numberOfLines={1}>
+          <Text
+            style={[
+              LeaveStyle.LeaveTitleText1,
+              { fontSize: moderateScale(16) },
+            ]}
+            numberOfLines={1}
+          >
             {t("Date")}
           </Text>
-          <Text style={LeaveStyle.LeaveTitleText3} numberOfLines={1}>
+          <Text
+            style={[
+              LeaveStyle.LeaveTitleText3,
+              { fontSize: moderateScale(16) },
+            ]}
+            numberOfLines={1}
+          >
             {t("Reason")}
           </Text>
-          <Text style={LeaveStyle.LeaveTitleText} numberOfLines={1}>
+          <Text
+            style={[LeaveStyle.LeaveTitleText, { fontSize: moderateScale(16) }]}
+            numberOfLines={1}
+          >
             {t("Status")}
           </Text>
         </View>
@@ -353,8 +493,24 @@ export default function LeaveScreen() {
           style={{ width: "100%", height: "85%" }}
         >
           {data?.getLeaveForMobile.map((leave: any, index: number) => (
-            <View key={index} style={LeaveStyle.LeaveCardContainer}>
-              <Text style={LeaveStyle.LeaveTitleText2}>
+            <View
+              key={index}
+              style={[
+                LeaveStyle.LeaveCardContainer,
+                {
+                  marginBottom: moderateScale(10),
+                  padding: moderateScale(5),
+                },
+              ]}
+            >
+              <Text
+                style={[
+                  LeaveStyle.LeaveTitleText2,
+                  {
+                    fontSize: moderateScale(14),
+                  },
+                ]}
+              >
                 {leave?.requestType === "afternoon"
                   ? "Afternoon"
                   : leave?.requestType === "morning"
@@ -363,23 +519,51 @@ export default function LeaveScreen() {
                   ? "Full day"
                   : ""}
               </Text>
-              <Text style={LeaveStyle.LeaveBodyText2}>
+              <Text
+                style={[
+                  LeaveStyle.LeaveBodyText2,
+                  {
+                    fontSize: moderateScale(14),
+                  },
+                ]}
+              >
                 {leave?.from === leave?.to
                   ? moment(leave?.from).format("DD-MM-YY")
                   : moment(leave?.from).format("DD-MM-YY") +
                     " - " +
                     moment(leave?.to).format("DD-MM-YY")}
               </Text>
-              <Text style={LeaveStyle.LeaveBodyText1}>{leave?.reason}</Text>
+              <Text
+                style={[
+                  LeaveStyle.LeaveBodyText1,
+                  {
+                    fontSize: moderateScale(14),
+                  },
+                ]}
+              >
+                {leave?.reason}
+              </Text>
               <Text
                 style={
                   leave?.status === "pending"
-                    ? LeaveStyle.LeaveBodyTextyellow
+                    ? [
+                        LeaveStyle.LeaveBodyTextyellow,
+                        { fontSize: moderateScale(14) },
+                      ]
                     : leave?.status === "approval"
-                    ? LeaveStyle.LeaveBodyTextgreen
+                    ? [
+                        LeaveStyle.LeaveBodyTextgreen,
+                        { fontSize: moderateScale(14) },
+                      ]
                     : leave?.status === "rejected"
-                    ? LeaveStyle.LeaveBodyTextred
-                    : LeaveStyle.LeaveBodyText
+                    ? [
+                        LeaveStyle.LeaveBodyTextred,
+                        { fontSize: moderateScale(14) },
+                      ]
+                    : [
+                        LeaveStyle.LeaveBodyText,
+                        { fontSize: moderateScale(14) },
+                      ]
                 }
               >
                 {leave?.status}
@@ -395,10 +579,16 @@ export default function LeaveScreen() {
                 width: "100%",
                 alignItems: "center",
                 justifyContent: "center",
-                height: 40,
+                height: moderateScale(40),
               }}
             >
-              <Text style={{ fontFamily: "Kantumruy-Bold", color: "#3c6efb" }}>
+              <Text
+                style={{
+                  fontFamily: "Kantumruy-Bold",
+                  color: "#3c6efb",
+                  fontSize: moderateScale(14),
+                }}
+              >
                 {t("see more")}
               </Text>
             </TouchableOpacity>

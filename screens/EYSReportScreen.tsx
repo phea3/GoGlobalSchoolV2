@@ -8,6 +8,7 @@ import { useLocation } from "react-router-native";
 import moment from "moment";
 import Checkbox from "expo-checkbox";
 import { getLanguage, useTranslation } from "react-multi-lang";
+import { moderateScale } from "../ Metrics";
 
 const TabView = [
   {
@@ -50,7 +51,16 @@ export default function EYSReportScreen() {
 
   return (
     <View style={EYSReportStyle.EYSContainer}>
-      <View style={EYSReportStyle.EYSTopContainer}>
+      <View
+        style={[
+          EYSReportStyle.EYSTopContainer,
+          {
+            padding: moderateScale(10),
+            borderRadius: moderateScale(40),
+            borderWidth: moderateScale(0.5),
+          },
+        ]}
+      >
         <CalendarHorizontalScreen
           onSelectDate={setSelectedDate}
           selected={selectedDate}
@@ -62,7 +72,11 @@ export default function EYSReportScreen() {
             key={index}
             style={[
               EYSReportStyle.EYSTapViewEachTabContainer,
-              tabActive === tab.tilte && { backgroundColor: "#3c6efb" },
+              {
+                backgroundColor: tabActive === tab.tilte ? "#3c6efb" : "#fff",
+                borderWidth: moderateScale(0.5),
+                borderRadius: moderateScale(25),
+              },
             ]}
             onPress={() => {
               setTabActive(tab.tilte);
@@ -72,7 +86,10 @@ export default function EYSReportScreen() {
               numberOfLines={1}
               style={[
                 EYSReportStyle.EYSTapViewEachTabTitleText,
-                tabActive === tab.tilte && { color: "#ffffff" },
+                {
+                  color: tabActive === tab.tilte ? "#ffffff" : "#000",
+                  fontSize: moderateScale(14),
+                },
               ]}
             >
               {t(tab.tilte)}

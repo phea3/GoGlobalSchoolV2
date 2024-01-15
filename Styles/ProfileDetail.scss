@@ -30,25 +30,25 @@
   height: 50%;
   border-top-right-radius: $border-radius-main;
   border-top-left-radius: $border-radius-main;
-  border-left-width: 0.5px;
-  border-right-width: 0.5px;
-  border-top-width: 0.5px;
+  // border-left-width: 0.5px;
+  // border-right-width: 0.5px;
+  // border-top-width: 0.5px;
   border-color: $color-gray;
   background-color: $color-white;
 }
 
 .ProfileDetailImageBorderStyle {
-  width: 134px;
-  height: 134px;
-  border-radius: 100px;
+  // width: 134px;
+  // height: 134px;
+  border-radius: 200px;
   background-color: $color-white;
   position: absolute;
 }
 
 .ProfileDetailImageBorderStyleHalfCircle {
-  width: 135px;
-  height: 135px;
-  border-radius: 100px;
+  // width: 135px;
+  // height: 135px;
+  border-radius: 200px;
   position: absolute;
   border-width: 1px;
   border-color: $color-gray;
@@ -57,15 +57,15 @@
 }
 
 .ProfileDetailImageStyle {
-  width: 120px;
-  height: 120px;
-  border-radius: 100px;
+  // width: 120px;
+  // height: 120px;
+  border-radius: 200px;
 }
 
 .ProfileDetailImageStylePreview {
-  width: 120px;
-  height: 120px;
-  border-radius: 100px;
+  // width: 120px;
+  // height: 120px;
+  border-radius: 200px;
   position: absolute;
   justify-content: flex-end;
   align-items: flex-end;
@@ -73,11 +73,11 @@
 
 .ProfileDetailIconOnImageProfileBorder {
   background-color: $color-white;
-  padding: 6px;
-  border-radius: 50px;
+  // padding: 6px;
+  // border-radius: 50px;
   justify-content: center;
   align-items: "center";
-  border-width: 0.5px;
+  // border-width: 0.5px;
   border-color: $color-gray;
 }
 
@@ -88,9 +88,9 @@
   align-items: center;
   border-bottom-left-radius: $border-radius-main;
   border-bottom-right-radius: $border-radius-main;
-  border-bottom-width: 0.5px;
-  border-right-width: 0.5px;
-  border-left-width: 0.5px;
+  // border-bottom-width: 0.5px;
+  // border-right-width: 0.5px;
+  // border-left-width: 0.5px;
 
   border-color: $color-gray;
   background-color: $color-white;
@@ -105,7 +105,7 @@
 
 .ProfileDetailNameTitle {
   font-family: $kantumruy-bold;
-  font-size: $title-font-size;
+  // font-size: $title-font-size;
 }
 
 .ProfileDetailCutomerTypeText {
@@ -118,7 +118,7 @@
 
 .ProfileDetailMiddleTitle {
   width: 90%;
-  height: 40px;
+  // height: 40px;
   justify-content: center;
 }
 
@@ -136,14 +136,14 @@
 }
 
 .ProfileDetailMiddleBody2TextContainer {
-  height: 70px;
-  border-width: 0.5px;
-  padding: 10px;
+  // height: 70px;
+  // border-width: 0.5px;
+  // padding: 10px;
+  // margin-bottom: 15px;
   border-color: $color-gray;
   background-color: #fcfcfc;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 15px;
   border-radius: $border-radius-main;
 }
 

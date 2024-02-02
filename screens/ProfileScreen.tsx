@@ -317,7 +317,7 @@ export default function ProfileScreen() {
           </Animatable.View>
         </View>
         <TouchableOpacity
-          style={{ width: "10%" }}
+          style={{ width: "10%", backgroundColor: "white" }}
           onPress={() => navigate("/profiledetail", { state: data })}
         >
           <Animatable.Image

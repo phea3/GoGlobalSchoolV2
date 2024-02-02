@@ -240,7 +240,7 @@ const LoginScreen = ({ expoPushToken }: any) => {
                 keyboardType="default"
                 style={{
                   flex: 1,
-                  fontSize: moderateScale(15),
+                  fontSize: moderateScale(14),
                 }}
               />
             </View>
@@ -291,7 +291,7 @@ const LoginScreen = ({ expoPushToken }: any) => {
                 keyboardType="default"
                 style={{
                   flex: 1,
-                  fontSize: moderateScale(10),
+                  fontSize: moderateScale(14),
                 }}
               />
               {view === true ? (
